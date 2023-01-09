@@ -1,0 +1,34 @@
+#home-bg {
+    background-image: url(/images/pexels2.jpg);
+    background-size: cover;
+    height: 85vh;
+    /* position: absolute; */
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
+
+  .overlay{
+    /* background: rgba(44, 62, 80, 0.5);  */
+    background: rgba(20, 51, 66, 0.5);
+    overflow: hidden;
+    height: 100%;
+}
+
+.logo-dark{
+    background: rgba(20, 51, 66, 0.9);
+}
+
+.responsive-logo {
+width: 100%;
+max-width: 200px;
+height: auto;
+}
+
+.carousel-indicators {
+bottom:-50px;
+}
+
+.carousel-inner {
+    margin-bottom:50px;
+}

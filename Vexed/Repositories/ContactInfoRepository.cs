@@ -1,0 +1,18 @@
+﻿using Vexed.Data;
+using Vexed.Models;
+using Vexed.Repositories.Abstractions;
+
+namespace Vexed.Repositories
+{
+    internal class ContactInfoRepository : RepositoryBase<ContactInfo>, IContactInfoRepository
+    {
+        public ContactInfoRepository(VexedDbContext vexedDbContext) : base(vexedDbContext)
+        {
+        }
+
+        public ContactInfo GetContactInfoById(int id)
+        {
+            return _vexedDbContext.ContactsInfo.Where(c => c.Id == id).First();
+        }
+    }
+}

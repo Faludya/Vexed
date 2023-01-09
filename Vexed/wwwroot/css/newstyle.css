@@ -1,0 +1,16 @@
+.myhome-bg{
+  background-image: url(/images/plaing_bg.svg);
+  background-size: cover;
+  height: 85vh;
+  width: 100%;
+ }
+
+ .aboutus-bg{
+  background-color: #008f99;
+ }
+
+ .aboutus-img{
+  background-image: url(/images/25367.jpg);
+  width: 100%;
+ }
+

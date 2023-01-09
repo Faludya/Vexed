@@ -1,0 +1,72 @@
+﻿using Vexed.Data;
+using Vexed.Repositories.Abstractions;
+
+namespace Vexed.Repositories
+{
+    public class RepositoryWrapper : IRepositoryWrapper
+    {
+        private VexedDbContext _vexedDbContext;
+
+        public RepositoryWrapper(VexedDbContext vexedDbContext)
+        {
+            _vexedDbContext = vexedDbContext;
+        }
+
+        public void Save()
+        {
+            _vexedDbContext.SaveChanges();
+        }
+
+        private IContactInfoRepository _contactInfoRepository;
+        public IContactInfoRepository ContactInfoRepository
+        {
+            get
+            {
+                if (_contactInfoRepository == null)
+                {
+                    _contactInfoRepository = new ContactInfoRepository(_vexedDbContext);
+                }
+                return _contactInfoRepository;
+            }
+        }
+
+        private IEmergencyContactRepository _emergencyContactRepository;
+        public IEmergencyContactRepository EmergencyContactRepository
+        {
+            get
+            {
+                if (_emergencyContactRepository == null)
+                {
+                    _emergencyContactRepository = new EmergencyContactRepository(_vexedDbContext);
+                }
+                return _emergencyContactRepository;
+            }
+        }
+
+        private IUserDetailsRepository _userDetailsRepository;
+        public IUserDetailsRepository UserDetailsRepository
+        {
+            get
+            {
+                if (_userDetailsRepository == null)
+                {
+                    _userDetailsRepository = new UserDetailsRepository(_vexedDbContext);
+                }
+                return _userDetailsRepository;
+            }
+        }
+
+        private IUserEmploymentRepository _userEmploymentRepository;
+        public IUserEmploymentRepository UserEmploymentRepository
+        {
+            get
+            {
+                if (_userDetailsRepository == null)
+                {
+                    _userEmploymentRepository = new UserEmploymentRepository(_vexedDbContext);
+                }
+                return _userEmploymentRepository;
+            }
+        }
+    }
+}

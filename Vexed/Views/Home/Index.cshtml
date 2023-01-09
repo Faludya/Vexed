@@ -1,0 +1,147 @@
+﻿@using Vexed.Services;
+@{
+    ViewData["Title"] = "Home Page";
+}
+@inject LanguageService language
+
+
+<head>
+    <link href="/css/newstyle.css" rel="stylesheet" />
+</head>
+
+<body class="d-flex flex-column h-100">
+
+    <!-- Header-->
+    <header class="myhome-bg">
+        <div class="container px-5">
+            <div class="row gx-5 align-items-center justify-content-center">
+                <div class="col-lg-8 col-xl-7 col-xxl-6">
+                    <div class="my-5 text-center text-xl-start">
+                        <h1 class="display-5 fw-bolder text-white mb-2">@language.GetKey("index_header_h1")</h1>
+                        <p class="lead fw-normal text-white-50 mb-4">@language.GetKey("index_header_p")</p>
+                        <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xl-start">
+                            <a class="btn btn-primary btn-lg px-4 me-sm-3" href="#features">@language.GetKey("button_getStarted")</a>
+                            <a class="btn btn-outline-light btn-lg px-4" href="#!">@language.GetKey("button_learnMore")</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-5 col-xxl-6 d-none d-xl-block text-center">
+                    <img class="img-fluid rounded-3 my-5"
+                         src="\images\home_elements.svg" alt="..." />
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- ==End ofHeader== -->
+    <!-- Business section-->
+    <section class="py-5" id="features">
+        <div class="container px-5">
+            <div class="mb-5 mb-lg-0">
+                <h1 class="fw-bolder mb-5">
+                    <p style="text-align:center">@language.GetKey("index_business_h1")</p>
+                </h1>
+            </div>
+
+            <div class="row gx-5">
+                <div class="col  h-100" style="text-align:center">
+                    <div class="feature text-black mb-3">
+                        <h1 class="fw-bolder">
+                            <img src="/images/icons/finance-icon.svg"></img>
+                        </h1>
+                    </div>
+                    <h2 class="h5">@language.GetKey("index_business_finance")</h2>
+                </div>
+
+                <div class="col h-100" style="text-align:center">
+                    <div class="feature text-black mb-3">
+                        <h1 class="fw-bolder">
+                            <img src="/images/icons/marketing-icon.svg"></img>
+                        </h1>
+                    </div>
+                    <h2 class="h5">@language.GetKey("index_business_marketing")</h2>
+                </div>
+
+                <div class="col h-100" style="text-align:center">
+                    <div class="feature text-black mb-3">
+                        <h1 class="fw-bolder">
+                            <img src="/images/icons/judicial-icon.svg"></img>
+                        </h1>
+                    </div>
+                    <h2 class="h5">@language.GetKey("index_business_judicial")</h2>
+                </div>
+
+                <div class="col h-100" style="text-align:center">
+                    <div class="feature text-black mb-3">
+                        <h1 class="fw-bolder">
+                            <img src="/images/icons/customer-support-icon.svg"></img>
+                        </h1>
+                    </div>
+                    <h2 class="h5">@language.GetKey("index_business_customerSupport")</h2>
+                </div>
+
+                <div class="col h-100" style="text-align:center">
+                    <div class="feature text-black mb-3">
+                        <h1 class="fw-bolder">
+                            <img src="/images/icons/it-icon.svg"></img>
+                        </h1>
+                    </div>
+                    <h2 class="h5">IT </h2>
+                </div>
+
+                <div class="col h-100" style="text-align:center">
+                    <div class="feature text-black mb-3">
+                        <h1 class="fw-bolder">
+                            <img src="/images/icons/administrative-icon.svg"></img>
+                        </h1>
+                    </div>
+                    <h2 class="h5">@language.GetKey("index_business_administrative")</h2>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <!-- ==End of Business== -->
+    <!-- About section 1-->
+    <section class="bg-light bg-gradient" id="scroll-target">
+        <div class="container px-5 ">
+            <div class="row gx-5 align-items-center">
+                <div class="col-lg-6"><img class="img-fluid rounded mb-5 mb-lg-0" src="/images/home_s2.svg" alt="..." /></div>
+                <div class="col-lg-6">
+                    <h2 class="fw-bolder">@language.GetKey("index_section1_h2")</h2>
+                    <p class="lead fw-normal text-muted mb-0">@language.GetKey("index_section1_p")</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ==End of Section 1== -->
+    <!-- About Section 2-->
+    <section class="py-2">
+        <div class="container px-5 my-5">
+            <div class="row gx-5 align-items-center">
+                <div class="col-lg-6 order-first order-lg-last">
+                    <img class="img-fluid rounded mb-5 mb-lg-0"
+                         src="/images/home_s1.svg" alt="..." />
+                </div>
+                <div class="col-lg-6">
+                    <h2 class="fw-bolder">@language.GetKey("index_section2_h2").</h2>
+                    <p class="lead fw-normal text-muted mb-0">@language.GetKey("index_section2_p")</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ==End of Section 2== -->
+    <!-- About Section 3-->
+    <section class="py-2 bg-light bg-gradient" id="scroll-target">
+        <div class="container px-5 my-5">
+            <div class="row gx-5 align-items-center">
+                <div class="col-lg-6"><img class="img-fluid rounded mb-5 mb-lg-0" src="/images/cloudsync.svg" alt="..." /></div>
+                <div class="col-lg-6">
+                    <h2 class="fw-bolder">@language.GetKey("index_section3_h2")</h2>
+                    <p class="lead fw-normal text-muted mb-0">@language.GetKey("index_section3_p")</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ==End of Section 3== -->
+
+</body>
