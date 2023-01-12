@@ -1,40 +1,36 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
+using System.Security.Cryptography.Pkcs;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Vexed.Data;
 using Vexed.Models;
+using Vexed.Services;
+using Vexed.Services.Abstractions;
 
 namespace Vexed.Controllers
 {
     public class UserEmploymentsController : Controller
     {
-        private readonly VexedDbContext _context;
+        private readonly IUserEmploymentService _userEmploymentService;
 
-        public UserEmploymentsController(VexedDbContext context)
+        public UserEmploymentsController(IUserEmploymentService userEmploymentService)
         {
-            _context = context;
+           _userEmploymentService= userEmploymentService;
         }
 
-        // GET: UserEmployments
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-              return View(await _context.UsersEmployments.ToListAsync());
+            return View(_userEmploymentService.GetAllUsersEmployment());
         }
 
-        // GET: UserEmployments/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public IActionResult Details(int id)
         {
-            if (id == null || _context.UsersEmployments == null)
-            {
-                return NotFound();
-            }
-
-            var userEmployment = await _context.UsersEmployments
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var userEmployment = _userEmploymentService.GetUserEmploymentById(id);
             if (userEmployment == null)
             {
                 return NotFound();
@@ -43,37 +39,27 @@ namespace Vexed.Controllers
             return View(userEmployment);
         }
 
-        // GET: UserEmployments/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: UserEmployments/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,UserId,CompanyName,Department,Function,Location,HireDate,HourlyPay,SuperiorName")] UserEmployment userEmployment)
+        public IActionResult Create([Bind("Id,UserId,CompanyName,Department,Function,Location,HireDate,HourlyPay,SuperiorName")] UserEmployment userEmployment)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(userEmployment);
-                await _context.SaveChangesAsync();
+                userEmployment.UserId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+                _userEmploymentService.CreateUserEmployment(userEmployment);
                 return RedirectToAction(nameof(Index));
             }
             return View(userEmployment);
         }
 
-        // GET: UserEmployments/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public IActionResult Edit(int id)
         {
-            if (id == null || _context.UsersEmployments == null)
-            {
-                return NotFound();
-            }
-
-            var userEmployment = await _context.UsersEmployments.FindAsync(id);
+            var userEmployment = _userEmploymentService.GetUserEmploymentById(id);
             if (userEmployment == null)
             {
                 return NotFound();
@@ -81,12 +67,9 @@ namespace Vexed.Controllers
             return View(userEmployment);
         }
 
-        // POST: UserEmployments/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,UserId,CompanyName,Department,Function,Location,HireDate,HourlyPay,SuperiorName")] UserEmployment userEmployment)
+        public IActionResult Edit(int id, [Bind("Id,UserId,CompanyName,Department,Function,Location,HireDate,HourlyPay,SuperiorName")] UserEmployment userEmployment)
         {
             if (id != userEmployment.Id)
             {
@@ -97,12 +80,11 @@ namespace Vexed.Controllers
             {
                 try
                 {
-                    _context.Update(userEmployment);
-                    await _context.SaveChangesAsync();
+                    _userEmploymentService.UpdateUserEmployment(userEmployment);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!UserEmploymentExists(userEmployment.Id))
+                    if (_userEmploymentService.GetUserEmploymentById(id) == null)
                     {
                         return NotFound();
                     }
@@ -116,16 +98,9 @@ namespace Vexed.Controllers
             return View(userEmployment);
         }
 
-        // GET: UserEmployments/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public IActionResult Delete(int id)
         {
-            if (id == null || _context.UsersEmployments == null)
-            {
-                return NotFound();
-            }
-
-            var userEmployment = await _context.UsersEmployments
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var userEmployment = _userEmploymentService.GetUserEmploymentById(id);
             if (userEmployment == null)
             {
                 return NotFound();
@@ -134,28 +109,21 @@ namespace Vexed.Controllers
             return View(userEmployment);
         }
 
-        // POST: UserEmployments/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public IActionResult DeleteConfirmed(int id)
         {
-            if (_context.UsersEmployments == null)
+            if (_userEmploymentService.GetUserEmploymentById(id) == null)
             {
                 return Problem("Entity set 'VexedDbContext.UsersEmployments'  is null.");
             }
-            var userEmployment = await _context.UsersEmployments.FindAsync(id);
+            var userEmployment = _userEmploymentService.GetUserEmploymentById(id);
             if (userEmployment != null)
             {
-                _context.UsersEmployments.Remove(userEmployment);
+                _userEmploymentService.DeleteUserEmployment(userEmployment);
             }
             
-            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
-        }
-
-        private bool UserEmploymentExists(int id)
-        {
-          return _context.UsersEmployments.Any(e => e.Id == id);
         }
     }
 }

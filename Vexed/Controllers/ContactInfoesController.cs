@@ -20,16 +20,11 @@ namespace Vexed.Controllers
 
         public async Task<IActionResult> Index()
         {
-            return View(_contactInfoService.GetAllContacts().ToList());
+            return View(await _contactInfoService.GetAllContacts());
         }
 
         public async Task<IActionResult> Details(int id)
         {
-            if (_contactInfoService.GetContactInfoById(id) == null)
-            {
-                return NotFound();
-            }
-
             var contactInfo = _contactInfoService.GetContactInfoById(id);
             if (contactInfo == null)
             {

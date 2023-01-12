@@ -9,5 +9,10 @@ namespace Vexed.Repositories
         public UserDetailsRepository(VexedDbContext vexedDbContext) : base(vexedDbContext)
         {
         }
+
+        public UserDetails GetUserDetailsById(int id)
+        {
+            return _vexedDbContext.UsersDetails.Where(u => u.Id == id).First();
+        }
     }
 }

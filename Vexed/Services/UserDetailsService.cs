@@ -30,6 +30,11 @@ namespace Vexed.Services
             return _repositoryWrapper.UserDetailsRepository.FindAll().ToList();
         }
 
+        public UserDetails GetUserDetailsById(int id)
+        {
+            return _repositoryWrapper.UserDetailsRepository.GetUserDetailsById(id);
+        }
+
         public void UpdateUserDetails(UserDetails userDetails)
         {
             _repositoryWrapper.UserDetailsRepository.Update(userDetails);
