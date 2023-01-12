@@ -7,6 +7,7 @@ namespace Vexed.Services.Abstractions
         void CreateEmergencyContact(EmergencyContact emergencyContact);
         void UpdateEmergencyContact(EmergencyContact emergencyContact);
         void DeleteEmergencyContact(EmergencyContact emergencyContact);
+        EmergencyContact GetEmergencyContactById(int id);
         List<EmergencyContact> GetAllEmergencyContacts();
     }
 }

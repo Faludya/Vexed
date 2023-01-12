@@ -9,5 +9,10 @@ namespace Vexed.Repositories
         public EmergencyContactRepository(VexedDbContext vexedDbContext) : base(vexedDbContext)
         {
         }
+
+        public EmergencyContact GetEmergencyContactById(int id)
+        {
+            return _vexedDbContext.EmergencyContacts.Where(e => e.Id == id).First();
+        }
     }
 }
