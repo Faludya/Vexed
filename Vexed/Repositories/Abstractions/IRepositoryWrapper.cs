@@ -6,7 +6,8 @@
         IEmergencyContactRepository EmergencyContactRepository { get; }
         IUserDetailsRepository UserDetailsRepository { get; }
         IUserEmploymentRepository UserEmploymentRepository { get; }
-
+        ILeaveRequestRepository LeaveRequestRepository { get; }
+        ITimeCardRepository TimeCardRepository { get; }
         void Save();
     }
 }

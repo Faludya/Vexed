@@ -68,5 +68,31 @@ namespace Vexed.Repositories
                 return _userEmploymentRepository;
             }
         }
+
+        private ILeaveRequestRepository _leaveRequestRepository;
+        public ILeaveRequestRepository LeaveRequestRepository
+        {
+            get
+            {
+                if(_leaveRequestRepository == null)
+                {
+                    _leaveRequestRepository = new LeaveRequestRepository(_vexedDbContext);
+                }
+                return _leaveRequestRepository;
+            }
+        }
+
+        private ITimeCardRepository _timeCardRepository;
+        public ITimeCardRepository TimeCardRepository
+        {
+            get
+            {
+                if(_timeCardRepository == null)
+                {
+                    _timeCardRepository = new TimeCardRepository(_vexedDbContext);
+                }
+                return _timeCardRepository;
+            }
+        }
     }
 }
