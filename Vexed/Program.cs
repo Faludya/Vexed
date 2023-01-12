@@ -34,11 +34,18 @@ builder.Services.AddScoped<IContactInfoService, ContactInfoService>();
 builder.Services.AddScoped<IEmergencyContactRepository, EmergencyContactRepository>();
 builder.Services.AddScoped<IEmergencyContactService, EmergencyContactService>();
 
+builder.Services.AddScoped<ILeaveRequestRepository, LeaveRequestRepository>();
+builder.Services.AddScoped<ILeaveRequestService, LeaveRequestService>();
+
+builder.Services.AddScoped<ITimeCardRepository, TimeCardRepository>();
+builder.Services.AddScoped<ITimeCardService, TimeCardService>();
+
 builder.Services.AddScoped<IUserDetailsRepository, UserDetailsRepository>();
 builder.Services.AddScoped<IUserDetailsService, UserDetailsService>();
 
 builder.Services.AddScoped<IUserEmploymentRepository, UserEmploymentRepository>();
 builder.Services.AddScoped<IUserEmploymentService, UserEmploymentService>();
+
 #endregion
 
 #region Language setup

@@ -1,33 +1,21 @@
-﻿@model Vexed.Models.TimeCard
+﻿@model Vexed.Models.LeaveRequest
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Create";
 }
 
-<h1>Edit</h1>
+<h1>Create</h1>
 
-<h4>TimeCard</h4>
+<h4>LeaveRequest</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <input type="hidden" asp-for="UserId" />
             <div class="form-group">
-                <label asp-for="ProjectCode" class="control-label"></label>
-                <input asp-for="ProjectCode" class="form-control" />
-                <span asp-validation-for="ProjectCode" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TaskDetails" class="control-label"></label>
-                <input asp-for="TaskDetails" class="form-control" />
-                <span asp-validation-for="TaskDetails" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Location" class="control-label"></label>
-                <input asp-for="Location" class="form-control" />
-                <span asp-validation-for="Location" class="text-danger"></span>
+                <label asp-for="Type" class="control-label"></label>
+                <input asp-for="Type" class="form-control" />
+                <span asp-validation-for="Type" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="StartDate" class="control-label"></label>
@@ -55,7 +43,7 @@
                 <span asp-validation-for="Comments" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
     </div>
