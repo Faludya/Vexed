@@ -1,0 +1,76 @@
+﻿@using Vexed.Services;
+@inject LanguageService language
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css" />
+
+<body id="body-pd">
+    <form id="form1" runat="server">
+        <header class="header" id="header" style="background-color:#2c3e50">
+            <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> </div>
+            <div class="col-8">
+                <asp:TextBox placeholder="Filtrar correo" ID="TextBox1" runat="server" CssClass="form-control">
+                </asp:TextBox>
+            </div>
+            <div class="row">
+                <div class="col-12 mt-3">
+                    <div class="input-group">
+                        <div class="input-group-prepend mt-2">
+                            <asp:Label ID="lblnomusuario" CssClass="text-success" runat="server" Text="nom_usuario">
+                            </asp:Label>
+                        </div>
+                        <asp:ImageButton ID="imgbtneditar" CssClass="header_img" runat="server"
+                                         ImageUrl="~/Images/user-circle-solid-240.png" />
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="l-navbar" id="nav-bar">
+            <nav class="nav">
+                <div>
+                    <a href="#" class="nav_logo">
+                        <img src="/images/old_logos/vexedtree.png" height="30" alt="" />
+                        <span class="nav_logo-name">Vexed</span>
+                    </a>
+                    <div class="nav_list">
+                        <a class="nav_link" asp-controller="Home" asp-action="AboutUs">
+                            <i class='bx bxs-comment-add  nav_icon'></i>
+                            <span class="nav_name">@language.GetKey("aboutus")</span>
+                        </a>
+                        <a href="#" class="nav_link">
+                            <i class='bx bxs-comment-dots  nav_icon'></i>
+                            <span class="nav_name">Recibidos</span>
+                        </a>
+                        <a href="#" class="nav_link">
+                            <i class='bx bx-block  nav_icon'></i>
+                            <span class="nav_name">Spam</span>
+                        </a>
+                        <a href="#" class="nav_link">
+                            <i class='bx bxs-send  nav_icon'></i>
+                            <span class="nav_name">Enviados</span>
+                        </a>
+                        <a href="#" class="nav_link">
+                            <i class='bx bxs-eraser nav_icon'></i>
+                            <span class="nav_name">Borradores</span>
+                        </a>
+                    </div>
+                </div>
+
+
+                <a class="nav-link dropdown-toggle text-white" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="true">Language</a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" asp-controller="Home" asp-action="ChangeLanguage" asp-route-culture="en-US">
+                        <img src="~/images/flags/united-kingdom.png" width="20">English
+                    </a>
+                    <a class="dropdown-item" asp-controller="Home" asp-action="ChangeLanguage" asp-route-culture="ro-RO">
+                        <img src="~/images/flags/romania.png" width="20">Romana
+                    </a>
+                </div>
+
+                <a href="#" class="nav_link">
+                    <i class='bx bx-log-out nav_icon'></i>
+                    <span class="nav_name">Salir</span>
+                </a>
+            </nav>
+        </div>
+    </form>
+</body>
