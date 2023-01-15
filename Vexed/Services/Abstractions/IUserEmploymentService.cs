@@ -9,5 +9,6 @@ namespace Vexed.Services.Abstractions
         void DeleteUserEmployment(UserEmployment userEmployment);
         UserEmployment GetUserEmploymentById(int id);
         List<UserEmployment> GetAllUsersEmployment();
+        List<UserEmployment> GetUsersEmployment(Guid userId);
     }
 }

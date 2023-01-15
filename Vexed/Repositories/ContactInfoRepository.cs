@@ -14,5 +14,10 @@ namespace Vexed.Repositories
         {
             return _vexedDbContext.ContactsInfo.Where(c => c.Id == id).First();
         }
+
+        public List<ContactInfo> GetContactInfos(Guid userId)
+        {
+            return _vexedDbContext.ContactsInfo.Where(c => c.UserId == userId).ToList();
+        }
     }
 }

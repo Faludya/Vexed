@@ -25,7 +25,8 @@ namespace Vexed.Controllers
 
         public IActionResult Index()
         {
-            return View(_userEmploymentService.GetAllUsersEmployment());
+            var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            return View(_userEmploymentService.GetUsersEmployment(userId));
         }
 
         public IActionResult Details(int id)

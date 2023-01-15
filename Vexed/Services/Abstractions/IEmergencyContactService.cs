@@ -9,5 +9,6 @@ namespace Vexed.Services.Abstractions
         void DeleteEmergencyContact(EmergencyContact emergencyContact);
         EmergencyContact GetEmergencyContactById(int id);
         List<EmergencyContact> GetAllEmergencyContacts();
+        List<EmergencyContact> GetEmergencyContacts(Guid userId);
     }
 }

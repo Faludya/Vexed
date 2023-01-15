@@ -24,7 +24,8 @@ namespace Vexed.Controllers
 
         public IActionResult Index()
         {
-              return View(_emergencyContactService.GetAllEmergencyContacts());
+            var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            return View(_emergencyContactService.GetEmergencyContacts(userId));
         }
 
         public IActionResult Details(int id)

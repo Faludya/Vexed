@@ -18,9 +18,10 @@ namespace Vexed.Controllers
             _contactInfoService = contactInfoService;
         }
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            return View(await _contactInfoService.GetAllContacts());
+            var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            return View(_contactInfoService.GetContactInfos(userId));
         }
 
         public async Task<IActionResult> Details(int id)

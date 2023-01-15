@@ -24,7 +24,8 @@ namespace Vexed.Controllers
 
         public IActionResult Index()
         {
-              return View(_leaveRequestService.GetAllLeaveRequests());
+            var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            return View(_leaveRequestService.GetLeaveRequests(userId));
         }
 
         public IActionResult Details(int id)

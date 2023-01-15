@@ -35,6 +35,11 @@ namespace Vexed.Services
             return _repositoryWrapper.EmergencyContactRepository.GetEmergencyContactById(id);
         }
 
+        public List<EmergencyContact> GetEmergencyContacts(Guid userId)
+        {
+            return _repositoryWrapper.EmergencyContactRepository.GetEmergencyContacts(userId);
+        }
+
         public void UpdateEmergencyContact(EmergencyContact emergencyContact)
         {
             _repositoryWrapper.EmergencyContactRepository.Update(emergencyContact);

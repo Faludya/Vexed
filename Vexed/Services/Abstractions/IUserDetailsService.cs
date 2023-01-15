@@ -9,5 +9,6 @@ namespace Vexed.Services.Abstractions
         void DeleteUserDetails(UserDetails userDetails);
         UserDetails GetUserDetailsById(int id);
         List<UserDetails> GetAllUsersDetails();
+        List<UserDetails> GetUsersDetails(Guid userId);
     }
 }

@@ -9,5 +9,6 @@ namespace Vexed.Services.Abstractions
         void DeleteContactInfo(ContactInfo contactInfo);
         ContactInfo GetContactInfoById(int id);
         Task<List<ContactInfo>> GetAllContacts();
+        List<ContactInfo> GetContactInfos(Guid userId);
     }
 }

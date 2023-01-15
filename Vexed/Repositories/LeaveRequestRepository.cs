@@ -14,5 +14,10 @@ namespace Vexed.Repositories
         {
             return _vexedDbContext.LeaveRequests.Where(l => l.Id == id).First();
         }
+
+        public List<LeaveRequest> GetLeaveRequests(Guid userId)
+        {
+            return _vexedDbContext.LeaveRequests.Where(l => l.UserId == userId).ToList();
+        }
     }
 }

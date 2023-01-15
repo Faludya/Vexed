@@ -35,6 +35,11 @@ namespace Vexed.Services
             return _repositoryWrapper.LeaveRequestRepository.GetLeaveRequestById(id);
         }
 
+        public List<LeaveRequest> GetLeaveRequests(Guid userId)
+        {
+            return _repositoryWrapper.LeaveRequestRepository.GetLeaveRequests(userId);
+        }
+
         public void UpdateLeaveRequest(LeaveRequest leaveRequest)
         {
             _repositoryWrapper.LeaveRequestRepository.Update(leaveRequest);
