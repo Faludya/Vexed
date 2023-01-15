@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Security.Cryptography.Pkcs;
-using System.Threading.Tasks;
+﻿using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Vexed.Data;
 using Vexed.Models;
 using Vexed.Services.Abstractions;
 
 namespace Vexed.Controllers
 {
+    [Authorize]
     public class UserDetailsController : Controller
     {
         private readonly IUserDetailsService _userDetailsService;

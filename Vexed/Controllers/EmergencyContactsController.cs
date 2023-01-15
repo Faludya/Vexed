@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Security.Cryptography.Pkcs;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -13,6 +14,7 @@ using Vexed.Services.Abstractions;
 
 namespace Vexed.Controllers
 {
+    [Authorize]
     public class EmergencyContactsController : Controller
     {
         private readonly IEmergencyContactService _emergencyContactService;

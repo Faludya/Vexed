@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Security.Cryptography.Pkcs;
-using System.Threading.Tasks;
+﻿using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Vexed.Data;
 using Vexed.Models;
 using Vexed.Services.Abstractions;
 
 namespace Vexed.Controllers
 {
+    [Authorize]
     public class TimeCardsController : Controller
     {
         private readonly ITimeCardService _timeCardService;
@@ -26,6 +21,49 @@ namespace Vexed.Controllers
         {
             var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             return View(_timeCardService.GetTimeCards(userId));
+        }
+
+        public IActionResult IndexHR()
+        {
+            return View(_timeCardService.GetAllTimeCards());
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult IndexHR(string cardAction, int id)
+        {
+            //if (ModelState.IsValid)
+            //{
+            //    try
+            //    {
+            //        var timeCard = _timeCardService.GetTimeCardById(id);
+            //        timeCard.Status = cardAction;
+            //        _timeCardService.UpdateTimeCard(timeCard);
+            //    }
+            //    catch (DbUpdateConcurrencyException)
+            //    {
+            //        if (timeCard == null)
+            //        {
+            //            return NotFound();
+            //        }
+            //        else
+            //        {
+            //            throw;
+            //        }
+            //    }
+            //    return RedirectToAction(nameof(IndexHR));
+            //}
+            //return View(_timeCardService.GetAllTimeCards());
+            var timeCard = _timeCardService.GetTimeCardById(id);
+            timeCard.Status = cardAction;
+            _timeCardService.UpdateTimeCard(timeCard);
+
+            if (timeCard == null)
+            {
+                return NotFound();
+            }
+
+            return RedirectToAction(nameof(IndexHR));
         }
 
         public IActionResult Details(int id)
@@ -46,7 +84,7 @@ namespace Vexed.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind("Id,UserId,ProjectCode,TaskDetails,Location,StartDate,EndDate,Quantity,Status,Comments")] TimeCard timeCard)
+        public IActionResult Create([Bind("Id,UserId,ProjectCode,TaskDetails,Location,StartDate,EndDate,Quantity,Status,Comments")] TimeCard timeCard)
         {
             if (ModelState.IsValid)
             {
@@ -125,5 +163,6 @@ namespace Vexed.Controllers
             
             return RedirectToAction(nameof(Index));
         }
+
     }
 }

@@ -31,7 +31,7 @@
             <h3>🛡️ Emergency Contact</h3>
         </div>
         <div class="menu-text">
-            <a class="btn btn-light">View</a>
+            <a class="btn btn-light" asp-controller="EmergencyContacts" asp-action="Index">View</a>
         </div>
     </article>
 
@@ -40,7 +40,7 @@
             <h3>📇 Details</h3>
         </div>
         <div class="menu-text">
-            <a class="btn btn-light">View</a>
+            <a class="btn btn-light" asp-controller="UserDetails" asp-action="Index">View</a>
         </div>
     </article>
 
@@ -49,9 +49,34 @@
             <h3>🏬 Employment</h3>
         </div>
         <div class="menu-text">
-            <a class="btn btn-light">View</a>
+            <a class="btn btn-light" asp-controller="UserEmployments" asp-action="Index">View</a>
         </div>
     </article>
 
-
 </main>
+
+
+@if (User.IsInRole("Human Resources"))
+{
+    <hr />
+    <section class="menu-body grid">
+
+        <article>
+            <div class="menu-text">
+                <h3>🕔 Approve Cards</h3>
+            </div>
+            <div class="menu-text">
+                <a class="btn btn-light" asp-controller="TimeCards" asp-action="IndexHR">View</a>
+            </div>
+        </article>
+
+        <article>
+            <div class="menu-text">
+                <h3>📅  Approve Leaves</h3>
+            </div>
+            <div class="menu-text">
+                <a class="btn btn-light" asp-controller="LeaveRequests" asp-action="IndexHR">View</a>
+            </div>
+        </article>
+    </section>
+}

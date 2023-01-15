@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
@@ -7,6 +8,7 @@ using Vexed.Services.Abstractions;
 
 namespace Vexed.Controllers
 {
+    [Authorize]
     public class ContactInfoesController : Controller
     {
         private readonly UserManager<IdentityUser> _userManager;

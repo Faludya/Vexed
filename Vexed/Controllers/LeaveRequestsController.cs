@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Security.Cryptography.Pkcs;
-using System.Threading.Tasks;
+﻿using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Vexed.Data;
 using Vexed.Models;
+using Vexed.Services;
 using Vexed.Services.Abstractions;
 
 namespace Vexed.Controllers
 {
+    [Authorize]
     public class LeaveRequestsController : Controller
     {
         private readonly ILeaveRequestService _leaveRequestService;
@@ -26,6 +22,27 @@ namespace Vexed.Controllers
         {
             var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             return View(_leaveRequestService.GetLeaveRequests(userId));
+        }
+
+        public IActionResult IndexHR()
+        {
+            return View(_leaveRequestService.GetAllLeaveRequests());
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult IndexHR(string cardAction, int id)
+        {
+            var leave = _leaveRequestService.GetLeaveRequestById(id);
+            leave.Status = cardAction;
+            _leaveRequestService.UpdateLeaveRequest(leave);
+
+            if (leave == null)
+            {
+                return NotFound();
+            }
+
+            return RedirectToAction(nameof(IndexHR));
         }
 
         public IActionResult Details(int id)
