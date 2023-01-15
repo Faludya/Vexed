@@ -168,11 +168,32 @@
   <data name="aboutus_section2_phone" xml:space="preserve">
     <value>Telefon: +40-251-438.198</value>
   </data>
+  <data name="ApproveCards" xml:space="preserve">
+    <value>Aprobă pontaje</value>
+  </data>
+  <data name="ApproveLeaves" xml:space="preserve">
+    <value>Aprobă concedii</value>
+  </data>
   <data name="button_getStarted" xml:space="preserve">
     <value>Incepe</value>
   </data>
   <data name="button_learnMore" xml:space="preserve">
     <value>Află mai multe</value>
+  </data>
+  <data name="ContactInto" xml:space="preserve">
+    <value>Informații Contact</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Creează</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>Detalii</value>
+  </data>
+  <data name="EmergencyContact" xml:space="preserve">
+    <value>Contact Urgențe</value>
+  </data>
+  <data name="Employment" xml:space="preserve">
+    <value>Angajare</value>
   </data>
   <data name="home" xml:space="preserve">
     <value>Acasă</value>
@@ -218,5 +239,14 @@
   </data>
   <data name="index_section3_p" xml:space="preserve">
     <value>Toată lumea poate accesa portalul de pe orice dispozitiv și toată munca sa este sincronizată.</value>
+  </data>
+  <data name="LeaveRequest" xml:space="preserve">
+    <value>Cerere concediu</value>
+  </data>
+  <data name="TimeCards" xml:space="preserve">
+    <value>Cartelă de pontaj</value>
+  </data>
+  <data name="View" xml:space="preserve">
+    <value>Vizualizează</value>
   </data>
 </root>

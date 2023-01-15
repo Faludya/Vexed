@@ -1,10 +1,13 @@
-﻿@model Vexed.Models.ContactInfo
+﻿@using Vexed.Services;
+@inject LanguageService language
+
+@model Vexed.Models.ContactInfo
 
 @{
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<h1>@language.GetKey("Create")</h1>
 
 <h4>ContactInfo</h4>
 <hr />

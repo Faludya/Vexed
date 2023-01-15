@@ -168,11 +168,32 @@
   <data name="aboutus_section2_phone" xml:space="preserve">
     <value>Phone: +40-251-438.198</value>
   </data>
+  <data name="ApproveCards" xml:space="preserve">
+    <value>Approve Cards</value>
+  </data>
+  <data name="ApproveLeaves" xml:space="preserve">
+    <value>Approve Leaves</value>
+  </data>
   <data name="button_getStarted" xml:space="preserve">
     <value>Get Started</value>
   </data>
   <data name="button_learnMore" xml:space="preserve">
     <value>Learn more</value>
+  </data>
+  <data name="ContactInfo" xml:space="preserve">
+    <value>Contact Info</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Create</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>Details</value>
+  </data>
+  <data name="EmergencyContact" xml:space="preserve">
+    <value>Emergency Contact</value>
+  </data>
+  <data name="Employment" xml:space="preserve">
+    <value>Employment</value>
   </data>
   <data name="home" xml:space="preserve">
     <value>Home</value>
@@ -218,5 +239,14 @@
   </data>
   <data name="index_section3_p" xml:space="preserve">
     <value>Everyone can access the portal from any device and all their work is synced.</value>
+  </data>
+  <data name="LeaveRequest" xml:space="preserve">
+    <value>Leave Request</value>
+  </data>
+  <data name="TimeCards" xml:space="preserve">
+    <value>Time Cards</value>
+  </data>
+  <data name="View" xml:space="preserve">
+    <value>View</value>
   </data>
 </root>

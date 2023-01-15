@@ -6,7 +6,6 @@ using Vexed.Models;
 
 namespace Vexed.Controllers
 {
-    [Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -26,6 +25,7 @@ namespace Vexed.Controllers
             return View();
         }
 
+        [Authorize]
         public IActionResult Menu()
         {
             return View();
