@@ -36,6 +36,11 @@ namespace Vexed.Services
             return _repositoryWrapper.ContactInfoRepository.GetContactInfoById(id);
         }
 
+        public List<ContactInfo> GetContactInfos(Guid userId)
+        {
+            return _repositoryWrapper.ContactInfoRepository.GetContactInfos(userId);
+        }
+
         public void UpdateContactInfo(ContactInfo contactInfo)
         {
             _repositoryWrapper.ContactInfoRepository.Update(contactInfo);

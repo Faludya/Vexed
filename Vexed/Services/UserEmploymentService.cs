@@ -35,6 +35,11 @@ namespace Vexed.Services
             return _repositoryWrapper.UserEmploymentRepository.GetUserEmploymentById(id);
         }
 
+        public List<UserEmployment> GetUsersEmployment(Guid userId)
+        {
+            return _repositoryWrapper.UserEmploymentRepository.GetUserEmployments(userId);
+        }
+
         public void UpdateUserEmployment(UserEmployment userEmployment)
         {
             _repositoryWrapper.UserEmploymentRepository.Update(userEmployment);

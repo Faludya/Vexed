@@ -9,5 +9,6 @@ namespace Vexed.Services.Abstractions
         void DeleteLeaveRequest(LeaveRequest leaveRequest);
         LeaveRequest GetLeaveRequestById(int id);
         List<LeaveRequest> GetAllLeaveRequests();
+        List<LeaveRequest> GetLeaveRequests(Guid userId);
     }
 }

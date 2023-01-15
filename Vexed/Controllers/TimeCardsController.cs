@@ -24,7 +24,8 @@ namespace Vexed.Controllers
 
         public IActionResult Index()
         {
-            return View(_timeCardService.GetAllTimeCards());
+            var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            return View(_timeCardService.GetTimeCards(userId));
         }
 
         public IActionResult Details(int id)

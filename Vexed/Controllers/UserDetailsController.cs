@@ -24,7 +24,8 @@ namespace Vexed.Controllers
 
         public IActionResult Index()
         {
-              return View(_userDetailsService.GetAllUsersDetails());
+            var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            return View(_userDetailsService.GetUsersDetails(userId));
         }
 
         public IActionResult Details(int id)

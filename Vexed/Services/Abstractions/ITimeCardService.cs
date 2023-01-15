@@ -9,5 +9,6 @@ namespace Vexed.Services.Abstractions
         void DeleteTimeCard(TimeCard timeCard);
         TimeCard GetTimeCardById(int id);
         List<TimeCard> GetAllTimeCards();
+        List<TimeCard> GetTimeCards(Guid userId);
     }
 }

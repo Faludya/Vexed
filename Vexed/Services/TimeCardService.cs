@@ -35,6 +35,11 @@ namespace Vexed.Services
             return _repositoryWrapper.TimeCardRepository.GetTimeCardById(id);
         }
 
+        public List<TimeCard> GetTimeCards(Guid userId)
+        {
+            return _repositoryWrapper.TimeCardRepository.GetTimeCards(userId);
+        }
+
         public void UpdateTimeCard(TimeCard timeCard)
         {
             _repositoryWrapper.TimeCardRepository.Update(timeCard);
