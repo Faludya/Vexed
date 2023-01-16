@@ -168,6 +168,9 @@
   <data name="aboutus_section2_phone" xml:space="preserve">
     <value>Telefon: +40-251-438.198</value>
   </data>
+  <data name="Account" xml:space="preserve">
+    <value>Cont</value>
+  </data>
   <data name="ApproveCards" xml:space="preserve">
     <value>Aprobă pontaje</value>
   </data>
@@ -180,7 +183,7 @@
   <data name="button_learnMore" xml:space="preserve">
     <value>Află mai multe</value>
   </data>
-  <data name="ContactInto" xml:space="preserve">
+  <data name="ContactInfo" xml:space="preserve">
     <value>Informații Contact</value>
   </data>
   <data name="Create" xml:space="preserve">
@@ -242,6 +245,18 @@
   </data>
   <data name="LeaveRequest" xml:space="preserve">
     <value>Cerere concediu</value>
+  </data>
+  <data name="Log out" xml:space="preserve">
+    <value>Deconectare</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Autentificare</value>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>Înregistrare</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Setări</value>
   </data>
   <data name="TimeCards" xml:space="preserve">
     <value>Cartelă de pontaj</value>

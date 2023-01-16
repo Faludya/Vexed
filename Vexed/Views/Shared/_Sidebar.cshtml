@@ -35,53 +35,53 @@
                     <div class="nav_list">
                         <a class="nav_link" asp-controller="TimeCards" asp-action="Index">
                             <i class='bx bx-time-five  nav_icon'></i>
-                            <span class="nav_name">Time Cards</span>
+                            <span class="nav_name">@language.GetKey("TimeCards")</span>
                         </a>
                         <a class="nav_link" asp-controller="LeaveRequests" asp-action="Index">
                             <i class='bx bx-calendar  nav_icon'></i>
-                            <span class="nav_name">Leaves</span>
+                            <span class="nav_name">@language.GetKey("LeaveRequest")</span>
                         </a>
 
                         <hr class="dotted">
 
                         <a class="nav_link" asp-controller="ContactInfoes" asp-action="Index">
                             <i class='bx bxs-contact  nav_icon'></i>
-                            <span class="nav_name">Contact Info</span>
+                            <span class="nav_name">@language.GetKey("ContactInfo")</span>
                         </a>
                         <a class="nav_link" asp-controller="EmergencyContacts" asp-action="Index">
                             <i class='bx bx-shield-plus  nav_icon'></i>
-                            <span class="nav_name">Emergency Contact</span>
+                            <span class="nav_name">@language.GetKey("EmergencyContact")</span>
                         </a>
                         
                         <hr class="dotted">
 
                         <a class="nav_link" asp-controller="UserDetails" asp-action="Index">
                             <i class='bx bxs-user-detail  nav_icon'></i>
-                            <span class="nav_name">Details</span>
+                            <span class="nav_name">@language.GetKey("Details")</span>
                         </a>
                         <a class="nav_link" asp-controller="UserEmployments" asp-action="Index">
                             <i class='bx bxs-business nav_icon'></i>
-                            <span class="nav_name">Employment</span>
+                            <span class="nav_name">@language.GetKey("Employment")</span>
                         </a>
                     </div>
                 </div>
 
                 <a class="nav_link text-white" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
                     <i class='bx bxs-cog nav_icon'></i>
-                    <span class="nav_name">Settings</span>
+                    <span class="nav_name">@language.GetKey("Settings")</span>
                     <div class="dropdown-menu">
                         <a class="dropdown-item" asp-controller="Home" asp-action="ChangeLanguage" asp-route-culture="en-US">
                             <img src="~/images/flags/united-kingdom.png" width="20"> English
                         </a>
                         <a class="dropdown-item" asp-controller="Home" asp-action="ChangeLanguage" asp-route-culture="ro-RO">
-                            <img src="~/images/flags/romania.png" width="20"> Romana
+                            <img src="~/images/flags/romania.png" width="20"> Română
                         </a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
-                            <i class='bx bxs-user nav_icon'></i> Account
+                            <i class='bx bxs-user nav_icon'></i> @language.GetKey("Account")
                         </a>
                         <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                            <i class='bx bx-log-out nav_icon'></i> Log out
+                            <i class='bx bx-log-out nav_icon'></i> @language.GetKey("Log out")
                         </a>
                     </div>
                 </a>
