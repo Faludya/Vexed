@@ -46,5 +46,15 @@ namespace Vexed.Services
             _repositoryWrapper.ContactInfoRepository.Update(contactInfo);
             _repositoryWrapper.Save();
         }
+
+        public List<string> GetContactTypes()
+        {
+            var contactTypes = new List<string>()
+            {
+                "Work Phone", "Personal Phone", "Work Email", "Personal Email", "Fax"
+            };
+
+            return contactTypes;
+        }
     }
 }

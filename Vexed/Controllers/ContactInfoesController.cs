@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 using Vexed.Models;
@@ -39,6 +40,7 @@ namespace Vexed.Controllers
 
         public IActionResult Create()
         {
+            ViewData["ContactTypes"] = new SelectList(_contactInfoService.GetContactTypes());
             return View();
         }
 

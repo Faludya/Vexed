@@ -1,34 +1,62 @@
-#home-bg {
-    background-image: url(/images/pexels2.jpg);
-    background-size: cover;
-    height: 85vh;
-    /* position: absolute; */
-    top: 0;
-    left: 0;
-    width: 100%;
-  }
-
-  .overlay{
-    /* background: rgba(44, 62, 80, 0.5);  */
-    background: rgba(20, 51, 66, 0.5);
-    overflow: hidden;
+body {
+    color: #000;
+    overflow-x: hidden;
     height: 100%;
+    background-image: url("https://i.imgur.com/GMmCQHC.png");
+    background-repeat: no-repeat;
+    background-size: 100% 100%
 }
 
-.logo-dark{
-    background: rgba(20, 51, 66, 0.9);
+.card {
+    padding: 30px 40px;
+    margin-top: 60px;
+    margin-bottom: 60px;
+    border: none !important;
+    box-shadow: 0 6px 12px 0 rgba(0,0,0,0.2)
 }
 
-.responsive-logo {
-width: 100%;
-max-width: 200px;
-height: auto;
+.blue-text {
+    color: #00BCD4
 }
 
-.carousel-indicators {
-bottom:-50px;
+.form-control-label {
+    margin-bottom: 0
 }
 
-.carousel-inner {
-    margin-bottom:50px;
+input, textarea, button {
+    padding: 8px 15px;
+    border-radius: 5px !important;
+    margin: 5px 0px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    font-size: 18px !important;
+    font-weight: 300
+}
+
+    input:focus, textarea:focus {
+        -moz-box-shadow: none !important;
+        -webkit-box-shadow: none !important;
+        box-shadow: none !important;
+        border: 1px solid #00BCD4;
+        outline-width: 0;
+        font-weight: 400
+    }
+
+.btn-block {
+    text-transform: uppercase;
+    font-size: 15px !important;
+    font-weight: 400;
+    height: 43px;
+    cursor: pointer
+}
+
+    .btn-block:hover {
+        color: #fff !important
+    }
+
+button:focus {
+    -moz-box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+    outline-width: 0
 }
