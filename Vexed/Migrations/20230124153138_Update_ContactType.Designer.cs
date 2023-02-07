@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Vexed.Data;
 
@@ -11,9 +12,10 @@ using Vexed.Data;
 namespace Vexed.Migrations
 {
     [DbContext(typeof(VexedDbContext))]
-    partial class VexedDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230124153138_Update_ContactType")]
+    partial class Update_ContactType
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

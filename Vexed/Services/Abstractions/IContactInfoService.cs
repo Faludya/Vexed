@@ -10,5 +10,6 @@ namespace Vexed.Services.Abstractions
         ContactInfo GetContactInfoById(int id);
         Task<List<ContactInfo>> GetAllContacts();
         List<ContactInfo> GetContactInfos(Guid userId);
+        List<string> GetContactTypes();
     }
 }
