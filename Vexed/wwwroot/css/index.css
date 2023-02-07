@@ -24,6 +24,21 @@ body {
     padding: 1em;
 }
 
+.login-form {
+    background: #fff;
+    width: 80%;
+    min-height: 300px;
+    margin: 165px auto;
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
+    border-radius: 4px;
+    box-shadow: 0 2px 25px rgba(0, 0, 0, 0.2);
+    padding: 1em;
+}
+
     .login-form h1 {
         padding: 35px 35px 0 35px;
         /*font-weight: 300;*/
