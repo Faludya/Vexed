@@ -4,87 +4,118 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Your Details</h1>
+<link rel="stylesheet" href="~/css/index.css" asp-append-version="true" />
 
-<p>
-    <a class="btn btn-primary" asp-action="Create">Create New</a>
-</p>
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.FirstName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LastName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PrefferedLastName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Gender)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DateOfBirth)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Nationality)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Country)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.City)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Address)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AdditionalInformation)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FirstName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.LastName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PrefferedLastName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Gender)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DateOfBirth)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Nationality)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Country)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.City)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Address)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.AdditionalInformation)
-                </td>
-                <td>
-                    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a class="btn btn-secondary" asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+<body>
+    <div class="login-form table-responsive">
+        <form>
+            @*            <div class="action">
+            <button asp-action="Create">Create new Contact Info</button>
+            </div>*@
+            <p>Sample text</p>
+            <div class="content"></div>
+            <table class="table table-striped table-hover content">
+                <thead class="table-dark">
+                    <tr>
+                        <th>
+                            <i class='bx bx-user'></i>
+                            @Html.DisplayNameFor(model => model.FirstName)
+                        </th>
+                        <th>
+                            <i class='bx bx-user'></i>
+                            @Html.DisplayNameFor(model => model.LastName)
+                        </th>
+                        <th>
+                            <i class='bx bx-user'></i>
+                            @Html.DisplayNameFor(model => model.PrefferedLastName)
+                        </th>
+                        <th>
+                            <i class='bx bx-male-female'></i>
+                            @Html.DisplayNameFor(model => model.Gender)
+                        </th>
+                        <th>
+                            <i class='bx bx-calendar-event'></i>
+                            @Html.DisplayNameFor(model => model.DateOfBirth)
+                        </th>
+                        <th>
+                            <i class='bx bx-group'></i>
+                            @Html.DisplayNameFor(model => model.Nationality)
+                        </th>
+                        <th>
+                            <i class='bx bx-globe'></i>
+                            @Html.DisplayNameFor(model => model.Country)
+                        </th>
+                        <th>
+                            <i class='bx bxs-city'></i>
+                            @Html.DisplayNameFor(model => model.City)
+                        </th>
+                        <th>
+                            <i class='bx bx-home'></i>
+                            @Html.DisplayNameFor(model => model.Address)
+                        </th>
+                        <th>
+                            <i class='bx bx-info-circle'></i>
+                            @Html.DisplayNameFor(model => model.AdditionalInformation)
+                        </th>
+                        <th>
+                            <a class="btn btn-outline-secondary text-white" asp-action="Create">New</a>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FirstName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.LastName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PrefferedLastName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Gender)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DateOfBirth)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Nationality)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Country)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.City)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Address)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.AdditionalInformation)
+                            </td>
+                            <td>
+                                <a class="text-dark" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
+                                    <i class='bx bx-dots-horizontal-rounded'></i>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item text-dark" asp-action="Edit" asp-route-id="@item.Id">
+                                            <i class='bx bxs-edit-alt'></i> Edit
+                                        </a>
+                                        <a class="dropdown-item" asp-action="Details" asp-route-id="@item.Id">
+                                            <i class='bx bxs-detail'></i> Details
+                                        </a>
+                                        <a class="dropdown-item text-danger" asp-action="Delete" asp-route-id="@item.Id">
+                                            <i class='bx bxs-trash'></i> Delete
+                                        </a>
+                                    </div>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </form>
+    </div>
+</body>
