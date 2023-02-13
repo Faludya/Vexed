@@ -3,67 +3,97 @@
 @{
     ViewData["Title"] = "Delete";
 }
+<link rel="stylesheet" href="~/css/index.css" asp-append-version="true" />
 
-<h1>Delete</h1>
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>EmergencyContact</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.UserId)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.UserId)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FirstName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FirstName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.LastName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.LastName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Relationship)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Relationship)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Phone)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Phone)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Address)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Address)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.AdditionalInformation)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.AdditionalInformation)
-        </dd>
-    </dl>
-    
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
-    </form>
-</div>
+<body class="vh-10">
+    <div class="container py-5 h-10">
+        <div class="row d-flex justify-content-center align-items-center h-10">
+            <div class="col-md-8 col-lg-8 col-xl-6">
+                <div class="card shadow-2-strong" style="border-radius: 1rem;">
+                    <div class="card-body p-5 text-center">
+
+                        <h3 class="mb-5 text-danger">Delete Emergency Contact?</h3>
+                        <hr />
+                        <div class="container">
+                            <div class="text-left">
+                                <div class="row">
+                                    <div class="col">
+                                        <b>First Name</b>
+                                    </div>
+                                    <div class="col">
+                                        @Html.DisplayFor(model => model.FirstName)
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <b>Last Name</b>
+                                    </div>
+                                    <div class="col">
+                                        @Html.DisplayFor(model => model.LastName)
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <b>Relationship</b>
+                                    </div>
+                                    <div class="col">
+                                        @Html.DisplayFor(model => model.Relationship)
+                                    </div>
+                                </div>
+
+                                <hr class="dotted" />
+                                <div class="row">
+                                    <div class="col">
+                                        <b>Phone</b>
+                                    </div>
+                                    <div class="col">
+                                        @Html.DisplayFor(model => model.Phone)
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <b>Email</b>
+                                    </div>
+                                    <div class="col">
+                                        @Html.DisplayFor(model => model.Email)
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <b>Address</b>
+                                    </div>
+                                    <div class="col">
+                                        @Html.DisplayFor(model => model.Address)
+                                    </div>
+                                </div>
+
+                                <hr class="dotted" />
+                                <div class="row">
+                                    <div class="col">
+                                        <b>Additional Info</b>
+                                    </div>
+                                    <div class="col">
+                                        @Html.DisplayFor(model => model.AdditionalInformation)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr class="my-4">
+                        <form asp-action="Delete">
+                            <a asp-action="Index">Back to List</a> | 
+                            <input type="hidden" asp-for="Id" />
+                            <input type="submit" value="Delete" class="btn btn-danger" /> 
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
