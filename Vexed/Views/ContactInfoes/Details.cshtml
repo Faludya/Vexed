@@ -4,32 +4,41 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
 
-<section class="vh-10">
+<link rel="stylesheet" href="~/css/index.css" asp-append-version="true" />
+
+<h1>Details</h1>
+<hr class="dotted" />
+
+<body class="vh-10">
     <div class="container py-5 h-10">
         <div class="row d-flex justify-content-center align-items-center h-10">
             <div class="col-md-8 col-lg-8 col-xl-6">
                 <div class="card shadow-2-strong" style="border-radius: 1rem;">
                     <div class="card-body p-5 text-center">
 
-                        <h3 class="mb-5">Contact Info</h3>
+                        <h3 class="mb-5">Your Contact</h3>
                         <hr />
-                        <div>
-                            <dl class="row">
-                                <dt class="col-sm-3">
-                                    @Html.DisplayNameFor(model => model.Type)
-                                </dt>
-                                <dd class="col-sm-9">
-                                    @Html.DisplayFor(model => model.Type)
-                                </dd>
-                                <dt class="col-sm-3">
-                                    @Html.DisplayNameFor(model => model.Contact)
-                                </dt>
-                                <dd class="col-sm-9">
-                                    @Html.DisplayFor(model => model.Contact)
-                                </dd>
-                            </dl>
+                        <div class="container">
+                            <div class="text-left">
+                                <div class="row">
+                                    <div class="col">
+                                        <b>Type</b>
+                                    </div>
+                                    <div class="col">
+                                        @Html.DisplayFor(model => model.Type)
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <b>Contact</b>
+                                    </div>
+                                    <div class="col">
+                                        @Html.DisplayFor(model => model.Contact)
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         <hr class="my-4">
@@ -41,4 +50,5 @@
             </div>
         </div>
     </div>
-</section>
+</body>
+

@@ -3,63 +3,87 @@
 @{
     ViewData["Title"] = "Details";
 }
+<link rel="stylesheet" href="~/css/index.css" asp-append-version="true" />
 
 <h1>Details</h1>
+<hr class="dotted" />
 
-<section class="vh-10">
+<body class="vh-10">
     <div class="container py-5 h-10">
         <div class="row d-flex justify-content-center align-items-center h-10">
             <div class="col-md-8 col-lg-8 col-xl-6">
                 <div class="card shadow-2-strong" style="border-radius: 1rem;">
                     <div class="card-body p-5 text-center">
 
-                        <h3 class="mb-5">USer Employment</h3>
+                        <h3 class="mb-5">Your Employment</h3>
                         <hr />
-                        <div>
-                            <dl class="row">
-                                <dt class="col-sm-3">
-                                    @Html.DisplayNameFor(model => model.CompanyName)
-                                </dt>
-                                <dd class="col-sm-9">
-                                    @Html.DisplayFor(model => model.CompanyName)
-                                </dd>
-                                <dt class="col-sm-3">
-                                    @Html.DisplayNameFor(model => model.Department)
-                                </dt>
-                                <dd class="col-sm-9">
-                                    @Html.DisplayFor(model => model.Department)
-                                </dd>
-                                <dt class="col-sm-3">
-                                    @Html.DisplayNameFor(model => model.Function)
-                                </dt>
-                                <dd class="col-sm-9">
-                                    @Html.DisplayFor(model => model.Function)
-                                </dd>
-                                <dt class="col-sm-3">
-                                    @Html.DisplayNameFor(model => model.Location)
-                                </dt>
-                                <dd class="col-sm-9">
-                                    @Html.DisplayFor(model => model.Location)
-                                </dd>
-                                <dt class="col-sm-3">
-                                    @Html.DisplayNameFor(model => model.HireDate)
-                                </dt>
-                                <dd class="col-sm-9">
-                                    @Html.DisplayFor(model => model.HireDate)
-                                </dd>
-                                <dt class="col-sm-3">
-                                    @Html.DisplayNameFor(model => model.HourlyPay)
-                                </dt>
-                                <dd class="col-sm-9">
-                                    @Html.DisplayFor(model => model.HourlyPay)
-                                </dd>
-                                <dt class="col-sm-3">
-                                    @Html.DisplayNameFor(model => model.SuperiorName)
-                                </dt>
-                                <dd class="col-sm-9">
-                                    @Html.DisplayFor(model => model.SuperiorName)
-                                </dd>
-                            </dl>
+                        <div class="container">
+                            <div class="text-left">
+                                <div class="row">
+                                    <div class="col">
+                                        <b>@Html.DisplayNameFor(model => model.CompanyName)</b>
+                                    </div>
+                                    <div class="col">
+                                        @Html.DisplayFor(model => model.CompanyName)
+                                    </div>
+                                </div>
+    
+                                <div class="row">
+                                    <div class="col">
+                                        <b>@Html.DisplayNameFor(model => model.Department)</b>
+                                    </div>
+                                    <div class="col">
+                                        @Html.DisplayFor(model => model.Department)
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <b>@Html.DisplayNameFor(model => model.Function)</b>
+                                    </div>
+                                    <div class="col">
+                                        @Html.DisplayFor(model => model.Function)
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <b>@Html.DisplayNameFor(model => model.Location)</b>
+                                    </div>
+                                    <div class="col">
+                                        @Html.DisplayFor(model => model.Location)
+                                    </div>
+                                </div>
+
+                                <hr class="dotted" />
+                                <div class="row">
+                                    <div class="col">
+                                        <b>@Html.DisplayNameFor(model => model.HireDate)</b>
+                                    </div>
+                                    <div class="col">
+                                        @Html.DisplayFor(model => model.HireDate)
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <b>@Html.DisplayNameFor(model => model.HourlyPay)</b>
+                                    </div>
+                                    <div class="col">
+                                        @Html.DisplayFor(model => model.HourlyPay)
+                                    </div>
+                                </div>
+
+                                <hr class="dotted" />
+                                <div class="row">
+                                    <div class="col">
+                                        <b>@Html.DisplayNameFor(model => model.SuperiorName)</b>
+                                    </div>
+                                    <div class="col">
+                                        @Html.DisplayFor(model => model.SuperiorName)
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         <hr class="my-4">
@@ -71,4 +95,4 @@
             </div>
         </div>
     </div>
-</section>
+</body>

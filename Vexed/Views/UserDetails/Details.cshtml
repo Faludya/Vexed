@@ -4,80 +4,116 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
 
-<section class="vh-10">
+<link rel="stylesheet" href="~/css/index.css" asp-append-version="true" />
+
+<h1>Details</h1>
+<hr class="dotted" />
+
+<body class="vh-10">
     <div class="container py-5 h-10">
         <div class="row d-flex justify-content-center align-items-center h-10">
             <div class="col-md-8 col-lg-8 col-xl-6">
                 <div class="card shadow-2-strong" style="border-radius: 1rem;">
                     <div class="card-body p-5 text-center">
 
-                        <h3 class="mb-5">User Details</h3>
+                        <h3 class="mb-5">Your Details</h3>
                         <hr />
-                        <div>
-                            <dl class="row">
-                                <dt class="col-sm-2">
-                                    @Html.DisplayNameFor(model => model.FirstName)
-                                </dt>
-                                <dd class="col-sm-9">
-                                    @Html.DisplayFor(model => model.FirstName)
-                                </dd>
-                                <dt class="col-sm-3">
-                                    @Html.DisplayNameFor(model => model.LastName)
-                                </dt>
-                                <dd class="col-sm-9">
-                                    @Html.DisplayFor(model => model.LastName)
-                                </dd>
-                                <dt class="col-sm-3">
-                                    @Html.DisplayNameFor(model => model.PrefferedLastName)
-                                </dt>
-                                <dd class="col-sm-9">
-                                    @Html.DisplayFor(model => model.PrefferedLastName)
-                                </dd>
-                                <dt class="col-sm-3">
-                                    @Html.DisplayNameFor(model => model.Gender)
-                                </dt>
-                                <dd class="col-sm-9">
-                                    @Html.DisplayFor(model => model.Gender)
-                                </dd>
-                                <dt class="col-sm-3">
-                                    @Html.DisplayNameFor(model => model.DateOfBirth)
-                                </dt>
-                                <dd class="col-sm-9">
-                                    @Html.DisplayFor(model => model.DateOfBirth)
-                                </dd>
-                                <dt class="col-sm-3">
-                                    @Html.DisplayNameFor(model => model.Nationality)
-                                </dt>
-                                <dd class="col-sm-9">
-                                    @Html.DisplayFor(model => model.Nationality)
-                                </dd>
-                                <dt class="col-sm-3">
-                                    @Html.DisplayNameFor(model => model.Country)
-                                </dt>
-                                <dd class="col-sm-9">
-                                    @Html.DisplayFor(model => model.Country)
-                                </dd>
-                                <dt class="col-sm-3">
-                                    @Html.DisplayNameFor(model => model.City)
-                                </dt>
-                                <dd class="col-sm-9">
-                                    @Html.DisplayFor(model => model.City)
-                                </dd>
-                                <dt class="col-sm-3">
-                                    @Html.DisplayNameFor(model => model.Address)
-                                </dt>
-                                <dd class="col-sm-9">
-                                    @Html.DisplayFor(model => model.Address)
-                                </dd>
-                                <dt class="col-sm-3">
-                                    @Html.DisplayNameFor(model => model.AdditionalInformation)
-                                </dt>
-                                <dd class="col-sm-9">
-                                    @Html.DisplayFor(model => model.AdditionalInformation)
-                                </dd>
-                            </dl>
+                        <div class="container">
+                            <div class="text-left">
+                                <div class="row">
+                                    <div class="col">
+                                        <b>First Name</b>
+                                    </div>
+                                    <div class="col">
+                                        @Html.DisplayFor(model => model.FirstName)
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <b>Last Name</b>
+                                    </div>
+                                    <div class="col">
+                                        @Html.DisplayFor(model => model.LastName)
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <b>Preffered Name</b>
+                                    </div>
+                                    <div class="col">
+                                        @Html.DisplayFor(model => model.PrefferedLastName)
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <b>Gender</b>
+                                    </div>
+                                    <div class="col">
+                                        @Html.DisplayFor(model => model.Gender)
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <b>Date of birth</b>
+                                    </div>
+                                    <div class="col">
+                                        @Html.DisplayFor(model => model.DateOfBirth)
+                                    </div>
+                                </div>
+
+                                <hr class="dotted" />
+                                <div class="row">
+                                    <div class="col">
+                                        <b>Nationality</b>
+                                    </div>
+                                    <div class="col">
+                                        @Html.DisplayFor(model => model.Nationality)
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <b>Country</b>
+                                    </div>
+                                    <div class="col">
+                                        @Html.DisplayFor(model => model.Country)
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <b>City</b>
+                                    </div>
+                                    <div class="col">
+                                        @Html.DisplayFor(model => model.City)
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <b>Address</b>
+                                    </div>
+                                    <div class="col">
+                                        @Html.DisplayFor(model => model.Address)
+                                    </div>
+                                </div>
+
+                                <hr class="dotted" />
+                                <div class="row">
+                                    <div class="col">
+                                        <b>Additional Info</b>
+                                    </div>
+                                    <div class="col">
+                                        @Html.DisplayFor(model => model.AdditionalInformation)
+                                    </div>
+                                </div>
+
+                            </div>
                         </div>
 
                         <hr class="my-4">
@@ -89,4 +125,4 @@
             </div>
         </div>
     </div>
-</section>
+</body>
