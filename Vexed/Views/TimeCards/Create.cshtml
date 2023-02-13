@@ -3,65 +3,109 @@
 @{
     ViewData["Title"] = "Create";
 }
+<link rel="stylesheet" href="~/css/index.css" asp-append-version="true" />
 
-<h1>Create</h1>
+<body>
+    <div class="login-form-small col-md-4 justify-content-center">
+        <h4>Time Card</h4>
+        <hr />
+        <div class="text-left p-3">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-<h4>TimeCard</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="ProjectCode" class="control-label"></label>
-                <input asp-for="ProjectCode" class="form-control" />
-                <span asp-validation-for="ProjectCode" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TaskDetails" class="control-label"></label>
-                <input asp-for="TaskDetails" class="form-control" />
-                <span asp-validation-for="TaskDetails" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Location" class="control-label"></label>
-                <input asp-for="Location" class="form-control" />
-                <span asp-validation-for="Location" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="StartDate" class="control-label"></label>
-                <input asp-for="StartDate" class="form-control" />
-                <span asp-validation-for="StartDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="EndDate" class="control-label"></label>
-                <input asp-for="EndDate" class="form-control" />
-                <span asp-validation-for="EndDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Quantity" class="control-label"></label>
-                <input asp-for="Quantity" class="form-control" />
-                <span asp-validation-for="Quantity" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Status" class="control-label"></label>
-                <input asp-for="Status" class="form-control" />
-                <span asp-validation-for="Status" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Comments" class="control-label"></label>
-                <input asp-for="Comments" class="form-control" />
-                <span asp-validation-for="Comments" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+                <div class="form-group row my-3">
+                    <div class="col-4 my-2">
+                        <b>Project Code:</b>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="ProjectCode" class="form-control" />
+                        <span asp-validation-for="ProjectCode" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group row my-3">
+                    <div class="col-4 my-2">
+                        <b>Task details:</b>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="TaskDetails" class="form-control" />
+                        <span asp-validation-for="TaskDetails" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group row my-3">
+                    <div class="col-4 my-2">
+                        <b>Location:</b>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="Location" class="form-control" />
+                        <span asp-validation-for="Location" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group row my-3">
+                    <div class="col-4 my-2">
+                        <b>Start date:</b>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="StartDate" class="form-control" />
+                        <span asp-validation-for="StartDate" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group row my-3">
+                    <div class="col-4 my-2">
+                        <b>End date:</b>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="EndDate" class="form-control" />
+                        <span asp-validation-for="EndDate" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group row my-3">
+                    <div class="col-4 my-2">
+                        <b>Quantity:</b>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="Quantity" class="form-control" />
+                        <span asp-validation-for="Quantity" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group row my-3">
+                    <div class="col-4 my-2">
+                        <b>Status:</b>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="Status" class="form-control" />
+                        <span asp-validation-for="Status" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group row my-3">
+                    <div class="col-4 my-2">
+                        <b>Comments:</b>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="Comments" class="form-control" />
+                        <span asp-validation-for="Comments" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group row my-4">
+                    <div class="col-4 my-2">
+                        <a asp-action="Index">Back to List</a>
+                    </div>
+                    <div class="col-8">
+                        <input type="submit" value="Create" class="btn btn-primary" />
+                    </div>
+                </div>
+            </form>
+        </div>
+
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+</body>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

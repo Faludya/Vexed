@@ -3,62 +3,101 @@
 @{
     ViewData["Title"] = "Edit";
 }
+<link rel="stylesheet" href="~/css/index.css" asp-append-version="true" />
 
-<h1>Edit</h1>
+<body>
+    <div class="login-form-small col-md-4 justify-content-center">
+        <h4>User Employment</h4>
+        <hr />
+        <div class="text-left p-3">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Id" />
+                <input type="hidden" asp-for="UserId" />
 
-<h4>UserEmployment</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <input type="hidden" asp-for="UserId" />
-            <div class="form-group">
-                <label asp-for="CompanyName" class="control-label"></label>
-                <input asp-for="CompanyName" class="form-control" />
-                <span asp-validation-for="CompanyName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Department" class="control-label"></label>
-                <input asp-for="Department" class="form-control" />
-                <span asp-validation-for="Department" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Function" class="control-label"></label>
-                <input asp-for="Function" class="form-control" />
-                <span asp-validation-for="Function" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Location" class="control-label"></label>
-                <input asp-for="Location" class="form-control" />
-                <span asp-validation-for="Location" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="HireDate" class="control-label"></label>
-                <input asp-for="HireDate" class="form-control" />
-                <span asp-validation-for="HireDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="HourlyPay" class="control-label"></label>
-                <input asp-for="HourlyPay" class="form-control" />
-                <span asp-validation-for="HourlyPay" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="SuperiorName" class="control-label"></label>
-                <input asp-for="SuperiorName" class="form-control" />
-                <span asp-validation-for="SuperiorName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+                <div class="form-group row my-3">
+                    <div class="col-4 my-2">
+                        <b>Company Name:</b>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="CompanyName" class="form-control" />
+                        <span asp-validation-for="CompanyName" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group row my-3">
+                    <div class="col-4 my-2">
+                        <b>Department:</b>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="Department" class="form-control" />
+                        <span asp-validation-for="Department" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group row my-3">
+                    <div class="col-4 my-2">
+                        <b>Function:</b>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="Function" class="form-control" />
+                        <span asp-validation-for="Function" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group row my-3">
+                    <div class="col-4 my-2">
+                        <b>Location:</b>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="Location" class="form-control" />
+                        <span asp-validation-for="Location" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group row my-3">
+                    <div class="col-4 my-2">
+                        <b>Hire date:</b>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="HireDate" class="form-control" />
+                        <span asp-validation-for="HireDate" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group row my-3">
+                    <div class="col-4 my-2">
+                        <b>Hourly pay:</b>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="HourlyPay" class="form-control" />
+                        <span asp-validation-for="HourlyPay" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group row my-3">
+                    <div class="col-4 my-2">
+                        <b>Superior name:</b>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="SuperiorName" class="form-control" />
+                        <span asp-validation-for="SuperiorName" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group row my-4">
+                    <div class="col-4 my-2">
+                        <a asp-action="Index">Back to List</a>
+                    </div>
+                    <div class="col-8">
+                        <input type="submit" value="Save" class="btn btn-primary" />
+                    </div>
+                </div>
+            </form>
+        </div>
+
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+</body>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
