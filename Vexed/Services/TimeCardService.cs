@@ -21,7 +21,7 @@ namespace Vexed.Services
 
         public void DeleteTimeCard(TimeCard timeCard)
         {
-            _repositoryWrapper.TimeCardRepository.Delete(timeCard); 
+            _repositoryWrapper.TimeCardRepository.Delete(timeCard);
             _repositoryWrapper.Save();
         }
 
@@ -44,6 +44,28 @@ namespace Vexed.Services
         {
             _repositoryWrapper.TimeCardRepository.Update(timeCard);
             _repositoryWrapper.Save();
+        }
+
+        public List<string> GetLocationTypes()
+        {
+            var contactTypes = new List<string>()
+            {
+                "Work from Office", "Work from Home", "Short term relocated", "Relocated"
+            };
+
+            return contactTypes;
+        }
+
+        public List<string> GetLocationTypes(string selectedLocation)
+        {
+            var locationTypes = new List<string>()
+            {
+                "Work from Office", "Work from Home", "Short term relocated", "Relocated"
+            };
+            int posSelected = locationTypes.IndexOf(selectedLocation);
+            (locationTypes[0], locationTypes[posSelected]) = (locationTypes[posSelected], locationTypes[0]);
+
+            return locationTypes;
         }
     }
 }
