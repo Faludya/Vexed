@@ -40,7 +40,7 @@
                         <b>Relationship:</b>
                     </div>
                     <div class="col-8">
-                        <input asp-for="Relationship" class="form-control" />
+                        <select asp-for="Relationship" class="form-control" asp-items="ViewBag.RelationshipTypes"></select>
                         <span asp-validation-for="Relationship" class="text-danger"></span>
                     </div>
                 </div>
