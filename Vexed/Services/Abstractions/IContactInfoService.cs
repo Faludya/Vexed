@@ -10,6 +10,7 @@ namespace Vexed.Services.Abstractions
         ContactInfo GetContactInfoById(int id);
         Task<List<ContactInfo>> GetAllContacts();
         List<ContactInfo> GetContactInfos(Guid userId);
+
         /// <summary>
         /// Method <c>GetContactTypes</c> returns a list of all Types of Contacts.
         /// </summary>

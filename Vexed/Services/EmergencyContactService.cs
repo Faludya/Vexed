@@ -45,5 +45,27 @@ namespace Vexed.Services
             _repositoryWrapper.EmergencyContactRepository.Update(emergencyContact);
             _repositoryWrapper.Save();
         }
+
+        public List<string> GetRelationshipTypes()
+        {
+            var relationshipTypes = new List<string>()
+            {
+                "Parent", "Brother", "Sister", "Partner", "Child", "Relative", "Friend"
+            };
+
+            return relationshipTypes;
+        }
+
+        public List<string> GetRelationshipTypes(string selectedRelationship)
+        {
+            var relationshipTypes = new List<string>()
+            {
+                "Parent", "Brother", "Sister", "Partner", "Child", "Relative", "Friend"
+            };
+            int posSelected = relationshipTypes.IndexOf(selectedRelationship);
+            (relationshipTypes[0], relationshipTypes[posSelected]) = (relationshipTypes[posSelected], relationshipTypes[0]);
+
+            return relationshipTypes;
+        }
     }
 }

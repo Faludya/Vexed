@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Vexed.Data;
 using Vexed.Models;
+using Vexed.Services;
 using Vexed.Services.Abstractions;
 
 namespace Vexed.Controllers
@@ -43,6 +44,7 @@ namespace Vexed.Controllers
 
         public IActionResult Create()
         {
+            ViewData["RelationshipTypes"] = new SelectList(_emergencyContactService.GetRelationshipTypes());
             return View();
         }
 
@@ -62,6 +64,8 @@ namespace Vexed.Controllers
         public IActionResult Edit(int id)
         {
             var emergencyContact = _emergencyContactService.GetEmergencyContactById(id);
+            ViewData["RelationshipTypes"] = new SelectList(_emergencyContactService.GetRelationshipTypes(emergencyContact.Relationship));
+
             if (emergencyContact == null)
             {
                 return NotFound();
