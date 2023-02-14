@@ -70,6 +70,14 @@ namespace Vexed.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (leaveRequest.EndDate < leaveRequest.StartDate)
+                {
+                    ModelState.AddModelError("date", "End Date must be after Start Date.");
+
+                    ViewData["LeaveTypes"] = new SelectList(_leaveRequestService.GetLeaveTypes());
+                    return View(leaveRequest);
+                }
+
                 leaveRequest.UserId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
                 _leaveRequestService.CreateLeaveRequest(leaveRequest);
                 return RedirectToAction(nameof(Index));
@@ -100,6 +108,14 @@ namespace Vexed.Controllers
 
             if (ModelState.IsValid)
             {
+                if (leaveRequest.EndDate < leaveRequest.StartDate)
+                {
+                    ModelState.AddModelError("date", "End Date must be after Start Date.");
+
+                    ViewData["LeaveTypes"] = new SelectList(_leaveRequestService.GetLeaveTypes());
+                    return View(leaveRequest);
+                }
+
                 try
                 {
                     _leaveRequestService.UpdateLeaveRequest(leaveRequest);
