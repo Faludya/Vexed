@@ -1,6 +1,7 @@
 ﻿using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Vexed.Models;
 using Vexed.Services;
@@ -58,6 +59,7 @@ namespace Vexed.Controllers
 
         public IActionResult Create()
         {
+            ViewData["LeaveTypes"] = new SelectList(_leaveRequestService.GetLeaveTypes());
             return View();
         }
 
@@ -78,6 +80,8 @@ namespace Vexed.Controllers
         public IActionResult Edit(int id)
         {
             var leaveRequest = _leaveRequestService.GetLeaveRequestById(id);
+            ViewData["LeaveTypes"] = new SelectList(_leaveRequestService.GetLeaveTypes(leaveRequest.Type));
+
             if (leaveRequest == null)
             {
                 return NotFound();

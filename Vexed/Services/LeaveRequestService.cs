@@ -45,5 +45,27 @@ namespace Vexed.Services
             _repositoryWrapper.LeaveRequestRepository.Update(leaveRequest);
             _repositoryWrapper.Save();
         }
+
+        public List<string> GetLeaveTypes()
+        {
+            var contactTypes = new List<string>()
+            {
+                "Annual Leave", "Medical Leave", "Maternity Leave", "Special Leave", "Unpaid Leave", "TOIL Travel"
+            };
+
+            return contactTypes;
+        }
+
+        public List<string> GetLeaveTypes(string selectedLeave)
+        {
+            var leaveTypes = new List<string>()
+            {
+                "Annual Leave", "Medical Leave", "Maternity Leave", "Special Leave", "Unpaid Leave", "TOIL Travel"
+            };
+            int posSelected = leaveTypes.IndexOf(selectedLeave);
+            (leaveTypes[0], leaveTypes[posSelected]) = (leaveTypes[posSelected], leaveTypes[0]);
+
+            return leaveTypes;
+        }
     }
 }
