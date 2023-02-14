@@ -69,6 +69,14 @@ namespace Vexed.Controllers
         {
             if (ModelState.IsValid)
             {
+                if(timeCard.EndDate < timeCard.StartDate)
+                {
+                    ModelState.AddModelError("date", "End Date must be after Start Date.");
+                    
+                    ViewData["LocationTypes"] = new SelectList(_timeCardService.GetLocationTypes());
+                    return View(timeCard);
+                }
+
                 timeCard.UserId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
                 _timeCardService.CreateTimeCard(timeCard);
                 return RedirectToAction(nameof(Index));
@@ -99,6 +107,14 @@ namespace Vexed.Controllers
 
             if (ModelState.IsValid)
             {
+                if (timeCard.EndDate < timeCard.StartDate)
+                {
+                    ModelState.AddModelError("date", "End Date must be after Start Date.");
+
+                    ViewData["LocationTypes"] = new SelectList(_timeCardService.GetLocationTypes());
+                    return View(timeCard);
+                }
+
                 try
                 {
                     _timeCardService.UpdateTimeCard(timeCard);
