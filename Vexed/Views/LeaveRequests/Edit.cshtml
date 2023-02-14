@@ -20,9 +20,7 @@
                         <b>Type:</b>
                     </div>
                     <div class="col-8">
-                        <input asp-for="Type" class="form-control" />
-                        @*<select asp-for="Type" class="form-control" asp-items="ViewBag.ContactTypes"></select>*@
-                        <span asp-validation-for="Type" class="text-danger"></span>
+                        <select asp-for="Type" class="form-control" asp-items="ViewBag.LeaveTypes"></select>                        <span asp-validation-for="Type" class="text-danger"></span>
                     </div>
                 </div>
 
