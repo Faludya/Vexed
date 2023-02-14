@@ -65,6 +65,8 @@ namespace Vexed.Controllers
             }
 
             var contactInfo = _contactInfoService.GetContactInfoById(id);
+            ViewData["ContactTypes"] = new SelectList(_contactInfoService.GetContactTypes(contactInfo.Type));
+            
             if (contactInfo == null)
             {
                 return NotFound();

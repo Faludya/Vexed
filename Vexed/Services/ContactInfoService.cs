@@ -56,5 +56,17 @@ namespace Vexed.Services
 
             return contactTypes;
         }
+
+        public List<string> GetContactTypes(string selectedType)
+        {
+            var contactTypes = new List<string>()
+            {
+                "Work Phone", "Personal Phone", "Work Email", "Personal Email", "Fax"
+            };
+            int posSelected = contactTypes.IndexOf(selectedType);
+            (contactTypes[0], contactTypes[posSelected]) = (contactTypes[posSelected], contactTypes[0]);
+
+            return contactTypes;
+        }
     }
 }
