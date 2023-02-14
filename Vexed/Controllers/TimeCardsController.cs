@@ -1,8 +1,10 @@
 ﻿using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Vexed.Models;
+using Vexed.Services;
 using Vexed.Services.Abstractions;
 
 namespace Vexed.Controllers
@@ -32,28 +34,6 @@ namespace Vexed.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult IndexHR(string cardAction, int id)
         {
-            //if (ModelState.IsValid)
-            //{
-            //    try
-            //    {
-            //        var timeCard = _timeCardService.GetTimeCardById(id);
-            //        timeCard.Status = cardAction;
-            //        _timeCardService.UpdateTimeCard(timeCard);
-            //    }
-            //    catch (DbUpdateConcurrencyException)
-            //    {
-            //        if (timeCard == null)
-            //        {
-            //            return NotFound();
-            //        }
-            //        else
-            //        {
-            //            throw;
-            //        }
-            //    }
-            //    return RedirectToAction(nameof(IndexHR));
-            //}
-            //return View(_timeCardService.GetAllTimeCards());
             var timeCard = _timeCardService.GetTimeCardById(id);
             timeCard.Status = cardAction;
             _timeCardService.UpdateTimeCard(timeCard);
@@ -79,6 +59,7 @@ namespace Vexed.Controllers
 
         public IActionResult Create()
         {
+            ViewData["LocationTypes"] = new SelectList(_timeCardService.GetLocationTypes());
             return View();
         }
 
@@ -98,6 +79,8 @@ namespace Vexed.Controllers
         public async Task<IActionResult> Edit(int id)
         {
             var timeCard = _timeCardService.GetTimeCardById(id);
+            ViewData["LocationTypes"] = new SelectList(_timeCardService.GetLocationTypes(timeCard.Location));
+
             if (timeCard == null)
             {
                 return NotFound();
