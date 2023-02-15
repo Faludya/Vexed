@@ -25,6 +25,11 @@ namespace Vexed.Services.Abstractions
         UserEmployment GetUserEmploymentById(int id);
 
         /// <summary>
+        /// Returns the first User Employment with the given <c>userId</c>
+        /// </summary>
+        UserEmployment GetUserEmploymentByUserId(Guid userId);
+
+        /// <summary>
         /// Returns all the User Employment from the database.
         /// </summary>
         List<UserEmployment> GetAllUsersEmployment();

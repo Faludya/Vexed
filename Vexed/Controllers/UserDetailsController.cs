@@ -23,9 +23,18 @@ namespace Vexed.Controllers
             return View(_userDetailsService.GetUsersDetails(userId));
         }
 
-        public IActionResult Details(int id)
+        [Authorize(Roles = "Employee")]
+        public IActionResult Details(int? id)
         {
-            var userDetails = _userDetailsService.GetUserDetailsById(id);
+            if(id == null)
+            {
+                var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+                var userDetail = _userDetailsService.GetUserDetailsByUserId(userId);
+
+                return View(userDetail);
+            }
+
+            var userDetails = _userDetailsService.GetUserDetailsById((int)id);
             if (userDetails == null)
             {
                 return NotFound();

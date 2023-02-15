@@ -19,5 +19,10 @@ namespace Vexed.Repositories
         {
             return _vexedDbContext.UsersDetails.Where(u => u.Id == id).First();
         }
+
+        public UserDetails GetUserDetailsByUserId(Guid userId)
+        {
+            return _vexedDbContext.UsersDetails.Where(u => u.UserId == userId).First();
+        }
     }
 }
