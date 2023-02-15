@@ -35,6 +35,11 @@ namespace Vexed.Services
             return _repositoryWrapper.UserDetailsRepository.GetUserDetailsById(id);
         }
 
+        public UserDetails GetUserDetailsByUserId(Guid userId)
+        {
+            return _repositoryWrapper.UserDetailsRepository.GetUserDetailsByUserId(userId);
+        }
+
         public List<UserDetails> GetUsersDetails(Guid userId)
         {
             return _repositoryWrapper.UserDetailsRepository.GetUserDetails(userId);

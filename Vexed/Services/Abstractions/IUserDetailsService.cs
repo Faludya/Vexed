@@ -25,6 +25,11 @@ namespace Vexed.Services.Abstractions
         UserDetails GetUserDetailsById(int id);
 
         /// <summary>
+        /// Returns the first User Detail with the given <c>userId</c>
+        /// </summary>
+        UserDetails GetUserDetailsByUserId(Guid userId);
+
+        /// <summary>
         /// Returns all the User Details from the database.
         /// </summary>
         List<UserDetails> GetAllUsersDetails();

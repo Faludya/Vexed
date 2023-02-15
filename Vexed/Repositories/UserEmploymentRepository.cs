@@ -15,6 +15,11 @@ namespace Vexed.Repositories
             return _vexedDbContext.UsersEmployments.Where(u => u.Id == id).First();
         }
 
+        public UserEmployment GetUserEmploymentByUserId(Guid userId)
+        {
+            return _vexedDbContext.UsersEmployments.Where(u => u.UserId == userId).First();
+        }
+
         public List<UserEmployment> GetUserEmployments(Guid userId)
         {
             return _vexedDbContext.UsersEmployments.Where(u => u.UserId == userId).ToList();

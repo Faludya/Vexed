@@ -23,15 +23,23 @@ namespace Vexed.Controllers
             return View(_userEmploymentService.GetUsersEmployment(userId));
         }
 
-        public IActionResult Details(int id)
+        [Authorize(Roles = "Employee")]
+        public IActionResult Details(int? id)
         {
-            var userEmployment = _userEmploymentService.GetUserEmploymentById(id);
-            if (userEmployment == null)
+            if (id == null)
+            {
+                var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+                var userEmployment = _userEmploymentService.GetUserEmploymentByUserId(userId);
+                return View(userEmployment);
+            }
+
+            var userEmployments = _userEmploymentService.GetUserEmploymentById((int)id);
+            if (userEmployments == null)
             {
                 return NotFound();
             }
 
-            return View(userEmployment);
+            return View(userEmployments);
         }
 
         public IActionResult Create()
