@@ -14,10 +14,12 @@ namespace Vexed.Models
         public string Type { get; set; }
 
         [DisplayName("Start Date")]
+        [DataType(DataType.Date)]
         [Required(ErrorMessage = "{0} is required")]
         public DateTime StartDate { get; set; }
 
         [DisplayName("End Date")]
+        [DataType(DataType.Date)]
         [Required(ErrorMessage = "{0} is required")]
         public DateTime EndDate { get; set; }
 
