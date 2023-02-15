@@ -20,7 +20,7 @@ namespace Vexed.Models
 
         [DisplayName("Preffered Last Name")]
         [Required(ErrorMessage = "{0} is required")]
-        public string PrefferedLastName { get; set; }
+        public string PreferredLastName { get; set; }
 
         [Required(ErrorMessage = "{0} is required")]
         public string Gender { get; set; }

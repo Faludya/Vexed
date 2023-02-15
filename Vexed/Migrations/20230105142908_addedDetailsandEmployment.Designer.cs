@@ -335,7 +335,7 @@ namespace Vexed.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PrefferedLastName")
+                    b.Property<string>("PreferredLastName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
