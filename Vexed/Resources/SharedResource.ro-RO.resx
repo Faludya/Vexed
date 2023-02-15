@@ -171,11 +171,23 @@
   <data name="Account" xml:space="preserve">
     <value>Cont</value>
   </data>
+  <data name="AdditionalInfo" xml:space="preserve">
+    <value>Informații Suplimentare</value>
+  </data>
+  <data name="Address" xml:space="preserve">
+    <value>Adresă</value>
+  </data>
+  <data name="Approve" xml:space="preserve">
+    <value>Abrobă</value>
+  </data>
   <data name="ApproveCards" xml:space="preserve">
     <value>Aprobă pontaje</value>
   </data>
   <data name="ApproveLeaves" xml:space="preserve">
     <value>Aprobă concedii</value>
+  </data>
+  <data name="BackToList" xml:space="preserve">
+    <value>Înapoi la listă</value>
   </data>
   <data name="button_getStarted" xml:space="preserve">
     <value>Incepe</value>
@@ -183,14 +195,47 @@
   <data name="button_learnMore" xml:space="preserve">
     <value>Află mai multe</value>
   </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Anulează</value>
+  </data>
+  <data name="City" xml:space="preserve">
+    <value>Oraș</value>
+  </data>
+  <data name="Comments" xml:space="preserve">
+    <value>Comentarii</value>
+  </data>
+  <data name="CompanyName" xml:space="preserve">
+    <value>Nume companie</value>
+  </data>
+  <data name="Contact" xml:space="preserve">
+    <value>Contact</value>
+  </data>
   <data name="ContactInfo" xml:space="preserve">
     <value>Informații Contact</value>
+  </data>
+  <data name="Country" xml:space="preserve">
+    <value>Țara</value>
   </data>
   <data name="Create" xml:space="preserve">
     <value>Creează</value>
   </data>
+  <data name="DateOfBirth" xml:space="preserve">
+    <value>Data nașterii</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Șterge</value>
+  </data>
+  <data name="Department" xml:space="preserve">
+    <value>Departament</value>
+  </data>
   <data name="Details" xml:space="preserve">
     <value>Detalii</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Editează</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
   </data>
   <data name="EmergencyContact" xml:space="preserve">
     <value>Contact Urgențe</value>
@@ -198,8 +243,26 @@
   <data name="Employment" xml:space="preserve">
     <value>Angajare</value>
   </data>
+  <data name="EndDate" xml:space="preserve">
+    <value>Data de încheiere</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>Prenume</value>
+  </data>
+  <data name="Function" xml:space="preserve">
+    <value>Funcţie</value>
+  </data>
+  <data name="Gender" xml:space="preserve">
+    <value>Gen</value>
+  </data>
+  <data name="HireDate" xml:space="preserve">
+    <value>Data angajării</value>
+  </data>
   <data name="home" xml:space="preserve">
     <value>Acasă</value>
+  </data>
+  <data name="HourlyPay" xml:space="preserve">
+    <value>Plata orară</value>
   </data>
   <data name="index_business_administrative" xml:space="preserve">
     <value>Administrativ</value>
@@ -243,8 +306,14 @@
   <data name="index_section3_p" xml:space="preserve">
     <value>Toată lumea poate accesa portalul de pe orice dispozitiv și toată munca sa este sincronizată.</value>
   </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Nume de familie</value>
+  </data>
   <data name="LeaveRequest" xml:space="preserve">
     <value>Cerere concediu</value>
+  </data>
+  <data name="Location" xml:space="preserve">
+    <value>Locație</value>
   </data>
   <data name="Log out" xml:space="preserve">
     <value>Deconectare</value>
@@ -252,16 +321,82 @@
   <data name="Login" xml:space="preserve">
     <value>Autentificare</value>
   </data>
+  <data name="Nationality" xml:space="preserve">
+    <value>Naţionalitate</value>
+  </data>
+  <data name="Phone" xml:space="preserve">
+    <value>Telefon</value>
+  </data>
+  <data name="PreferredName" xml:space="preserve">
+    <value>Prenume preferat</value>
+  </data>
+  <data name="ProjectCode" xml:space="preserve">
+    <value>Cod proiect</value>
+  </data>
+  <data name="Quantity" xml:space="preserve">
+    <value>Cantitate</value>
+  </data>
   <data name="Register" xml:space="preserve">
     <value>Înregistrare</value>
+  </data>
+  <data name="Relationship" xml:space="preserve">
+    <value>Relaţie</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Salvează</value>
   </data>
   <data name="Settings" xml:space="preserve">
     <value>Setări</value>
   </data>
+  <data name="StartDate" xml:space="preserve">
+    <value>Data de început</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="String1" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SuperiorName" xml:space="preserve">
+    <value>Nume superior</value>
+  </data>
+  <data name="TaskDetails" xml:space="preserve">
+    <value>Detalii sarcină</value>
+  </data>
+  <data name="TimeCard" xml:space="preserve">
+    <value>Pontaj ore</value>
+  </data>
   <data name="TimeCards" xml:space="preserve">
     <value>Cartelă de pontaj</value>
   </data>
+  <data name="Type" xml:space="preserve">
+    <value>Categorie</value>
+  </data>
+  <data name="UserDetails" xml:space="preserve">
+    <value>Detalii utilizator</value>
+  </data>
+  <data name="UserEmployment" xml:space="preserve">
+    <value>Angajarea utilizatorului</value>
+  </data>
   <data name="View" xml:space="preserve">
     <value>Vizualizează</value>
+  </data>
+  <data name="YourContact" xml:space="preserve">
+    <value>Contactul tău</value>
+  </data>
+  <data name="YourDetails" xml:space="preserve">
+    <value>Detaliile tale</value>
+  </data>
+  <data name="YourEmergencyContact" xml:space="preserve">
+    <value>Contactul dvs. de urgență</value>
+  </data>
+  <data name="YourEmployment" xml:space="preserve">
+    <value>Angajarea ta</value>
+  </data>
+  <data name="YourLeaveRequest" xml:space="preserve">
+    <value>Cererea dvs. de concediu</value>
+  </data>
+  <data name="YourTimeCards" xml:space="preserve">
+    <value>Pontajul dvs. de ore</value>
   </data>
 </root>

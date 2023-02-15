@@ -1,4 +1,6 @@
-﻿@model Vexed.Models.ContactInfo
+﻿@using Vexed.Services;
+@inject LanguageService language
+@model Vexed.Models.ContactInfo
 
 @{
     ViewData["Title"] = "Edit";
@@ -7,7 +9,7 @@
 
 <body>
     <div class="login-form-small col-md-4 justify-content-center">
-        <h4>Contact Info</h4>
+        <h4>@language.GetKey("ContactInfo")</h4>
         <hr />
         <div class="text-left p-3">
             <form asp-action="Edit">
@@ -18,7 +20,7 @@
                 <div class="form-group row my-3">
                     <div class="col-4 my-2">
                         <i class='bx bxs-category'></i>
-                        <b>Type:</b>
+                        <b>@language.GetKey("Type"):</b>
                     </div>
                     <div class="col-8">
                         <select asp-for="Type" class="form-control" asp-items="ViewBag.ContactTypes"></select>
@@ -29,7 +31,7 @@
                 <div class="form-group row my-3">
                     <div class="col-4 my-2">
                         <i class='bx bxs-book-content'></i>
-                        <b>Contact:</b>
+                        <b>@language.GetKey("Contact"):</b>
                     </div>
                     <div class="col-8">
                         <input asp-for="Contact" class="form-control" />
@@ -39,10 +41,10 @@
 
                 <div class="form-group row my-4">
                     <div class="col-4 my-2">
-                        <a asp-action="Index">Back to List</a>
+                        <a asp-action="Index">@language.GetKey("BackToList")</a>
                     </div>
                     <div class="col-8">
-                        <input type="submit" value="Save" class="btn btn-primary" />
+                        <input type="submit" value="@language.GetKey("Save")" class="btn btn-primary" />
                     </div>
                 </div>
             </form>

@@ -1,4 +1,6 @@
-﻿@model IEnumerable<Vexed.Models.EmergencyContact>
+﻿@using Vexed.Services;
+@inject LanguageService language
+@model IEnumerable<Vexed.Models.EmergencyContact>
 
 @{
     ViewData["Title"] = "Index";
@@ -16,34 +18,34 @@
                     <tr>
                         <th>
                             <i class='bx bx-user' ></i>
-                            @Html.DisplayNameFor(model => model.FirstName)
+                            @language.GetKey("FirstName")
                         </th>
                         <th>
                             <i class='bx bx-user'></i>
-                            @Html.DisplayNameFor(model => model.LastName)
+                            @language.GetKey("LastName")
                         </th>
                         <th>
                             <i class='bx bx-shape-circle'></i>
-                            @Html.DisplayNameFor(model => model.Relationship)
+                            @language.GetKey("Relationship")
                         </th>
                         <th>
                             <i class='bx bxs-phone'></i>
-                            @Html.DisplayNameFor(model => model.Phone)
+                            @language.GetKey("Phone")
                         </th>
                         <th>
                             <i class='bx bx-envelope' ></i>
-                            @Html.DisplayNameFor(model => model.Email)
+                            @language.GetKey("Email")
                         </th>
                         <th>
                             <i class='bx bx-home'></i>
-                            @Html.DisplayNameFor(model => model.Address)
+                            @language.GetKey("Address")
                         </th>
                         <th>
                             <i class='bx bx-info-circle'></i>
-                            @Html.DisplayNameFor(model => model.AdditionalInformation)
+                            @language.GetKey("AdditionalInfo")
                         </th>
                         <th>
-                            <a class="btn btn-outline-secondary text-white" asp-action="Create">New</a>
+                            <a class="btn btn-outline-secondary text-white" asp-action="Create">@language.GetKey("Create")</a>
                         </th>
                     </tr>
                 </thead>
@@ -77,13 +79,13 @@
                                     <i class='bx bx-dots-horizontal-rounded'></i>
                                     <div class="dropdown-menu">
                                         <a class="dropdown-item text-dark" asp-action="Edit" asp-route-id="@item.Id">
-                                            <i class='bx bxs-edit-alt'></i> Edit
+                                            <i class='bx bxs-edit-alt'></i> @language.GetKey("Edit")
                                         </a>
                                         <a class="dropdown-item" asp-action="Details" asp-route-id="@item.Id">
-                                            <i class='bx bxs-detail'></i> Details
+                                            <i class='bx bxs-detail'></i> @language.GetKey("Details")
                                         </a>
                                         <a class="dropdown-item text-danger" asp-action="Delete" asp-route-id="@item.Id">
-                                            <i class='bx bxs-trash'></i> Delete
+                                            <i class='bx bxs-trash'></i> @language.GetKey("Delete")
                                         </a>
                                     </div>
                                 </a>

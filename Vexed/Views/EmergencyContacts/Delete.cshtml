@@ -1,4 +1,6 @@
-﻿@model Vexed.Models.EmergencyContact
+﻿@using Vexed.Services;
+@inject LanguageService language
+@model Vexed.Models.EmergencyContact
 
 @{
     ViewData["Title"] = "Delete";
@@ -13,14 +15,14 @@
                 <div class="card shadow-2-strong" style="border-radius: 1rem;">
                     <div class="card-body p-5 text-center">
 
-                        <h3 class="mb-5 text-danger">Delete Emergency Contact?</h3>
+                        <h3 class="mb-5 text-danger">@language.GetKey("Delete") @language.GetKey("EmergencyContact")?</h3>
                         <hr />
                         <div class="container">
                             <div class="text-left">
                                 <div class="row">
                                     <div class="col">
                                         <i class='bx bx-user'></i>
-                                        <b>First Name</b>
+                                        <b>@language.GetKey("FirstName")</b>
                                     </div>
                                     <div class="col">
                                         @Html.DisplayFor(model => model.FirstName)
@@ -30,7 +32,7 @@
                                 <div class="row">
                                     <div class="col">
                                         <i class='bx bx-user'></i>
-                                        <b>Last Name</b>
+                                        <b>LastName</b>
                                     </div>
                                     <div class="col">
                                         @Html.DisplayFor(model => model.LastName)
@@ -40,7 +42,7 @@
                                 <div class="row">
                                     <div class="col">
                                         <i class='bx bx-shape-circle'></i>
-                                        <b>Relationship</b>
+                                        <b>@language.GetKey("Relationship")</b>
                                     </div>
                                     <div class="col">
                                         @Html.DisplayFor(model => model.Relationship)
@@ -51,7 +53,7 @@
                                 <div class="row">
                                     <div class="col">
                                         <i class='bx bxs-phone'></i>
-                                        <b>Phone</b>
+                                        <b>@language.GetKey("Phone")</b>
                                     </div>
                                     <div class="col">
                                         @Html.DisplayFor(model => model.Phone)
@@ -61,7 +63,7 @@
                                 <div class="row">
                                     <div class="col">
                                         <i class='bx bx-envelope'></i>
-                                        <b>Email</b>
+                                        <b>@language.GetKey("Email")</b>
                                     </div>
                                     <div class="col">
                                         @Html.DisplayFor(model => model.Email)
@@ -71,7 +73,7 @@
                                 <div class="row">
                                     <div class="col">
                                         <i class='bx bx-home'></i>
-                                        <b>Address</b>
+                                        <b>@language.GetKey("Address")</b>
                                     </div>
                                     <div class="col">
                                         @Html.DisplayFor(model => model.Address)
@@ -82,7 +84,7 @@
                                 <div class="row">
                                     <div class="col">
                                         <i class='bx bx-info-circle'></i>
-                                        <b>Additional Info</b>
+                                        <b>@language.GetKey("AdditionalInfo")</b>
                                     </div>
                                     <div class="col">
                                         @Html.DisplayFor(model => model.AdditionalInformation)
@@ -93,9 +95,9 @@
 
                         <hr class="my-4">
                         <form asp-action="Delete">
-                            <a asp-action="Index">Back to List</a> | 
+                            <a asp-action="Index">@language.GetKey("BackToList")</a> | 
                             <input type="hidden" asp-for="Id" />
-                            <input type="submit" value="Delete" class="btn btn-danger" /> 
+                            <input type="submit" value="@language.GetKey("Delete")" class="btn btn-danger" />
                         </form>
 
                     </div>

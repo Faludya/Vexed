@@ -1,4 +1,6 @@
-﻿@model IEnumerable<Vexed.Models.ContactInfo>
+﻿@using Vexed.Services;
+@inject LanguageService language
+@model IEnumerable<Vexed.Models.ContactInfo>
 
 @{
     ViewData["Title"] = "Index";
@@ -8,7 +10,7 @@
 <body>
     <div class="login-form-small table-responsive">
         <form>
-@*            <div class="action">
+            @*<div class="action">
                 <button asp-action="Create">Create new Contact Info</button>
             </div>*@
             <p>Sample text</p>
@@ -18,14 +20,14 @@
                     <tr>
                         <th>
                             <i class='bx bxs-category'></i>
-                            @Html.DisplayNameFor(model => model.Type)
+                            @language.GetKey("Type")
                         </th>
                         <th>
                             <i class='bx bxs-book-content'></i>
-                            @Html.DisplayNameFor(model => model.Contact)
+                            @language.GetKey("Contact")
                         </th>
                         <th>
-                            <a class="btn btn-outline-secondary text-white" asp-action="Create">New</a>
+                            <a class="btn btn-outline-secondary text-white" asp-action="Create">@language.GetKey("Create")</a>
                         </th>
                     </tr>
                 </thead>
@@ -44,13 +46,13 @@
                                     <i class='bx bx-dots-horizontal-rounded'></i>
                                     <div class="dropdown-menu">
                                         <a class="dropdown-item text-dark" asp-action="Edit" asp-route-id="@item.Id">
-                                            <i class='bx bxs-edit-alt'></i> Edit
+                                            <i class='bx bxs-edit-alt'></i> @language.GetKey("Edit")
                                         </a>
                                         <a class="dropdown-item" asp-action="Details" asp-route-id="@item.Id">
-                                            <i class='bx bxs-detail' ></i> Details
+                                            <i class='bx bxs-detail'></i> @language.GetKey("Details")
                                         </a>
                                             <a class="dropdown-item text-danger" asp-action="Delete" asp-route-id="@item.Id">
-                                            <i class='bx bxs-trash'></i> Delete
+                                            <i class='bx bxs-trash'></i> @language.GetKey("Delete")
                                         </a>
                                     </div>
                                 </a>

@@ -1,4 +1,6 @@
-﻿@model Vexed.Models.TimeCard
+﻿@using Vexed.Services;
+@inject LanguageService language
+@model Vexed.Models.TimeCard
 
 @{
     ViewData["Title"] = "Edit";
@@ -7,7 +9,7 @@
 
 <body>
     <div class="login-form-small col-md-4 justify-content-center">
-        <h4>Time Card</h4>
+        <h4>@language.GetKey("TimeCard")</h4>
         <hr />
         <div class="text-left p-3">
             <form asp-action="Edit">
@@ -18,7 +20,7 @@
                 <div class="form-group row my-3">
                     <div class="col-4 my-2">
                         <i class='bx bx-barcode'></i>
-                        <b>Project Code:</b>
+                        <b>@language.GetKey("ProjectCode"):</b>
                     </div>
                     <div class="col-8">
                         <input asp-for="ProjectCode" class="form-control" />
@@ -29,7 +31,7 @@
                 <div class="form-group row my-3">
                     <div class="col-4 my-2">
                         <i class='bx bx-detail'></i>
-                        <b>Task details:</b>
+                        <b>@language.GetKey("TaskDetails"):</b>
                     </div>
                     <div class="col-8">
                         <input asp-for="TaskDetails" class="form-control" />
@@ -40,7 +42,7 @@
                 <div class="form-group row my-3">
                     <div class="col-4 my-2">
                         <i class='bx bx-map'></i>
-                        <b>Location:</b>
+                        <b>@language.GetKey("Location"):</b>
                     </div>
                     <div class="col-8">
                         <select asp-for="Location" class="form-control" asp-items="ViewBag.LocationTypes"></select>
@@ -51,7 +53,7 @@
                 <div class="form-group row my-3">
                     <div class="col-4 my-2">
                         <i class='bx bx-chevrons-right'></i>
-                        <b>Start date:</b>
+                        <b>@language.GetKey("StartDate"):</b>
                     </div>
                     <div class="col-8">
                         <input asp-for="StartDate" class="form-control" />
@@ -62,7 +64,7 @@
                 <div class="form-group row my-3">
                     <div class="col-4 my-2">
                         <i class='bx bx-chevrons-left'></i>
-                        <b>End date:</b>
+                        <b>@language.GetKey("EndDate"):</b>
                     </div>
                     <div class="col-8">
                         <input asp-for="EndDate" class="form-control" />
@@ -74,7 +76,7 @@
                 <div class="form-group row my-3">
                     <div class="col-4 my-2">
                         <i class='bx bx-bar-chart-alt-2'></i>
-                        <b>Quantity:</b>
+                        <b>@language.GetKey("Quantity"):</b>
                     </div>
                     <div class="col-8">
                         <input asp-for="Quantity" class="form-control" />
@@ -85,7 +87,7 @@
                 <div class="form-group row my-3">
                     <div class="col-4 my-2">
                         <i class='bx bx-stats'></i>
-                        <b>Status:</b>
+                        <b>@language.GetKey("Status"):</b>
                     </div>
                     <div class="col-8">
                         <input asp-for="Status" class="form-control" />
@@ -96,7 +98,7 @@
                 <div class="form-group row my-3">
                     <div class="col-4 my-2">
                         <i class='bx bx-comment'></i>
-                        <b>Comments:</b>
+                        <b>@language.GetKey("Comments"):</b>
                     </div>
                     <div class="col-8">
                         <input asp-for="Comments" class="form-control" />
@@ -106,10 +108,10 @@
 
                 <div class="form-group row my-4">
                     <div class="col-4 my-2">
-                        <a asp-action="Index">Back to List</a>
+                        <a asp-action="Index">@language.GetKey("BackToList")</a>
                     </div>
                     <div class="col-8">
-                        <input type="submit" value="Save" class="btn btn-primary" />
+                        <input type="submit" value="@language.GetKey("Save")" class="btn btn-primary" />
                     </div>
                 </div>
             </form>

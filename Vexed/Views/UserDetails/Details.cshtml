@@ -1,4 +1,6 @@
-﻿@model Vexed.Models.UserDetails
+﻿@using Vexed.Services;
+@inject LanguageService language
+@model Vexed.Models.UserDetails
 
 @{
     ViewData["Title"] = "Details";
@@ -7,7 +9,7 @@
 
 <link rel="stylesheet" href="~/css/index.css" asp-append-version="true" />
 
-<h1>Details</h1>
+<h1>@language.GetKey("Details")</h1>
 <hr class="dotted" />
 
 <body class="vh-10">
@@ -17,14 +19,14 @@
                 <div class="card shadow-2-strong" style="border-radius: 1rem;">
                     <div class="card-body p-5 text-center">
 
-                        <h3 class="mb-5">Your Details</h3>
+                        <h3 class="mb-5">@language.GetKey("YourDetails")</h3>
                         <hr />
                         <div class="container">
                             <div class="text-left">
                                 <div class="row">
                                     <div class="col">
                                         <i class='bx bx-user'></i>
-                                        <b>First Name</b>
+                                        <b>@language.GetKey("FirstName")</b>
                                     </div>
                                     <div class="col">
                                         @Html.DisplayFor(model => model.FirstName)
@@ -34,7 +36,7 @@
                                 <div class="row">
                                     <div class="col">
                                         <i class='bx bx-user'></i>
-                                        <b>Last Name</b>
+                                        <b>@language.GetKey("LastName")</b>
                                     </div>
                                     <div class="col">
                                         @Html.DisplayFor(model => model.LastName)
@@ -44,7 +46,7 @@
                                 <div class="row">
                                     <div class="col">
                                         <i class='bx bx-user'></i>
-                                        <b>Preffered Name</b>
+                                        <b>@language.GetKey("PreferredName")</b>
                                     </div>
                                     <div class="col">
                                         @Html.DisplayFor(model => model.PrefferedLastName)
@@ -54,7 +56,7 @@
                                 <div class="row">
                                     <div class="col">
                                         <i class='bx bx-male-female'></i>
-                                        <b>Gender</b>
+                                        <b>@language.GetKey("Gender")</b>
                                     </div>
                                     <div class="col">
                                         @Html.DisplayFor(model => model.Gender)
@@ -64,7 +66,7 @@
                                 <div class="row">
                                     <div class="col">
                                         <i class='bx bx-calendar-event'></i>
-                                        <b>Date of birth</b>
+                                        <b>@language.GetKey("DateOfBirth")</b>
                                     </div>
                                     <div class="col">
                                         @Html.DisplayFor(model => model.DateOfBirth)
@@ -75,7 +77,7 @@
                                 <div class="row">
                                     <div class="col">
                                         <i class='bx bx-group'></i>
-                                        <b>Nationality</b>
+                                        <b>@language.GetKey("Nationality")</b>
                                     </div>
                                     <div class="col">
                                         @Html.DisplayFor(model => model.Nationality)
@@ -85,7 +87,7 @@
                                 <div class="row">
                                     <div class="col">
                                         <i class='bx bx-globe'></i>
-                                        <b>Country</b>
+                                        <b>@language.GetKey("Contry")</b>
                                     </div>
                                     <div class="col">
                                         @Html.DisplayFor(model => model.Country)
@@ -95,7 +97,7 @@
                                 <div class="row">
                                     <div class="col">
                                         <i class='bx bxs-city'></i>
-                                        <b>City</b>
+                                        <b>@language.GetKey("City")</b>
                                     </div>
                                     <div class="col">
                                         @Html.DisplayFor(model => model.City)
@@ -104,7 +106,7 @@
 
                                 <div class="row">
                                     <div class="col">
-                                        <b>Address</b>
+                                        <b>@language.GetKey("Address")</b>
                                         <i class='bx bx-home'></i>
                                     </div>
                                     <div class="col">
@@ -116,7 +118,7 @@
                                 <div class="row">
                                     <div class="col">
                                         <i class='bx bx-info-circle'></i>
-                                        <b>Additional Info</b>
+                                        <b>@language.GetKey("AdditionalInfo")</b>
                                     </div>
                                     <div class="col">
                                         @Html.DisplayFor(model => model.AdditionalInformation)
@@ -127,8 +129,8 @@
                         </div>
 
                         <hr class="my-4">
-                        <a class="btn btn-lg btn-primary" asp-action="Edit" asp-route-id="@Model?.Id">Edit</a>
-                        <a class="btn btn-lg btn-secondary" asp-action="Index">Back to List</a>
+                        <a class="btn btn-lg btn-primary" asp-action="Edit" asp-route-id="@Model?.Id">@language.GetKey("Edit")</a>
+                        <a class="btn btn-lg btn-secondary" asp-action="Index">@language.GetKey("BackToList")</a>
 
                     </div>
                 </div>

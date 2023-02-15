@@ -1,4 +1,6 @@
-﻿@model IEnumerable<Vexed.Models.TimeCard>
+﻿@using Vexed.Services;
+@inject LanguageService language
+@model IEnumerable<Vexed.Models.TimeCard>
 
 @{
     ViewData["Title"] = "Index";
@@ -15,38 +17,38 @@
                     <tr>
                         <th>
                             <i class='bx bx-barcode'></i>
-                            @Html.DisplayNameFor(model => model.ProjectCode)
+                            @language.GetKey("ProjectCode")
                         </th>
                         <th>
                             <i class='bx bx-detail' ></i>
-                            @Html.DisplayNameFor(model => model.TaskDetails)
+                            @language.GetKey("TaskDetails")
                         </th>
                         <th>
                             <i class='bx bx-map'></i>
-                            @Html.DisplayNameFor(model => model.Location)
+                            @language.GetKey("Location")
                         </th>
                         <th>
                             <i class='bx bx-chevrons-right'></i>
-                            @Html.DisplayNameFor(model => model.StartDate)
+                            @language.GetKey("StartDate")
                         </th>
                         <th>
                             <i class='bx bx-chevrons-left'></i>
-                            @Html.DisplayNameFor(model => model.EndDate)
+                            @language.GetKey("EndDate")
                         </th>
                         <th>
                             <i class='bx bx-bar-chart-alt-2'></i>
-                            @Html.DisplayNameFor(model => model.Quantity)
+                            @language.GetKey("Quantity")
                         </th>
                         <th>
                             <i class='bx bx-stats'></i>
-                            @Html.DisplayNameFor(model => model.Status)
+                            @language.GetKey("Status")
                         </th>
                         <th>
                             <i class='bx bx-comment'></i>
-                            @Html.DisplayNameFor(model => model.Comments)
+                            @language.GetKey("Comments")
                         </th>
                         <th>
-                            <a class="btn btn-outline-secondary text-white" asp-action="Create">New</a>
+                            <a class="btn btn-outline-secondary text-white" asp-action="Create">@language.GetKey("Create")</a>
                         </th>
                     </tr>
                 </thead>
@@ -83,13 +85,13 @@
                                     <i class='bx bx-dots-horizontal-rounded'></i>
                                     <div class="dropdown-menu">
                                         <a class="dropdown-item text-dark" asp-action="Edit" asp-route-id="@item.Id">
-                                            <i class='bx bxs-edit-alt'></i> Edit
+                                            <i class='bx bxs-edit-alt'></i> @language.GetKey("Edit")
                                         </a>
                                         <a class="dropdown-item" asp-action="Details" asp-route-id="@item.Id">
-                                            <i class='bx bxs-detail'></i> Details
+                                            <i class='bx bxs-detail'></i> @language.GetKey("Details")
                                         </a>
                                         <a class="dropdown-item text-danger" asp-action="Delete" asp-route-id="@item.Id">
-                                            <i class='bx bxs-trash'></i> Delete
+                                            <i class='bx bxs-trash'></i> @language.GetKey("Delete")
                                         </a>
                                     </div>
                                 </a>

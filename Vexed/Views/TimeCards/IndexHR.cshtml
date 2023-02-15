@@ -1,10 +1,12 @@
-﻿@model IEnumerable<Vexed.Models.TimeCard>
+﻿@using Vexed.Services;
+@inject LanguageService language
+@model IEnumerable<Vexed.Models.TimeCard>
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Approve Time Cards</h1>
+<h1>@language.GetKey("ApproveCards")</h1>
 
 
 <table class="table table-striped">
@@ -12,28 +14,28 @@
     <thead>
         <tr>
             <th>
-                    @Html.DisplayNameFor(model => model.ProjectCode)
+                    @language.GetKey("ProjectCode")
             </th>
             <th>
-                    @Html.DisplayNameFor(model => model.TaskDetails)
+                    @language.GetKey("TaskDetails")
             </th>
             <th>
-                    @Html.DisplayNameFor(model => model.Location)
+                    @language.GetKey("Location")
             </th>
             <th>
-                    @Html.DisplayNameFor(model => model.StartDate)
+                    @language.GetKey("StartDate")
             </th>
             <th>
-                    @Html.DisplayNameFor(model => model.EndDate)
+                    @language.GetKey("EndDate")
             </th>
             <th>
-                    @Html.DisplayNameFor(model => model.Quantity)
+                    @language.GetKey("Quantity")
             </th>
             <th>
-                    @Html.DisplayNameFor(model => model.Status)
+                    @language.GetKey("Status")
             </th>
             <th>
-                    @Html.DisplayNameFor(model => model.Comments)
+                    @language.GetKey("Comments")
             </th>
             <th></th>
         </tr>
@@ -67,8 +69,8 @@
                         @Html.DisplayFor(modelItem => item.Comments)
                 </td>
                 <td>
-                    <button class="btn btn-primary" type="submit" asp-action="IndexHR" asp-controller="TimeCards" asp-route-cardAction="Approved" asp-route-id="@item.Id">Approve</button> |
-                    <button class="btn btn-danger" type="submit" asp-action="IndexHR" asp-controller="TimeCards" asp-route-cardAction="Cancelled" asp-route-id="@item.Id">Cancel</button> |
+                    <button class="btn btn-primary" type="submit" asp-action="IndexHR" asp-controller="TimeCards" asp-route-cardAction="Approved" asp-route-id="@item.Id">@language.GetKey("Approve")</button> |
+                    <button class="btn btn-danger" type="submit" asp-action="IndexHR" asp-controller="TimeCards" asp-route-cardAction="Cancelled" asp-route-id="@item.Id">@language.GetKey("Cancel")</button> |
                 </td>
             </tr>
             }

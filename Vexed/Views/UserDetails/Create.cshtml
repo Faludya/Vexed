@@ -1,4 +1,6 @@
-﻿@model Vexed.Models.UserDetails
+﻿@using Vexed.Services;
+@inject LanguageService language
+@model Vexed.Models.UserDetails
 
 @{
     ViewData["Title"] = "Create";
@@ -7,7 +9,7 @@
 
 <body>
     <div class="login-form-small col-md-4 justify-content-center">
-        <h4>User Deatils</h4>
+        <h4>@language.GetKey("UserDetails")</h4>
         <hr />
         <div class="text-left p-3">
             <form asp-action="Create">
@@ -16,7 +18,7 @@
                 <div class="form-group row my-3">
                     <div class="col-4 my-2">
                         <i class='bx bx-user'></i>
-                        <b>First Name:</b>
+                        <b>@language.GetKey("FirstName"):</b>
                     </div>
                     <div class="col-8">
                         <input asp-for="FirstName" class="form-control" />
@@ -27,7 +29,7 @@
                 <div class="form-group row my-3">
                     <div class="col-4 my-2">
                         <i class='bx bx-user'></i>
-                        <b>Last Name:</b>
+                        <b>@language.GetKey("LastName"):</b>
                     </div>
                     <div class="col-8">
                         <input asp-for="LastName" class="form-control" />
@@ -38,7 +40,7 @@
                 <div class="form-group row my-3">
                     <div class="col-4 my-2">
                         <i class='bx bx-user'></i>
-                        <b>Preffered name:</b>
+                        <b>@language.GetKey("PreferredName"):</b>
                     </div>
                     <div class="col-8">
                         <input asp-for="PrefferedLastName" class="form-control" />
@@ -49,7 +51,7 @@
                 <div class="form-group row my-3">
                     <div class="col-4 my-2">
                         <i class='bx bx-male-female'></i>
-                        <b>Gender:</b>
+                        <b>@language.GetKey("Gender"):</b>
                     </div>
                     <div class="col-8">
                         <input asp-for="Gender" class="form-control" />
@@ -60,7 +62,7 @@
                 <div class="form-group row my-3">
                     <div class="col-4 my-2">
                         <i class='bx bx-calendar-event'></i>
-                        <b>Date of birth:</b>
+                        <b>@language.GetKey("DateOfBirth"):</b>
                     </div>
                     <div class="col-8">
                         <input asp-for="DateOfBirth" class="form-control" />
@@ -71,7 +73,7 @@
                 <div class="form-group row my-3">
                     <div class="col-4 my-2">
                         <i class='bx bx-group'></i>
-                        <b>Nationality:</b>
+                        <b>@language.GetKey("Nationality"):</b>
                     </div>
                     <div class="col-8">
                         <input asp-for="Nationality" class="form-control" />
@@ -82,7 +84,7 @@
                 <div class="form-group row my-3">
                     <div class="col-4 my-2">
                         <i class='bx bx-globe'></i>
-                        <b>Contry:</b>
+                        <b>@language.GetKey("Country"):</b>
                     </div>
                     <div class="col-8">
                         <input asp-for="Country" class="form-control" />
@@ -93,7 +95,7 @@
                 <div class="form-group row my-3">
                     <div class="col-4 my-2">
                         <i class='bx bxs-city'></i>
-                        <b>City:</b>
+                        <b>@language.GetKey("City"):</b>
                     </div>
                     <div class="col-8">
                         <input asp-for="City" class="form-control" />
@@ -104,7 +106,7 @@
                 <div class="form-group row my-3">
                     <div class="col-4 my-2">
                         <i class='bx bx-home'></i>
-                        <b>Address:</b>
+                        <b>@language.GetKey("Address"):</b>
                     </div>
                     <div class="col-8">
                         <input asp-for="Address" class="form-control" />
@@ -115,7 +117,7 @@
                 <div class="form-group row my-3">
                     <div class="col-4 my-2">
                         <i class='bx bx-info-circle'></i>
-                        <b>Additional Info:</b>
+                        <b>@language.GetKey("AdditionalInfo"):</b>
                     </div>
                     <div class="col-8">
                         <input asp-for="AdditionalInformation" class="form-control" />
@@ -125,10 +127,10 @@
 
                 <div class="form-group row my-4">
                     <div class="col-4 my-2">
-                        <a asp-action="Index">Back to List</a>
+                        <a asp-action="Index">@language.GetKey("BackToList")</a>
                     </div>
                     <div class="col-8">
-                        <input type="submit" value="Create" class="btn btn-primary" />
+                        <input type="submit" value="@language.GetKey("Create")" class="btn btn-primary" />
                     </div>
                 </div>
             </form>
