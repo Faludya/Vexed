@@ -32,10 +32,10 @@ namespace Vexed.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult IndexHR(string cardAction, int id)
+        public IActionResult IndexHR(string statusAction, int id)
         {
             var timeCard = _timeCardService.GetTimeCardById(id);
-            timeCard.Status = cardAction;
+            timeCard.Status = StatusManager.SetStatus(timeCard.Status, statusAction);
             _timeCardService.UpdateTimeCard(timeCard);
 
             if (timeCard == null)
@@ -78,7 +78,7 @@ namespace Vexed.Controllers
                 }
 
                 timeCard.UserId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-                timeCard.Status = StatusManager.SetStatus();
+                timeCard.Status = StatusManager.SetStatus(timeCard.Status);
                 _timeCardService.CreateTimeCard(timeCard);
 
                 return RedirectToAction(nameof(Index));

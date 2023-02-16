@@ -32,10 +32,10 @@ namespace Vexed.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult IndexHR(string cardAction, int id)
+        public IActionResult IndexHR(string statusAction, int id)
         {
             var leave = _leaveRequestService.GetLeaveRequestById(id);
-            leave.Status = cardAction;
+            leave.Status = StatusManager.SetStatus(leave.Status, statusAction);
             _leaveRequestService.UpdateLeaveRequest(leave);
 
             if (leave == null)
@@ -79,7 +79,7 @@ namespace Vexed.Controllers
                 }
 
                 leaveRequest.UserId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-                leaveRequest.Status = StatusManager.SetStatus();
+                leaveRequest.Status = StatusManager.SetStatus(leaveRequest.Status);
                 _leaveRequestService.CreateLeaveRequest(leaveRequest);
                 return RedirectToAction(nameof(Index));
             }
