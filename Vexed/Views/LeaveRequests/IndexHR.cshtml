@@ -56,8 +56,8 @@
                         @Html.DisplayFor(modelItem => item.Comments)
                 </td>
                 <td>
-                    <button class="btn btn-primary" type="submit" asp-action="IndexHR" asp-controller="LeaveRequests" asp-route-cardAction="Approved" asp-route-id="@item.Id">Approve</button> |
-                    <button class="btn btn-danger" type="submit" asp-action="IndexHR" asp-controller="LeaveRequests" asp-route-cardAction="Cancelled" asp-route-id="@item.Id">Cancel</button> |
+                    <button class="btn btn-primary" type="submit" asp-action="IndexHR" asp-controller="LeaveRequests" asp-route-statusAction="@StatusManager.HRApproval" asp-route-id="@item.Id">Approve</button> |
+                    <button class="btn btn-danger" type="submit" asp-action="IndexHR" asp-controller="LeaveRequests" asp-route-statusAction="@StatusManager.Cancelled" asp-route-id="@item.Id">Cancel</button> |
                 </td>
             </tr>
             }

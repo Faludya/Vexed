@@ -69,8 +69,8 @@
                         @Html.DisplayFor(modelItem => item.Comments)
                 </td>
                 <td>
-                    <button class="btn btn-primary" type="submit" asp-action="IndexHR" asp-controller="TimeCards" asp-route-cardAction="Approved" asp-route-id="@item.Id">@language.GetKey("Approve")</button> |
-                    <button class="btn btn-danger" type="submit" asp-action="IndexHR" asp-controller="TimeCards" asp-route-cardAction="Cancelled" asp-route-id="@item.Id">@language.GetKey("Cancel")</button> |
+                    <button class="btn btn-primary" type="submit" asp-action="IndexHR" asp-controller="TimeCards" asp-route-statusAction="@StatusManager.HRApproval" asp-route-id="@item.Id">@language.GetKey("Approve")</button> |
+                    <button class="btn btn-danger" type="submit" asp-action="IndexHR" asp-controller="TimeCards" asp-route-statusAction="@StatusManager.Cancelled" asp-route-id="@item.Id">@language.GetKey("Cancel")</button> |
                 </td>
             </tr>
             }

@@ -7,18 +7,30 @@
         public const string HRApproval = "Approved";
         public const string Cancelled = "Cancelled";
 
-        public static string SetStatus(string? status = null)
+        /// <summary>
+        /// Returns the next state of the status, taking into account its current state.
+        /// </summary>
+        public static string SetStatus(string currentState, string? status = null)
         {
-            switch(status)
+           if(currentState == null && status == null)
             {
-                default: 
-                    return Submitted;
-                case Submitted:
-                    return SuperiorApproval;
-                case SuperiorApproval:
-                    return HRApproval;
-                case Cancelled:
-                    return Cancelled;
+                return Submitted;
+            }
+           else if(currentState == Submitted && status == SuperiorApproval)
+            {
+                return SuperiorApproval;
+            }
+           else if(currentState == SuperiorApproval && status == HRApproval)
+            {
+                return HRApproval;
+            }
+           else if(status == Cancelled) 
+            {   
+                return Cancelled;
+            }
+            else
+            {
+                return currentState;
             }
         }
 
