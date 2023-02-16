@@ -79,6 +79,7 @@ namespace Vexed.Controllers
                 }
 
                 leaveRequest.UserId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+                leaveRequest.Status = StatusManager.SetStatus();
                 _leaveRequestService.CreateLeaveRequest(leaveRequest);
                 return RedirectToAction(nameof(Index));
             }

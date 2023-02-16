@@ -78,7 +78,9 @@ namespace Vexed.Controllers
                 }
 
                 timeCard.UserId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+                timeCard.Status = StatusManager.SetStatus();
                 _timeCardService.CreateTimeCard(timeCard);
+
                 return RedirectToAction(nameof(Index));
             }
             return View(timeCard);
