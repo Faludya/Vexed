@@ -39,7 +39,8 @@ namespace Vexed.Models
         [Required(ErrorMessage = "{0} is required")]
         public float Quantity { get; set; }
 
-        public string Status { get; set; } = "Awaiting approval";
+
+        public string? Status { get; set; }
         public string? Comments { get; set; }
     }
 }
