@@ -25,6 +25,12 @@ namespace Vexed.Services.Abstractions
         TimeCard GetTimeCardById(int id);
 
         /// <summary>
+        /// Returns the last created Time Card for the given <c>userId</c>.
+        /// Start date is set to the first date of the current week and the End date is set to the Friday of the current week.
+        /// </summary>
+        TimeCard GetLastTimeCard(Guid userId);
+
+        /// <summary>
         /// Returns all the Time Cards from the database.
         /// </summary>
         List<TimeCard> GetAllTimeCards();

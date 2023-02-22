@@ -213,6 +213,9 @@
   <data name="ContactInfo" xml:space="preserve">
     <value>Contact Info</value>
   </data>
+  <data name="CopyPreviousCard" xml:space="preserve">
+    <value>Copy previous card</value>
+  </data>
   <data name="Country" xml:space="preserve">
     <value>Country</value>
   </data>

@@ -10,6 +10,11 @@ namespace Vexed.Repositories.Abstractions
         TimeCard GetTimeCardById(int id);
 
         /// <summary>
+        /// Returns the last Time Card for the given <c>id</c>
+        /// </summary>
+        TimeCard GetLastTimeCard(Guid userId);
+
+        /// <summary>
         /// Returns all the Time Cards for a given user.
         /// </summary>
         List<TimeCard> GetTimeCards(Guid userId);

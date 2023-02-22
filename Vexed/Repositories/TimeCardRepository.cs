@@ -10,6 +10,11 @@ namespace Vexed.Repositories
         {
         }
 
+        public TimeCard GetLastTimeCard(Guid userId)
+        {
+            return _vexedDbContext.TimeCards.Where(u => u.UserId == userId).OrderByDescending(u => u.EndDate).First();
+        }
+
         public TimeCard GetTimeCardById(int id)
         {
             return _vexedDbContext.TimeCards.Where(t => t.Id == id).First();

@@ -9,10 +9,18 @@
 
 <body>
     <div class="login-form-small col-md-4 justify-content-center">
-        <h4>@language.GetKey("TimeCard")</h4>
-        <hr />
         <div class="text-left p-3">
             <form asp-action="Create">
+                <div class="form-group row">
+                    <div class="col-4">
+                        <h4>@language.GetKey("TimeCard")</h4>
+                    </div>
+                    <div class="col-8">
+                        <a class="btn btn-outline-secondary" asp-action="Create" asp-route-copyCard="copyPreviousCard" style="float: right;">@language.GetKey("CopyPreviousCard")</a>  
+                    </div>
+                </div>
+                <hr />
+
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
                 <div class="form-group row my-3">

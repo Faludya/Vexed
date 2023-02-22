@@ -213,6 +213,9 @@
   <data name="ContactInfo" xml:space="preserve">
     <value>Informații Contact</value>
   </data>
+  <data name="CopyPreviousCard" xml:space="preserve">
+    <value>Copiați pontajul anterior</value>
+  </data>
   <data name="Country" xml:space="preserve">
     <value>Țara</value>
   </data>
