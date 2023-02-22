@@ -65,7 +65,7 @@ namespace Vexed.Controllers
                 return NotFound();
             }
 
-            return RedirectToAction(nameof(IndexHR));
+            return RedirectToAction(nameof(IndexSuperior));
         }
 
         public IActionResult Details(int id)
