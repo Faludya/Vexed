@@ -46,6 +46,27 @@ namespace Vexed.Controllers
             return RedirectToAction(nameof(IndexHR));
         }
 
+        public IActionResult IndexSuperior()
+        {
+            var superiorId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            return View(_timeCardService.GetTimeCardsForSuperior(superiorId));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult IndexSuperior(string statusAction, int id)
+        {
+            var timeCard = _timeCardService.GetTimeCardById(id);
+            timeCard.Status = StatusManager.SetStatus(timeCard.Status, statusAction);
+            _timeCardService.UpdateTimeCard(timeCard);
+
+            if (timeCard == null)
+            {
+                return NotFound();
+            }
+
+            return RedirectToAction(nameof(IndexSuperior));
+        }
         public IActionResult Details(int id)
         {
             var timeCard = _timeCardService.GetTimeCardById(id);
@@ -100,7 +121,7 @@ namespace Vexed.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, [Bind("Id,UserId,ProjectCode,TaskDetails,Location,StartDate,EndDate,Quantity,Status,Comments")] TimeCard timeCard)
+        public IActionResult Edit(int id, [Bind("Id,UserId, SuperiorId, ProjectCode,TaskDetails,Location,StartDate,EndDate,Quantity,Status,Comments")] TimeCard timeCard)
         {
             if (id != timeCard.Id)
             {

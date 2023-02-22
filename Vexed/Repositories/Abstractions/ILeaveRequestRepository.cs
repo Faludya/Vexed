@@ -13,5 +13,10 @@ namespace Vexed.Repositories.Abstractions
         /// Returns all the Leave Requests for a given user.
         /// </summary>
         List<LeaveRequest> GetLeaveRequests(Guid userId);
+
+        /// <summary>
+        /// Returns all the Leave Requests for a given superior.
+        /// </summary>
+        List<LeaveRequest> GetLeaveRequestsSuperior(Guid superiorId);
     }
 }

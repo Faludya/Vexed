@@ -46,6 +46,28 @@ namespace Vexed.Controllers
             return RedirectToAction(nameof(IndexHR));
         }
 
+        public IActionResult IndexSuperior()
+        {
+            var superiorId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            return View(_leaveRequestService.GetLeaveRequestsForSuperior(superiorId));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult IndexSuperior(string statusAction, int id)
+        {
+            var leave = _leaveRequestService.GetLeaveRequestById(id);
+            leave.Status = StatusManager.SetStatus(leave.Status, statusAction);
+            _leaveRequestService.UpdateLeaveRequest(leave);
+
+            if (leave == null)
+            {
+                return NotFound();
+            }
+
+            return RedirectToAction(nameof(IndexHR));
+        }
+
         public IActionResult Details(int id)
         {
             var leaveRequest = _leaveRequestService.GetLeaveRequestById(id);
@@ -100,7 +122,7 @@ namespace Vexed.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, [Bind("Id,UserId,Type,StartDate,EndDate,Quantity,Status,Comments")] LeaveRequest leaveRequest)
+        public IActionResult Edit(int id, [Bind("Id,UserId, SuperiorId, Type,StartDate,EndDate,Quantity,Status,Comments")] LeaveRequest leaveRequest)
         {
             if (id != leaveRequest.Id)
             {

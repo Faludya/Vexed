@@ -16,7 +16,7 @@
             <h3>📅 @language.GetKey("LeaveRequest")</h3>
         </div>
         <div class="menu-text">
-            <a class="btn btn-light" asp-controller="LeaveRequests" asp-action="Index">@language.GetKey("Create")</a>
+            <a class="btn btn-light" asp-controller="LeaveRequests" asp-action="Index">@language.GetKey("View")</a>
         </div>
     </article>
 
@@ -25,7 +25,7 @@
             <h3>📒 @language.GetKey("ContactInfo")</h3>
         </div>
         <div class="menu-text">
-            <a class="btn btn-light" asp-controller="ContactInfoes" asp-action="Index">@language.GetKey("Create")</a>
+            <a class="btn btn-light" asp-controller="ContactInfoes" asp-action="Index">@language.GetKey("View")</a>
         </div>
     </article>
 
@@ -34,7 +34,7 @@
             <h3>🛡️ @language.GetKey("EmergencyContact")</h3>
         </div>
         <div class="menu-text">
-            <a class="btn btn-light" asp-controller="EmergencyContacts" asp-action="Index">@language.GetKey("Create")</a>
+            <a class="btn btn-light" asp-controller="EmergencyContacts" asp-action="Index">@language.GetKey("View")</a>
         </div>
     </article>
 
@@ -43,7 +43,7 @@
             <h3>📇 @language.GetKey("Details")</h3>
         </div>
         <div class="menu-text">
-            <a class="btn btn-light" asp-controller="UserDetails" asp-action="Index">@language.GetKey("Create")</a>
+            <a class="btn btn-light" asp-controller="UserDetails" asp-action="Index">@language.GetKey("View")</a>
         </div>
     </article>
 
@@ -52,7 +52,7 @@
             <h3>🏬 @language.GetKey("Employment")</h3>
         </div>
         <div class="menu-text">
-            <a class="btn btn-light" asp-controller="UserEmployments" asp-action="Index">@language.GetKey("Create")</a>
+            <a class="btn btn-light" asp-controller="UserEmployments" asp-action="Index">@language.GetKey("View")</a>
         </div>
     </article>
 
@@ -62,6 +62,7 @@
 @if (User.IsInRole("HumanResources"))
 {
     <hr />
+    <h3>Human Resources</h3>
     <section class="menu-body grid">
 
         <article>
@@ -69,7 +70,7 @@
                 <h3>🕔 @language.GetKey("ApproveCards")</h3>
             </div>
             <div class="menu-text">
-                <a class="btn btn-light" asp-controller="TimeCards" asp-action="IndexHR">@language.GetKey("Create")</a>
+                <a class="btn btn-light" asp-controller="TimeCards" asp-action="IndexHR">@language.GetKey("View")</a>
             </div>
         </article>
 
@@ -78,7 +79,33 @@
                 <h3>📅  @language.GetKey("ApproveLeaves")</h3>
             </div>
             <div class="menu-text">
-                <a class="btn btn-light" asp-controller="LeaveRequests" asp-action="IndexHR">@language.GetKey("Create")</a>
+                <a class="btn btn-light" asp-controller="LeaveRequests" asp-action="IndexHR">@language.GetKey("View")</a>
+            </div>
+        </article>
+    </section>
+}
+
+@if (User.IsInRole("ProjectManager"))
+{
+    <hr />
+    <h3>Superior</h3>
+    <section class="menu-body grid">
+
+        <article>
+            <div class="menu-text">
+                <h3>🕔 @language.GetKey("ApproveCards")</h3>
+            </div>
+            <div class="menu-text">
+                <a class="btn btn-light" asp-controller="TimeCards" asp-action="IndexSuperior">@language.GetKey("View")</a>
+            </div>
+        </article>
+
+        <article>
+            <div class="menu-text">
+                <h3>📅  @language.GetKey("ApproveLeaves")</h3>
+            </div>
+            <div class="menu-text">
+                <a class="btn btn-light" asp-controller="LeaveRequests" asp-action="IndexSuperior">@language.GetKey("View")</a>
             </div>
         </article>
     </section>

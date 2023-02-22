@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Vexed.Data;
 
@@ -11,9 +12,10 @@ using Vexed.Data;
 namespace Vexed.Migrations
 {
     [DbContext(typeof(VexedDbContext))]
-    partial class VexedDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230222075319_AddedSuperiorToTimeCard")]
+    partial class AddedSuperiorToTimeCard
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -314,9 +316,6 @@ namespace Vexed.Migrations
                     b.Property<string>("Status")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("SuperiorId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("Type")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -458,9 +457,6 @@ namespace Vexed.Migrations
                     b.Property<string>("Location")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("SuperiorId")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("SuperiorName")
                         .IsRequired()

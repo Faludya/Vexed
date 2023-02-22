@@ -15,6 +15,8 @@ namespace Vexed.Services
 
         public void CreateLeaveRequest(LeaveRequest leaveRequest)
         {
+            leaveRequest.SuperiorId = _repositoryWrapper.UserRepository.GetUserSuperior(leaveRequest.UserId);
+
             _repositoryWrapper.LeaveRequestRepository.Create(leaveRequest);
             _repositoryWrapper.Save();
         }
@@ -66,6 +68,11 @@ namespace Vexed.Services
             (leaveTypes[0], leaveTypes[posSelected]) = (leaveTypes[posSelected], leaveTypes[0]);
 
             return leaveTypes;
+        }
+
+        public List<LeaveRequest> GetLeaveRequestsForSuperior(Guid superiorId)
+        {
+            return _repositoryWrapper.LeaveRequestRepository.GetLeaveRequestsSuperior(superiorId);
         }
     }
 }

@@ -35,6 +35,11 @@ namespace Vexed.Services.Abstractions
         List<LeaveRequest> GetLeaveRequests(Guid userId);
 
         /// <summary>
+        /// Returns all the Leave Requests for a given superior.
+        /// </summary>
+        List<LeaveRequest> GetLeaveRequestsForSuperior(Guid superiorId);
+
+        /// <summary>
         /// Method <c>GetLeaveTypes</c> returns a list of all Leave types.
         /// </summary>
         List<string> GetLeaveTypes();
