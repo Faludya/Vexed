@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33110.190
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vexed", "Vexed\Vexed.csproj", "{C747BC0B-6FD3-4F6C-B74A-C981B9626122}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vexed", "Vexed\Vexed.csproj", "{C747BC0B-6FD3-4F6C-B74A-C981B9626122}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestSuite", "TestSuite\TestSuite.csproj", "{C9678D88-3BBF-4D53-AEF4-94A027F9BDE4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{C747BC0B-6FD3-4F6C-B74A-C981B9626122}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C747BC0B-6FD3-4F6C-B74A-C981B9626122}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C747BC0B-6FD3-4F6C-B74A-C981B9626122}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C9678D88-3BBF-4D53-AEF4-94A027F9BDE4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9678D88-3BBF-4D53-AEF4-94A027F9BDE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C9678D88-3BBF-4D53-AEF4-94A027F9BDE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C9678D88-3BBF-4D53-AEF4-94A027F9BDE4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
