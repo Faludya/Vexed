@@ -34,5 +34,9 @@
             }
         }
 
+        public static string ResetStatus()
+        {
+            return Submitted;
+        }
     }
 }

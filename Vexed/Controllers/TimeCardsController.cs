@@ -78,8 +78,17 @@ namespace Vexed.Controllers
             return View(timeCard);
         }
 
-        public IActionResult Create()
+        public IActionResult Create(string? copyCard)
         {
+            if(copyCard != null)
+            {
+                //TODO: 
+                var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+                var previousCard = _timeCardService.GetLastTimeCard(userId);
+                ViewData["LocationTypes"] = new SelectList(_timeCardService.GetLocationTypes(previousCard.Location));
+
+                return View(previousCard);
+            }
             ViewData["LocationTypes"] = new SelectList(_timeCardService.GetLocationTypes());
             return View();
         }
@@ -99,11 +108,11 @@ namespace Vexed.Controllers
                 }
 
                 timeCard.UserId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-                timeCard.Status = StatusManager.SetStatus(timeCard.Status);
                 _timeCardService.CreateTimeCard(timeCard);
 
                 return RedirectToAction(nameof(Index));
             }
+ 
             return View(timeCard);
         }
 

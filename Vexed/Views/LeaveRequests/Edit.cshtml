@@ -17,6 +17,7 @@
                 <input type="hidden" asp-for="Id" />
                 <input type="hidden" asp-for="UserId" />
                 <input type="hidden" asp-for="SuperiorId" />
+                <input type="hidden" asp-for="Status" />
 
                 <div class="form-group row my-3">
                     <div class="col-4 my-2">
@@ -69,7 +70,7 @@
                         <b>@language.GetKey("Status"):</b>
                     </div>
                     <div class="col-8">
-                        <input asp-for="Status" class="form-control" />
+                        <input asp-for="Status" class="form-control" disabled/>
                         <span asp-validation-for="Status" class="text-danger"></span>
                     </div>
                 </div>
