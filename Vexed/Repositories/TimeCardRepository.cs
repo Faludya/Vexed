@@ -19,5 +19,10 @@ namespace Vexed.Repositories
         {
             return _vexedDbContext.TimeCards.Where(t => t.UserId == userId).ToList();
         }
+
+        public List<TimeCard> GetTimeCardsSuperior(Guid superiorId)
+        {
+            return _vexedDbContext.TimeCards.Where(t => t.SuperiorId == superiorId).ToList();
+        }
     }
 }

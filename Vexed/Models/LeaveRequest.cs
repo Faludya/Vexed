@@ -8,6 +8,7 @@ namespace Vexed.Models
         [Key]
         public int Id { get; set; }
         public Guid UserId { get; set; }
+        public Guid SuperiorId { get; set; }
 
 
         [Required(ErrorMessage = "{0} is required")]

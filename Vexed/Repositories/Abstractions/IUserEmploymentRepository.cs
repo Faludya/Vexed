@@ -18,5 +18,9 @@ namespace Vexed.Repositories.Abstractions
         /// Returns all the User Employment for a given user.
         /// </summary>
         List<UserEmployment> GetUserEmployments(Guid userId);
+
+        /// <summary>
+        /// Returns the first User Employment with the given <c>userId</c>
+        /// </summary>
     }
 }

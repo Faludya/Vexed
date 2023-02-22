@@ -1,0 +1,79 @@
+﻿@using Vexed.Services;
+@inject LanguageService language
+@model IEnumerable<Vexed.Models.TimeCard>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>@language.GetKey("ApproveCards")</h1>
+
+
+<table class="table table-striped">
+    <form method="post">
+    <thead>
+        <tr>
+            <th>
+                    @language.GetKey("ProjectCode")
+            </th>
+            <th>
+                    @language.GetKey("TaskDetails")
+            </th>
+            <th>
+                    @language.GetKey("Location")
+            </th>
+            <th>
+                    @language.GetKey("StartDate")
+            </th>
+            <th>
+                    @language.GetKey("EndDate")
+            </th>
+            <th>
+                    @language.GetKey("Quantity")
+            </th>
+            <th>
+                    @language.GetKey("Status")
+            </th>
+            <th>
+                    @language.GetKey("Comments")
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>
+                        @Html.DisplayFor(modelItem => item.ProjectCode)
+                </td>
+                <td>
+                        @Html.DisplayFor(modelItem => item.TaskDetails)
+                </td>
+                <td>
+                        @Html.DisplayFor(modelItem => item.Location)
+                </td>
+                <td>
+                        @Html.DisplayFor(modelItem => item.StartDate)
+                </td>
+                <td>
+                        @Html.DisplayFor(modelItem => item.EndDate)
+                </td>
+                <td>
+                        @Html.DisplayFor(modelItem => item.Quantity)
+                </td>
+                <td>
+                        @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                        @Html.DisplayFor(modelItem => item.Comments)
+                </td>
+                <td>
+                    <button class="btn btn-primary" type="submit" asp-action="IndexSuperior" asp-controller="TimeCards" asp-route-statusAction="@StatusManager.SuperiorApproval" asp-route-id="@item.Id">@language.GetKey("Approve")</button> |
+                    <button class="btn btn-danger" type="submit" asp-action="IndexSuperior" asp-controller="TimeCards" asp-route-statusAction="@StatusManager.Cancelled" asp-route-id="@item.Id">@language.GetKey("Cancel")</button> |
+                </td>
+            </tr>
+            }
+        </form>
+    </tbody>
+</table>

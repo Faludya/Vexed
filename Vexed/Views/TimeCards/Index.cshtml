@@ -84,9 +84,16 @@
                                 <a class="text-dark" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
                                     <i class='bx bx-dots-horizontal-rounded'></i>
                                     <div class="dropdown-menu">
-                                        <a class="dropdown-item text-dark" asp-action="Edit" asp-route-id="@item.Id">
-                                            <i class='bx bxs-edit-alt'></i> @language.GetKey("Edit")
-                                        </a>
+                                        @if(item.Status != StatusManager.Submitted){
+                                            <a class="dropdown-item text-dark btn disabled">
+                                                <i class='bx bxs-edit-alt'></i> @language.GetKey("Edit")
+                                            </a>
+                                        }
+                                        else{
+                                            <a class="dropdown-item text-dark" asp-action="Edit" asp-route-id="@item.Id">
+                                                <i class='bx bxs-edit-alt'></i> @language.GetKey("Edit")
+                                            </a>
+                                        }
                                         <a class="dropdown-item" asp-action="Details" asp-route-id="@item.Id">
                                             <i class='bx bxs-detail'></i> @language.GetKey("Details")
                                         </a>

@@ -13,5 +13,10 @@ namespace Vexed.Repositories.Abstractions
         /// Returns all the Time Cards for a given user.
         /// </summary>
         List<TimeCard> GetTimeCards(Guid userId);
+
+        /// <summary>
+        /// Returns all the Time Cards for a given superior.
+        /// </summary>
+        List<TimeCard> GetTimeCardsSuperior(Guid superiorId);
     }
 }

@@ -15,6 +15,8 @@ namespace Vexed.Services
 
         public void CreateTimeCard(TimeCard timeCard)
         {
+            timeCard.SuperiorId = _repositoryWrapper.UserRepository.GetUserSuperior(timeCard.UserId);
+            
             _repositoryWrapper.TimeCardRepository.Create(timeCard);
             _repositoryWrapper.Save();
         }
@@ -66,6 +68,11 @@ namespace Vexed.Services
             (locationTypes[0], locationTypes[posSelected]) = (locationTypes[posSelected], locationTypes[0]);
 
             return locationTypes;
+        }
+
+        public List<TimeCard> GetTimeCardsForSuperior(Guid superiorId)
+        {
+            return _repositoryWrapper.TimeCardRepository.GetTimeCardsSuperior(superiorId);
         }
     }
 }
