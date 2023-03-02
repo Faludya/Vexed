@@ -13,8 +13,8 @@
     <div class="login-form table-responsive">
         <form>
             <p>Sample text</p>
-            <div class="content"></div>
-            <table class="table table-striped table-hover content" style="overflow:hidden;">
+            <div class="content table-responsive"></div>
+            <table id="dtBasicExample" class="table table-striped table-hover content" style="overflow:hidden;">
                 <thead class="table-dark">
                     <tr>
                         <th>
@@ -124,6 +124,18 @@
 </body>
 
 @section scripts {
+@*    <script>
+        $(document).ready(function(){
+            $("#p_table").DataTable();
+        });
+    </script>*@
+    <script>
+        $(document).ready(function () {
+            $('#dtBasicExample').DataTable();
+            $('.dataTables_length').addClass('bs-select');
+        });
+    </script>
+
     <script>
         var statusManager = {
             Submitted: '@StatusManager.Submitted',
