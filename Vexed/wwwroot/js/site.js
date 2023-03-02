@@ -36,3 +36,8 @@
 
     // Your code to run since DOM is loaded and ready
 });
+
+$(document).ready(function () {
+    $('#paginated_table').DataTable();
+    //$('.dataTables_length').addClass('bs-select');
+});

@@ -13,7 +13,9 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Vexed.styles.css" asp-append-version="true" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins" rel="stylesheet">
+
     <link href="https://cdn.datatables.net/1.13.3/css/jquery.dataTables.min.css" rel="stylesheet">
+
 </head>
 <body>
     @if (!SignInManager.IsSignedIn(User))
@@ -69,10 +71,9 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
 
-    <script src="//code.jquery.com/jquery.min.js"></script>
 
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://cdn.datatables.net/1.13.3/js/jquery.dataTables.min.js"></script>
-
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>
