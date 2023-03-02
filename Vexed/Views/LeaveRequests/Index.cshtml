@@ -61,7 +61,7 @@
                             <td>
                                 @Html.DisplayFor(modelItem => item.Quantity)
                             </td>
-                            <td>
+                            <td id="status-@item.Id">
                                 @Html.DisplayFor(modelItem => item.Status)
                             </td>
                             <td>
@@ -107,3 +107,15 @@
         </form>
     </div>
 </body>
+
+@section scripts {
+    <script>
+        var statusManager = {
+            Submitted: '@StatusManager.Submitted',
+            SuperiorApproval: '@StatusManager.SuperiorApproval',
+            HRApproval: '@StatusManager.HRApproval',
+            Cancelled: '@StatusManager.Cancelled'
+        };
+    </script>
+    <script src="~/js/status.js"></script>
+}
