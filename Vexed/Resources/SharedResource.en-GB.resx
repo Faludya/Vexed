@@ -324,6 +324,9 @@
   <data name="Login" xml:space="preserve">
     <value>Login</value>
   </data>
+  <data name="ManageUsers" xml:space="preserve">
+    <value>Manage users</value>
+  </data>
   <data name="Nationality" xml:space="preserve">
     <value>Nationality</value>
   </data>

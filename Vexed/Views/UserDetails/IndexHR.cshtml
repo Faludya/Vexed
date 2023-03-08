@@ -13,7 +13,7 @@
         <form>
             <p>Sample text</p>
             <div class="content"></div>
-            <table class="table table-striped table-hover content">
+            <table id="paginated_table" class="table table-striped table-hover content" style="overflow:hidden;">
                 <thead class="table-dark">
                     <tr>
                         <th>
@@ -29,33 +29,14 @@
                             @language.GetKey("PreferredName")
                         </th>
                         <th>
-                            <i class='bx bx-male-female'></i>
-                            @language.GetKey("Gender")
-                        </th>
-                        <th>
-                            <i class='bx bx-calendar-event'></i>
-                            @language.GetKey("DateOfBirth")
-                        </th>
-                        <th>
-                            <i class='bx bx-group'></i>
-                            @language.GetKey("Nationality")
+                            <i class='bx bxs-city'></i>
+                            @language.GetKey("City")
                         </th>
                         <th>
                             <i class='bx bx-globe'></i>
                             @language.GetKey("Country")
                         </th>
-                        <th>
-                            <i class='bx bxs-city'></i>
-                            @language.GetKey("City")
-                        </th>
-                        <th>
-                            <i class='bx bx-home'></i>
-                            @language.GetKey("Address")
-                        </th>
-                        <th>
-                            <i class='bx bx-info-circle'></i>
-                            @language.GetKey("AdditionalInfo")
-                        </th>
+
                         <th>
                             <a class="btn btn-outline-secondary text-white" asp-action="Create">@language.GetKey("Create")</a>
                         </th>
@@ -75,26 +56,12 @@
                                 @Html.DisplayFor(modelItem => item.PreferredLastName)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.Gender)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.DateOfBirth)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Nationality)
+                                @Html.DisplayFor(modelItem => item.City)
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.Country)
                             </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.City)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Address)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.AdditionalInformation)
-                            </td>
+
                             <td>
                                 <a class="text-dark" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
                                     <i class='bx bx-dots-horizontal-rounded'></i>

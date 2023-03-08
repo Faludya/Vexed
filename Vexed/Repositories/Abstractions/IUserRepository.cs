@@ -9,5 +9,10 @@ namespace Vexed.Repositories.Abstractions
         /// Returns the Guid of the superior for the given user.
         /// </summary>
         Guid GetUserSuperior(Guid userId);
+
+        /// <summary>
+        /// Returns the usernames of all the users
+        /// </summary>
+        List<string> GetUserUsernames();
     }
 }

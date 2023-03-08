@@ -1,6 +1,8 @@
 ﻿using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Vexed.Models;
 using Vexed.Services.Abstractions;
@@ -11,19 +13,21 @@ namespace Vexed.Controllers
     public class UserDetailsController : Controller
     {
         private readonly IUserDetailsService _userDetailsService;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public UserDetailsController(IUserDetailsService userDetailsService)
+        public UserDetailsController(IUserDetailsService userDetailsService, UserManager<IdentityUser> userManager)
         {
             _userDetailsService= userDetailsService;
+            _userManager = userManager;
         }
 
-        public IActionResult Index()
+        [Authorize(Roles = "HumanResources")]
+        public IActionResult IndexHR()
         {
-            var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            return View(_userDetailsService.GetUsersDetails(userId));
+            //var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            return View(_userDetailsService.GetAllUsersDetails());
         }
 
-        [Authorize(Roles = "Employee")]
         public IActionResult Details(int? id)
         {
             if(id == null)
@@ -45,6 +49,8 @@ namespace Vexed.Controllers
 
         public IActionResult Create()
         {
+            ViewData["Usernames"] = new SelectList(_userManager.Users.Select(u => u.UserName).ToList());
+
             return View();
         }
 

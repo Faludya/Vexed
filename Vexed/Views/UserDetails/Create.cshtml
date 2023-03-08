@@ -17,6 +17,17 @@
 
                 <div class="form-group row my-3">
                     <div class="col-4 my-2">
+                        <i class='bx bx-map'></i>
+                        <b>@language.GetKey("Username"):</b>
+                    </div>
+                    <div class="col-8">
+                        <select class="form-control" asp-items="ViewBag.Usernames"></select>
+                        <span class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group row my-3">
+                    <div class="col-4 my-2">
                         <i class='bx bx-user'></i>
                         <b>@language.GetKey("FirstName"):</b>
                     </div>
@@ -127,7 +138,7 @@
 
                 <div class="form-group row my-4">
                     <div class="col-4 my-2">
-                        <a asp-action="Index">@language.GetKey("BackToList")</a>
+                        <a asp-action="IndexHR">@language.GetKey("BackToList")</a>
                     </div>
                     <div class="col-8">
                         <input type="submit" value="@language.GetKey("Create")" class="btn btn-primary" />
@@ -140,5 +151,7 @@
 </body>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
