@@ -5,54 +5,72 @@
 @{
     ViewData["Title"] = "Edit";
 }
-<link rel="stylesheet" href="~/css/index.css" asp-append-version="true" />
 
-<body>
-    <div class="login-form-small col-md-4 justify-content-center">
-        <h4>@language.GetKey("ContactInfo")</h4>
-        <hr />
-        <div class="text-left p-3">
-            <form asp-action="Edit">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <input type="hidden" asp-for="Id" />
-                <input type="hidden" asp-for="UserId" />
+<div class="row page-titles mx-0">
+    <div class="col-sm-6 p-md-0">
+        <div class="welcome-text">
+            <h4>@language.GetKey("Edit")</h4>
+            <span class="ml-1"> Edit contact info </span>
+        </div>
+    </div>
+</div>
 
-                <div class="form-group row my-3">
-                    <div class="col-4 my-2">
-                        <i class='bx bxs-category'></i>
-                        <b>@language.GetKey("Type"):</b>
-                    </div>
-                    <div class="col-8">
-                        <select asp-for="Type" class="form-control" asp-items="ViewBag.ContactTypes"></select>
-                        <span asp-validation-for="Type" class="text-danger"></span>
+<body class="vh-10">
+    <div class="container py-5 h-10">
+        <div class="row d-flex justify-content-center align-items-center h-10">
+            <div class="col-md-8 col-lg-8">
+                <div class="card shadow-2-strong" style="border-radius: 1rem;">
+                    <div class="card-body text-center">
+                        <h4>@language.GetKey("ContactInfo")</h4>
+                        <hr />
+                        <div class="text-left p-3 text-dark">
+                            <form asp-action="Edit">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <input type="hidden" asp-for="Id" />
+                                <input type="hidden" asp-for="UserId" />
+
+                                <div class="form-group row my-3">
+                                    <div class="col-4 my-2">
+                                        <i class='bx bxs-category'></i>
+                                        <b>@language.GetKey("Type"):</b>
+                                    </div>
+                                    <div class="col-8">
+                                        <select asp-for="Type" class="form-control" asp-items="ViewBag.ContactTypes"></select>
+                                        <span asp-validation-for="Type" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row my-3">
+                                    <div class="col-4 my-2">
+                                        <i class='bx bxs-book-content'></i>
+                                        <b>@language.GetKey("Contact"):</b>
+                                    </div>
+                                    <div class="col-8">
+                                        <input asp-for="Contact" class="form-control" />
+                                        <span asp-validation-for="Contact" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row my-4">
+                                    <div class="col-4">
+                                        <a class="btn btn-outline-dark" asp-action="Index">@language.GetKey("BackToList")</a>
+                                    </div>
+                                    <div class="col-8">
+                                        <input type="submit" value="@language.GetKey("Save")" class="btn btn-primary" />
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
-
-                <div class="form-group row my-3">
-                    <div class="col-4 my-2">
-                        <i class='bx bxs-book-content'></i>
-                        <b>@language.GetKey("Contact"):</b>
-                    </div>
-                    <div class="col-8">
-                        <input asp-for="Contact" class="form-control" />
-                        <span asp-validation-for="Contact" class="text-danger"></span>
-                    </div>
-                </div>
-
-                <div class="form-group row my-4">
-                    <div class="col-4 my-2">
-                        <a asp-action="Index">@language.GetKey("BackToList")</a>
-                    </div>
-                    <div class="col-8">
-                        <input type="submit" value="@language.GetKey("Save")" class="btn btn-primary" />
-                    </div>
-                </div>
-            </form>
+            </div>
         </div>
 
     </div>
 </body>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
