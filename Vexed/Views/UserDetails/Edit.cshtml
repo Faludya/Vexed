@@ -6,142 +6,159 @@
     ViewData["Title"] = "Edit";
 }
 
-<link rel="stylesheet" href="~/css/index.css" asp-append-version="true" />
-
-<body>
-    <div class="login-form-small col-md-4 justify-content-center">
-        <h4>@language.GetKey("UserDetails")</h4>
-        <hr />
-        <div class="text-left p-3">
-            <form asp-action="Edit">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <input type="hidden" asp-for="Id" />
-                <input type="hidden" asp-for="UserId" />
-
-                <div class="form-group row my-3">
-                    <div class="col-4 my-2">
-                        <i class='bx bx-user'></i>
-                        <b>@language.GetKey("FirstName"):</b>
-                    </div>
-                    <div class="col-8">
-                        <input asp-for="FirstName" class="form-control" />
-                        <span asp-validation-for="FirstName" class="text-danger"></span>
-                    </div>
-                </div>
-
-                <div class="form-group row my-3">
-                    <div class="col-4 my-2">
-                        <i class='bx bx-user'></i>
-                        <b>@language.GetKey("LastName"):</b>
-                    </div>
-                    <div class="col-8">
-                        <input asp-for="LastName" class="form-control" />
-                        <span asp-validation-for="LastName" class="text-danger"></span>
-                    </div>
-                </div>
-
-                <div class="form-group row my-3">
-                    <div class="col-4 my-2">
-                        <i class='bx bx-user'></i>
-                        <b>@language.GetKey("PreferredName"):</b>
-                    </div>
-                    <div class="col-8">
-                        <input asp-for="PreferredLastName" class="form-control" />
-                        <span asp-validation-for="PreferredLastName" class="text-danger"></span>
-                    </div>
-                </div>
-
-                <div class="form-group row my-3">
-                    <div class="col-4 my-2">
-                        <i class='bx bx-male-female'></i>
-                        <b>@language.GetKey("Gender"):</b>
-                    </div>
-                    <div class="col-8">
-                        <input asp-for="Gender" class="form-control" />
-                        <span asp-validation-for="Gender" class="text-danger"></span>
-                    </div>
-                </div>
-
-                <div class="form-group row my-3">
-                    <div class="col-4 my-2">
-                        <i class='bx bx-calendar-event'></i>
-                        <b>@language.GetKey("DateOfBirth"):</b>
-                    </div>
-                    <div class="col-8">
-                        <input asp-for="DateOfBirth" class="form-control" />
-                        <span asp-validation-for="DateOfBirth" class="text-danger"></span>
-                    </div>
-                </div>
-
-                <div class="form-group row my-3">
-                    <div class="col-4 my-2">
-                        <i class='bx bx-group'></i>
-                        <b>@language.GetKey("Nationality"):</b>
-                    </div>
-                    <div class="col-8">
-                        <input asp-for="Nationality" class="form-control" />
-                        <span asp-validation-for="Nationality" class="text-danger"></span>
-                    </div>
-                </div>
-
-                <div class="form-group row my-3">
-                    <div class="col-4 my-2">
-                        <i class='bx bx-globe'></i>
-                        <b>@language.GetKey("Contry"):</b>
-                    </div>
-                    <div class="col-8">
-                        <input asp-for="Country" class="form-control" />
-                        <span asp-validation-for="Country" class="text-danger"></span>
-                    </div>
-                </div>
-
-                <div class="form-group row my-3">
-                    <div class="col-4 my-2">
-                        <i class='bx bxs-city'></i>
-                        <b>@language.GetKey("City"):</b>
-                    </div>
-                    <div class="col-8">
-                        <input asp-for="City" class="form-control" />
-                        <span asp-validation-for="City" class="text-danger"></span>
-                    </div>
-                </div>
-
-                <div class="form-group row my-3">
-                    <div class="col-4 my-2">
-                        <i class='bx bx-home'></i>
-                        <b>@language.GetKey("Address"):</b>
-                    </div>
-                    <div class="col-8">
-                        <input asp-for="Address" class="form-control" />
-                        <span asp-validation-for="Address" class="text-danger"></span>
-                    </div>
-                </div>
-
-                <div class="form-group row my-3">
-                    <div class="col-4 my-2">
-                        <i class='bx bx-info-circle'></i>
-                        <b>@language.GetKey("AdditionalInfo"):</b>
-                    </div>
-                    <div class="col-8">
-                        <input asp-for="AdditionalInformation" class="form-control" />
-                        <span asp-validation-for="AdditionalInformation" class="text-danger"></span>
-                    </div>
-                </div>
-
-                <div class="form-group row my-4">
-                    <div class="col-4 my-2">
-                        <a asp-action="Index">@language.GetKey("BackToList")</a>
-                    </div>
-                    <div class="col-8">
-                        <input type="submit" value="@language.GetKey("Save")" class="btn btn-primary" />
-                    </div>
-                </div>
-            </form>
+<div class="row page-titles mx-0">
+    <div class="col-sm-6 p-md-0">
+        <div class="welcome-text">
+            <h4>@language.GetKey("Edit")</h4>
+            <span class="ml-1"> Edit user details</span>
         </div>
+    </div>
+</div>
 
+<body class="vh-10">
+    <div class="container py-5 h-10">
+        <div class="row d-flex justify-content-center align-items-center h-10">
+            <div class="col-md-8 col-lg-8">
+                <div class="card shadow-2-strong" style="border-radius: 1rem;">
+                    <div class="card-body text-center">
+                        <h4>@language.GetKey("UserDetails")</h4>
+                        <hr />
+                        <div class="text-left p-3 text-dark">
+                            <form asp-action="Edit">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <input type="hidden" asp-for="Id" />
+                                <input type="hidden" asp-for="UserId" />
+
+                                <div class="form-group row my-3">
+                                    <div class="col-4 my-2">
+                                        <i class='bx bx-user'></i>
+                                        <b>@language.GetKey("FirstName"):</b>
+                                    </div>
+                                    <div class="col-8">
+                                        <input asp-for="FirstName" class="form-control" />
+                                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row my-3">
+                                    <div class="col-4 my-2">
+                                        <i class='bx bx-user'></i>
+                                        <b>@language.GetKey("LastName"):</b>
+                                    </div>
+                                    <div class="col-8">
+                                        <input asp-for="LastName" class="form-control" />
+                                        <span asp-validation-for="LastName" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row my-3">
+                                    <div class="col-4 my-2">
+                                        <i class='bx bx-user'></i>
+                                        <b>@language.GetKey("PreferredName"):</b>
+                                    </div>
+                                    <div class="col-8">
+                                        <input asp-for="PreferredLastName" class="form-control" />
+                                        <span asp-validation-for="PreferredLastName" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row my-3">
+                                    <div class="col-4 my-2">
+                                        <i class='bx bx-male-female'></i>
+                                        <b>@language.GetKey("Gender"):</b>
+                                    </div>
+                                    <div class="col-8">
+                                        <input asp-for="Gender" class="form-control" />
+                                        <span asp-validation-for="Gender" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row my-3">
+                                    <div class="col-4 my-2">
+                                        <i class='bx bx-calendar-event'></i>
+                                        <b>@language.GetKey("DateOfBirth"):</b>
+                                    </div>
+                                    <div class="col-8">
+                                        <input asp-for="DateOfBirth" class="form-control" />
+                                        <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row my-3">
+                                    <div class="col-4 my-2">
+                                        <i class='bx bx-group'></i>
+                                        <b>@language.GetKey("Nationality"):</b>
+                                    </div>
+                                    <div class="col-8">
+                                        <input asp-for="Nationality" class="form-control" />
+                                        <span asp-validation-for="Nationality" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row my-3">
+                                    <div class="col-4 my-2">
+                                        <i class='bx bx-globe'></i>
+                                        <b>@language.GetKey("Contry"):</b>
+                                    </div>
+                                    <div class="col-8">
+                                        <input asp-for="Country" class="form-control" />
+                                        <span asp-validation-for="Country" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row my-3">
+                                    <div class="col-4 my-2">
+                                        <i class='bx bxs-city'></i>
+                                        <b>@language.GetKey("City"):</b>
+                                    </div>
+                                    <div class="col-8">
+                                        <input asp-for="City" class="form-control" />
+                                        <span asp-validation-for="City" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row my-3">
+                                    <div class="col-4 my-2">
+                                        <i class='bx bx-home'></i>
+                                        <b>@language.GetKey("Address"):</b>
+                                    </div>
+                                    <div class="col-8">
+                                        <input asp-for="Address" class="form-control" />
+                                        <span asp-validation-for="Address" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row my-3">
+                                    <div class="col-4 my-2">
+                                        <i class='bx bx-info-circle'></i>
+                                        <b>@language.GetKey("AdditionalInfo"):</b>
+                                    </div>
+                                    <div class="col-8">
+                                        <input asp-for="AdditionalInformation" class="form-control" />
+                                        <span asp-validation-for="AdditionalInformation" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row my-4">
+                                    <div class="col-4 my-2">
+                                        <a class="btn btn-outline-dark" asp-action="Index">@language.GetKey("BackToList")</a>
+                                    </div>
+                                    <div class="col-8">
+                                        <input type="submit" value="@language.GetKey("Save")" class="btn btn-primary" />
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

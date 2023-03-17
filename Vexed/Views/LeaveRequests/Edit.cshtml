@@ -5,101 +5,119 @@
 @{
     ViewData["Title"] = "Edit";
 }
-<link rel="stylesheet" href="~/css/index.css" asp-append-version="true" />
 
-<body>
-    <div class="login-form-small col-md-4 justify-content-center">
-        <h4>@language.GetKey("LeaveRequest")</h4>
-        <hr />
-        <div class="text-left p-3">
-            <form asp-action="Edit">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <input type="hidden" asp-for="Id" />
-                <input type="hidden" asp-for="UserId" />
-                <input type="hidden" asp-for="SuperiorId" />
-                <input type="hidden" asp-for="Status" />
-
-                <div class="form-group row my-3">
-                    <div class="col-4 my-2">
-                        <i class='bx bxs-category'></i>
-                        <b>@language.GetKey("Type"):</b>
-                    </div>
-                    <div class="col-8">
-                        <select asp-for="Type" class="form-control" asp-items="ViewBag.LeaveTypes"></select>                        
-                        <span asp-validation-for="Type" class="text-danger"></span>
-                    </div>
-                </div>
-
-                <div class="form-group row my-3">
-                    <div class="col-4 my-2">
-                        <i class='bx bx-chevrons-right'></i>
-                        <b>@language.GetKey("StartDate"):</b>
-                    </div>
-                    <div class="col-8">
-                        <input asp-for="StartDate" class="form-control" />
-                        <span asp-validation-for="StartDate" class="text-danger"></span>
-                    </div>
-                </div>
-
-                <div class="form-group row my-3">
-                    <div class="col-4 my-2">
-                        <i class='bx bx-chevrons-left'></i>
-                        <b>@language.GetKey("EndDate"):</b>
-                    </div>
-                    <div class="col-8">
-                        <input asp-for="EndDate" class="form-control" />
-                        <span asp-validation-for="EndDate" class="text-danger"></span>
-                        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group row my-3">
-                    <div class="col-4 my-2">
-                        <i class='bx bx-bar-chart-alt-2'></i>
-                        <b>@language.GetKey("Quantity"):</b>
-                    </div>
-                    <div class="col-8">
-                        <input asp-for="Quantity" class="form-control" />
-                        <span asp-validation-for="Quantity" class="text-danger"></span>
-                    </div>
-                </div>
-
-                <div class="form-group row my-3">
-                    <div class="col-4 my-2">
-                        <i class='bx bx-stats'></i>
-                        <b>@language.GetKey("Status"):</b>
-                    </div>
-                    <div class="col-8">
-                        <input asp-for="Status" class="form-control" disabled/>
-                        <span asp-validation-for="Status" class="text-danger"></span>
-                    </div>
-                </div>
-
-                <div class="form-group row my-3">
-                    <div class="col-4 my-2">
-                        <i class='bx bx-comment'></i>
-                        <b>@language.GetKey("Comments"):</b>
-                    </div>
-                    <div class="col-8">
-                        <input asp-for="Comments" class="form-control" />
-                        <span asp-validation-for="Comments" class="text-danger"></span>
-                    </div>
-                </div>
-
-                <div class="form-group row my-4">
-                    <div class="col-4 my-2">
-                        <a asp-action="Index">@language.GetKey("BackToList")</a>
-                    </div>
-                    <div class="col-8">
-                        <input type="submit" value="@language.GetKey("Save")" class="btn btn-primary" />
-                    </div>
-                </div>
-            </form>
+<div class="row page-titles mx-0">
+    <div class="col-sm-6 p-md-0">
+        <div class="welcome-text">
+            <h4>@language.GetKey("Edit")</h4>
+            <span class="ml-1"> Edit leave request </span>
         </div>
+    </div>
+</div>
 
+<body class="vh-10">
+    <div class="container py-5 h-10">
+        <div class="row d-flex justify-content-center align-items-center h-10">
+            <div class="col-md-8 col-lg-8">
+                <div class="card shadow-2-strong" style="border-radius: 1rem;">
+                    <div class="card-body text-center">
+                        <h4>@language.GetKey("LeaveRequest")</h4>
+                        <hr />
+                        <div class="text-left p-3 text-dark">
+                            <form asp-action="Edit">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <input type="hidden" asp-for="Id" />
+                                <input type="hidden" asp-for="UserId" />
+                                <input type="hidden" asp-for="SuperiorId" />
+                                <input type="hidden" asp-for="Status" />
+
+                                <div class="form-group row my-3">
+                                    <div class="col-4 my-2">
+                                        <i class='bx bxs-category'></i>
+                                        <b>@language.GetKey("Type"):</b>
+                                    </div>
+                                    <div class="col-8">
+                                        <select asp-for="Type" class="form-control" asp-items="ViewBag.LeaveTypes"></select>
+                                        <span asp-validation-for="Type" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row my-3">
+                                    <div class="col-4 my-2">
+                                        <i class='bx bx-chevrons-right'></i>
+                                        <b>@language.GetKey("StartDate"):</b>
+                                    </div>
+                                    <div class="col-8">
+                                        <input asp-for="StartDate" class="form-control" />
+                                        <span asp-validation-for="StartDate" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row my-3">
+                                    <div class="col-4 my-2">
+                                        <i class='bx bx-chevrons-left'></i>
+                                        <b>@language.GetKey("EndDate"):</b>
+                                    </div>
+                                    <div class="col-8">
+                                        <input asp-for="EndDate" class="form-control" />
+                                        <span asp-validation-for="EndDate" class="text-danger"></span>
+                                        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group row my-3">
+                                    <div class="col-4 my-2">
+                                        <i class='bx bx-bar-chart-alt-2'></i>
+                                        <b>@language.GetKey("Quantity"):</b>
+                                    </div>
+                                    <div class="col-8">
+                                        <input asp-for="Quantity" class="form-control" />
+                                        <span asp-validation-for="Quantity" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row my-3">
+                                    <div class="col-4 my-2">
+                                        <i class='bx bx-stats'></i>
+                                        <b>@language.GetKey("Status"):</b>
+                                    </div>
+                                    <div class="col-8">
+                                        <input asp-for="Status" class="form-control" disabled />
+                                        <span asp-validation-for="Status" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row my-3">
+                                    <div class="col-4 my-2">
+                                        <i class='bx bx-comment'></i>
+                                        <b>@language.GetKey("Comments"):</b>
+                                    </div>
+                                    <div class="col-8">
+                                        <input asp-for="Comments" class="form-control" />
+                                        <span asp-validation-for="Comments" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row my-4">
+                                    <div class="col-4">
+                                        <a class="btn btn-outline-dark" asp-action="Index">@language.GetKey("BackToList")</a>
+                                    </div>
+                                    <div class="col-8">
+                                        <input type="submit" value="@language.GetKey("Save")" class="btn btn-primary" />
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

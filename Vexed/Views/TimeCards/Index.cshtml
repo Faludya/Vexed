@@ -6,129 +6,132 @@
 
 @{
     ViewData["Title"] = "Index";
-}
-<link rel="stylesheet" href="~/css/index.css" asp-append-version="true" />
-
-<body>
-    <div class="login-form table-responsive">
-        <form>
-            <p>Sample text</p>
-            <div class="content table-responsive"></div>
-            <table id="paginated_table" class="table table-striped table-hover content" style="overflow:hidden;">
-                <thead class="table-dark">
-                    <tr>
-                        <th>
-                            <i class='bx bx-barcode'></i>
-                            @language.GetKey("ProjectCode")
-                        </th>
-                        <th>
-                            <i class='bx bx-detail' ></i>
-                            @language.GetKey("TaskDetails")
-                        </th>
-                        <th>
-                            <i class='bx bx-map'></i>
-                            @language.GetKey("Location")
-                        </th>
-                        <th>
-                            <i class='bx bx-chevrons-right'></i>
-                            @language.GetKey("StartDate")
-                        </th>
-                        <th>
-                            <i class='bx bx-chevrons-left'></i>
-                            @language.GetKey("EndDate")
-                        </th>
-                        <th>
-                            <i class='bx bx-bar-chart-alt-2'></i>
-                            @language.GetKey("Quantity")
-                        </th>
-                        <th>
-                            <i class='bx bx-stats'></i>
-                            @language.GetKey("Status")
-                        </th>
-                        <th>
-                            <i class='bx bx-comment'></i>
-                            @language.GetKey("Comments")
-                        </th>
-                        <th>
-                            <a class="btn btn-outline-secondary text-white" asp-action="Create">@language.GetKey("Create")</a>
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.ProjectCode)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.TaskDetails)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Location)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.StartDate)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.EndDate)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Quantity)
-                            </td>
-                            <td id="status-@item.Id">
-                                @Html.DisplayFor(modelItem => item.Status)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Comments)
-                            </td>
-                            <td>
-                                <a class="text-dark" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
-                                    <i class='bx bx-dots-horizontal-rounded'></i>
-                                    <div class="dropdown-menu">
-                                        @if(item.Status != StatusManager.Submitted){
-                                            <a class="dropdown-item text-dark btn disabled">
-                                                <i class='bx bxs-edit-alt'></i> @language.GetKey("Edit")
-                                            </a>
-                                        }
-                                        else{
-                                            <a class="dropdown-item text-dark" asp-action="Edit" asp-route-id="@item.Id">
-                                                <i class='bx bxs-edit-alt'></i> @language.GetKey("Edit")
-                                            </a>
-                                        }
-                                        <a class="dropdown-item" asp-action="Details" asp-route-id="@item.Id">
-                                            <i class='bx bxs-detail'></i> @language.GetKey("Details")
-                                        </a>
-
-                                        @if (item.Status != StatusManager.Submitted)
-                                        {
-                                            <a class="dropdown-item text-dark btn disabled">
-                                                <i class='bx bxs-trash'></i> @language.GetKey("Delete")
-                                            </a>
-                                        }
-                                        else
-                                        {
-                                            <a class="dropdown-item text-danger" asp-action="Delete" asp-route-id="@item.Id">
-                                                <i class='bx bxs-trash'></i> @language.GetKey("Delete")
-                                            </a>
-                                        }
-                                    </div>
-                                </a>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </form>
-    </div>
-</body>
-
-<script>
-    var statusManager = {
-        Submitted: '@StatusManager.Submitted',
-        SuperiorApproval: '@StatusManager.SuperiorApproval',
-        HRApproval: '@StatusManager.HRApproval',
-        Cancelled: '@StatusManager.Cancelled'
+    IDictionary<string, string> statusBadge = new Dictionary<string, string>()
+    {
+        { StatusManager.Submitted, "badge-outline-warning"},
+        {StatusManager.SuperiorApproval, "badge-outline-info"},
+        {StatusManager.HRApproval, "badge-outline-success"},
+        {StatusManager.Cancelled, "badge-outline-danger"},
     };
-</script>
-<script src="~/js/status.js"></script>
+
+}
+
+<link rel="stylesheet" href="/vendor/datatables/css/jquery.dataTables.min.css" />
+
+<div class="row page-titles mx-0">
+    <div class="col-sm-6 p-md-0">
+        <div class="welcome-text">
+            <h4>Your Leave requests!</h4>
+            <span class="ml-1">All in one place</span>
+        </div>
+    </div>
+    <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+        <a class="btn btn-rounded btn-primary" asp-action="Create">
+            <span class="btn-icon-left text-dark">
+                <i class="fa fa-plus color-primary"></i>
+            </span>@language.GetKey("Create")
+        </a>
+
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <form>
+                    <div class="table-responsive">
+                        <table id="example" class="table table-responsive-sm">
+                            <thead class="thead-primary">
+                                <tr>
+                                    <th>
+                                        <i class='bx bx-barcode'></i>
+                                        @language.GetKey("ProjectCode")
+                                    </th>
+                                    <th>
+                                        <i class='bx bx-detail'></i>
+                                        @language.GetKey("TaskDetails")
+                                    </th>
+                                    <th>
+                                        <i class='bx bx-chevrons-right'></i>
+                                        @language.GetKey("StartDate")
+                                    </th>
+                                    <th>
+                                        <i class='bx bx-chevrons-left'></i>
+                                        @language.GetKey("EndDate")
+                                    </th>
+                                    <th>
+                                        <i class='bx bx-stats'></i>
+                                        @language.GetKey("Status")
+                                    </th>
+                                    <th align='right' data-orderable="false">
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-dark">
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.ProjectCode)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.TaskDetails)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.StartDate)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.EndDate)
+                                        </td>
+                                        <td>
+                                            <span class="badge @statusBadge[item.Status] badge-rounded">@Html.DisplayFor(modelItem => item.Status)</span>
+                                        </td>
+                                        <td align="center">
+                                            <div class="btn-group">
+                                                <button id="btnGroupDrop1" type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown">
+                                                    <i class='ti-layout-menu-v'></i>
+                                                </button>
+                                                <div class="dropdown-menu">
+                                                    @if (item.Status != StatusManager.Submitted)
+                                                    {
+                                                        <a class="dropdown-item text-dark btn disabled">
+                                                            <i class='bx bxs-edit-alt'></i> @language.GetKey("Edit")
+                                                        </a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <a class="dropdown-item text-dark" asp-action="Edit" asp-route-id="@item.Id">
+                                                            <i class='bx bxs-edit-alt'></i> @language.GetKey("Edit")
+                                                        </a>
+                                                    }
+                                                    <a class="dropdown-item" asp-action="Details" asp-route-id="@item.Id">
+                                                        <i class='bx bxs-detail'></i> @language.GetKey("Details")
+                                                    </a>
+
+                                                    @if (item.Status != StatusManager.Submitted)
+                                                    {
+                                                        <a class="dropdown-item text-dark btn disabled">
+                                                            <i class='bx bxs-trash'></i> @language.GetKey("Delete")
+                                                        </a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <a class="dropdown-item text-danger" asp-action="Delete" asp-route-id="@item.Id">
+                                                            <i class='bx bxs-trash'></i> @language.GetKey("Delete")
+                                                        </a>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
