@@ -131,6 +131,29 @@
                         </ul>
                     </li>
 
+                    @if (User.IsInRole("HumanResources"))
+                    {
+                        <li class="nav-label">Human Resources</li>
+                        <li>
+                            <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                                <i class='bx bx-box'></i><span class="nav-text">Manage requests</span>
+                            </a>
+                            <ul aria-expanded="false">
+                                <li><a asp-controller="TimeCards" asp-action="IndexHR">Time Cards</a></li>
+                                <li><a asp-controller="LeaveRequests" asp-action="IndexHR">Leave Requests</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                                <i class='bx bx-group'></i><span class="nav-text">Manage users</span>
+                            </a>
+                            <ul aria-expanded="false">
+                                <li><a asp-controller="UserDetails" asp-action="Index">Details</a></li>
+                                <li><a asp-controller="UserEmployments" asp-action="Index">Employment</a></li>
+                            </ul>
+                        </li>
+                    }
+
                 </ul>
             </div>
 
