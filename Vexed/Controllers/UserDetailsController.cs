@@ -1,8 +1,12 @@
 ﻿using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Vexed.Models;
+using Vexed.Models.ViewModels;
+using Vexed.Services;
 using Vexed.Services.Abstractions;
 
 namespace Vexed.Controllers
@@ -11,10 +15,14 @@ namespace Vexed.Controllers
     public class UserDetailsController : Controller
     {
         private readonly IUserDetailsService _userDetailsService;
+        private readonly IUserService _userService;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public UserDetailsController(IUserDetailsService userDetailsService)
+        public UserDetailsController(IUserDetailsService userDetailsService, IUserService userService, UserManager<IdentityUser> userManager)
         {
             _userDetailsService= userDetailsService;
+            _userService= userService;
+            _userManager= userManager;
         }
 
         public IActionResult Index()
@@ -45,7 +53,21 @@ namespace Vexed.Controllers
 
         public IActionResult Create()
         {
-            return View();
+            UsersDetailsViewModel usersDetailsViewModel = new UsersDetailsViewModel();
+            //usersDetailsViewModel.UserNamesVM = _userService.GetUnassignedUserNames();
+            var users = _userManager.Users.ToList();
+            List<UserNameVM> userNameVM = new List<UserNameVM>();
+            foreach (var user in users)
+            {
+                var userName = new UserNameVM();
+                userName.UserName = user.UserName;
+                userName.UserId = Guid.Parse(user.Id);
+                userNameVM.Add(userName);
+            }
+            usersDetailsViewModel.UserNamesVM = userNameVM;
+            ViewData["Users"] = new SelectList(userNameVM);
+
+            return View(usersDetailsViewModel);
         }
 
         [HttpPost]

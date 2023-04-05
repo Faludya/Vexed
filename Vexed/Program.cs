@@ -47,7 +47,7 @@ builder.Services.AddScoped<IUserEmploymentRepository, UserEmploymentRepository>(
 builder.Services.AddScoped<IUserEmploymentService, UserEmploymentService>();
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
-//builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 #endregion
 

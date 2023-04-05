@@ -1,6 +1,6 @@
 ﻿@using Vexed.Services;
 @inject LanguageService language
-@model Vexed.Models.UserDetails
+@model Vexed.Models.ViewModels.UsersDetailsViewModel
 
 @{
     ViewData["Title"] = "Create";
@@ -30,11 +30,26 @@
                                 <div class="form-group row my-3">
                                     <div class="col-4 my-2">
                                         <i class='bx bx-user'></i>
+                                        <b>@language.GetKey("UserName"):</b>
+                                    </div>
+                                    <div class="col-8">
+@*                                        <select asp-for="UserName" class="form-control" asp-items="ViewBag.User"></select>
+                                        <span asp-validation-for="UserName" class="text-danger"></span>*@
+                                        @Html.DropDownListFor(m => m.UserNamesVM,
+                                        new SelectList(Model.UserNamesVM, "UserName", "UserName"), "Select User",
+                                        new { @class = "form-control" })
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group row my-3">
+                                    <div class="col-4 my-2">
+                                        <i class='bx bx-user'></i>
                                         <b>@language.GetKey("FirstName"):</b>
                                     </div>
                                     <div class="col-8">
-                                        <input asp-for="FirstName" class="form-control" />
-                                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                                        <input asp-for="@Model.UserDetails.FirstName" class="form-control" />
+                                        <span asp-validation-for="@Model.UserDetails.FirstName" class="text-danger"></span>
                                     </div>
                                 </div>
 
@@ -44,8 +59,8 @@
                                         <b>@language.GetKey("LastName"):</b>
                                     </div>
                                     <div class="col-8">
-                                        <input asp-for="LastName" class="form-control" />
-                                        <span asp-validation-for="LastName" class="text-danger"></span>
+                                        <input asp-for="@Model.UserDetails.LastName" class="form-control" />
+                                        <span asp-validation-for="@Model.UserDetails.LastName" class="text-danger"></span>
                                     </div>
                                 </div>
 
@@ -55,8 +70,8 @@
                                         <b>@language.GetKey("PreferredName"):</b>
                                     </div>
                                     <div class="col-8">
-                                        <input asp-for="PreferredLastName" class="form-control" />
-                                        <span asp-validation-for="PreferredLastName" class="text-danger"></span>
+                                        <input asp-for="@Model.UserDetails.PreferredLastName" class="form-control" />
+                                        <span asp-validation-for="@Model.UserDetails.PreferredLastName" class="text-danger"></span>
                                     </div>
                                 </div>
 
@@ -66,8 +81,8 @@
                                         <b>@language.GetKey("Gender"):</b>
                                     </div>
                                     <div class="col-8">
-                                        <input asp-for="Gender" class="form-control" />
-                                        <span asp-validation-for="Gender" class="text-danger"></span>
+                                        <input asp-for="@Model.UserDetails.Gender" class="form-control" />
+                                        <span asp-validation-for="@Model.UserDetails.Gender" class="text-danger"></span>
                                     </div>
                                 </div>
 
@@ -77,8 +92,8 @@
                                         <b>@language.GetKey("DateOfBirth"):</b>
                                     </div>
                                     <div class="col-8">
-                                        <input asp-for="DateOfBirth" class="form-control" />
-                                        <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+                                        <input asp-for="@Model.UserDetails.DateOfBirth" class="form-control" />
+                                        <span asp-validation-for="@Model.UserDetails.DateOfBirth" class="text-danger"></span>
                                     </div>
                                 </div>
 
@@ -88,8 +103,8 @@
                                         <b>@language.GetKey("Nationality"):</b>
                                     </div>
                                     <div class="col-8">
-                                        <input asp-for="Nationality" class="form-control" />
-                                        <span asp-validation-for="Nationality" class="text-danger"></span>
+                                        <input asp-for="@Model.UserDetails.Nationality" class="form-control" />
+                                        <span asp-validation-for="@Model.UserDetails.Nationality" class="text-danger"></span>
                                     </div>
                                 </div>
 
@@ -99,8 +114,8 @@
                                         <b>@language.GetKey("Country"):</b>
                                     </div>
                                     <div class="col-8">
-                                        <input asp-for="Country" class="form-control" />
-                                        <span asp-validation-for="Country" class="text-danger"></span>
+                                        <input asp-for="@Model.UserDetails.Country" class="form-control" />
+                                        <span asp-validation-for="@Model.UserDetails.Country" class="text-danger"></span>
                                     </div>
                                 </div>
 
@@ -110,8 +125,8 @@
                                         <b>@language.GetKey("City"):</b>
                                     </div>
                                     <div class="col-8">
-                                        <input asp-for="City" class="form-control" />
-                                        <span asp-validation-for="City" class="text-danger"></span>
+                                        <input asp-for="@Model.UserDetails.City" class="form-control" />
+                                        <span asp-validation-for="@Model.UserDetails.City" class="text-danger"></span>
                                     </div>
                                 </div>
 
@@ -121,8 +136,8 @@
                                         <b>@language.GetKey("Address"):</b>
                                     </div>
                                     <div class="col-8">
-                                        <input asp-for="Address" class="form-control" />
-                                        <span asp-validation-for="Address" class="text-danger"></span>
+                                        <input asp-for="@Model.UserDetails.Address" class="form-control" />
+                                        <span asp-validation-for="@Model.UserDetails.Address" class="text-danger"></span>
                                     </div>
                                 </div>
 
@@ -132,8 +147,8 @@
                                         <b>@language.GetKey("AdditionalInfo"):</b>
                                     </div>
                                     <div class="col-8">
-                                        <input asp-for="AdditionalInformation" class="form-control" />
-                                        <span asp-validation-for="AdditionalInformation" class="text-danger"></span>
+                                        <input asp-for="@Model.UserDetails.AdditionalInformation" class="form-control" />
+                                        <span asp-validation-for="@Model.UserDetails.AdditionalInformation" class="text-danger"></span>
                                     </div>
                                 </div>
 
