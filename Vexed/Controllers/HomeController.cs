@@ -35,6 +35,11 @@ namespace Vexed.Controllers
             return View();
         }
 
+        public IActionResult Calendar()
+        {
+            return View();
+        }
+
         public IActionResult ChangeLanguage(string culture)
         {
             Response.Cookies.Append(CookieRequestCultureProvider.DefaultCookieName,
