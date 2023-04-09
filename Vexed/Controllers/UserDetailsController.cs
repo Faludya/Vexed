@@ -27,8 +27,7 @@ namespace Vexed.Controllers
 
         public IActionResult Index()
         {
-            var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            return View(_userDetailsService.GetUsersDetails(userId));
+            return View(_userDetailsService.GetAllUsersDetails());
         }
 
         [Authorize(Roles = "Employee")]
@@ -54,16 +53,8 @@ namespace Vexed.Controllers
         public IActionResult Create()
         {
             UsersDetailsViewModel usersDetailsViewModel = new UsersDetailsViewModel();
-            //usersDetailsViewModel.UserNamesVM = _userService.GetUnassignedUserNames();
-            var users = _userManager.Users.ToList();
-            List<UserNameVM> userNameVM = new List<UserNameVM>();
-            foreach (var user in users)
-            {
-                var userName = new UserNameVM();
-                userName.UserName = user.UserName;
-                userName.UserId = Guid.Parse(user.Id);
-                userNameVM.Add(userName);
-            }
+            List<UserNameVM> userNameVM = _userService.GetUnassignedUserDetails();
+
             usersDetailsViewModel.UserNamesVM = userNameVM;
             ViewData["Users"] = new SelectList(userNameVM);
 
@@ -72,15 +63,16 @@ namespace Vexed.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind("Id,UserId,FirstName,LastName,PreferredLastName,Gender,DateOfBirth,Nationality,Country,City,Address,AdditionalInformation")] UserDetails userDetails)
+        public IActionResult Create(UsersDetailsViewModel usersDetailsVM)
         {
             if (ModelState.IsValid)
             {
-                userDetails.UserId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+                var userDetails = usersDetailsVM.UserDetails;
+                userDetails.UserId = Guid.Parse(usersDetailsVM.SelectedUserId);
                 _userDetailsService.CreateUserDetails(userDetails);
                 return RedirectToAction(nameof(Index));
             }
-            return View(userDetails);
+            return View(usersDetailsVM);
         }
 
         public IActionResult Edit(int id)

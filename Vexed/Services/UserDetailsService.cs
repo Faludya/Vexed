@@ -27,7 +27,7 @@ namespace Vexed.Services
 
         public List<UserDetails> GetAllUsersDetails()
         {
-            return _repositoryWrapper.UserDetailsRepository.FindAll().ToList();
+            return _repositoryWrapper.UserDetailsRepository.GetAllUserDetails();
         }
 
         public UserDetails GetUserDetailsById(int id)
