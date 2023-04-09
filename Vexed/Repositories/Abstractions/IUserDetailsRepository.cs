@@ -18,5 +18,16 @@ namespace Vexed.Repositories.Abstractions
         /// Returns all the User Details for a given user.
         /// </summary>
         List<UserDetails> GetUserDetails(Guid userId);
+
+        /// <summary>
+        /// Returns all the UserDetails from the database
+        /// </summary>
+        List<UserDetails> GetAllUserDetails();
+
+        /// <summary>
+        /// Returns all the UserIds from the database
+        /// </summary>
+        List<string> GetAllUserDetailIds();
+
     }
 }

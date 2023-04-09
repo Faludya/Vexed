@@ -10,6 +10,16 @@ namespace Vexed.Repositories
         {
         }
 
+        public List<string> GetAllUserDetailIds()
+        {
+            return _vexedDbContext.UsersDetails.Select(u => u.UserId.ToString().ToLower()).ToList();
+        }
+
+        public List<UserDetails> GetAllUserDetails()
+        {
+            return _vexedDbContext.UsersDetails.ToList();
+        }
+
         public List<UserDetails> GetUserDetails(Guid userId)
         {
             return _vexedDbContext.UsersDetails.Where(u => u.UserId == userId).ToList();

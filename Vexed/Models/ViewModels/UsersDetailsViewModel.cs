@@ -6,5 +6,6 @@ namespace Vexed.Models.ViewModels
     {
         public UserDetails UserDetails { get; set; }
         public List<UserNameVM> UserNamesVM { get; set; }
+        public string SelectedUserId { get; set; }
     }
 }

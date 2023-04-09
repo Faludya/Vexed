@@ -10,6 +10,11 @@ namespace Vexed.Repositories
         {
         }
 
+        public List<string> GetAllUserEmploymentIds()
+        {
+            return _vexedDbContext.UsersEmployments.Select(u => u.UserId.ToString().ToLower()).ToList();
+        }
+
         public UserEmployment GetUserEmploymentById(int id)
         {
             return _vexedDbContext.UsersEmployments.Where(u => u.Id == id).First();

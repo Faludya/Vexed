@@ -13,23 +13,36 @@ namespace Vexed.Repositories
         {
         }
 
+        public List<string> GetAllUserIds()
+        {
+            return _vexedDbContext.Users.Select(i => i.Id).ToList();
+        }
+
+        public List<UserNameVM> GetAllUserNames()
+        {
+            return _vexedDbContext.Users
+                    .Select(u => new UserNameVM { UserId = u.Id, UserName = u.UserName })
+                    .ToList();
+        }
+
         public List<IdentityUser> GetAllUsers()
         {
             return _vexedDbContext.Users.Include(u => u.UserName).ToList();
         }
 
-        public List<UserNameVM> GetUnassignedUserNames()
+        public List<UserNameVM> GetUnsusedUserNames(List<string> unusedUserIds)
         {
-            var users = _vexedDbContext.Users.ToList();
-            List<UserNameVM> userNameVM = new List<UserNameVM>();
-            foreach(var user in users)
-            {
-                var userName = new UserNameVM();
-                userName.UserName = user.UserName;
-                userName.UserId = Guid.Parse(user.Id);
-                userNameVM.Add(userName);
-            }
-            return userNameVM;
+            var userNames = _vexedDbContext.Users
+                .Where(u => unusedUserIds.Contains(u.Id))
+                .Select(u => new UserNameVM { UserId = u.Id, UserName = u.UserName })
+                .ToList();
+
+            return userNames;
+        }
+
+        public string GetUserName(string userId)
+        {
+            return _vexedDbContext.Users.Where(u => u.Id == userId).Select(u => u.UserName).First();
         }
 
         public Guid GetUserSuperior(Guid userId)

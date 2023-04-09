@@ -1,8 +1,10 @@
 ﻿using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Vexed.Models;
+using Vexed.Models.ViewModels;
 using Vexed.Services.Abstractions;
 
 namespace Vexed.Controllers
@@ -11,16 +13,17 @@ namespace Vexed.Controllers
     public class UserEmploymentsController : Controller
     {
         private readonly IUserEmploymentService _userEmploymentService;
+        private readonly IUserService _userService;
 
-        public UserEmploymentsController(IUserEmploymentService userEmploymentService)
+        public UserEmploymentsController(IUserEmploymentService userEmploymentService, IUserService userService)
         {
-           _userEmploymentService= userEmploymentService;
+            _userEmploymentService = userEmploymentService;
+            _userService = userService;
         }
 
         public IActionResult Index()
         {
-            var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            return View(_userEmploymentService.GetUsersEmployment(userId));
+            return View(_userEmploymentService.GetAllUsersEmployment());
         }
 
         [Authorize(Roles = "Employee")]
@@ -44,20 +47,33 @@ namespace Vexed.Controllers
 
         public IActionResult Create()
         {
-            return View();
+            EmploymentViewModel employmentVM = new EmploymentViewModel();
+            List<UserNameVM> userNameVM = _userService.GetUnassignedUserEmployment();
+            List<UserNameVM> superiorUserNames = _userService.GetAllUserNames();
+
+            employmentVM.UserNamesVM = userNameVM;
+            employmentVM.SuperiorNamesVM = superiorUserNames;
+            ViewData["Users"] = new SelectList(userNameVM);
+            ViewData["Superiors"] = new SelectList(superiorUserNames);
+
+            return View(employmentVM);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind("Id,UserId,CompanyName,Department,Function,Location,HireDate,HourlyPay,SuperiorName")] UserEmployment userEmployment)
+        public IActionResult Create(EmploymentViewModel employmentVM)
         {
             if (ModelState.IsValid)
             {
-                userEmployment.UserId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+                var userEmployment = employmentVM.UserEmployment;
+                userEmployment.UserId = Guid.Parse(employmentVM.SelectedUserId);
+                userEmployment.SuperiorId = Guid.Parse(employmentVM.SelectedSuperiorId);
+                userEmployment.SuperiorName = _userService.GetUserName(employmentVM.SelectedSuperiorId);
+                //_userEmploymentService.CreateUserEmployment(userEmployment);
                 _userEmploymentService.CreateUserEmployment(userEmployment);
                 return RedirectToAction(nameof(Index));
             }
-            return View(userEmployment);
+            return View(employmentVM);
         }
 
         public IActionResult Edit(int id)

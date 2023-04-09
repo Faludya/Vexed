@@ -32,12 +32,11 @@
                                         <i class='bx bx-user'></i>
                                         <b>@language.GetKey("UserName"):</b>
                                     </div>
-                                    <div class="col-8">
-@*                                        <select asp-for="UserName" class="form-control" asp-items="ViewBag.User"></select>
-                                        <span asp-validation-for="UserName" class="text-danger"></span>*@
-                                        @Html.DropDownListFor(m => m.UserNamesVM,
-                                        new SelectList(Model.UserNamesVM, "UserName", "UserName"), "Select User",
-                                        new { @class = "form-control" })
+                                    <div class="col-8"> 
+                                        @Html.DropDownListFor(m => m.SelectedUserId, new SelectList(Model.UserNamesVM, "UserId", "UserName"), "Select User", new { @class = "form-control" })
+                                        <input type="hidden" asp-for="SelectedUserId" />
+                                        <input type="hidden" asp-for="UserNamesVM" />
+                                        @Html.ValidationMessageFor(m => m.SelectedUserId, "", new { @class = "text-danger" })
 
                                     </div>
                                 </div>
