@@ -5,6 +5,7 @@
 @{
     ViewData["Title"] = "Edit";
 }
+<link rel="stylesheet" href="/vendor/select2/css/select2.min.css">
 
 <div class="row page-titles mx-0">
     <div class="col-sm-6 p-md-0">
@@ -57,7 +58,7 @@
                                         <b>@language.GetKey("Relationship"):</b>
                                     </div>
                                     <div class="col-8">
-                                        <select asp-for="Relationship" class="form-control" asp-items="ViewBag.RelationshipTypes"></select>
+                                        <select id="single-select" asp-for="Relationship" class="form-control" asp-items="ViewBag.RelationshipTypes"></select>
                                         <span asp-validation-for="Relationship" class="text-danger"></span>
                                     </div>
                                 </div>
@@ -123,3 +124,11 @@
         </div>
     </div>
 </body>
+
+@section Scripts {
+    <script src="/vendor/select2/js/select2.full.min.js"></script>
+    <script src="/js/plugins-init/select2-init.js"></script>
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
