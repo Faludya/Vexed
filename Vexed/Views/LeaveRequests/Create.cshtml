@@ -5,6 +5,7 @@
 @{
     ViewData["Title"] = "Create";
 }
+<link rel="stylesheet" href="/vendor/select2/css/select2.min.css">
 
 <div class="row page-titles mx-0">
     <div class="col-sm-6 p-md-0">
@@ -33,7 +34,7 @@
                                         <b>@language.GetKey("Type"):</b>
                                     </div>
                                     <div class="col-8">
-                                        <select asp-for="Type" class="form-control" asp-items="ViewBag.LeaveTypes"></select>
+                                        <select id="single-select" asp-for="Type" class="form-control" asp-items="ViewBag.LeaveTypes"></select>
                                         <span asp-validation-for="Type" class="text-danger"></span>
                                     </div>
                                 </div>
@@ -103,6 +104,8 @@
 </body>
 
 @section Scripts {
+    <script src="/vendor/select2/js/select2.full.min.js"></script>
+    <script src="/js/plugins-init/select2-init.js"></script>
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
