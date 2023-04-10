@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using Vexed.Services;
+@inject LanguageService language
+
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -19,213 +22,247 @@
 
 </head>
 
-<body>
+@if (!User.Identity.IsAuthenticated)
+{
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Vexed</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">@language.GetKey("home")</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="AboutUs">@language.GetKey("aboutus")</a>
+                    </li>
 
-    <!--******************* Preloader start ********************-->
-    <div id="preloader">
-        <div class="sk-three-bounce">
-            <div class="sk-child sk-bounce1"></div>
-            <div class="sk-child sk-bounce2"></div>
-            <div class="sk-child sk-bounce3"></div>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="true">Language</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" asp-controller="Home" asp-action="ChangeLanguage" asp-route-culture="en-US">
+                                <img src="~/images/flags/united-kingdom.png" width="20">English
+                            </a>
+                            <a class="dropdown-item" asp-controller="Home" asp-action="ChangeLanguage" asp-route-culture="ro-RO">
+                                <img src="~/images/flags/romania.png" width="20">Romana
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+
+                <partial name="_LoginPartial" />
+            </div>
         </div>
-    </div>
-    <!--*******************  Preloader end ********************-->
-    
-    <!--********************************** Main wrapper start ***********************************-->
-    <div id="main-wrapper">
+    </nav>
+    @RenderBody()
 
-        <!--********************************** Nav header start ***********************************-->
-        <div class="nav-header">
-            <a href="index.html" class="brand-logo">
-                <img class="logo-abbr" src="/images/logo.png" alt="">
-                <img class="logo-compact" src="/images/logo-text.png" alt="">
-                <img class="brand-title" src="/images/logo-text.png" alt="">
-            </a>
+    @RenderSection("scripts", required: false)
+}
+else
+{
 
-            <div class="nav-control">
-                <div class="hamburger">
-                    <span class="line"></span><span class="line"></span><span class="line"></span>
+    <body>
+
+        <!--******************* Preloader start ********************-->
+        <div id="preloader">
+            <div class="sk-three-bounce">
+                <div class="sk-child sk-bounce1"></div>
+                <div class="sk-child sk-bounce2"></div>
+                <div class="sk-child sk-bounce3"></div>
+            </div>
+        </div>
+        <!--*******************  Preloader end ********************-->
+        <!--********************************** Main wrapper start ***********************************-->
+        <div id="main-wrapper">
+
+            <!--********************************** Nav header start ***********************************-->
+            <div class="nav-header">
+                <a href="index.html" class="brand-logo">
+                    <img class="logo-abbr" src="/images/logo.png" alt="">
+                    <img class="logo-compact" src="/images/logo-text.png" alt="">
+                    <img class="brand-title" src="/images/logo-text.png" alt="">
+                </a>
+
+                <div class="nav-control">
+                    <div class="hamburger">
+                        <span class="line"></span><span class="line"></span><span class="line"></span>
+                    </div>
                 </div>
             </div>
-        </div>
-        <!--********************************** Nav header end ***********************************-->
-        
-        <!--********************************** Header start ***********************************-->
-        <div class="header">
-            <div class="header-content">
-                <nav class="navbar navbar-expand">
-                    <div class="collapse navbar-collapse justify-content-between">
-                        <div class="header-left">
-                            
+            <!--********************************** Nav header end ***********************************-->
+            <!--********************************** Header start ***********************************-->
+            <div class="header">
+                <div class="header-content">
+                    <nav class="navbar navbar-expand">
+                        <div class="collapse navbar-collapse justify-content-between">
+                            <div class="header-left">
+                            </div>
+
+                            <ul class="navbar-nav header-right">
+                                <li class="nav-item dropdown header-profile">
+                                    <a class="nav-link" href="#" role="button" data-toggle="dropdown">
+                                        <i class="mdi mdi-account"></i>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <a class="dropdown-item" asp-controller="Home" asp-action="ChangeLanguage" asp-route-culture="en-US">
+                                            <img src="~/images/flags/united-kingdom.png" width="20"> English
+                                        </a>
+                                        <a class="dropdown-item" asp-controller="Home" asp-action="ChangeLanguage" asp-route-culture="ro-RO">
+                                            <img src="~/images/flags/romania.png" width="20"> Română
+                                        </a>
+
+                                        <partial name="_LoginPartial"></partial>
+                                    </div>
+                                </li>
+                            </ul>
                         </div>
+                    </nav>
+                </div>
+            </div>
+            <!--********************************** Header end ti-comment-alt ***********************************-->
+            <!--********************************** Sidebar start ***********************************-->
+            <div class="quixnav">
+                <div class="quixnav-scroll">
+                    <ul class="metismenu" id="menu">
 
-                        <ul class="navbar-nav header-right">
-                            <li class="nav-item dropdown header-profile">
-                                <a class="nav-link" href="#" role="button" data-toggle="dropdown">
-                                    <i class="mdi mdi-account"></i>
+                        <li class="nav-label first">Main Menu</li>
+                        <li>
+                            <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                                <i class='bx bxs-dashboard'></i><span class="nav-text">Dashboard</span>
+                            </a>
+                            <ul aria-expanded="false">
+                                <li><a asp-controller="Home" asp-action="Index">Dashboard</a></li>
+                                <li><a asp-controller="Home" asp-action="Calendar">Calendar</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-label">Cards</li>
+                        <li>
+                            <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                                <i class='bx bx-bookmark-plus'></i><span class="nav-text">Cards</span>
+                            </a>
+                            <ul aria-expanded="false">
+                                <li><a asp-controller="TimeCards" asp-action="Index">Time Cards</a></li>
+                                <li><a asp-controller="LeaveRequests" asp-action="Index">Leave Requests</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-label">Contact</li>
+                        <li>
+                            <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                                <i class='bx bxs-contact'></i><span class="nav-text">Contacts</span>
+                            </a>
+                            <ul aria-expanded="false">
+                                <li><a asp-controller="ContactInfoes" asp-action="Index">Information</a></li>
+                                <li><a asp-controller="EmergencyContacts" asp-action="Index">Emergency</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-label">User</li>
+                        <li>
+                            <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                                <i class='bx bxs-user-detail'></i><span class="nav-text">User</span>
+                            </a>
+                            <ul aria-expanded="false">
+                                <li><a asp-controller="UserDetails" asp-action="Details">Details</a></li>
+                                <li><a asp-controller="UserEmployments" asp-action="Details">Employment</a></li>
+                            </ul>
+                        </li>
+
+                        @if (User.IsInRole("HumanResources"))
+                        {
+                            <li class="nav-label">Human Resources</li>
+                            <li>
+                                <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                                    <i class='bx bx-box'></i><span class="nav-text">Manage requests</span>
                                 </a>
-                                <div class="dropdown-menu dropdown-menu-right">
-                                    <a class="dropdown-item" asp-controller="Home" asp-action="ChangeLanguage" asp-route-culture="en-US">
-                                        <img src="~/images/flags/united-kingdom.png" width="20"> English
-                                    </a>
-                                    <a class="dropdown-item" asp-controller="Home" asp-action="ChangeLanguage" asp-route-culture="ro-RO">
-                                        <img src="~/images/flags/romania.png" width="20"> Română
-                                    </a>
-                                    
-                                    <partial name="_LoginPartial"></partial>
-                                </div>
+                                <ul aria-expanded="false">
+                                    <li><a asp-controller="TimeCards" asp-action="IndexHR">Time Cards</a></li>
+                                    <li><a asp-controller="LeaveRequests" asp-action="IndexHR">Leave Requests</a></li>
+                                </ul>
                             </li>
-                        </ul>
-                    </div>
-                </nav>
+                            <li>
+                                <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                                    <i class='bx bx-group'></i><span class="nav-text">Manage users</span>
+                                </a>
+                                <ul aria-expanded="false">
+                                    <li><a asp-controller="UserDetails" asp-action="Index">Details</a></li>
+                                    <li><a asp-controller="UserEmployments" asp-action="Index">Employment</a></li>
+                                </ul>
+                            </li>
+                        }
+
+                    </ul>
+                </div>
+
+
             </div>
-        </div>
-        <!--********************************** Header end ti-comment-alt ***********************************-->
-       
-        <!--********************************** Sidebar start ***********************************-->
-        <div class="quixnav">
-            <div class="quixnav-scroll">
-                <ul class="metismenu" id="menu">
+            <!--********************************** Sidebar end ***********************************-->
+            <!--********************************** Content body start ***********************************-->
+            <div class="content-body">
+                <!-- row -->
+                <div class="container-fluid">
+                    @RenderBody()
 
-                    <li class="nav-label first">Main Menu</li>
-                    <li>
-                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                            <i class='bx bxs-dashboard'></i><span class="nav-text">Dashboard</span>
-                        </a>
-                        <ul aria-expanded="false">
-                            <li><a asp-controller="Home" asp-action="Index">Dashboard</a></li>
-                            <li><a asp-controller="Home" asp-action="Calendar">Calendar</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-label">Cards</li>
-                    <li>
-                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                            <i class='bx bx-bookmark-plus'></i><span class="nav-text">Cards</span>
-                        </a>
-                        <ul aria-expanded="false">
-                            <li><a asp-controller="TimeCards" asp-action="Index">Time Cards</a></li>
-                            <li><a asp-controller="LeaveRequests" asp-action="Index">Leave Requests</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-label">Contact</li>
-                    <li>
-                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                            <i class='bx bxs-contact'></i><span class="nav-text">Contacts</span>
-                        </a>
-                        <ul aria-expanded="false">
-                            <li><a asp-controller="ContactInfoes" asp-action="Index">Information</a></li>
-                            <li><a asp-controller="EmergencyContacts" asp-action="Index">Emergency</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-label">User</li>
-                    <li>
-                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                            <i class='bx bxs-user-detail'></i><span class="nav-text">User</span>
-                        </a>
-                        <ul aria-expanded="false">
-                            <li><a asp-controller="UserDetails" asp-action="Details">Details</a></li>
-                            <li><a asp-controller="UserEmployments" asp-action="Details">Employment</a></li>
-                        </ul>
-                    </li>
-
-                    @if (User.IsInRole("HumanResources"))
-                    {
-                        <li class="nav-label">Human Resources</li>
-                        <li>
-                            <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                                <i class='bx bx-box'></i><span class="nav-text">Manage requests</span>
-                            </a>
-                            <ul aria-expanded="false">
-                                <li><a asp-controller="TimeCards" asp-action="IndexHR">Time Cards</a></li>
-                                <li><a asp-controller="LeaveRequests" asp-action="IndexHR">Leave Requests</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                                <i class='bx bx-group'></i><span class="nav-text">Manage users</span>
-                            </a>
-                            <ul aria-expanded="false">
-                                <li><a asp-controller="UserDetails" asp-action="Index">Details</a></li>
-                                <li><a asp-controller="UserEmployments" asp-action="Index">Employment</a></li>
-                            </ul>
-                        </li>
-                    }
-
-                </ul>
+                </div>
             </div>
+            <!--********************************** Content body end ***********************************-->
+            <!--********************************** Footer start ***********************************-->
+            <div class="footer">
+                <div class="copyright">
+                    <p>Copyright © Designed &amp; Developed by <a href="#" target="_blank">Quixkit</a> 2019</p>
+                    <p>Distributed by <a href="https://themewagon.com/" target="_blank">Themewagon</a></p>
+                </div>
+            </div>
+            <!--********************************** Footer end ***********************************-->
+            <!--********************************** Support ticket button start ***********************************-->
 
 
         </div>
-        <!--********************************** Sidebar end ***********************************-->
-
-        <!--********************************** Content body start ***********************************-->
-        <div class="content-body">
-            <!-- row -->
-            <div class="container-fluid">
-                @RenderBody()
-
-            </div>
-        </div>
-        <!--********************************** Content body end ***********************************-->
-        
-        <!--********************************** Footer start ***********************************-->
-        <div class="footer">
-            <div class="copyright">
-                <p>Copyright © Designed &amp; Developed by <a href="#" target="_blank">Quixkit</a> 2019</p>
-                <p>Distributed by <a href="https://themewagon.com/" target="_blank">Themewagon</a></p>
-            </div>
-        </div>
-        <!--********************************** Footer end ***********************************-->
-        
-        <!--********************************** Support ticket button start ***********************************-->
+        <!--********************************** Main wrapper end ***********************************-->
+        <!--********************************** Scripts ***********************************-->
+        <!-- Required vendors -->
+        <script src="/vendor/global/global.min.js"></script>
+        <script src="/js/quixnav-init.js"></script>
+        <script src="/js/custom.min.js"></script>
 
 
-    </div>
-    <!--********************************** Main wrapper end ***********************************-->
-
-    <!--********************************** Scripts ***********************************-->
-    <!-- Required vendors -->
-    <script src="/vendor/global/global.min.js"></script>
-    <script src="/js/quixnav-init.js"></script>
-    <script src="/js/custom.min.js"></script>
+        <!-- Vectormap -->
+        <script src="/vendor/raphael/raphael.min.js"></script>
+        <script src="/vendor/morris/morris.min.js"></script>
 
 
-    <!-- Vectormap -->
-    <script src="/vendor/raphael/raphael.min.js"></script>
-    <script src="/vendor/morris/morris.min.js"></script>
+        <script src="/vendor/circle-progress/circle-progress.min.js"></script>
+        <script src="/vendor/chart.js/Chart.bundle.min.js"></script>
+
+        <script src="/vendor/gaugeJS/dist/gauge.min.js"></script>
+
+        <!--  flot-chart js -->
+        <script src="/vendor/flot/jquery.flot.js"></script>
+        <script src="/vendor/flot/jquery.flot.resize.js"></script>
+
+        <!-- Owl Carousel -->
+        <script src="/vendor/owl-carousel/js/owl.carousel.min.js"></script>
+
+        <!-- Counter Up -->
+        <script src="/vendor/jqvmap/js/jquery.vmap.min.js"></script>
+        <script src="/vendor/jqvmap/js/jquery.vmap.usa.js"></script>
+        <script src="/vendor/jquery.counterup/jquery.counterup.min.js"></script>
 
 
-    <script src="/vendor/circle-progress/circle-progress.min.js"></script>
-    <script src="/vendor/chart.js/Chart.bundle.min.js"></script>
+        <script src="/js/dashboard/dashboard-1.js"></script>
 
-    <script src="/vendor/gaugeJS/dist/gauge.min.js"></script>
+        <!-- Datatable -->
+        <script src="./vendor/datatables/js/jquery.dataTables.min.js"></script>
+        <script src="./js/plugins-init/datatables.init.js"></script>
 
-    <!--  flot-chart js -->
-    <script src="/vendor/flot/jquery.flot.js"></script>
-    <script src="/vendor/flot/jquery.flot.resize.js"></script>
-
-    <!-- Owl Carousel -->
-    <script src="/vendor/owl-carousel/js/owl.carousel.min.js"></script>
-
-    <!-- Counter Up -->
-    <script src="/vendor/jqvmap/js/jquery.vmap.min.js"></script>
-    <script src="/vendor/jqvmap/js/jquery.vmap.usa.js"></script>
-    <script src="/vendor/jquery.counterup/jquery.counterup.min.js"></script>
-
-
-    <script src="/js/dashboard/dashboard-1.js"></script>
-
-    <!-- Datatable -->
-    <script src="./vendor/datatables/js/jquery.dataTables.min.js"></script>
-    <script src="./js/plugins-init/datatables.init.js"></script>
-
-     <!-- BOT -->
-    @*<script type="text/javascript">!function (t, e) { t.artibotApi = { l: [], t: [], on: function () { this.l.push(arguments) }, trigger: function () { this.t.push(arguments) } }; var a = !1, i = e.createElement("script"); i.async = !0, i.type = "text/javascript", i.src = "https://app.artibot.ai/loader.js", e.getElementsByTagName("head").item(0).appendChild(i), i.onreadystatechange = i.onload = function () { if (!(a || this.readyState && "loaded" != this.readyState && "complete" != this.readyState)) { new window.ArtiBot({ i: "dc2af663-9532-4a38-83a7-1fd532dc2b5e" }); a = !0 } } }(window, document);</script>*@
-    <script>var BotStar = { appId: "s9664f250-d3db-11ed-8d15-77cb2b3ccda0", mode: "livechat" }; !function (t, a) { var e = function () { (e.q = e.q || []).push(arguments) }; e.q = e.q || [], t.BotStarApi = e; !function () { var t = a.createElement("script"); t.type = "text/javascript", t.async = 1, t.src = "https://widget.botstar.com/static/js/widget.js"; var e = a.getElementsByTagName("script")[0]; e.parentNode.insertBefore(t, e) }(); }(window, document)</script>
-    @RenderSection("scripts", required: false)
-</body>
-
+        <!-- BOT -->
+        @*<script type="text/javascript">!function (t, e) { t.artibotApi = { l: [], t: [], on: function () { this.l.push(arguments) }, trigger: function () { this.t.push(arguments) } }; var a = !1, i = e.createElement("script"); i.async = !0, i.type = "text/javascript", i.src = "https://app.artibot.ai/loader.js", e.getElementsByTagName("head").item(0).appendChild(i), i.onreadystatechange = i.onload = function () { if (!(a || this.readyState && "loaded" != this.readyState && "complete" != this.readyState)) { new window.ArtiBot({ i: "dc2af663-9532-4a38-83a7-1fd532dc2b5e" }); a = !0 } } }(window, document);</script>*@
+        <script>var BotStar = { appId: "s9664f250-d3db-11ed-8d15-77cb2b3ccda0", mode: "livechat" }; !function (t, a) { var e = function () { (e.q = e.q || []).push(arguments) }; e.q = e.q || [], t.BotStarApi = e; !function () { var t = a.createElement("script"); t.type = "text/javascript", t.async = 1, t.src = "https://widget.botstar.com/static/js/widget.js"; var e = a.getElementsByTagName("script")[0]; e.parentNode.insertBefore(t, e) }(); }(window, document)</script>
+        @RenderSection("scripts", required: false)
+    </body>
+}
 </html>

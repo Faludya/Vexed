@@ -17,6 +17,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Vexed.Areas.Identity.Pages.Account
 {
+    [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
     public class LoginModel : PageModel
     {
         private readonly SignInManager<IdentityUser> _signInManager;
@@ -84,26 +85,38 @@ namespace Vexed.Areas.Identity.Pages.Account
             public bool RememberMe { get; set; }
         }
 
-        public async Task OnGetAsync(string returnUrl = null)
+        public async Task<IActionResult> OnGetAsync(string returnUrl = null)
         {
             if (!string.IsNullOrEmpty(ErrorMessage))
             {
                 ModelState.AddModelError(string.Empty, ErrorMessage);
             }
 
-            returnUrl ??= Url.Content("~/");
+            if (User.Identity.IsAuthenticated)
+            {
+                if (returnUrl != null)
+                {
+                    return LocalRedirect(returnUrl);
+                }
+                else
+                {
+                    return LocalRedirect("~/Home/Calendar");
+                }
+            }
 
             // Clear the existing external cookie to ensure a clean login process
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
 
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
-            ReturnUrl = returnUrl;
+            ReturnUrl = returnUrl ?? Url.Content("~/Home/Calendar");
+
+            return Page();
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
-            returnUrl ??= Url.Content("~/");
+            returnUrl ??= Url.Content("~/Home/Calendar");
 
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
