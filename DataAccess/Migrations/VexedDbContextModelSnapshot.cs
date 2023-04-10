@@ -245,7 +245,7 @@ namespace Vexed.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ContactsInfo");
+                    b.ToTable("ContactsInfo", (string)null);
                 });
 
             modelBuilder.Entity("Vexed.Models.EmergencyContact", b =>
@@ -288,7 +288,7 @@ namespace Vexed.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("EmergencyContacts");
+                    b.ToTable("EmergencyContacts", (string)null);
                 });
 
             modelBuilder.Entity("Vexed.Models.LeaveRequest", b =>
@@ -326,7 +326,7 @@ namespace Vexed.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("LeaveRequests");
+                    b.ToTable("LeaveRequests", (string)null);
                 });
 
             modelBuilder.Entity("Vexed.Models.TimeCard", b =>
@@ -372,7 +372,7 @@ namespace Vexed.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TimeCards");
+                    b.ToTable("TimeCards", (string)null);
                 });
 
             modelBuilder.Entity("Vexed.Models.UserDetails", b =>
@@ -426,7 +426,7 @@ namespace Vexed.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("UsersDetails");
+                    b.ToTable("UsersDetails", (string)null);
                 });
 
             modelBuilder.Entity("Vexed.Models.UserEmployment", b =>
@@ -471,7 +471,7 @@ namespace Vexed.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("UsersEmployments");
+                    b.ToTable("UsersEmployments", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
