@@ -4,7 +4,7 @@ using Vexed.Repositories.Abstractions;
 
 namespace Vexed.Repositories
 {
-    internal class ContactInfoRepository : RepositoryBase<ContactInfo>, IContactInfoRepository
+    public class ContactInfoRepository : RepositoryBase<ContactInfo>, IContactInfoRepository
     {
         public ContactInfoRepository(VexedDbContext vexedDbContext) : base(vexedDbContext)
         {
