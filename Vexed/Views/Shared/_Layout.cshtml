@@ -52,8 +52,13 @@
                         </div>
                     </li>
                 </ul>
-
-                <partial name="_LoginPartial" />
+                <!--Login and register buttons-->
+                <li class="nav-item">
+                    <a class="nav-link text-dark" id="register" asp-area="Identity" asp-page="/Account/Register">@language.GetKey("Register")</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" id="login" asp-area="Identity" asp-page="/Account/Login">@language.GetKey("Login")</a>
+                </li>
             </div>
         </div>
     </nav>
@@ -100,7 +105,7 @@ else
                         <div class="collapse navbar-collapse justify-content-between">
                             <div class="header-left">
                             </div>
-
+                            <!--User profile-->
                             <ul class="navbar-nav header-right">
                                 <li class="nav-item dropdown header-profile">
                                     <a class="nav-link" href="#" role="button" data-toggle="dropdown">
@@ -114,7 +119,13 @@ else
                                             <img src="~/images/flags/romania.png" width="20"> Română
                                         </a>
 
-                                        <partial name="_LoginPartial"></partial>
+                                        <hr />
+                                        <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
+                                            <i class='bx bxs-user nav_icon'></i> <span class="ml-2">Account </span>
+                                        </a>
+                                        <a class="dropdown-item text-danger" data-toggle="modal" data-target="#basicModal" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                                            <i class='bx bx-log-out nav_icon'></i> <span class="ml-2">Logout </span>
+                                        </a>
                                     </div>
                                 </li>
                             </ul>
@@ -256,13 +267,45 @@ else
         <script src="/js/dashboard/dashboard-1.js"></script>
 
         <!-- Datatable -->
-        <script src="./vendor/datatables/js/jquery.dataTables.min.js"></script>
-        <script src="./js/plugins-init/datatables.init.js"></script>
+        <script src="/vendor/datatables/js/jquery.dataTables.min.js"></script>
+        <script src="/js/plugins-init/datatables.init.js"></script>
 
         <!-- BOT -->
         @*<script type="text/javascript">!function (t, e) { t.artibotApi = { l: [], t: [], on: function () { this.l.push(arguments) }, trigger: function () { this.t.push(arguments) } }; var a = !1, i = e.createElement("script"); i.async = !0, i.type = "text/javascript", i.src = "https://app.artibot.ai/loader.js", e.getElementsByTagName("head").item(0).appendChild(i), i.onreadystatechange = i.onload = function () { if (!(a || this.readyState && "loaded" != this.readyState && "complete" != this.readyState)) { new window.ArtiBot({ i: "dc2af663-9532-4a38-83a7-1fd532dc2b5e" }); a = !0 } } }(window, document);</script>*@
         <script>var BotStar = { appId: "s9664f250-d3db-11ed-8d15-77cb2b3ccda0", mode: "livechat" }; !function (t, a) { var e = function () { (e.q = e.q || []).push(arguments) }; e.q = e.q || [], t.BotStarApi = e; !function () { var t = a.createElement("script"); t.type = "text/javascript", t.async = 1, t.src = "https://widget.botstar.com/static/js/widget.js"; var e = a.getElementsByTagName("script")[0]; e.parentNode.insertBefore(t, e) }(); }(window, document)</script>
+
         @RenderSection("scripts", required: false)
     </body>
+
+
+    <!-- Modal -->
+    <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
+        <div class="modal fade" id="basicModal">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+
+                        <h5 class="modal-title">
+                            <i class='bx bx-log-out nav_icon'></i>
+                            Logout
+                        </h5>
+                        <button type="button" class="close" data-dismiss="modal">
+                            <span>&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" style="text-align: center;">
+                        <img src="~/images/logout.png" alt="Logout icon">
+                        <br>
+                        <br>
+                        Are you sure you want to logout?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-danger">Logout</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
 }
 </html>
