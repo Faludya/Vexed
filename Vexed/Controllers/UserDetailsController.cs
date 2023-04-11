@@ -25,12 +25,13 @@ namespace Vexed.Controllers
             _userManager= userManager;
         }
 
+        [Authorize(Roles = "HumanResources")]
         public IActionResult Index()
         {
             return View(_userDetailsService.GetAllUsersDetails());
         }
 
-        [Authorize(Roles = "Employee")]
+        [Authorize(Roles = "HumanResources, Employee")]
         public IActionResult Details(int? id)
         {
             if(id == null)
@@ -50,6 +51,7 @@ namespace Vexed.Controllers
             return View(userDetails);
         }
 
+        [Authorize(Roles = "HumanResources")]
         public IActionResult Create()
         {
             UsersDetailsViewModel usersDetailsViewModel = new UsersDetailsViewModel();
@@ -63,6 +65,7 @@ namespace Vexed.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "HumanResources")]
         public IActionResult Create(UsersDetailsViewModel usersDetailsVM)
         {
             if (ModelState.IsValid)
@@ -75,6 +78,7 @@ namespace Vexed.Controllers
             return View(usersDetailsVM);
         }
 
+        [Authorize(Roles = "HumanResources")]
         public IActionResult Edit(int id)
         {
             var userDetails = _userDetailsService.GetUserDetailsById(id);
@@ -87,6 +91,7 @@ namespace Vexed.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "HumanResources")]
         public IActionResult Edit(int id, [Bind("Id,UserId,FirstName,LastName,PreferredLastName,Gender,DateOfBirth,Nationality,Country,City,Address,AdditionalInformation")] UserDetails userDetails)
         {
             if (id != userDetails.Id)
@@ -116,6 +121,7 @@ namespace Vexed.Controllers
             return View(userDetails);
         }
 
+        [Authorize(Roles = "HumanResources")]
         public IActionResult Delete(int id)
         {
             var userDetails = _userDetailsService.GetUserDetailsById(id);
@@ -129,6 +135,7 @@ namespace Vexed.Controllers
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "HumanResources")]
         public IActionResult DeleteConfirmed(int id)
         {
             if (_userDetailsService.GetUserDetailsById(id) == null)

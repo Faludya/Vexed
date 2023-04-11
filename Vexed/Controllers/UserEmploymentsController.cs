@@ -21,12 +21,13 @@ namespace Vexed.Controllers
             _userService = userService;
         }
 
+        [Authorize(Roles = "HumanResources")]
         public IActionResult Index()
         {
             return View(_userEmploymentService.GetAllUsersEmployment());
         }
 
-        [Authorize(Roles = "Employee")]
+        [Authorize(Roles = "HumanResources, Employee")]
         public IActionResult Details(int? id)
         {
             if (id == null)
@@ -45,6 +46,7 @@ namespace Vexed.Controllers
             return View(userEmployments);
         }
 
+        [Authorize(Roles = "HumanResources")]
         public IActionResult Create()
         {
             EmploymentViewModel employmentVM = new EmploymentViewModel();
@@ -61,6 +63,7 @@ namespace Vexed.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "HumanResources")]
         public IActionResult Create(EmploymentViewModel employmentVM)
         {
             if (ModelState.IsValid)
@@ -76,6 +79,7 @@ namespace Vexed.Controllers
             return View(employmentVM);
         }
 
+        [Authorize(Roles = "HumanResources")]
         public IActionResult Edit(int id)
         {
             var userEmployment = _userEmploymentService.GetUserEmploymentById(id);
@@ -88,6 +92,7 @@ namespace Vexed.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "HumanResources")]
         public IActionResult Edit(int id, [Bind("Id,UserId,CompanyName,Department,Function,Location,HireDate,HourlyPay,SuperiorName")] UserEmployment userEmployment)
         {
             if (id != userEmployment.Id)
@@ -117,6 +122,7 @@ namespace Vexed.Controllers
             return View(userEmployment);
         }
 
+        [Authorize(Roles = "HumanResources")]
         public IActionResult Delete(int id)
         {
             var userEmployment = _userEmploymentService.GetUserEmploymentById(id);
@@ -130,6 +136,7 @@ namespace Vexed.Controllers
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "HumanResources")]
         public IActionResult DeleteConfirmed(int id)
         {
             if (_userEmploymentService.GetUserEmploymentById(id) == null)
