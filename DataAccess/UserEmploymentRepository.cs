@@ -1,4 +1,5 @@
-﻿using Vexed.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using Vexed.Data;
 using Vexed.Models;
 using Vexed.Repositories.Abstractions;
 
@@ -10,24 +11,24 @@ namespace Vexed.Repositories
         {
         }
 
-        public List<string> GetAllUserEmploymentIds()
+        public async Task<List<string>> GetAllUserEmploymentIds()
         {
-            return _vexedDbContext.UsersEmployments.Select(u => u.UserId.ToString().ToLower()).ToList();
+            return await _vexedDbContext.UsersEmployments.Select(u => u.UserId.ToString().ToLower()).ToListAsync();
         }
 
-        public UserEmployment GetUserEmploymentById(int id)
+        public async Task<UserEmployment> GetUserEmploymentById(int id)
         {
-            return _vexedDbContext.UsersEmployments.Where(u => u.Id == id).First();
+            return await _vexedDbContext.UsersEmployments.Where(u => u.Id == id).FirstOrDefaultAsync();
         }
 
-        public UserEmployment GetUserEmploymentByUserId(Guid userId)
+        public async Task<UserEmployment> GetUserEmploymentByUserId(Guid userId)
         {
-            return _vexedDbContext.UsersEmployments.Where(u => u.UserId == userId).First();
+            return await _vexedDbContext.UsersEmployments.Where(u => u.UserId == userId).FirstOrDefaultAsync();
         }
 
-        public List<UserEmployment> GetUserEmployments(Guid userId)
+        public async Task<List<UserEmployment>> GetUserEmployments(Guid userId)
         {
-            return _vexedDbContext.UsersEmployments.Where(u => u.UserId == userId).ToList();
+            return await _vexedDbContext.UsersEmployments.Where(u => u.UserId == userId).ToListAsync();
         }
     }
 }

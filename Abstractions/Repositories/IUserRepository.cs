@@ -9,31 +9,31 @@ namespace Vexed.Repositories.Abstractions
         /// <summary>
         /// Returns the UserName of the user
         /// </summary>
-        string GetUserName(string userId);
+        Task<string> GetUserName(string userId);
         /// <summary>
         /// Returns the Guid of the superior for the given user.
         /// </summary>
-        Guid GetUserSuperior(Guid userId);
+        Task<Guid> GetUserSuperior(Guid userId);
 
         /// <summary>
         /// Returns all the identity users
         /// </summary>
-        List<IdentityUser> GetAllUsers();
+        Task<List<IdentityUser>> GetAllUsers();
 
         /// <summary>
         /// Returns all the  UserIds
         /// </summary>
-        List<string> GetAllUserIds();
+        Task<List<string>> GetAllUserIds();
 
         /// <summary>
         /// Returns the UserName and UserId of all the users that are not added
         /// </summary>
-        List<UserNameVM> GetUnsusedUserNames(List<string> userIds);
+        Task<List<UserNameVM>> GetUnsusedUserNames(List<string> userIds);
 
         /// <summary>
         /// Returns all UserNames and UserIds
         /// </summary>
-        List<UserNameVM> GetAllUserNames();
+        Task<List<UserNameVM>> GetAllUserNames();
 
     }
 }

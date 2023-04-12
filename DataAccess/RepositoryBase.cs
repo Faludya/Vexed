@@ -14,29 +14,30 @@ namespace Vexed.Repositories
             _vexedDbContext = vexedDbContext;
         }
 
-        public IQueryable<T> FindAll()
+        public async Task<IQueryable<T>> FindAll()
         {
-            return _vexedDbContext.Set<T>().AsNoTracking();
+            return await Task.Run(() => _vexedDbContext.Set<T>().AsNoTracking());
         }
 
-        public IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression)
+        public async Task<IQueryable<T>> FindByCondition(Expression<Func<T, bool>> expression)
         {
-            return _vexedDbContext.Set<T>().Where(expression).AsNoTracking();
+            return await Task.Run(() => _vexedDbContext.Set<T>().Where(expression).AsNoTracking());
         }
 
-        public void Create(T entity)
+        public async Task Create(T entity)
         {
-            _vexedDbContext.Set<T>().Add(entity);
+            await _vexedDbContext.Set<T>().AddAsync(entity);
         }
 
-        public void Update(T entity)
+        public async Task Update(T entity)
         {
-            _vexedDbContext.Set<T>().Update(entity);
+            await Task.Run(() => _vexedDbContext.Set<T>().Update(entity));
         }
 
-        public void Delete(T entity)
+        public async Task Delete(T entity)
         {
             _vexedDbContext.Set<T>().Remove(entity);
+            await Task.CompletedTask;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Vexed.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using Vexed.Models;
 using Vexed.Repositories.Abstractions;
 using Vexed.Services.Abstractions;
 
@@ -13,40 +14,41 @@ namespace Vexed.Services
             _repositoryWrapper = repositoryWrapper;
         }
 
-        public void CreateTimeCard(TimeCard timeCard)
+        public async Task CreateTimeCard(TimeCard timeCard)
         {
-            timeCard.SuperiorId = _repositoryWrapper.UserRepository.GetUserSuperior(timeCard.UserId);
+            timeCard.SuperiorId = await _repositoryWrapper.UserRepository.GetUserSuperior(timeCard.UserId);
             timeCard.Status = StatusManager.SetStatus(timeCard.Status);
 
-            _repositoryWrapper.TimeCardRepository.Create(timeCard);
-            _repositoryWrapper.Save();
+            await _repositoryWrapper.TimeCardRepository.Create(timeCard);
+            await _repositoryWrapper.Save();
         }
 
-        public void DeleteTimeCard(TimeCard timeCard)
+        public async Task DeleteTimeCard(TimeCard timeCard)
         {
-            _repositoryWrapper.TimeCardRepository.Delete(timeCard);
-            _repositoryWrapper.Save();
+            await _repositoryWrapper.TimeCardRepository.Delete(timeCard);
+            await _repositoryWrapper.Save();
         }
 
-        public List<TimeCard> GetAllTimeCards()
+        public async Task<List<TimeCard>> GetAllTimeCards()
         {
-            return _repositoryWrapper.TimeCardRepository.FindAll().ToList();
+            var queryable = await _repositoryWrapper.TimeCardRepository.FindAll();
+            return await queryable.ToListAsync();
         }
 
-        public TimeCard GetTimeCardById(int id)
+        public async Task<TimeCard> GetTimeCardById(int id)
         {
-            return _repositoryWrapper.TimeCardRepository.GetTimeCardById(id);
+            return await _repositoryWrapper.TimeCardRepository.GetTimeCardById(id);
         }
 
-        public List<TimeCard> GetTimeCards(Guid userId)
+        public async Task<List<TimeCard>> GetTimeCards(Guid userId)
         {
-            return _repositoryWrapper.TimeCardRepository.GetTimeCards(userId);
+            return await _repositoryWrapper.TimeCardRepository.GetTimeCards(userId);
         }
 
-        public void UpdateTimeCard(TimeCard timeCard)
+        public async Task UpdateTimeCard(TimeCard timeCard)
         {
-            _repositoryWrapper.TimeCardRepository.Update(timeCard);
-            _repositoryWrapper.Save();
+            await _repositoryWrapper.TimeCardRepository.Update(timeCard);
+            await _repositoryWrapper.Save();
         }
 
         public List<string> GetLocationTypes()
@@ -71,14 +73,14 @@ namespace Vexed.Services
             return locationTypes;
         }
 
-        public List<TimeCard> GetTimeCardsForSuperior(Guid superiorId)
+        public async Task<List<TimeCard>> GetTimeCardsForSuperior(Guid superiorId)
         {
-            return _repositoryWrapper.TimeCardRepository.GetTimeCardsSuperior(superiorId);
+            return await _repositoryWrapper.TimeCardRepository.GetTimeCardsSuperior(superiorId);
         }
 
-        public TimeCard GetLastTimeCard(Guid userId)
+        public async Task<TimeCard> GetLastTimeCard(Guid userId)
         {            
-            var lastTimeCard = _repositoryWrapper.TimeCardRepository.GetLastTimeCard(userId);
+            var lastTimeCard = await _repositoryWrapper.TimeCardRepository.GetLastTimeCard(userId);
             lastTimeCard.Status = StatusManager.ResetStatus();
             lastTimeCard.StartDate = FirstDayOfWeek(DateTime.Now);
             lastTimeCard.EndDate = lastTimeCard.StartDate.AddDays(4);

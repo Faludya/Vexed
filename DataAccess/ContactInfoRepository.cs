@@ -1,4 +1,5 @@
-﻿using Vexed.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using Vexed.Data;
 using Vexed.Models;
 using Vexed.Repositories.Abstractions;
 
@@ -10,14 +11,14 @@ namespace Vexed.Repositories
         {
         }
 
-        public ContactInfo GetContactInfoById(int id)
+        public async Task<ContactInfo> GetContactInfoById(int id)
         {
-            return _vexedDbContext.ContactsInfo.Where(c => c.Id == id).First();
+            return await _vexedDbContext.ContactsInfo.Where(c => c.Id == id).FirstOrDefaultAsync();
         }
 
-        public List<ContactInfo> GetContactInfos(Guid userId)
+        public async Task<List<ContactInfo>> GetContactInfos(Guid userId)
         {
-            return _vexedDbContext.ContactsInfo.Where(c => c.UserId == userId).ToList();
+            return await _vexedDbContext.ContactsInfo.Where(c => c.UserId == userId).ToListAsync();
         }
     }
 }

@@ -7,21 +7,21 @@ namespace Vexed.Repositories.Abstractions
         /// <summary>
         /// Returns the first User Employment with the given <c>id</c>
         /// </summary>
-        UserEmployment GetUserEmploymentById(int id);
+        Task<UserEmployment> GetUserEmploymentById(int id);
 
         /// <summary>
         /// Returns the first User Employment with the given <c>userId</c>
         /// </summary>
-        UserEmployment GetUserEmploymentByUserId(Guid userId);
+        Task<UserEmployment> GetUserEmploymentByUserId(Guid userId);
 
         /// <summary>
         /// Returns all the User Employment for a given user.
         /// </summary>
-        List<UserEmployment> GetUserEmployments(Guid userId);
+        Task<List<UserEmployment>> GetUserEmployments(Guid userId);
 
         /// <summary>
         /// Returns all the UserIds from the database
         /// </summary>
-        List<string> GetAllUserEmploymentIds();
+        Task<List<string>> GetAllUserEmploymentIds();
     }
 }

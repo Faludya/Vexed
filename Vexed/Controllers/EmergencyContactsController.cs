@@ -25,15 +25,15 @@ namespace Vexed.Controllers
             _emergencyContactService= emergencyContactService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            return View(_emergencyContactService.GetEmergencyContacts(userId));
+            return View(await _emergencyContactService.GetEmergencyContacts(userId));
         }
 
-        public IActionResult Details(int id)
+        public async Task<IActionResult> Details(int id)
         {
-            var emergencyContact = _emergencyContactService.GetEmergencyContactById(id);
+            var emergencyContact = await _emergencyContactService.GetEmergencyContactById(id);
             if (emergencyContact == null)
             {
                 return NotFound();
@@ -50,20 +50,20 @@ namespace Vexed.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind("Id,UserId,FirstName,LastName,Relationship,Phone,Email,Address,AdditionalInformation")] EmergencyContact emergencyContact)
+        public async Task<IActionResult> Create([Bind("Id,UserId,FirstName,LastName,Relationship,Phone,Email,Address,AdditionalInformation")] EmergencyContact emergencyContact)
         {
             if (ModelState.IsValid)
             {
                 emergencyContact.UserId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-                _emergencyContactService.CreateEmergencyContact(emergencyContact);
+                await _emergencyContactService.CreateEmergencyContact(emergencyContact);
                 return RedirectToAction(nameof(Index));
             }
             return View(emergencyContact);
         }
 
-        public IActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
-            var emergencyContact = _emergencyContactService.GetEmergencyContactById(id);
+            var emergencyContact = await _emergencyContactService.GetEmergencyContactById(id);
             ViewData["RelationshipTypes"] = new SelectList(_emergencyContactService.GetRelationshipTypes(emergencyContact.Relationship));
 
             if (emergencyContact == null)
@@ -75,7 +75,7 @@ namespace Vexed.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, [Bind("Id,UserId,FirstName,LastName,Relationship,Phone,Email,Address,AdditionalInformation")] EmergencyContact emergencyContact)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,UserId,FirstName,LastName,Relationship,Phone,Email,Address,AdditionalInformation")] EmergencyContact emergencyContact)
         {
             if (id != emergencyContact.Id)
             {
@@ -86,11 +86,11 @@ namespace Vexed.Controllers
             {
                 try
                 {
-                    _emergencyContactService.UpdateEmergencyContact(emergencyContact);
+                    await _emergencyContactService.UpdateEmergencyContact(emergencyContact);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (_emergencyContactService.GetEmergencyContactById(id) == null)
+                    if (await _emergencyContactService.GetEmergencyContactById(id) == null)
                     {
                         return NotFound();
                     }
@@ -104,9 +104,9 @@ namespace Vexed.Controllers
             return View(emergencyContact);
         }
 
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var emergencyContact = _emergencyContactService.GetEmergencyContactById(id);
+            var emergencyContact = await _emergencyContactService.GetEmergencyContactById(id);
             if (emergencyContact == null)
             {
                 return NotFound();
@@ -117,16 +117,16 @@ namespace Vexed.Controllers
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public IActionResult DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_emergencyContactService.GetEmergencyContactById(id) == null)
+            if (await _emergencyContactService.GetEmergencyContactById(id) == null)
             {
                 return Problem("Entity set 'VexedDbContext.EmergencyContacts'  is null.");
             }
-            var emergencyContact = _emergencyContactService.GetEmergencyContactById(id);
+            var emergencyContact = await _emergencyContactService.GetEmergencyContactById(id);
             if (emergencyContact != null)
             {
-                _emergencyContactService.DeleteEmergencyContact(emergencyContact);
+                await _emergencyContactService.DeleteEmergencyContact(emergencyContact);
             }
             
             return RedirectToAction(nameof(Index));

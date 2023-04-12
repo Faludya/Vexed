@@ -7,11 +7,11 @@ namespace Vexed.Repositories.Abstractions
         /// <summary>
         /// Returns the first Contact Info with the given <c>id</c>
         /// </summary>
-        ContactInfo GetContactInfoById(int id);
+        Task<ContactInfo> GetContactInfoById(int id);
 
         /// <summary>
         /// Returns all the Contact Infos for a given user. 
         /// </summary>
-        List<ContactInfo> GetContactInfos(Guid userId);
+        Task<List<ContactInfo>> GetContactInfos(Guid userId);
     }
 }

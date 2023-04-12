@@ -7,16 +7,16 @@ namespace Vexed.Repositories.Abstractions
         /// <summary>
         /// Returns the first Leave Request with the given <c>id</c>
         /// </summary>
-        LeaveRequest GetLeaveRequestById(int id);
+        Task<LeaveRequest> GetLeaveRequestById(int id);
 
         /// <summary>
         /// Returns all the Leave Requests for a given user.
         /// </summary>
-        List<LeaveRequest> GetLeaveRequests(Guid userId);
+        Task<List<LeaveRequest>> GetLeaveRequests(Guid userId);
 
         /// <summary>
         /// Returns all the Leave Requests for a given superior.
         /// </summary>
-        List<LeaveRequest> GetLeaveRequestsSuperior(Guid superiorId);
+        Task<List<LeaveRequest>> GetLeaveRequestsSuperior(Guid superiorId);
     }
 }

@@ -1,4 +1,5 @@
-﻿using Vexed.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using Vexed.Data;
 using Vexed.Models;
 using Vexed.Repositories.Abstractions;
 
@@ -10,19 +11,19 @@ namespace Vexed.Repositories
         {
         }
 
-        public LeaveRequest GetLeaveRequestById(int id)
+        public async Task<LeaveRequest> GetLeaveRequestById(int id)
         {
-            return _vexedDbContext.LeaveRequests.Where(l => l.Id == id).First();
+            return await _vexedDbContext.LeaveRequests.Where(l => l.Id == id).FirstOrDefaultAsync();
         }
 
-        public List<LeaveRequest> GetLeaveRequests(Guid userId)
+        public async Task<List<LeaveRequest>> GetLeaveRequests(Guid userId)
         {
-            return _vexedDbContext.LeaveRequests.Where(l => l.UserId == userId).ToList();
+            return await _vexedDbContext.LeaveRequests.Where(l => l.UserId == userId).ToListAsync();
         }
 
-        public List<LeaveRequest> GetLeaveRequestsSuperior(Guid superiorId)
+        public async Task<List<LeaveRequest>> GetLeaveRequestsSuperior(Guid superiorId)
         {
-            return _vexedDbContext.LeaveRequests.Where(l => l.SuperiorId == superiorId).ToList();
+            return await _vexedDbContext.LeaveRequests.Where(l => l.SuperiorId == superiorId).ToListAsync();
         }
     }
 }

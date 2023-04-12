@@ -7,36 +7,36 @@ namespace Vexed.Services.Abstractions
         /// <summary>
         /// Creates a new User Employment.
         /// </summary>
-        void CreateUserEmployment(UserEmployment userEmployment);
+        Task CreateUserEmployment(UserEmployment userEmployment);
 
         /// <summary>
         /// Updates the details of a User Employment.
         /// </summary>
-        void UpdateUserEmployment(UserEmployment userEmployment);
+        Task UpdateUserEmployment(UserEmployment userEmployment);
 
         /// <summary>
         /// Removes the User Employment from the database.
         /// </summary>
-        void DeleteUserEmployment(UserEmployment userEmployment);
+        Task DeleteUserEmployment(UserEmployment userEmployment);
 
         /// <summary>
         /// Returns the first User Employment with the given <c>id</c>
         /// </summary>
-        UserEmployment GetUserEmploymentById(int id);
+        Task<UserEmployment> GetUserEmploymentById(int id);
 
         /// <summary>
         /// Returns the first User Employment with the given <c>userId</c>
         /// </summary>
-        UserEmployment GetUserEmploymentByUserId(Guid userId);
+        Task<UserEmployment> GetUserEmploymentByUserId(Guid userId);
 
         /// <summary>
         /// Returns all the User Employment from the database.
         /// </summary>
-        List<UserEmployment> GetAllUsersEmployment();
+        Task<List<UserEmployment>> GetAllUsersEmployment();
 
         /// <summary>
         /// Returns all the User Employment for a given user.
         /// </summary>
-        List<UserEmployment> GetUsersEmployment(Guid userId);
+        Task<List<UserEmployment>> GetUsersEmployment(Guid userId);
     }
 }

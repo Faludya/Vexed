@@ -13,41 +13,39 @@ namespace Vexed.Repositories
         {
         }
 
-        public List<string> GetAllUserIds()
+        public async Task<List<string>> GetAllUserIds()
         {
-            return _vexedDbContext.Users.Select(i => i.Id).ToList();
+            return await _vexedDbContext.Users.Select(i => i.Id).ToListAsync();
         }
 
-        public List<UserNameVM> GetAllUserNames()
+        public async Task<List<UserNameVM>> GetAllUserNames()
         {
-            return _vexedDbContext.Users
-                    .Select(u => new UserNameVM { UserId = u.Id, UserName = u.UserName })
-                    .ToList();
+            return await _vexedDbContext.Users
+                        .Select(u => new UserNameVM { UserId = u.Id, UserName = u.UserName })
+                        .ToListAsync();
         }
 
-        public List<IdentityUser> GetAllUsers()
+        public async Task<List<IdentityUser>> GetAllUsers()
         {
-            return _vexedDbContext.Users.Include(u => u.UserName).ToList();
+            return await _vexedDbContext.Users.Include(u => u.UserName).ToListAsync();
         }
 
-        public List<UserNameVM> GetUnsusedUserNames(List<string> unusedUserIds)
+        public async Task<List<UserNameVM>> GetUnsusedUserNames(List<string> unusedUserIds)
         {
-            var userNames = _vexedDbContext.Users
+            return await _vexedDbContext.Users
                 .Where(u => unusedUserIds.Contains(u.Id))
                 .Select(u => new UserNameVM { UserId = u.Id, UserName = u.UserName })
-                .ToList();
-
-            return userNames;
+                .ToListAsync();
         }
 
-        public string GetUserName(string userId)
+        public async Task<string> GetUserName(string userId)
         {
-            return _vexedDbContext.Users.Where(u => u.Id == userId).Select(u => u.UserName).First();
+            return await _vexedDbContext.Users.Where(u => u.Id == userId).Select(u => u.UserName).FirstOrDefaultAsync();
         }
 
-        public Guid GetUserSuperior(Guid userId)
+        public async Task<Guid> GetUserSuperior(Guid userId)
         {
-            return _vexedDbContext.UsersEmployments.Where(u => u.UserId == userId).Select(u => u.SuperiorId).FirstOrDefault();
+            return await _vexedDbContext.UsersEmployments.Where(u => u.UserId == userId).Select(u => u.SuperiorId).FirstOrDefaultAsync();
         }
     }
 }
