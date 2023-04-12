@@ -15,37 +15,37 @@ namespace Vexed.Services
             _repositoryWrapper = repositoryWrapper;
         }
 
-        public List<UserNameVM> GetAllUserNames()
+        public async Task<List<UserNameVM>> GetAllUserNames()
         {
-            return _repositoryWrapper.UserRepository.GetAllUserNames();
+            return await _repositoryWrapper.UserRepository.GetAllUserNames();
         }
 
-        public List<IdentityUser> GetAllUsers()
+        public async Task<List<IdentityUser>> GetAllUsers()
         {
-            return _repositoryWrapper.UserRepository.GetAllUsers();
+            return await _repositoryWrapper.UserRepository.GetAllUsers();
         }
 
-        public List<UserNameVM> GetUnassignedUserDetails()
+        public async Task<List<UserNameVM>> GetUnassignedUserDetails()
         {
-            var allUsersIds = _repositoryWrapper.UserRepository.GetAllUserIds();
-            var usedIds = _repositoryWrapper.UserDetailsRepository.GetAllUserDetailIds();
+            var allUsersIds = await _repositoryWrapper.UserRepository.GetAllUserIds();
+            var usedIds = await _repositoryWrapper.UserDetailsRepository.GetAllUserDetailIds();
             var unusedUserIds = allUsersIds.Except(usedIds).ToList();
 
-            return _repositoryWrapper.UserRepository.GetUnsusedUserNames(unusedUserIds);
+            return await _repositoryWrapper.UserRepository.GetUnsusedUserNames(unusedUserIds);
         }
 
-        public List<UserNameVM> GetUnassignedUserEmployment()
+        public async Task<List<UserNameVM>> GetUnassignedUserEmployment()
         {
-            var allUsersIds = _repositoryWrapper.UserRepository.GetAllUserIds();
-            var usedIds = _repositoryWrapper.UserEmploymentRepository.GetAllUserEmploymentIds();
+            var allUsersIds = await _repositoryWrapper.UserRepository.GetAllUserIds();
+            var usedIds = await _repositoryWrapper.UserEmploymentRepository.GetAllUserEmploymentIds();
             var unusedUserIds = allUsersIds.Except(usedIds).ToList();
 
-            return _repositoryWrapper.UserRepository.GetUnsusedUserNames(unusedUserIds);
+            return await _repositoryWrapper.UserRepository.GetUnsusedUserNames(unusedUserIds);
         }
 
-        public string GetUserName(string userId)
+        public async Task<string> GetUserName(string userId)
         {
-            return _repositoryWrapper.UserRepository.GetUserName(userId);
+            return await _repositoryWrapper.UserRepository.GetUserName(userId);
         }
     }
 }

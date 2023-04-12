@@ -26,23 +26,23 @@ namespace Vexed.Controllers
         }
 
         [Authorize(Roles = "HumanResources")]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View(_userDetailsService.GetAllUsersDetails());
+            return View(await _userDetailsService.GetAllUsersDetails());
         }
 
         [Authorize(Roles = "HumanResources, Employee")]
-        public IActionResult Details(int? id)
+        public async Task<IActionResult> Details(int? id)
         {
             if(id == null)
             {
                 var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-                var userDetail = _userDetailsService.GetUserDetailsByUserId(userId);
+                var userDetail = await _userDetailsService.GetUserDetailsByUserId(userId);
 
                 return View(userDetail);
             }
 
-            var userDetails = _userDetailsService.GetUserDetailsById((int)id);
+            var userDetails = await _userDetailsService.GetUserDetailsById((int)id);
             if (userDetails == null)
             {
                 return NotFound();
@@ -52,10 +52,10 @@ namespace Vexed.Controllers
         }
 
         [Authorize(Roles = "HumanResources")]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
             UsersDetailsViewModel usersDetailsViewModel = new UsersDetailsViewModel();
-            List<UserNameVM> userNameVM = _userService.GetUnassignedUserDetails();
+            List<UserNameVM> userNameVM = await _userService.GetUnassignedUserDetails();
 
             usersDetailsViewModel.UserNamesVM = userNameVM;
             ViewData["Users"] = new SelectList(userNameVM);
@@ -66,22 +66,22 @@ namespace Vexed.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "HumanResources")]
-        public IActionResult Create(UsersDetailsViewModel usersDetailsVM)
+        public async Task<IActionResult> Create(UsersDetailsViewModel usersDetailsVM)
         {
             if (ModelState.IsValid)
             {
                 var userDetails = usersDetailsVM.UserDetails;
                 userDetails.UserId = Guid.Parse(usersDetailsVM.SelectedUserId);
-                _userDetailsService.CreateUserDetails(userDetails);
+                await _userDetailsService.CreateUserDetails(userDetails);
                 return RedirectToAction(nameof(Index));
             }
             return View(usersDetailsVM);
         }
 
         [Authorize(Roles = "HumanResources")]
-        public IActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
-            var userDetails = _userDetailsService.GetUserDetailsById(id);
+            var userDetails = await _userDetailsService.GetUserDetailsById(id);
             if (userDetails == null)
             {
                 return NotFound();
@@ -92,7 +92,7 @@ namespace Vexed.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "HumanResources")]
-        public IActionResult Edit(int id, [Bind("Id,UserId,FirstName,LastName,PreferredLastName,Gender,DateOfBirth,Nationality,Country,City,Address,AdditionalInformation")] UserDetails userDetails)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,UserId,FirstName,LastName,PreferredLastName,Gender,DateOfBirth,Nationality,Country,City,Address,AdditionalInformation")] UserDetails userDetails)
         {
             if (id != userDetails.Id)
             {
@@ -103,11 +103,11 @@ namespace Vexed.Controllers
             {
                 try
                 {
-                    _userDetailsService.UpdateUserDetails(userDetails);
+                    await _userDetailsService.UpdateUserDetails(userDetails);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (_userDetailsService.GetUserDetailsById(id) == null)
+                    if (await _userDetailsService.GetUserDetailsById(id) == null)
                     {
                         return NotFound();
                     }
@@ -122,9 +122,9 @@ namespace Vexed.Controllers
         }
 
         [Authorize(Roles = "HumanResources")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var userDetails = _userDetailsService.GetUserDetailsById(id);
+            var userDetails = await _userDetailsService.GetUserDetailsById(id);
             if (userDetails == null)
             {
                 return NotFound();
@@ -136,16 +136,16 @@ namespace Vexed.Controllers
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "HumanResources")]
-        public IActionResult DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_userDetailsService.GetUserDetailsById(id) == null)
+            if (await _userDetailsService.GetUserDetailsById(id) == null)
             {
                 return Problem("Entity set 'VexedDbContext.UsersDetails'  is null.");
             }
-            var userDetails = _userDetailsService.GetUserDetailsById(id);
+            var userDetails = await _userDetailsService.GetUserDetailsById(id);
             if (userDetails != null)
             {
-                _userDetailsService.DeleteUserDetails(userDetails);
+                await _userDetailsService.DeleteUserDetails(userDetails);
             }
             
             return RedirectToAction(nameof(Index));

@@ -21,15 +21,15 @@ namespace Vexed.Controllers
             _contactInfoService = contactInfoService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            return View(_contactInfoService.GetContactInfos(userId));
+            return View(await _contactInfoService.GetContactInfos(userId));
         }
 
         public async Task<IActionResult> Details(int id)
         {
-            var contactInfo = _contactInfoService.GetContactInfoById(id);
+            var contactInfo = await _contactInfoService.GetContactInfoById(id);
             if (contactInfo == null)
             {
                 return NotFound();
@@ -51,7 +51,7 @@ namespace Vexed.Controllers
             if (ModelState.IsValid)
             {
                 contactInfo.UserId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-                _contactInfoService.CreateContactInfo(contactInfo);
+                await _contactInfoService.CreateContactInfo(contactInfo);
                 return RedirectToAction(nameof(Index));
             }
             return View(contactInfo);
@@ -59,12 +59,12 @@ namespace Vexed.Controllers
 
         public async Task<IActionResult> Edit(int id)
         {
-            if (_contactInfoService.GetContactInfoById(id) == null)
+            if (await _contactInfoService.GetContactInfoById(id) == null)
             {
                 return NotFound();
             }
 
-            var contactInfo = _contactInfoService.GetContactInfoById(id);
+            var contactInfo = await _contactInfoService.GetContactInfoById(id);
             ViewData["ContactTypes"] = new SelectList(_contactInfoService.GetContactTypes(contactInfo.Type));
             
             if (contactInfo == null)
@@ -87,7 +87,7 @@ namespace Vexed.Controllers
             {
                 try
                 {
-                    _contactInfoService.UpdateContactInfo(contactInfo);
+                    await _contactInfoService.UpdateContactInfo(contactInfo);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -107,12 +107,12 @@ namespace Vexed.Controllers
 
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _contactInfoService.GetContactInfoById((int)id) == null)
+            if (id == null || await _contactInfoService.GetContactInfoById((int)id) == null)
             {
                 return NotFound();
             }
 
-            var contactInfo = _contactInfoService.GetContactInfoById((int)id);
+            var contactInfo = await _contactInfoService.GetContactInfoById((int)id);
             if (contactInfo == null)
             {
                 return NotFound();
@@ -125,14 +125,14 @@ namespace Vexed.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_contactInfoService.GetContactInfoById(id) == null)
+            if (await _contactInfoService.GetContactInfoById(id) == null)
             {
                 return Problem("Entity set 'VexedDbContext.ContactsInfo'  is null.");
             }
-            var contactInfo = _contactInfoService.GetContactInfoById(id);
+            var contactInfo = await _contactInfoService.GetContactInfoById(id);
             if (contactInfo != null)
             {
-                _contactInfoService.DeleteContactInfo(contactInfo);
+                await _contactInfoService.DeleteContactInfo(contactInfo);
             }
             
             return RedirectToAction(nameof(Index));

@@ -22,22 +22,22 @@ namespace Vexed.Controllers
         }
 
         [Authorize(Roles = "HumanResources")]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View(_userEmploymentService.GetAllUsersEmployment());
+            return View(await _userEmploymentService.GetAllUsersEmployment());
         }
 
         [Authorize(Roles = "HumanResources, Employee")]
-        public IActionResult Details(int? id)
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
                 var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-                var userEmployment = _userEmploymentService.GetUserEmploymentByUserId(userId);
+                var userEmployment = await _userEmploymentService.GetUserEmploymentByUserId(userId);
                 return View(userEmployment);
             }
 
-            var userEmployments = _userEmploymentService.GetUserEmploymentById((int)id);
+            var userEmployments = await _userEmploymentService.GetUserEmploymentById((int)id);
             if (userEmployments == null)
             {
                 return NotFound();
@@ -47,11 +47,11 @@ namespace Vexed.Controllers
         }
 
         [Authorize(Roles = "HumanResources")]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
             EmploymentViewModel employmentVM = new EmploymentViewModel();
-            List<UserNameVM> userNameVM = _userService.GetUnassignedUserEmployment();
-            List<UserNameVM> superiorUserNames = _userService.GetAllUserNames();
+            List<UserNameVM> userNameVM = await _userService.GetUnassignedUserEmployment();
+            List<UserNameVM> superiorUserNames = await _userService.GetAllUserNames();
 
             employmentVM.UserNamesVM = userNameVM;
             employmentVM.SuperiorNamesVM = superiorUserNames;
@@ -64,25 +64,25 @@ namespace Vexed.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "HumanResources")]
-        public IActionResult Create(EmploymentViewModel employmentVM)
+        public async Task<IActionResult> Create(EmploymentViewModel employmentVM)
         {
             if (ModelState.IsValid)
             {
                 var userEmployment = employmentVM.UserEmployment;
                 userEmployment.UserId = Guid.Parse(employmentVM.SelectedUserId);
                 userEmployment.SuperiorId = Guid.Parse(employmentVM.SelectedSuperiorId);
-                userEmployment.SuperiorName = _userService.GetUserName(employmentVM.SelectedSuperiorId);
+                userEmployment.SuperiorName = await _userService.GetUserName(employmentVM.SelectedSuperiorId);
                 //_userEmploymentService.CreateUserEmployment(userEmployment);
-                _userEmploymentService.CreateUserEmployment(userEmployment);
+                await _userEmploymentService.CreateUserEmployment(userEmployment);
                 return RedirectToAction(nameof(Index));
             }
             return View(employmentVM);
         }
 
         [Authorize(Roles = "HumanResources")]
-        public IActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
-            var userEmployment = _userEmploymentService.GetUserEmploymentById(id);
+            var userEmployment = await _userEmploymentService.GetUserEmploymentById(id);
             if (userEmployment == null)
             {
                 return NotFound();
@@ -93,7 +93,7 @@ namespace Vexed.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "HumanResources")]
-        public IActionResult Edit(int id, [Bind("Id,UserId,CompanyName,Department,Function,Location,HireDate,HourlyPay,SuperiorName")] UserEmployment userEmployment)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,UserId,CompanyName,Department,Function,Location,HireDate,HourlyPay,SuperiorName")] UserEmployment userEmployment)
         {
             if (id != userEmployment.Id)
             {
@@ -104,11 +104,11 @@ namespace Vexed.Controllers
             {
                 try
                 {
-                    _userEmploymentService.UpdateUserEmployment(userEmployment);
+                    await _userEmploymentService.UpdateUserEmployment(userEmployment);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (_userEmploymentService.GetUserEmploymentById(id) == null)
+                    if (await _userEmploymentService.GetUserEmploymentById(id) == null)
                     {
                         return NotFound();
                     }
@@ -123,9 +123,9 @@ namespace Vexed.Controllers
         }
 
         [Authorize(Roles = "HumanResources")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var userEmployment = _userEmploymentService.GetUserEmploymentById(id);
+            var userEmployment = await _userEmploymentService.GetUserEmploymentById(id);
             if (userEmployment == null)
             {
                 return NotFound();
@@ -137,16 +137,16 @@ namespace Vexed.Controllers
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "HumanResources")]
-        public IActionResult DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_userEmploymentService.GetUserEmploymentById(id) == null)
+            if (await _userEmploymentService.GetUserEmploymentById(id) == null)
             {
                 return Problem("Entity set 'VexedDbContext.UsersEmployments'  is null.");
             }
-            var userEmployment = _userEmploymentService.GetUserEmploymentById(id);
+            var userEmployment = await _userEmploymentService.GetUserEmploymentById(id);
             if (userEmployment != null)
             {
-                _userEmploymentService.DeleteUserEmployment(userEmployment);
+                await _userEmploymentService.DeleteUserEmployment(userEmployment);
             }
             
             return RedirectToAction(nameof(Index));

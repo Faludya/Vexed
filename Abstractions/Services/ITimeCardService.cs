@@ -7,43 +7,43 @@ namespace Vexed.Services.Abstractions
         /// <summary>
         /// Creates a new Time Card.
         /// </summary>
-        void CreateTimeCard(TimeCard timeCard);
+        Task CreateTimeCard(TimeCard timeCard);
 
         /// <summary>
         /// Updates the details of a Time Card
         /// </summary>
-        void UpdateTimeCard(TimeCard timeCard);
+        Task UpdateTimeCard(TimeCard timeCard);
 
         /// <summary>
         /// Removes the Time Card from the database.
         /// </summary>
-        void DeleteTimeCard(TimeCard timeCard);
+        Task DeleteTimeCard(TimeCard timeCard);
 
         /// <summary>
         /// Returns the first Time Card with the given <c>id</c>
         /// </summary>
-        TimeCard GetTimeCardById(int id);
+        Task<TimeCard> GetTimeCardById(int id);
 
         /// <summary>
         /// Returns the last created Time Card for the given <c>userId</c>.
         /// Start date is set to the first date of the current week and the End date is set to the Friday of the current week.
         /// </summary>
-        TimeCard GetLastTimeCard(Guid userId);
+        Task<TimeCard> GetLastTimeCard(Guid userId);
 
         /// <summary>
         /// Returns all the Time Cards from the database.
         /// </summary>
-        List<TimeCard> GetAllTimeCards();
+        Task<List<TimeCard>> GetAllTimeCards();
 
         /// <summary>
         /// Returns all the Time Cards for a given user.
         /// </summary>
-        List<TimeCard> GetTimeCards(Guid userId);
+        Task<List<TimeCard>> GetTimeCards(Guid userId);
 
         /// <summary>
         /// Returns all the Time Cards that belong to the superior.
         /// </summary>
-        List<TimeCard> GetTimeCardsForSuperior(Guid superiorId);
+        Task<List<TimeCard>> GetTimeCardsForSuperior(Guid superiorId);
 
         /// <summary>
         /// Method <c>GetLocationTypes</c> returns a list of all Types of Locations.

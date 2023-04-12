@@ -7,27 +7,27 @@ namespace Vexed.Repositories.Abstractions
         /// <summary>
         /// Returns the first User Detail with the given <c>id</c>
         /// </summary>
-        UserDetails GetUserDetailsById(int id);
+        Task<UserDetails> GetUserDetailsById(int id);
 
         /// <summary>
         /// Returns the first User Detail with the given <c>userId</c>
         /// </summary>
-        UserDetails GetUserDetailsByUserId(Guid userId);
+        Task<UserDetails> GetUserDetailsByUserId(Guid userId);
 
         /// <summary>
         /// Returns all the User Details for a given user.
         /// </summary>
-        List<UserDetails> GetUserDetails(Guid userId);
+        Task<List<UserDetails>> GetUserDetails(Guid userId);
 
         /// <summary>
         /// Returns all the UserDetails from the database
         /// </summary>
-        List<UserDetails> GetAllUserDetails();
+        Task<List<UserDetails>> GetAllUserDetails();
 
         /// <summary>
         /// Returns all the UserIds from the database
         /// </summary>
-        List<string> GetAllUserDetailIds();
+        Task<List<string>> GetAllUserDetailIds();
 
     }
 }

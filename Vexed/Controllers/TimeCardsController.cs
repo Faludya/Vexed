@@ -19,24 +19,24 @@ namespace Vexed.Controllers
             _timeCardService= timeCardService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            return View(_timeCardService.GetTimeCards(userId));
+            return View(await _timeCardService.GetTimeCards(userId));
         }
 
-        public IActionResult IndexHR()
+        public async Task<IActionResult> IndexHR()
         {
-            return View(_timeCardService.GetAllTimeCards());
+            return View(await _timeCardService.GetAllTimeCards());
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult IndexHR(string statusAction, int id)
+        public async Task<IActionResult> IndexHR(string statusAction, int id)
         {
-            var timeCard = _timeCardService.GetTimeCardById(id);
+            var timeCard = await _timeCardService.GetTimeCardById(id);
             timeCard.Status = StatusManager.SetStatus(timeCard.Status, statusAction);
-            _timeCardService.UpdateTimeCard(timeCard);
+            await _timeCardService.UpdateTimeCard(timeCard);
 
             if (timeCard == null)
             {
@@ -46,19 +46,19 @@ namespace Vexed.Controllers
             return RedirectToAction(nameof(IndexHR));
         }
 
-        public IActionResult IndexSuperior()
+        public async Task<IActionResult> IndexSuperior()
         {
             var superiorId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            return View(_timeCardService.GetTimeCardsForSuperior(superiorId));
+            return View(await _timeCardService.GetTimeCardsForSuperior(superiorId));
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult IndexSuperior(string statusAction, int id)
+        public async Task<IActionResult> IndexSuperior(string statusAction, int id)
         {
-            var timeCard = _timeCardService.GetTimeCardById(id);
+            var timeCard = await _timeCardService.GetTimeCardById(id);
             timeCard.Status = StatusManager.SetStatus(timeCard.Status, statusAction);
-            _timeCardService.UpdateTimeCard(timeCard);
+            await _timeCardService.UpdateTimeCard(timeCard);
 
             if (timeCard == null)
             {
@@ -67,9 +67,9 @@ namespace Vexed.Controllers
 
             return RedirectToAction(nameof(IndexSuperior));
         }
-        public IActionResult Details(int id)
+        public async Task<IActionResult> Details(int id)
         {
-            var timeCard = _timeCardService.GetTimeCardById(id);
+            var timeCard = await _timeCardService.GetTimeCardById(id);
             if (timeCard == null)
             {
                 return NotFound();
@@ -78,13 +78,13 @@ namespace Vexed.Controllers
             return View(timeCard);
         }
 
-        public IActionResult Create(string? copyCard)
+        public async Task<IActionResult> Create(string? copyCard)
         {
             if(copyCard != null)
             {
                 //TODO: 
                 var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-                var previousCard = _timeCardService.GetLastTimeCard(userId);
+                var previousCard = await _timeCardService.GetLastTimeCard(userId);
                 ViewData["LocationTypes"] = new SelectList(_timeCardService.GetLocationTypes(previousCard.Location));
 
                 return View(previousCard);
@@ -95,7 +95,7 @@ namespace Vexed.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind("Id,UserId,ProjectCode,TaskDetails,Location,StartDate,EndDate,Quantity,Status,Comments")] TimeCard timeCard)
+        public async Task<IActionResult> Create([Bind("Id,UserId,ProjectCode,TaskDetails,Location,StartDate,EndDate,Quantity,Status,Comments")] TimeCard timeCard)
         {
             if (ModelState.IsValid)
             {
@@ -108,7 +108,7 @@ namespace Vexed.Controllers
                 }
 
                 timeCard.UserId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-                _timeCardService.CreateTimeCard(timeCard);
+                await _timeCardService.CreateTimeCard(timeCard);
 
                 return RedirectToAction(nameof(Index));
             }
@@ -118,7 +118,7 @@ namespace Vexed.Controllers
 
         public async Task<IActionResult> Edit(int id)
         {
-            var timeCard = _timeCardService.GetTimeCardById(id);
+            var timeCard = await _timeCardService.GetTimeCardById(id);
             ViewData["LocationTypes"] = new SelectList(_timeCardService.GetLocationTypes(timeCard.Location));
 
             if (timeCard == null)
@@ -130,7 +130,7 @@ namespace Vexed.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, [Bind("Id,UserId, SuperiorId, ProjectCode,TaskDetails,Location,StartDate,EndDate,Quantity,Status,Comments")] TimeCard timeCard)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,UserId, SuperiorId, ProjectCode,TaskDetails,Location,StartDate,EndDate,Quantity,Status,Comments")] TimeCard timeCard)
         {
             if (id != timeCard.Id)
             {
@@ -149,11 +149,11 @@ namespace Vexed.Controllers
 
                 try
                 {
-                    _timeCardService.UpdateTimeCard(timeCard);
+                    await _timeCardService.UpdateTimeCard(timeCard);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (_timeCardService.GetTimeCardById(id) == null)
+                    if (await _timeCardService.GetTimeCardById(id) == null)
                     {
                         return NotFound();
                     }
@@ -167,9 +167,9 @@ namespace Vexed.Controllers
             return View(timeCard);
         }
 
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var timeCard = _timeCardService.GetTimeCardById(id);
+            var timeCard = await _timeCardService.GetTimeCardById(id);
             if (timeCard == null)
             {
                 return NotFound();
@@ -180,16 +180,16 @@ namespace Vexed.Controllers
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public IActionResult DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_timeCardService.GetTimeCardById(id) == null)
+            if (await _timeCardService.GetTimeCardById(id) == null)
             {
                 return Problem("Entity set 'VexedDbContext.TimeCards'  is null.");
             }
-            var timeCard = _timeCardService.GetTimeCardById(id);
+            var timeCard = await _timeCardService.GetTimeCardById(id);
             if (timeCard != null)
             {
-                _timeCardService.DeleteTimeCard(timeCard);
+                await _timeCardService.DeleteTimeCard(timeCard);
             }
             
             return RedirectToAction(nameof(Index));

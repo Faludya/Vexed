@@ -1,4 +1,5 @@
-﻿using Vexed.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using Vexed.Models;
 using Vexed.Repositories.Abstractions;
 using Vexed.Services.Abstractions;
 
@@ -13,39 +14,40 @@ namespace Vexed.Services
             _repositoryWrapper = repositoryWrapper;
         }
 
-        public void CreateLeaveRequest(LeaveRequest leaveRequest)
+        public async Task CreateLeaveRequest(LeaveRequest leaveRequest)
         {
-            leaveRequest.SuperiorId = _repositoryWrapper.UserRepository.GetUserSuperior(leaveRequest.UserId);
+            leaveRequest.SuperiorId = await _repositoryWrapper.UserRepository.GetUserSuperior(leaveRequest.UserId);
 
-            _repositoryWrapper.LeaveRequestRepository.Create(leaveRequest);
-            _repositoryWrapper.Save();
+            await _repositoryWrapper.LeaveRequestRepository.Create(leaveRequest);
+            await _repositoryWrapper.Save();
         }
 
-        public void DeleteLeaveRequest(LeaveRequest leaveRequest)
+        public async Task DeleteLeaveRequest(LeaveRequest leaveRequest)
         {
-            _repositoryWrapper.LeaveRequestRepository.Delete(leaveRequest);
-            _repositoryWrapper.Save();
+            await _repositoryWrapper.LeaveRequestRepository.Delete(leaveRequest);
+            await _repositoryWrapper.Save();
         }
 
-        public List<LeaveRequest> GetAllLeaveRequests()
+        public async Task<List<LeaveRequest>> GetAllLeaveRequests()
         {
-            return _repositoryWrapper.LeaveRequestRepository.FindAll().ToList();
+            var queryable = await _repositoryWrapper.LeaveRequestRepository.FindAll();
+            return await queryable.ToListAsync();
         }
 
-        public LeaveRequest GetLeaveRequestById(int id)
+        public async Task<LeaveRequest> GetLeaveRequestById(int id)
         {
-            return _repositoryWrapper.LeaveRequestRepository.GetLeaveRequestById(id);
+            return await _repositoryWrapper.LeaveRequestRepository.GetLeaveRequestById(id);
         }
 
-        public List<LeaveRequest> GetLeaveRequests(Guid userId)
+        public async Task<List<LeaveRequest>> GetLeaveRequests(Guid userId)
         {
-            return _repositoryWrapper.LeaveRequestRepository.GetLeaveRequests(userId);
+            return await _repositoryWrapper.LeaveRequestRepository.GetLeaveRequests(userId);
         }
 
-        public void UpdateLeaveRequest(LeaveRequest leaveRequest)
+        public async Task UpdateLeaveRequest(LeaveRequest leaveRequest)
         {
-            _repositoryWrapper.LeaveRequestRepository.Update(leaveRequest);
-            _repositoryWrapper.Save();
+            await _repositoryWrapper.LeaveRequestRepository.Update(leaveRequest);
+            await _repositoryWrapper.Save();
         }
 
         public List<string> GetLeaveTypes()
@@ -70,9 +72,9 @@ namespace Vexed.Services
             return leaveTypes;
         }
 
-        public List<LeaveRequest> GetLeaveRequestsForSuperior(Guid superiorId)
+        public async Task<List<LeaveRequest>> GetLeaveRequestsForSuperior(Guid superiorId)
         {
-            return _repositoryWrapper.LeaveRequestRepository.GetLeaveRequestsSuperior(superiorId);
+            return await _repositoryWrapper.LeaveRequestRepository.GetLeaveRequestsSuperior(superiorId);
         }
     }
 }

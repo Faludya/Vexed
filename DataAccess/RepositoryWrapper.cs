@@ -12,9 +12,9 @@ namespace Vexed.Repositories
             _vexedDbContext = vexedDbContext;
         }
 
-        public void Save()
+        public async Task Save()
         {
-            _vexedDbContext.SaveChanges();
+            await _vexedDbContext.SaveChangesAsync();
         }
 
         private IContactInfoRepository _contactInfoRepository;

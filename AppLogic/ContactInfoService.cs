@@ -14,37 +14,38 @@ namespace Vexed.Services
             _repositoryWrapper = repositoryWrapper;
         }
 
-        public void CreateContactInfo(ContactInfo contactInfo)
+        public async Task CreateContactInfo(ContactInfo contactInfo)
         {
-            _repositoryWrapper.ContactInfoRepository.Create(contactInfo);
-            _repositoryWrapper.Save();
+            await _repositoryWrapper.ContactInfoRepository.Create(contactInfo);
+            await _repositoryWrapper.Save();
         }
 
-        public void DeleteContactInfo(ContactInfo contactInfo)
+        public async Task DeleteContactInfo(ContactInfo contactInfo)
         {
-            _repositoryWrapper.ContactInfoRepository.Delete(contactInfo);
-            _repositoryWrapper.Save();
+            await _repositoryWrapper.ContactInfoRepository.Delete(contactInfo);
+            await _repositoryWrapper.Save();
         }
 
         public async Task<List<ContactInfo>> GetAllContacts()
         {
-            return await _repositoryWrapper.ContactInfoRepository.FindAll().ToListAsync();
+            var queryable = await _repositoryWrapper.ContactInfoRepository.FindAll();
+            return await queryable.ToListAsync();
         }
 
-        public ContactInfo GetContactInfoById(int id)
+        public async Task<ContactInfo> GetContactInfoById(int id)
         {
-            return _repositoryWrapper.ContactInfoRepository.GetContactInfoById(id);
+            return await _repositoryWrapper.ContactInfoRepository.GetContactInfoById(id);
         }
 
-        public List<ContactInfo> GetContactInfos(Guid userId)
+        public async Task<List<ContactInfo>> GetContactInfos(Guid userId)
         {
-            return _repositoryWrapper.ContactInfoRepository.GetContactInfos(userId);
+            return await _repositoryWrapper.ContactInfoRepository.GetContactInfos(userId);
         }
 
-        public void UpdateContactInfo(ContactInfo contactInfo)
+        public async Task UpdateContactInfo(ContactInfo contactInfo)
         {
-            _repositoryWrapper.ContactInfoRepository.Update(contactInfo);
-            _repositoryWrapper.Save();
+            await _repositoryWrapper.ContactInfoRepository.Update(contactInfo);
+            await _repositoryWrapper.Save();
         }
 
         public List<string> GetContactTypes()

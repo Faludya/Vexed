@@ -7,11 +7,11 @@ namespace Vexed.Repositories.Abstractions
         /// <summary>
         /// Returns the first Emergency Contact with the given <c>id</c>
         /// </summary>
-        EmergencyContact GetEmergencyContactById(int id);
+        Task<EmergencyContact> GetEmergencyContactById(int id);
 
         /// <summary>
         /// Returns all the Emergency Contacts for a given user.
         /// </summary>
-        List<EmergencyContact> GetEmergencyContacts(Guid userId);
+        Task<List<EmergencyContact>> GetEmergencyContacts(Guid userId);
     }
 }

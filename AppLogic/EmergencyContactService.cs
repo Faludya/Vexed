@@ -1,4 +1,5 @@
-﻿using Vexed.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using Vexed.Models;
 using Vexed.Repositories.Abstractions;
 using Vexed.Services.Abstractions;
 
@@ -13,37 +14,38 @@ namespace Vexed.Services
             _repositoryWrapper = repositoryWrapper;
         }
 
-        public void CreateEmergencyContact(EmergencyContact emergencyContact)
+        public async Task CreateEmergencyContact(EmergencyContact emergencyContact)
         {
-            _repositoryWrapper.EmergencyContactRepository.Create(emergencyContact);
-            _repositoryWrapper.Save();
+            await _repositoryWrapper.EmergencyContactRepository.Create(emergencyContact);
+            await _repositoryWrapper.Save();
         }
 
-        public void DeleteEmergencyContact(EmergencyContact emergencyContact)
+        public async Task DeleteEmergencyContact(EmergencyContact emergencyContact)
         {
-            _repositoryWrapper.EmergencyContactRepository.Delete(emergencyContact);
-            _repositoryWrapper.Save();
+            await _repositoryWrapper.EmergencyContactRepository.Delete(emergencyContact);
+            await _repositoryWrapper.Save();
         }
 
-        public List<EmergencyContact> GetAllEmergencyContacts()
+        public async Task<List<EmergencyContact>> GetAllEmergencyContacts()
         {
-            return _repositoryWrapper.EmergencyContactRepository.FindAll().ToList();
+            var queryable = await _repositoryWrapper.EmergencyContactRepository.FindAll();
+            return await queryable.ToListAsync();
         }
 
-        public EmergencyContact GetEmergencyContactById(int id)
+        public async Task<EmergencyContact> GetEmergencyContactById(int id)
         {
-            return _repositoryWrapper.EmergencyContactRepository.GetEmergencyContactById(id);
+            return await _repositoryWrapper.EmergencyContactRepository.GetEmergencyContactById(id);
         }
 
-        public List<EmergencyContact> GetEmergencyContacts(Guid userId)
+        public async Task<List<EmergencyContact>> GetEmergencyContacts(Guid userId)
         {
-            return _repositoryWrapper.EmergencyContactRepository.GetEmergencyContacts(userId);
+            return await _repositoryWrapper.EmergencyContactRepository.GetEmergencyContacts(userId);
         }
 
-        public void UpdateEmergencyContact(EmergencyContact emergencyContact)
+        public async Task UpdateEmergencyContact(EmergencyContact emergencyContact)
         {
-            _repositoryWrapper.EmergencyContactRepository.Update(emergencyContact);
-            _repositoryWrapper.Save();
+            await _repositoryWrapper.EmergencyContactRepository.Update(emergencyContact);
+            await _repositoryWrapper.Save();
         }
 
         public List<string> GetRelationshipTypes()

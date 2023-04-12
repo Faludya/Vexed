@@ -13,42 +13,42 @@ namespace Vexed.Services
             _repositoryWrapper = repositoryWrapper;
         }
 
-        public void CreateUserDetails(UserDetails userDetails)
+        public async Task CreateUserDetails(UserDetails userDetails)
         {
-            _repositoryWrapper.UserDetailsRepository.Create(userDetails);
-            _repositoryWrapper.Save();
+            await _repositoryWrapper.UserDetailsRepository.Create(userDetails);
+            await _repositoryWrapper.Save();
         }
 
-        public void DeleteUserDetails(UserDetails userDetails)
+        public async Task DeleteUserDetails(UserDetails userDetails)
         {
-            _repositoryWrapper.UserDetailsRepository.Delete(userDetails);
-            _repositoryWrapper.Save();
+            await _repositoryWrapper.UserDetailsRepository.Delete(userDetails);
+            await _repositoryWrapper.Save();
         }
 
-        public List<UserDetails> GetAllUsersDetails()
+        public async Task<List<UserDetails>> GetAllUsersDetails()
         {
-            return _repositoryWrapper.UserDetailsRepository.GetAllUserDetails();
+            return await _repositoryWrapper.UserDetailsRepository.GetAllUserDetails();
         }
 
-        public UserDetails GetUserDetailsById(int id)
+        public async Task<UserDetails> GetUserDetailsById(int id)
         {
-            return _repositoryWrapper.UserDetailsRepository.GetUserDetailsById(id);
+            return await _repositoryWrapper.UserDetailsRepository.GetUserDetailsById(id);
         }
 
-        public UserDetails GetUserDetailsByUserId(Guid userId)
+        public async Task<UserDetails> GetUserDetailsByUserId(Guid userId)
         {
-            return _repositoryWrapper.UserDetailsRepository.GetUserDetailsByUserId(userId);
+            return await _repositoryWrapper.UserDetailsRepository.GetUserDetailsByUserId(userId);
         }
 
-        public List<UserDetails> GetUsersDetails(Guid userId)
+        public async Task<List<UserDetails>> GetUsersDetails(Guid userId)
         {
-            return _repositoryWrapper.UserDetailsRepository.GetUserDetails(userId);
+            return await _repositoryWrapper.UserDetailsRepository.GetUserDetails(userId);
         }
 
-        public void UpdateUserDetails(UserDetails userDetails)
+        public async Task UpdateUserDetails(UserDetails userDetails)
         {
-            _repositoryWrapper.UserDetailsRepository.Update(userDetails);
-            _repositoryWrapper.Save();
+            await _repositoryWrapper.UserDetailsRepository.Update(userDetails);
+            await _repositoryWrapper.Save();
         }
     }
 }

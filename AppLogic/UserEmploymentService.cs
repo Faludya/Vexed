@@ -1,4 +1,5 @@
-﻿using Vexed.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using Vexed.Models;
 using Vexed.Repositories.Abstractions;
 using Vexed.Services.Abstractions;
 
@@ -13,42 +14,43 @@ namespace Vexed.Services
             _repositoryWrapper = repositoryWrapper;
         }
 
-        public void CreateUserEmployment(UserEmployment userEmployment)
+        public async Task CreateUserEmployment(UserEmployment userEmployment)
         {
-            _repositoryWrapper.UserEmploymentRepository.Create(userEmployment);
-            _repositoryWrapper.Save();
+            await _repositoryWrapper.UserEmploymentRepository.Create(userEmployment);
+            await _repositoryWrapper.Save();
         }
 
-        public void DeleteUserEmployment(UserEmployment userEmployment)
+        public async Task DeleteUserEmployment(UserEmployment userEmployment)
         {
-            _repositoryWrapper.UserEmploymentRepository.Delete(userEmployment);
-            _repositoryWrapper.Save();
+            await _repositoryWrapper.UserEmploymentRepository.Delete(userEmployment);
+            await _repositoryWrapper.Save();
         }
 
-        public List<UserEmployment> GetAllUsersEmployment()
+        public async Task<List<UserEmployment>> GetAllUsersEmployment()
         {
-            return _repositoryWrapper.UserEmploymentRepository.FindAll().ToList();
+            var queryable = await _repositoryWrapper.UserEmploymentRepository.FindAll();
+            return await queryable.ToListAsync();
         }
 
-        public UserEmployment GetUserEmploymentById(int id)
+        public async Task<UserEmployment> GetUserEmploymentById(int id)
         {
-            return _repositoryWrapper.UserEmploymentRepository.GetUserEmploymentById(id);
+            return await _repositoryWrapper.UserEmploymentRepository.GetUserEmploymentById(id);
         }
 
-        public UserEmployment GetUserEmploymentByUserId(Guid userId)
+        public async Task<UserEmployment> GetUserEmploymentByUserId(Guid userId)
         {
-            return _repositoryWrapper.UserEmploymentRepository.GetUserEmploymentByUserId(userId);
+            return await _repositoryWrapper.UserEmploymentRepository.GetUserEmploymentByUserId(userId);
         }
 
-        public List<UserEmployment> GetUsersEmployment(Guid userId)
+        public async Task<List<UserEmployment>> GetUsersEmployment(Guid userId)
         {
-            return _repositoryWrapper.UserEmploymentRepository.GetUserEmployments(userId);
+            return await _repositoryWrapper.UserEmploymentRepository.GetUserEmployments(userId);
         }
 
-        public void UpdateUserEmployment(UserEmployment userEmployment)
+        public async Task UpdateUserEmployment(UserEmployment userEmployment)
         {
-            _repositoryWrapper.UserEmploymentRepository.Update(userEmployment);
-            _repositoryWrapper.Save();
+            await _repositoryWrapper.UserEmploymentRepository.Update(userEmployment);
+            await _repositoryWrapper.Save();
         }
     }
 }

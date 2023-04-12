@@ -1,4 +1,5 @@
-﻿using Vexed.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using Vexed.Data;
 using Vexed.Models;
 using Vexed.Repositories.Abstractions;
 
@@ -10,29 +11,29 @@ namespace Vexed.Repositories
         {
         }
 
-        public List<string> GetAllUserDetailIds()
+        public async Task<List<string>> GetAllUserDetailIds()
         {
-            return _vexedDbContext.UsersDetails.Select(u => u.UserId.ToString().ToLower()).ToList();
+            return await _vexedDbContext.UsersDetails.Select(u => u.UserId.ToString().ToLower()).ToListAsync();
         }
 
-        public List<UserDetails> GetAllUserDetails()
+        public async Task<List<UserDetails>> GetAllUserDetails()
         {
-            return _vexedDbContext.UsersDetails.ToList();
+            return await _vexedDbContext.UsersDetails.ToListAsync();
         }
 
-        public List<UserDetails> GetUserDetails(Guid userId)
+        public async Task<List<UserDetails>> GetUserDetails(Guid userId)
         {
-            return _vexedDbContext.UsersDetails.Where(u => u.UserId == userId).ToList();
+            return await _vexedDbContext.UsersDetails.Where(u => u.UserId == userId).ToListAsync();
         }
 
-        public UserDetails GetUserDetailsById(int id)
+        public async Task<UserDetails> GetUserDetailsById(int id)
         {
-            return _vexedDbContext.UsersDetails.Where(u => u.Id == id).First();
+            return await _vexedDbContext.UsersDetails.Where(u => u.Id == id).FirstOrDefaultAsync();
         }
 
-        public UserDetails GetUserDetailsByUserId(Guid userId)
+        public async Task<UserDetails> GetUserDetailsByUserId(Guid userId)
         {
-            return _vexedDbContext.UsersDetails.Where(u => u.UserId == userId).First();
+            return await _vexedDbContext.UsersDetails.Where(u => u.UserId == userId).FirstOrDefaultAsync();
         }
     }
 }

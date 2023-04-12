@@ -1,4 +1,5 @@
-﻿using Vexed.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using Vexed.Data;
 using Vexed.Models;
 using Vexed.Repositories.Abstractions;
 
@@ -10,24 +11,24 @@ namespace Vexed.Repositories
         {
         }
 
-        public TimeCard GetLastTimeCard(Guid userId)
+        public async Task<TimeCard> GetLastTimeCard(Guid userId)
         {
-            return _vexedDbContext.TimeCards.Where(u => u.UserId == userId).OrderByDescending(u => u.EndDate).First();
+            return await _vexedDbContext.TimeCards.Where(u => u.UserId == userId).OrderByDescending(u => u.EndDate).FirstOrDefaultAsync();
         }
 
-        public TimeCard GetTimeCardById(int id)
+        public async Task<TimeCard> GetTimeCardById(int id)
         {
-            return _vexedDbContext.TimeCards.Where(t => t.Id == id).First();
+            return await _vexedDbContext.TimeCards.Where(t => t.Id == id).FirstOrDefaultAsync();
         }
 
-        public List<TimeCard> GetTimeCards(Guid userId)
+        public async Task<List<TimeCard>> GetTimeCards(Guid userId)
         {
-            return _vexedDbContext.TimeCards.Where(t => t.UserId == userId).ToList();
+            return await _vexedDbContext.TimeCards.Where(t => t.UserId == userId).ToListAsync();
         }
 
-        public List<TimeCard> GetTimeCardsSuperior(Guid superiorId)
+        public async Task<List<TimeCard>> GetTimeCardsSuperior(Guid superiorId)
         {
-            return _vexedDbContext.TimeCards.Where(t => t.SuperiorId == superiorId).ToList();
+            return await _vexedDbContext.TimeCards.Where(t => t.SuperiorId == superiorId).ToListAsync();
         }
     }
 }

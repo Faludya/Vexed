@@ -7,22 +7,22 @@ namespace Vexed.Services.Abstractions
         /// <summary>
         /// Creates a new Contact Info.
         /// </summary>
-        void CreateContactInfo(ContactInfo contactInfo);
+        Task CreateContactInfo(ContactInfo contactInfo);
 
         /// <summary>
         /// Updates the details of a Contact Info.
         /// </summary>
-        void UpdateContactInfo(ContactInfo contactInfo);
+        Task UpdateContactInfo(ContactInfo contactInfo);
 
         /// <summary>
         /// Removes the Contact Info from the database.
         /// </summary>
-        void DeleteContactInfo(ContactInfo contactInfo);
+        Task DeleteContactInfo(ContactInfo contactInfo);
 
         /// <summary>
         /// Returns the first Contact Info with the given <c>id</c>
         /// </summary>
-        ContactInfo GetContactInfoById(int id);
+        Task<ContactInfo> GetContactInfoById(int id);
 
         /// <summary>
         /// Returns all the Contacts from the database.
@@ -32,7 +32,7 @@ namespace Vexed.Services.Abstractions
         /// <summary>
         /// Returns all the Contact Infos for a given user. 
         /// </summary>
-        List<ContactInfo> GetContactInfos(Guid userId);
+        Task<List<ContactInfo>> GetContactInfos(Guid userId);
 
         /// <summary>
         /// Method <c>GetContactTypes</c> returns a list of all Types of Contacts.

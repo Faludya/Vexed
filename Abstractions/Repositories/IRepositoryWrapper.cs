@@ -9,6 +9,6 @@
         ILeaveRequestRepository LeaveRequestRepository { get; }
         ITimeCardRepository TimeCardRepository { get; }
         IUserRepository UserRepository { get; }
-        void Save();
+        Task Save();
     }
 }

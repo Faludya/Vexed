@@ -19,24 +19,24 @@ namespace Vexed.Controllers
             _leaveRequestService = leaveRequestService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            return View(_leaveRequestService.GetLeaveRequests(userId));
+            return View(await _leaveRequestService.GetLeaveRequests(userId));
         }
 
-        public IActionResult IndexHR()
+        public async Task<IActionResult> IndexHR()
         {
-            return View(_leaveRequestService.GetAllLeaveRequests());
+            return View(await _leaveRequestService.GetAllLeaveRequests());
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult IndexHR(string statusAction, int id)
+        public async Task<IActionResult> IndexHR(string statusAction, int id)
         {
-            var leave = _leaveRequestService.GetLeaveRequestById(id);
+            var leave = await _leaveRequestService.GetLeaveRequestById(id);
             leave.Status = StatusManager.SetStatus(leave.Status, statusAction);
-            _leaveRequestService.UpdateLeaveRequest(leave);
+            await _leaveRequestService.UpdateLeaveRequest(leave);
 
             if (leave == null)
             {
@@ -46,19 +46,19 @@ namespace Vexed.Controllers
             return RedirectToAction(nameof(IndexHR));
         }
 
-        public IActionResult IndexSuperior()
+        public async Task<IActionResult> IndexSuperior()
         {
             var superiorId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            return View(_leaveRequestService.GetLeaveRequestsForSuperior(superiorId));
+            return View(await _leaveRequestService.GetLeaveRequestsForSuperior(superiorId));
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult IndexSuperior(string statusAction, int id)
+        public async Task<IActionResult> IndexSuperior(string statusAction, int id)
         {
-            var leave = _leaveRequestService.GetLeaveRequestById(id);
+            var leave = await _leaveRequestService.GetLeaveRequestById(id);
             leave.Status = StatusManager.SetStatus(leave.Status, statusAction);
-            _leaveRequestService.UpdateLeaveRequest(leave);
+            await _leaveRequestService.UpdateLeaveRequest(leave);
 
             if (leave == null)
             {
@@ -68,9 +68,9 @@ namespace Vexed.Controllers
             return RedirectToAction(nameof(IndexSuperior));
         }
 
-        public IActionResult Details(int id)
+        public async Task<IActionResult> Details(int id)
         {
-            var leaveRequest = _leaveRequestService.GetLeaveRequestById(id);
+            var leaveRequest = await _leaveRequestService.GetLeaveRequestById(id);
             if (leaveRequest == null)
             {
                 return NotFound();
@@ -88,7 +88,7 @@ namespace Vexed.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind("Id,UserId,Type,StartDate,EndDate,Quantity,Status,Comments")] LeaveRequest leaveRequest)
+        public async Task<ActionResult> Create([Bind("Id,UserId,Type,StartDate,EndDate,Quantity,Status,Comments")] LeaveRequest leaveRequest)
         {
             if (ModelState.IsValid)
             {
@@ -102,15 +102,15 @@ namespace Vexed.Controllers
 
                 leaveRequest.UserId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
                 leaveRequest.Status = StatusManager.SetStatus(leaveRequest.Status);
-                _leaveRequestService.CreateLeaveRequest(leaveRequest);
+                await _leaveRequestService.CreateLeaveRequest(leaveRequest);
                 return RedirectToAction(nameof(Index));
             }
             return View(leaveRequest);
         }
 
-        public IActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
-            var leaveRequest = _leaveRequestService.GetLeaveRequestById(id);
+            var leaveRequest = await _leaveRequestService.GetLeaveRequestById(id);
             ViewData["LeaveTypes"] = new SelectList(_leaveRequestService.GetLeaveTypes(leaveRequest.Type));
 
             if (leaveRequest == null)
@@ -122,7 +122,7 @@ namespace Vexed.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, [Bind("Id,UserId, SuperiorId, Type,StartDate,EndDate,Quantity,Status,Comments")] LeaveRequest leaveRequest)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,UserId, SuperiorId, Type,StartDate,EndDate,Quantity,Status,Comments")] LeaveRequest leaveRequest)
         {
             if (id != leaveRequest.Id)
             {
@@ -141,11 +141,11 @@ namespace Vexed.Controllers
 
                 try
                 {
-                    _leaveRequestService.UpdateLeaveRequest(leaveRequest);
+                    await _leaveRequestService.UpdateLeaveRequest(leaveRequest);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (_leaveRequestService.GetLeaveRequestById(id) == null)
+                    if (await _leaveRequestService.GetLeaveRequestById(id) == null)
                     {
                         return NotFound();
                     }
@@ -159,9 +159,9 @@ namespace Vexed.Controllers
             return View(leaveRequest);
         }
 
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var leaveRequest = _leaveRequestService.GetLeaveRequestById(id);
+            var leaveRequest = await _leaveRequestService.GetLeaveRequestById(id);
             if (leaveRequest == null)
             {
                 return NotFound();
@@ -174,14 +174,14 @@ namespace Vexed.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_leaveRequestService.GetLeaveRequestById(id) == null)
+            if (await _leaveRequestService.GetLeaveRequestById(id) == null)
             {
                 return Problem("Entity set 'VexedDbContext.LeaveRequests'  is null.");
             }
-            var leaveRequest = _leaveRequestService.GetLeaveRequestById(id);
+            var leaveRequest = await _leaveRequestService.GetLeaveRequestById(id);
             if (leaveRequest != null)
             {
-                _leaveRequestService.DeleteLeaveRequest(leaveRequest);
+                await _leaveRequestService.DeleteLeaveRequest(leaveRequest);
             }
             
             return RedirectToAction(nameof(Index));
