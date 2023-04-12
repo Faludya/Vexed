@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Shared;
 using Vexed.Data;
 using Vexed.Models;
 using Vexed.Repositories.Abstractions;
@@ -7,18 +8,36 @@ namespace Vexed.Repositories
 {
     public class EmergencyContactRepository : RepositoryBase<EmergencyContact>, IEmergencyContactRepository
     {
-        public EmergencyContactRepository(VexedDbContext vexedDbContext) : base(vexedDbContext)
+        private Logger _logger;
+        public EmergencyContactRepository(VexedDbContext vexedDbContext, Logger logger) : base(vexedDbContext)
         {
+            _logger = logger;
         }
 
         public async Task<EmergencyContact> GetEmergencyContactById(int id)
         {
-            return await _vexedDbContext.EmergencyContacts.Where(e => e.Id == id).FirstOrDefaultAsync();
+            try
+            {
+                return await _vexedDbContext.EmergencyContacts.Where(e => e.Id == id).FirstOrDefaultAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                throw;
+            }
         }
 
         public async Task<List<EmergencyContact>> GetEmergencyContacts(Guid userId)
         {
-            return await _vexedDbContext.EmergencyContacts.Where(e => e.UserId == userId).ToListAsync();
+            try
+            {
+                return await _vexedDbContext.EmergencyContacts.Where(e => e.UserId == userId).ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                throw;
+            }
         }
     }
 }

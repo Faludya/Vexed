@@ -1,7 +1,10 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
+using Microsoft.Build.Logging;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Shared;
 using System.Globalization;
 using System.Reflection;
 using Vexed.Data;
@@ -83,6 +86,14 @@ builder.Services.Configure<RequestLocalizationOptions>(
     });
 
 #endregion
+
+// Logger
+string logFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "Shared", "logs");
+Logger logger = new Logger(logFilePath);
+
+// Register the logger with the dependency injection container
+builder.Services.AddSingleton(logger);
+
 
 var app = builder.Build();
 

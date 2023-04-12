@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Shared;
 using Vexed.Data;
 using Vexed.Models;
 using Vexed.Repositories.Abstractions;
@@ -7,33 +8,75 @@ namespace Vexed.Repositories
 {
     public class UserDetailsRepository : RepositoryBase<UserDetails>, IUserDetailsRepository
     {
-        public UserDetailsRepository(VexedDbContext vexedDbContext) : base(vexedDbContext)
+        private Logger _logger;
+        public UserDetailsRepository(VexedDbContext vexedDbContext, Logger logger) : base(vexedDbContext)
         {
+            _logger = logger;
         }
 
         public async Task<List<string>> GetAllUserDetailIds()
         {
-            return await _vexedDbContext.UsersDetails.Select(u => u.UserId.ToString().ToLower()).ToListAsync();
+            try
+            {
+                return await _vexedDbContext.UsersDetails.Select(u => u.UserId.ToString().ToLower()).ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                throw;
+            }
         }
 
         public async Task<List<UserDetails>> GetAllUserDetails()
         {
-            return await _vexedDbContext.UsersDetails.ToListAsync();
+            try
+            {
+                return await _vexedDbContext.UsersDetails.ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                throw;
+            }
         }
 
         public async Task<List<UserDetails>> GetUserDetails(Guid userId)
         {
-            return await _vexedDbContext.UsersDetails.Where(u => u.UserId == userId).ToListAsync();
+            try
+            {
+                return await _vexedDbContext.UsersDetails.Where(u => u.UserId == userId).ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                throw;
+            }
         }
 
         public async Task<UserDetails> GetUserDetailsById(int id)
         {
-            return await _vexedDbContext.UsersDetails.Where(u => u.Id == id).FirstOrDefaultAsync();
+            try
+            {
+                return await _vexedDbContext.UsersDetails.Where(u => u.Id == id).FirstOrDefaultAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                throw;
+            }
         }
 
         public async Task<UserDetails> GetUserDetailsByUserId(Guid userId)
         {
-            return await _vexedDbContext.UsersDetails.Where(u => u.UserId == userId).FirstOrDefaultAsync();
+            try
+            {
+                return await _vexedDbContext.UsersDetails.Where(u => u.UserId == userId).FirstOrDefaultAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                throw;
+            }
         }
     }
 }

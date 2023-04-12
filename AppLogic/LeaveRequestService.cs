@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Shared;
 using Vexed.Models;
 using Vexed.Repositories.Abstractions;
 using Vexed.Services.Abstractions;
@@ -8,73 +9,147 @@ namespace Vexed.Services
     public class LeaveRequestService : ILeaveRequestService
     {
         private IRepositoryWrapper _repositoryWrapper;
+        private Logger _logger;
 
-        public LeaveRequestService(IRepositoryWrapper repositoryWrapper)
+        public LeaveRequestService(IRepositoryWrapper repositoryWrapper, Logger logger)
         {
             _repositoryWrapper = repositoryWrapper;
+            _logger = logger;
         }
 
         public async Task CreateLeaveRequest(LeaveRequest leaveRequest)
         {
-            leaveRequest.SuperiorId = await _repositoryWrapper.UserRepository.GetUserSuperior(leaveRequest.UserId);
+            try
+            {
+                leaveRequest.SuperiorId = await _repositoryWrapper.UserRepository.GetUserSuperior(leaveRequest.UserId);
 
-            await _repositoryWrapper.LeaveRequestRepository.Create(leaveRequest);
-            await _repositoryWrapper.Save();
+                await _repositoryWrapper.LeaveRequestRepository.Create(leaveRequest);
+                await _repositoryWrapper.Save();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                throw;
+            }
         }
 
         public async Task DeleteLeaveRequest(LeaveRequest leaveRequest)
         {
-            await _repositoryWrapper.LeaveRequestRepository.Delete(leaveRequest);
-            await _repositoryWrapper.Save();
+            try
+            {
+                await _repositoryWrapper.LeaveRequestRepository.Delete(leaveRequest);
+                await _repositoryWrapper.Save();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                throw;
+            }
         }
 
         public async Task<List<LeaveRequest>> GetAllLeaveRequests()
         {
-            var queryable = await _repositoryWrapper.LeaveRequestRepository.FindAll();
-            return await queryable.ToListAsync();
+            try
+            {
+                var queryable = await _repositoryWrapper.LeaveRequestRepository.FindAll();
+                return await queryable.ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                throw;
+            }
         }
 
         public async Task<LeaveRequest> GetLeaveRequestById(int id)
         {
-            return await _repositoryWrapper.LeaveRequestRepository.GetLeaveRequestById(id);
+            try
+            {
+                return await _repositoryWrapper.LeaveRequestRepository.GetLeaveRequestById(id);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                throw;
+            }
         }
 
         public async Task<List<LeaveRequest>> GetLeaveRequests(Guid userId)
         {
-            return await _repositoryWrapper.LeaveRequestRepository.GetLeaveRequests(userId);
+            try
+            {
+                return await _repositoryWrapper.LeaveRequestRepository.GetLeaveRequests(userId);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                throw;
+            }
         }
 
         public async Task UpdateLeaveRequest(LeaveRequest leaveRequest)
         {
-            await _repositoryWrapper.LeaveRequestRepository.Update(leaveRequest);
-            await _repositoryWrapper.Save();
+            try
+            {
+                await _repositoryWrapper.LeaveRequestRepository.Update(leaveRequest);
+                await _repositoryWrapper.Save();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                throw;
+            }
         }
 
         public List<string> GetLeaveTypes()
         {
-            var contactTypes = new List<string>()
+            try
             {
-                "Annual Leave", "Medical Leave", "Maternity Leave", "Special Leave", "Unpaid Leave", "TOIL Travel"
-            };
+                var contactTypes = new List<string>()
+                {
+                    "Annual Leave", "Medical Leave", "Maternity Leave", "Special Leave", "Unpaid Leave", "TOIL Travel"
+                };
 
-            return contactTypes;
+                return contactTypes;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                throw;
+            }
         }
 
         public List<string> GetLeaveTypes(string selectedLeave)
         {
-            var leaveTypes = new List<string>()
+            try
             {
-                "Annual Leave", "Medical Leave", "Maternity Leave", "Special Leave", "Unpaid Leave", "TOIL Travel"
-            };
-            int posSelected = leaveTypes.IndexOf(selectedLeave);
-            (leaveTypes[0], leaveTypes[posSelected]) = (leaveTypes[posSelected], leaveTypes[0]);
+                var leaveTypes = new List<string>()
+                {
+                    "Annual Leave", "Medical Leave", "Maternity Leave", "Special Leave", "Unpaid Leave", "TOIL Travel"
+                };
+                int posSelected = leaveTypes.IndexOf(selectedLeave);
+                (leaveTypes[0], leaveTypes[posSelected]) = (leaveTypes[posSelected], leaveTypes[0]);
 
-            return leaveTypes;
+                return leaveTypes;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                throw;
+            }
         }
 
         public async Task<List<LeaveRequest>> GetLeaveRequestsForSuperior(Guid superiorId)
         {
-            return await _repositoryWrapper.LeaveRequestRepository.GetLeaveRequestsSuperior(superiorId);
+            try
+            {
+                return await _repositoryWrapper.LeaveRequestRepository.GetLeaveRequestsSuperior(superiorId);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                throw;
+            }
         }
     }
 }
