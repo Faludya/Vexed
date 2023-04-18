@@ -111,7 +111,10 @@
                         </div>
 
                         <hr class="my-4">
-                        <a class="btn btn-lg btn-primary" asp-action="Edit" asp-route-id="@Model?.Id">@language.GetKey("Edit")</a>
+                        @if (Model.Status == StatusManager.Submitted)
+                        {
+                            <a class="btn btn-lg btn-primary" asp-action="Edit" asp-route-id="@Model?.Id">@language.GetKey("Edit")</a>
+                        }
                         <a class="btn btn-lg btn-outline-dark" asp-action="Index">@language.GetKey("BackToList")</a>
 
                     </div>
