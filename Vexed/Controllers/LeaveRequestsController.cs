@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Shared;
 using Vexed.Models;
 using Vexed.Services;
 using Vexed.Services.Abstractions;
@@ -13,76 +14,134 @@ namespace Vexed.Controllers
     public class LeaveRequestsController : Controller
     {
         private readonly ILeaveRequestService _leaveRequestService;
+        private readonly Logger _logger;
 
-        public LeaveRequestsController(ILeaveRequestService leaveRequestService)
+        public LeaveRequestsController(ILeaveRequestService leaveRequestService, Logger logger)
         {
             _leaveRequestService = leaveRequestService;
+            _logger = logger;
         }
 
         public async Task<IActionResult> Index()
         {
-            var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            return View(await _leaveRequestService.GetLeaveRequests(userId));
+            try
+            {
+                var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+                return View(await _leaveRequestService.GetLeaveRequests(userId));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error occurred while getting Leave Requests for user", ex);
+                return View("Error");
+            }
         }
 
         public async Task<IActionResult> IndexHR()
         {
-            return View(await _leaveRequestService.GetAllLeaveRequests());
+            try
+            {
+                return View(await _leaveRequestService.GetAllLeaveRequests());
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error occurred while getting Leave Requests for HR", ex);
+                return View("Error");
+            }
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> IndexHR(string statusAction, int id)
         {
-            var leave = await _leaveRequestService.GetLeaveRequestById(id);
-            leave.Status = StatusManager.SetStatus(leave.Status, statusAction);
-            await _leaveRequestService.UpdateLeaveRequest(leave);
-
-            if (leave == null)
+            try
             {
-                return NotFound();
-            }
+                var leave = await _leaveRequestService.GetLeaveRequestById(id);
+                leave.Status = StatusManager.SetStatus(leave.Status, statusAction);
+                await _leaveRequestService.UpdateLeaveRequest(leave);
 
-            return RedirectToAction(nameof(IndexHR));
+                if (leave == null)
+                {
+                    return NotFound();
+                }
+
+                return RedirectToAction(nameof(IndexHR));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error occurred while processing Leave Request by HR", ex);
+                return View("Error");
+            }
         }
 
         public async Task<IActionResult> IndexSuperior()
         {
-            var superiorId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            return View(await _leaveRequestService.GetLeaveRequestsForSuperior(superiorId));
+            try
+            {
+                var superiorId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+                return View(await _leaveRequestService.GetLeaveRequestsForSuperior(superiorId));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error occurred while getting Leave Requests for superior", ex);
+                return View("Error");
+            }
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> IndexSuperior(string statusAction, int id)
         {
-            var leave = await _leaveRequestService.GetLeaveRequestById(id);
-            leave.Status = StatusManager.SetStatus(leave.Status, statusAction);
-            await _leaveRequestService.UpdateLeaveRequest(leave);
-
-            if (leave == null)
+            try
             {
-                return NotFound();
-            }
+                var leave = await _leaveRequestService.GetLeaveRequestById(id);
+                leave.Status = StatusManager.SetStatus(leave.Status, statusAction);
+                await _leaveRequestService.UpdateLeaveRequest(leave);
 
-            return RedirectToAction(nameof(IndexSuperior));
+                if (leave == null)
+                {
+                    return NotFound();
+                }
+
+                return RedirectToAction(nameof(IndexSuperior));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error occurred while processing Leave Request by superior", ex);
+                return View("Error");
+            }
         }
 
         public async Task<IActionResult> Details(int id)
         {
-            var leaveRequest = await _leaveRequestService.GetLeaveRequestById(id);
-            if (leaveRequest == null)
+            try
             {
-                return NotFound();
-            }
+                var leaveRequest = await _leaveRequestService.GetLeaveRequestById(id);
+                if (leaveRequest == null)
+                {
+                    return NotFound();
+                }
 
-            return View(leaveRequest);
+                return View(leaveRequest);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Error occurred while getting Leave Request with Id {id}", ex);
+                return View("Error");
+            }
         }
 
         public IActionResult Create()
         {
-            ViewData["LeaveTypes"] = new SelectList(_leaveRequestService.GetLeaveTypes());
-            return View();
+            try
+            {
+                ViewData["LeaveTypes"] = new SelectList(_leaveRequestService.GetLeaveTypes());
+                return View();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error occurred while opening the Create view for Leave Requests", ex);
+                return View("Error");
+            }
         }
 
 
@@ -90,34 +149,57 @@ namespace Vexed.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind("Id,UserId,Type,StartDate,EndDate,Quantity,Status,Comments")] LeaveRequest leaveRequest)
         {
-            if (ModelState.IsValid)
+            try
             {
-                if (leaveRequest.EndDate < leaveRequest.StartDate)
+                if (ModelState.IsValid)
                 {
-                    ModelState.AddModelError("date", "End Date must be after Start Date.");
+                    if (leaveRequest.EndDate < leaveRequest.StartDate)
+                    {
+                        ModelState.AddModelError("date", "End Date must be after Start Date.");
 
-                    ViewData["LeaveTypes"] = new SelectList(_leaveRequestService.GetLeaveTypes());
-                    return View(leaveRequest);
+                        ViewData["LeaveTypes"] = new SelectList(_leaveRequestService.GetLeaveTypes());
+                        return View(leaveRequest);
+                    }
+
+                    leaveRequest.UserId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+                    leaveRequest.Status = StatusManager.SetStatus(leaveRequest.Status);
+                    await _leaveRequestService.CreateLeaveRequest(leaveRequest);
+                    return RedirectToAction(nameof(Index));
                 }
-
-                leaveRequest.UserId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-                leaveRequest.Status = StatusManager.SetStatus(leaveRequest.Status);
-                await _leaveRequestService.CreateLeaveRequest(leaveRequest);
-                return RedirectToAction(nameof(Index));
+                return View(leaveRequest);
             }
-            return View(leaveRequest);
+            catch (DbUpdateException ex)
+            {
+                _logger.LogError("Error occurred while creating Leave Request", ex);
+                ModelState.AddModelError("", "Unable to save changes. Please try again.");
+                return View("Error");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error occurred while creating Leave Request", ex);
+                ModelState.AddModelError("", "An error occurred while processing your request. Please try again.");
+                return View("Error");
+            }
         }
 
         public async Task<IActionResult> Edit(int id)
         {
-            var leaveRequest = await _leaveRequestService.GetLeaveRequestById(id);
-            ViewData["LeaveTypes"] = new SelectList(_leaveRequestService.GetLeaveTypes(leaveRequest.Type));
-
-            if (leaveRequest == null)
+            try
             {
-                return NotFound();
+                var leaveRequest = await _leaveRequestService.GetLeaveRequestById(id);
+                ViewData["LeaveTypes"] = new SelectList(_leaveRequestService.GetLeaveTypes(leaveRequest.Type));
+
+                if (leaveRequest == null)
+                {
+                    return NotFound();
+                }
+                return View(leaveRequest);
             }
-            return View(leaveRequest);
+            catch (Exception ex)
+            {
+                _logger.LogError("Error occurred while opening the Edit view for Leave Request for user", ex);
+                return View("Error");
+            }
         }
 
         [HttpPost]
@@ -142,32 +224,41 @@ namespace Vexed.Controllers
                 try
                 {
                     await _leaveRequestService.UpdateLeaveRequest(leaveRequest);
+                    return RedirectToAction(nameof(Index));
                 }
-                catch (DbUpdateConcurrencyException)
+                catch (DbUpdateException ex)
                 {
-                    if (await _leaveRequestService.GetLeaveRequestById(id) == null)
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    _logger.LogError("Error occurred while editing Leave request", ex);
+                    ModelState.AddModelError("", "Unable to save changes. Please try again.");
+                    return View("Error");
                 }
-                return RedirectToAction(nameof(Index));
+                catch (Exception ex)
+                {
+                    _logger.LogError($"Error occurred while updating Leave Request with Id {id}", ex);
+                    ModelState.AddModelError("", "An error occurred while processing your request. Please try again.");
+                    return View("Error");
+                }
             }
             return View(leaveRequest);
         }
 
         public async Task<IActionResult> Delete(int id)
         {
-            var leaveRequest = await _leaveRequestService.GetLeaveRequestById(id);
-            if (leaveRequest == null)
+            try
             {
-                return NotFound();
-            }
+                var leaveRequest = await _leaveRequestService.GetLeaveRequestById(id);
+                if (leaveRequest == null)
+                {
+                    return NotFound();
+                }
 
-            return View(leaveRequest);
+                return View(leaveRequest);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error occurred while getting Leave Request for user", ex);
+                return View("Error");
+            }
         }
 
         [HttpPost, ActionName("Delete")]
@@ -178,13 +269,28 @@ namespace Vexed.Controllers
             {
                 return Problem("Entity set 'VexedDbContext.LeaveRequests'  is null.");
             }
-            var leaveRequest = await _leaveRequestService.GetLeaveRequestById(id);
-            if (leaveRequest != null)
+            try
             {
-                await _leaveRequestService.DeleteLeaveRequest(leaveRequest);
-            }
+               var leaveRequest = await _leaveRequestService.GetLeaveRequestById(id);
+                if (leaveRequest != null)
+                {
+                    await _leaveRequestService.DeleteLeaveRequest(leaveRequest);
+                }
             
-            return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index));
+            }
+            catch (DbUpdateException ex)
+            {
+                _logger.LogError("Error occurred while deleting Leave Request", ex);
+                ModelState.AddModelError("", "Unable to save changes. Please try again.");
+                return View("Error");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error occurred while deleting Leave Request for user", ex);
+                ModelState.AddModelError("", "An error occurred while processing your request. Please try again.");
+                return View("Error");
+            }
         }
     }
 }

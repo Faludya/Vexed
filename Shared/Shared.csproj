@@ -22,4 +22,8 @@
     <ProjectReference Include="..\DataModels\DataModels.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="logs\" />
+  </ItemGroup>
+
 </Project>

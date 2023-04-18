@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Shared;
 using Vexed.Models;
 using Vexed.Models.ViewModels;
 using Vexed.Services;
@@ -17,50 +18,76 @@ namespace Vexed.Controllers
         private readonly IUserDetailsService _userDetailsService;
         private readonly IUserService _userService;
         private readonly UserManager<IdentityUser> _userManager;
+        private readonly Logger _logger;
 
-        public UserDetailsController(IUserDetailsService userDetailsService, IUserService userService, UserManager<IdentityUser> userManager)
+        public UserDetailsController(IUserDetailsService userDetailsService, IUserService userService, UserManager<IdentityUser> userManager, Logger logger)
         {
             _userDetailsService= userDetailsService;
             _userService= userService;
             _userManager= userManager;
+            _logger= logger;
         }
 
         [Authorize(Roles = "HumanResources")]
         public async Task<IActionResult> Index()
         {
-            return View(await _userDetailsService.GetAllUsersDetails());
+            try
+            {
+                return View(await _userDetailsService.GetAllUsersDetails());
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error occurred while getting User Details for HR", ex);
+                return View("Error");
+            }
         }
 
         [Authorize(Roles = "HumanResources, Employee")]
         public async Task<IActionResult> Details(int? id)
         {
-            if(id == null)
+            try
             {
-                var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-                var userDetail = await _userDetailsService.GetUserDetailsByUserId(userId);
+                if (id == null)
+                {
+                    var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+                    var userDetail = await _userDetailsService.GetUserDetailsByUserId(userId);
 
-                return View(userDetail);
+                    return View(userDetail);
+                }
+
+                var userDetails = await _userDetailsService.GetUserDetailsById((int)id);
+                if (userDetails == null)
+                {
+                    return NotFound();
+                }
+
+                return View(userDetails);
             }
-
-            var userDetails = await _userDetailsService.GetUserDetailsById((int)id);
-            if (userDetails == null)
+            catch (Exception ex)
             {
-                return NotFound();
+                _logger.LogError($"Error occurred while getting User Details with Id {id}", ex);
+                return View("Error");
             }
-
-            return View(userDetails);
         }
 
         [Authorize(Roles = "HumanResources")]
         public async Task<IActionResult> Create()
         {
-            UsersDetailsViewModel usersDetailsViewModel = new UsersDetailsViewModel();
-            List<UserNameVM> userNameVM = await _userService.GetUnassignedUserDetails();
+            try
+            {
+                UsersDetailsViewModel usersDetailsViewModel = new UsersDetailsViewModel();
+                List<UserNameVM> userNameVM = await _userService.GetUnassignedUserDetails();
 
-            usersDetailsViewModel.UserNamesVM = userNameVM;
-            ViewData["Users"] = new SelectList(userNameVM);
+                usersDetailsViewModel.UserNamesVM = userNameVM;
+                ViewData["Users"] = new SelectList(userNameVM);
 
-            return View(usersDetailsViewModel);
+                return View(usersDetailsViewModel);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error occurred while opening the Create view for User Details", ex);
+                return View("Error");
+            }
         }
 
         [HttpPost]
@@ -68,25 +95,48 @@ namespace Vexed.Controllers
         [Authorize(Roles = "HumanResources")]
         public async Task<IActionResult> Create(UsersDetailsViewModel usersDetailsVM)
         {
-            if (ModelState.IsValid)
+            try
             {
-                var userDetails = usersDetailsVM.UserDetails;
-                userDetails.UserId = Guid.Parse(usersDetailsVM.SelectedUserId);
-                await _userDetailsService.CreateUserDetails(userDetails);
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    var userDetails = usersDetailsVM.UserDetails;
+                    userDetails.UserId = Guid.Parse(usersDetailsVM.SelectedUserId);
+                    await _userDetailsService.CreateUserDetails(userDetails);
+                    return RedirectToAction(nameof(Index));
+                }
+                return View(usersDetailsVM);
             }
-            return View(usersDetailsVM);
+            catch (DbUpdateException ex)
+            {
+                _logger.LogError("Error occurred while creating User Details", ex);
+                ModelState.AddModelError("", "Unable to save changes. Please try again.");
+                return View("Error");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error occurred while creating User Details", ex);
+                ModelState.AddModelError("", "An error occurred while processing your request. Please try again.");
+                return View("Error");
+            }
         }
 
         [Authorize(Roles = "HumanResources")]
         public async Task<IActionResult> Edit(int id)
         {
-            var userDetails = await _userDetailsService.GetUserDetailsById(id);
-            if (userDetails == null)
+            try
             {
-                return NotFound();
+                var userDetails = await _userDetailsService.GetUserDetailsById(id);
+                if (userDetails == null)
+                {
+                    return NotFound();
+                }
+                return View(userDetails);
             }
-            return View(userDetails);
+            catch (Exception ex)
+            {
+                _logger.LogError("Error occurred while opening the Edit view for User Details", ex);
+                return View("Error");
+            }
         }
 
         [HttpPost]
@@ -104,19 +154,20 @@ namespace Vexed.Controllers
                 try
                 {
                     await _userDetailsService.UpdateUserDetails(userDetails);
+                    return RedirectToAction(nameof(Index));
                 }
-                catch (DbUpdateConcurrencyException)
+                catch (DbUpdateException ex)
                 {
-                    if (await _userDetailsService.GetUserDetailsById(id) == null)
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    _logger.LogError("Error occurred while editing User Details", ex);
+                    ModelState.AddModelError("", "Unable to save changes. Please try again.");
+                    return View("Error");
                 }
-                return RedirectToAction(nameof(Index));
+                catch (Exception ex)
+                {
+                    _logger.LogError($"Error occurred while updating User Details with Id {id}", ex);
+                    ModelState.AddModelError("", "An error occurred while processing your request. Please try again.");
+                    return View("Error");
+                }
             }
             return View(userDetails);
         }
@@ -124,13 +175,21 @@ namespace Vexed.Controllers
         [Authorize(Roles = "HumanResources")]
         public async Task<IActionResult> Delete(int id)
         {
-            var userDetails = await _userDetailsService.GetUserDetailsById(id);
-            if (userDetails == null)
+            try
             {
-                return NotFound();
-            }
+                var userDetails = await _userDetailsService.GetUserDetailsById(id);
+                if (userDetails == null)
+                {
+                    return NotFound();
+                }
 
-            return View(userDetails);
+                return View(userDetails);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Error occurred while getting User Details with Id {id}", ex);
+                return View("Error");
+            }
         }
 
         [HttpPost, ActionName("Delete")]
@@ -142,13 +201,28 @@ namespace Vexed.Controllers
             {
                 return Problem("Entity set 'VexedDbContext.UsersDetails'  is null.");
             }
-            var userDetails = await _userDetailsService.GetUserDetailsById(id);
-            if (userDetails != null)
+            try
             {
-                await _userDetailsService.DeleteUserDetails(userDetails);
-            }
+                var userDetails = await _userDetailsService.GetUserDetailsById(id);
+                if (userDetails != null)
+                {
+                    await _userDetailsService.DeleteUserDetails(userDetails);
+                }
             
-            return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index));
+            }
+            catch (DbUpdateException ex)
+            {
+                _logger.LogError("Error occurred while deleting User Details", ex);
+                ModelState.AddModelError("", "Unable to save changes. Please try again.");
+                return View("Error");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error occurred while deleting User Details", ex);
+                ModelState.AddModelError("", "An error occurred while processing your request. Please try again.");
+                return View("Error");
+            }
         }
     }
 }

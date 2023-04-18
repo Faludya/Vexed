@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Shared;
 using Vexed.Data;
 using Vexed.Models;
 using Vexed.Repositories.Abstractions;
@@ -7,18 +8,36 @@ namespace Vexed.Repositories
 {
     public class ContactInfoRepository : RepositoryBase<ContactInfo>, IContactInfoRepository
     {
-        public ContactInfoRepository(VexedDbContext vexedDbContext) : base(vexedDbContext)
+        private Logger _logger;
+        public ContactInfoRepository(VexedDbContext vexedDbContext, Logger logger) : base(vexedDbContext)
         {
+            _logger = logger;
         }
 
         public async Task<ContactInfo> GetContactInfoById(int id)
         {
-            return await _vexedDbContext.ContactsInfo.Where(c => c.Id == id).FirstOrDefaultAsync();
+            try
+            {
+                return await _vexedDbContext.ContactsInfo.Where(c => c.Id == id).FirstOrDefaultAsync();
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                throw;
+            }
         }
 
         public async Task<List<ContactInfo>> GetContactInfos(Guid userId)
         {
-            return await _vexedDbContext.ContactsInfo.Where(c => c.UserId == userId).ToListAsync();
+            try
+            {
+                return await _vexedDbContext.ContactsInfo.Where(c => c.UserId == userId).ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                throw;
+            }
         }
     }
 }

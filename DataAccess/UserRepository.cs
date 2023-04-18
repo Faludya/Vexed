@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Shared;
 using Vexed.Data;
 using Vexed.Models;
 using Vexed.Models.ViewModels;
@@ -9,43 +10,93 @@ namespace Vexed.Repositories
 {
     public class UserRepository : RepositoryBase<IdentityUser>, IUserRepository
     {
-        public UserRepository(VexedDbContext vexedDbContext) : base(vexedDbContext)
+        private Logger _logger;
+        public UserRepository(VexedDbContext vexedDbContext, Logger logger) : base(vexedDbContext)
         {
+            _logger = logger;
         }
 
         public async Task<List<string>> GetAllUserIds()
         {
-            return await _vexedDbContext.Users.Select(i => i.Id).ToListAsync();
+            try
+            {
+                return await _vexedDbContext.Users.Select(i => i.Id).ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                throw;
+            }
         }
 
         public async Task<List<UserNameVM>> GetAllUserNames()
         {
-            return await _vexedDbContext.Users
+            try
+            {
+                return await _vexedDbContext.Users
                         .Select(u => new UserNameVM { UserId = u.Id, UserName = u.UserName })
                         .ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                throw;
+            }
         }
 
         public async Task<List<IdentityUser>> GetAllUsers()
         {
-            return await _vexedDbContext.Users.Include(u => u.UserName).ToListAsync();
+            try
+            {
+                return await _vexedDbContext.Users.Include(u => u.UserName).ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                throw;
+            }
         }
 
         public async Task<List<UserNameVM>> GetUnsusedUserNames(List<string> unusedUserIds)
         {
-            return await _vexedDbContext.Users
-                .Where(u => unusedUserIds.Contains(u.Id))
-                .Select(u => new UserNameVM { UserId = u.Id, UserName = u.UserName })
-                .ToListAsync();
+            try
+            {
+                return await _vexedDbContext.Users
+                    .Where(u => unusedUserIds.Contains(u.Id))
+                    .Select(u => new UserNameVM { UserId = u.Id, UserName = u.UserName })
+                    .ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                throw;
+            }
         }
 
         public async Task<string> GetUserName(string userId)
         {
-            return await _vexedDbContext.Users.Where(u => u.Id == userId).Select(u => u.UserName).FirstOrDefaultAsync();
+            try
+            {
+                return await _vexedDbContext.Users.Where(u => u.Id == userId).Select(u => u.UserName).FirstOrDefaultAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                throw;
+            }
         }
 
         public async Task<Guid> GetUserSuperior(Guid userId)
         {
-            return await _vexedDbContext.UsersEmployments.Where(u => u.UserId == userId).Select(u => u.SuperiorId).FirstOrDefaultAsync();
+            try
+            {
+                return await _vexedDbContext.UsersEmployments.Where(u => u.UserId == userId).Select(u => u.SuperiorId).FirstOrDefaultAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                throw;
+            }
         }
     }
 }

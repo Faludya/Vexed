@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Shared;
 using System.Security.Claims;
 using Vexed.Models;
 using Vexed.Services.Abstractions;
@@ -14,47 +15,88 @@ namespace Vexed.Controllers
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly IContactInfoService _contactInfoService;
+        private readonly Logger _logger;
 
-        public ContactInfoesController(UserManager<IdentityUser> userManager, IContactInfoService contactInfoService)
+        public ContactInfoesController(UserManager<IdentityUser> userManager, IContactInfoService contactInfoService, Logger logger)
         {
             _userManager = userManager;
             _contactInfoService = contactInfoService;
+            _logger = logger;
         }
 
         public async Task<IActionResult> Index()
         {
-            var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            return View(await _contactInfoService.GetContactInfos(userId));
+            try
+            {
+                var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+                return View(await _contactInfoService.GetContactInfos(userId));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error occurred while getting Contact Information for user", ex);
+                return View("Error");
+            }
         }
 
         public async Task<IActionResult> Details(int id)
         {
-            var contactInfo = await _contactInfoService.GetContactInfoById(id);
-            if (contactInfo == null)
+            try
             {
-                return NotFound();
-            }
+                var contactInfo = await _contactInfoService.GetContactInfoById(id);
+                if (contactInfo == null)
+                {
+                    return NotFound();
+                }
 
-            return View(contactInfo);
+                return View(contactInfo);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Error getting Contact Info with Id {id}", ex);
+                return View("Error");
+            }
         }
 
         public IActionResult Create()
         {
-            ViewData["ContactTypes"] = new SelectList(_contactInfoService.GetContactTypes());
-            return View();
+            try
+            {
+                ViewData["ContactTypes"] = new SelectList(_contactInfoService.GetContactTypes());
+                return View();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error occurred while opening the Create view for Contact Info", ex);
+                return View("Error");
+            }
+
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,UserId,Type,Contact")] ContactInfo contactInfo)
         {
-            if (ModelState.IsValid)
+            try
             {
-                contactInfo.UserId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-                await _contactInfoService.CreateContactInfo(contactInfo);
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    contactInfo.UserId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+                    await _contactInfoService.CreateContactInfo(contactInfo);
+                    return RedirectToAction(nameof(Index));
+                }
+                return View(contactInfo);
             }
-            return View(contactInfo);
+            catch (DbUpdateException ex)
+            {
+                _logger.LogError("Error occurred while creating Contact Information", ex);
+                ModelState.AddModelError("", "Unable to save changes. Please try again.");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error occurred while creating Contact Information", ex);
+                ModelState.AddModelError("", "An error occurred while processing your request. Please try again later.");
+            }
+            return View("Error");
         }
 
         public async Task<IActionResult> Edit(int id)
@@ -63,15 +105,23 @@ namespace Vexed.Controllers
             {
                 return NotFound();
             }
-
-            var contactInfo = await _contactInfoService.GetContactInfoById(id);
-            ViewData["ContactTypes"] = new SelectList(_contactInfoService.GetContactTypes(contactInfo.Type));
-            
-            if (contactInfo == null)
+            try
             {
-                return NotFound();
+                var contactInfo = await _contactInfoService.GetContactInfoById(id);
+                ViewData["ContactTypes"] = new SelectList(_contactInfoService.GetContactTypes(contactInfo.Type));
+            
+                if (contactInfo == null)
+                {
+                    return NotFound();
+                }
+                return View(contactInfo);
             }
-            return View(contactInfo);
+            catch (Exception ex)
+            {
+                _logger.LogError("Error occurred while opening the Edit view for Contact Information", ex);
+                ModelState.AddModelError("", "An error occurred while processing your request. Please try again later.");
+            }
+            return View("Error");
         }
 
         [HttpPost]
@@ -88,19 +138,20 @@ namespace Vexed.Controllers
                 try
                 {
                     await _contactInfoService.UpdateContactInfo(contactInfo);
+                    return RedirectToAction(nameof(Index));
                 }
-                catch (DbUpdateConcurrencyException)
+                catch (DbUpdateException ex)
                 {
-                    if (_contactInfoService.GetContactInfoById(id) == null)
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    _logger.LogError("Error occurred while editing Contact Information", ex);
+                    ModelState.AddModelError("", "Unable to save changes. Please try again.");
+                    return View("Error");
                 }
-                return RedirectToAction(nameof(Index));
+                catch (Exception ex)
+                {
+                    _logger.LogError($"Error updating Contact Info with Id {id} ", ex);
+                    ModelState.AddModelError("", "An error occurred while processing your request. Please try again later.");
+                    return View("Error");
+                }
             }
             return View(contactInfo);
         }
@@ -111,14 +162,22 @@ namespace Vexed.Controllers
             {
                 return NotFound();
             }
-
-            var contactInfo = await _contactInfoService.GetContactInfoById((int)id);
-            if (contactInfo == null)
+            try
             {
-                return NotFound();
+                var contactInfo = await _contactInfoService.GetContactInfoById((int)id);
+                if (contactInfo == null)
+                {
+                    return NotFound();
+                }
+
+                return View(contactInfo);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Error occurred while getting contact information with Id {id}", ex);
+                return View("Error");
             }
 
-            return View(contactInfo);
         }
 
         [HttpPost, ActionName("Delete")]
@@ -129,13 +188,28 @@ namespace Vexed.Controllers
             {
                 return Problem("Entity set 'VexedDbContext.ContactsInfo'  is null.");
             }
-            var contactInfo = await _contactInfoService.GetContactInfoById(id);
-            if (contactInfo != null)
+            try
             {
-                await _contactInfoService.DeleteContactInfo(contactInfo);
-            }
+                var contactInfo = await _contactInfoService.GetContactInfoById(id);
+                if (contactInfo != null)
+                {
+                    await _contactInfoService.DeleteContactInfo(contactInfo);
+                }
             
-            return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index));
+            }
+            catch (DbUpdateException ex)
+            {
+                _logger.LogError("Error occurred while deleting Contact Information", ex);
+                ModelState.AddModelError("", "Unable to save changes. Please try again.");
+                return View("Error");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error occurred while deleting Contact Information for user", ex);
+                ModelState.AddModelError("", "An error occurred while processing your request. Please try again.");
+                return View("Error");
+            }
         }
     }
 }

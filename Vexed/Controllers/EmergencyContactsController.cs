@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Shared;
 using Vexed.Data;
 using Vexed.Models;
 using Vexed.Services;
@@ -19,58 +20,107 @@ namespace Vexed.Controllers
     public class EmergencyContactsController : Controller
     {
         private readonly IEmergencyContactService _emergencyContactService;
+        private readonly Logger _logger;
 
-        public EmergencyContactsController(IEmergencyContactService emergencyContactService)
+        public EmergencyContactsController(IEmergencyContactService emergencyContactService, Logger logger)
         {
-            _emergencyContactService= emergencyContactService;
+            _emergencyContactService = emergencyContactService;
+            _logger = logger;
         }
 
         public async Task<IActionResult> Index()
         {
-            var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            return View(await _emergencyContactService.GetEmergencyContacts(userId));
+            try
+            {
+                var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+                return View(await _emergencyContactService.GetEmergencyContacts(userId));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error occurred while getting Emergency Contacts for user", ex);
+                return View("Error");
+            }
         }
 
         public async Task<IActionResult> Details(int id)
         {
-            var emergencyContact = await _emergencyContactService.GetEmergencyContactById(id);
-            if (emergencyContact == null)
+            try
             {
-                return NotFound();
-            }
+                var emergencyContact = await _emergencyContactService.GetEmergencyContactById(id);
+                if (emergencyContact == null)
+                {
+                    return NotFound();
+                }
 
-            return View(emergencyContact);
+                return View(emergencyContact);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Error occurred while getting Emergency Contact with Id {id}", ex);
+                return View("Error");
+            }
         }
 
         public IActionResult Create()
         {
-            ViewData["RelationshipTypes"] = new SelectList(_emergencyContactService.GetRelationshipTypes());
-            return View();
+            try
+            {
+                ViewData["RelationshipTypes"] = new SelectList(_emergencyContactService.GetRelationshipTypes());
+                return View();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error occurred while opening Create view for Emergency Contact", ex);
+                return View("Error");
+            }
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,UserId,FirstName,LastName,Relationship,Phone,Email,Address,AdditionalInformation")] EmergencyContact emergencyContact)
         {
-            if (ModelState.IsValid)
+            try
             {
-                emergencyContact.UserId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-                await _emergencyContactService.CreateEmergencyContact(emergencyContact);
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    emergencyContact.UserId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+                    await _emergencyContactService.CreateEmergencyContact(emergencyContact);
+                    return RedirectToAction(nameof(Index));
+                }
+                return View(emergencyContact);
             }
-            return View(emergencyContact);
+            catch (DbUpdateException ex)
+            {
+                _logger.LogError("Error occurred while creating Emergency Contact", ex);
+                ModelState.AddModelError("", "Unable to save changes. Please try again.");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error occurred while creating Emergency Contact", ex);
+                ModelState.AddModelError("", "An error occurred while processing your request. Please try again later.");
+            }
+            return View("Error");
         }
 
         public async Task<IActionResult> Edit(int id)
         {
-            var emergencyContact = await _emergencyContactService.GetEmergencyContactById(id);
-            ViewData["RelationshipTypes"] = new SelectList(_emergencyContactService.GetRelationshipTypes(emergencyContact.Relationship));
-
-            if (emergencyContact == null)
+            try
             {
-                return NotFound();
+                var emergencyContact = await _emergencyContactService.GetEmergencyContactById(id);
+                ViewData["RelationshipTypes"] = new SelectList(_emergencyContactService.GetRelationshipTypes(emergencyContact.Relationship));
+
+                if (emergencyContact == null)
+                {
+                    return NotFound();
+                }
+                return View(emergencyContact);
             }
-            return View(emergencyContact);
+            catch (Exception ex)
+            {
+                _logger.LogError("Error occurred while getting Emergency Contact for user", ex);
+                return View("Error");
+            }
+
         }
 
         [HttpPost]
@@ -88,16 +138,17 @@ namespace Vexed.Controllers
                 {
                     await _emergencyContactService.UpdateEmergencyContact(emergencyContact);
                 }
-                catch (DbUpdateConcurrencyException)
+                catch (DbUpdateException ex)
                 {
-                    if (await _emergencyContactService.GetEmergencyContactById(id) == null)
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    _logger.LogError("Error occurred while creating Emergency Contact", ex);
+                    ModelState.AddModelError("", "Unable to save changes. Please try again.");
+                    return View("Error");
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError($"Error updating Emergency Contact with Id {id} ", ex);
+                    ModelState.AddModelError("", "An error occurred while processing your request. Please try again later.");
+                    return View("Error");
                 }
                 return RedirectToAction(nameof(Index));
             }
@@ -106,13 +157,25 @@ namespace Vexed.Controllers
 
         public async Task<IActionResult> Delete(int id)
         {
-            var emergencyContact = await _emergencyContactService.GetEmergencyContactById(id);
-            if (emergencyContact == null)
+            if(id == null || await _emergencyContactService.GetEmergencyContactById(id) == null)
             {
                 return NotFound();
             }
+            try
+            {
+                var emergencyContact = await _emergencyContactService.GetEmergencyContactById(id);
+                if (emergencyContact == null)
+                {
+                    return NotFound();
+                }
 
-            return View(emergencyContact);
+                return View(emergencyContact);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Error occurred while getting Emergency Contact with Id {id}", ex);
+                return View("Error");
+            }
         }
 
         [HttpPost, ActionName("Delete")]
@@ -123,13 +186,28 @@ namespace Vexed.Controllers
             {
                 return Problem("Entity set 'VexedDbContext.EmergencyContacts'  is null.");
             }
-            var emergencyContact = await _emergencyContactService.GetEmergencyContactById(id);
-            if (emergencyContact != null)
+            try
             {
-                await _emergencyContactService.DeleteEmergencyContact(emergencyContact);
-            }
+                var emergencyContact = await _emergencyContactService.GetEmergencyContactById(id);
+                if (emergencyContact != null)
+                {
+                    await _emergencyContactService.DeleteEmergencyContact(emergencyContact);
+                }
             
-            return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index));
+            }
+            catch (DbUpdateException ex)
+            {
+                _logger.LogError("Error occurred while deleting Emergency Contact", ex);
+                ModelState.AddModelError("", "Unable to save changes. Please try again.");
+                return View("Error");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error occurred while deleting Emergency Contact for user", ex);
+                ModelState.AddModelError("", "An error occurred while processing your request. Please try again.");
+                return View("Error");
+            }
         }
     }
 }
