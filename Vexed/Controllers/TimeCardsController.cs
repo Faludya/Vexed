@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Shared;
 using Vexed.Models;
 using Vexed.Services;
 using Vexed.Services.Abstractions;
@@ -13,119 +14,200 @@ namespace Vexed.Controllers
     public class TimeCardsController : Controller
     {
         private readonly ITimeCardService _timeCardService;
+        private readonly Logger _logger;
 
-        public TimeCardsController(ITimeCardService timeCardService)
+        public TimeCardsController(ITimeCardService timeCardService, Logger logger)
         {
             _timeCardService= timeCardService;
+            _logger= logger;
         }
 
         public async Task<IActionResult> Index()
         {
-            var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            return View(await _timeCardService.GetTimeCards(userId));
+            try
+            {
+                var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+                return View(await _timeCardService.GetTimeCards(userId));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error occurred while getting Time Cards for user", ex);
+                return View("Error");
+            }
         }
 
         public async Task<IActionResult> IndexHR()
         {
-            return View(await _timeCardService.GetAllTimeCards());
+            try
+            {
+                return View(await _timeCardService.GetAllTimeCards());
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error occurred while getting Time Cards for HR", ex);
+                return View("Error");
+            }
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> IndexHR(string statusAction, int id)
         {
-            var timeCard = await _timeCardService.GetTimeCardById(id);
-            timeCard.Status = StatusManager.SetStatus(timeCard.Status, statusAction);
-            await _timeCardService.UpdateTimeCard(timeCard);
-
-            if (timeCard == null)
+            try
             {
-                return NotFound();
-            }
+                var timeCard = await _timeCardService.GetTimeCardById(id);
+                timeCard.Status = StatusManager.SetStatus(timeCard.Status, statusAction);
+                await _timeCardService.UpdateTimeCard(timeCard);
 
-            return RedirectToAction(nameof(IndexHR));
+                if (timeCard == null)
+                {
+                    return NotFound();
+                }
+
+                return RedirectToAction(nameof(IndexHR));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error occurred while processing Time Cards by HR", ex);
+                return View("Error");
+            }
         }
 
         public async Task<IActionResult> IndexSuperior()
         {
-            var superiorId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            return View(await _timeCardService.GetTimeCardsForSuperior(superiorId));
+            try
+            {
+                var superiorId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+                return View(await _timeCardService.GetTimeCardsForSuperior(superiorId));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error occurred while getting Time Cards for superior", ex);
+                return View("Error");
+            }
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> IndexSuperior(string statusAction, int id)
         {
-            var timeCard = await _timeCardService.GetTimeCardById(id);
-            timeCard.Status = StatusManager.SetStatus(timeCard.Status, statusAction);
-            await _timeCardService.UpdateTimeCard(timeCard);
-
-            if (timeCard == null)
+            try
             {
-                return NotFound();
-            }
+                var timeCard = await _timeCardService.GetTimeCardById(id);
+                timeCard.Status = StatusManager.SetStatus(timeCard.Status, statusAction);
+                await _timeCardService.UpdateTimeCard(timeCard);
 
-            return RedirectToAction(nameof(IndexSuperior));
+                if (timeCard == null)
+                {
+                    return NotFound();
+                }
+
+                return RedirectToAction(nameof(IndexSuperior));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error occurred while processing Time Cards for user", ex);
+                return View("Error");
+            }
         }
         public async Task<IActionResult> Details(int id)
         {
-            var timeCard = await _timeCardService.GetTimeCardById(id);
-            if (timeCard == null)
+            try
             {
-                return NotFound();
-            }
+                var timeCard = await _timeCardService.GetTimeCardById(id);
+                if (timeCard == null)
+                {
+                    return NotFound();
+                }
 
-            return View(timeCard);
+                return View(timeCard);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Error occurred while getting Time Card with Id {id}", ex);
+                return View("Error");
+            }
         }
 
         public async Task<IActionResult> Create(string? copyCard)
         {
-            if(copyCard != null)
+            try
             {
-                //TODO: 
-                var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-                var previousCard = await _timeCardService.GetLastTimeCard(userId);
-                ViewData["LocationTypes"] = new SelectList(_timeCardService.GetLocationTypes(previousCard.Location));
+                if (copyCard != null)
+                {
+                    //TODO: 
+                    var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+                    var previousCard = await _timeCardService.GetLastTimeCard(userId);
+                    ViewData["LocationTypes"] = new SelectList(_timeCardService.GetLocationTypes(previousCard.Location));
 
-                return View(previousCard);
+                    return View(previousCard);
+                }
+                ViewData["LocationTypes"] = new SelectList(_timeCardService.GetLocationTypes());
+                return View();
             }
-            ViewData["LocationTypes"] = new SelectList(_timeCardService.GetLocationTypes());
-            return View();
+            catch (Exception ex)
+            {
+                _logger.LogError("Error occurred while opening the Create view for Time Cards", ex);
+                return View("Error");
+            }
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,UserId,ProjectCode,TaskDetails,Location,StartDate,EndDate,Quantity,Status,Comments")] TimeCard timeCard)
         {
-            if (ModelState.IsValid)
+            try
             {
-                if(timeCard.EndDate < timeCard.StartDate)
+                if (ModelState.IsValid)
                 {
-                    ModelState.AddModelError("date", "End Date must be after Start Date.");
+                    if(timeCard.EndDate < timeCard.StartDate)
+                    {
+                        ModelState.AddModelError("date", "End Date must be after Start Date.");
                     
-                    ViewData["LocationTypes"] = new SelectList(_timeCardService.GetLocationTypes());
-                    return View(timeCard);
+                        ViewData["LocationTypes"] = new SelectList(_timeCardService.GetLocationTypes());
+                        return View(timeCard);
+                    }
+
+                    timeCard.UserId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+                    await _timeCardService.CreateTimeCard(timeCard);
+
+                    return RedirectToAction(nameof(Index));
                 }
-
-                timeCard.UserId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-                await _timeCardService.CreateTimeCard(timeCard);
-
-                return RedirectToAction(nameof(Index));
-            }
  
-            return View(timeCard);
+                return View(timeCard);
+            }
+            catch (DbUpdateException ex)
+            {
+                _logger.LogError("Error occurred while creating Time Card", ex);
+                ModelState.AddModelError("", "Unable to save changes. Please try again.");
+                return View("Error");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error occurred while creating Time Card", ex);
+                ModelState.AddModelError("", "An error occurred while processing your request. Please try again.");
+                return View("Error");
+            }
         }
 
         public async Task<IActionResult> Edit(int id)
         {
-            var timeCard = await _timeCardService.GetTimeCardById(id);
-            ViewData["LocationTypes"] = new SelectList(_timeCardService.GetLocationTypes(timeCard.Location));
-
-            if (timeCard == null)
+            try
             {
-                return NotFound();
+                var timeCard = await _timeCardService.GetTimeCardById(id);
+                ViewData["LocationTypes"] = new SelectList(_timeCardService.GetLocationTypes(timeCard.Location));
+
+                if (timeCard == null)
+                {
+                    return NotFound();
+                }
+                return View(timeCard);
             }
-            return View(timeCard);
+            catch (Exception ex)
+            {
+                _logger.LogError("Error occurred while opening the Eit view for Time Cards", ex);
+                return View("Error");
+            }
         }
 
         [HttpPost]
@@ -150,32 +232,41 @@ namespace Vexed.Controllers
                 try
                 {
                     await _timeCardService.UpdateTimeCard(timeCard);
+                    return RedirectToAction(nameof(Index));
                 }
-                catch (DbUpdateConcurrencyException)
+                catch (DbUpdateException ex)
                 {
-                    if (await _timeCardService.GetTimeCardById(id) == null)
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    _logger.LogError("Error occurred while editing Time Card", ex);
+                    ModelState.AddModelError("", "Unable to save changes. Please try again.");
+                    return View("Error");
                 }
-                return RedirectToAction(nameof(Index));
+                catch (Exception ex)
+                {
+                    _logger.LogError($"Error occurred while updating Contact info with Id {id}", ex);
+                    ModelState.AddModelError("", "An error occurred while processing your request. Please try again.");
+                    return View("Error");
+                }
             }
             return View(timeCard);
         }
 
         public async Task<IActionResult> Delete(int id)
         {
-            var timeCard = await _timeCardService.GetTimeCardById(id);
-            if (timeCard == null)
+            try
             {
-                return NotFound();
-            }
+                var timeCard = await _timeCardService.GetTimeCardById(id);
+                if (timeCard == null)
+                {
+                    return NotFound();
+                }
 
-            return View(timeCard);
+                return View(timeCard);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Error occurred while getting Time Card with Id  {id}", ex);
+                return View("Error");
+            }
         }
 
         [HttpPost, ActionName("Delete")]
@@ -186,13 +277,28 @@ namespace Vexed.Controllers
             {
                 return Problem("Entity set 'VexedDbContext.TimeCards'  is null.");
             }
-            var timeCard = await _timeCardService.GetTimeCardById(id);
-            if (timeCard != null)
+            try
             {
-                await _timeCardService.DeleteTimeCard(timeCard);
-            }
+                var timeCard = await _timeCardService.GetTimeCardById(id);
+                if (timeCard != null)
+                {
+                    await _timeCardService.DeleteTimeCard(timeCard);
+                }
             
-            return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index));
+            }
+            catch (DbUpdateException ex)
+            {
+                _logger.LogError("Error occurred while deleting Time Card", ex);
+                ModelState.AddModelError("", "Unable to save changes. Please try again.");
+                return View("Error");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error occurred while deleting Time Card for user", ex);
+                ModelState.AddModelError("", "An error occurred while processing your request. Please try again.");
+                return View("Error");
+            }
         }
 
     }

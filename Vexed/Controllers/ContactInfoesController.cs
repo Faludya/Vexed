@@ -52,7 +52,7 @@ namespace Vexed.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError("Error getting Contact Info with Id {id}", ex);
+                _logger.LogError($"Error getting Contact Info with Id {id}", ex);
                 return View("Error");
             }
         }
@@ -118,7 +118,7 @@ namespace Vexed.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError("Error occurred while creating Contact Information", ex);
+                _logger.LogError("Error occurred while opening the Edit view for Contact Information", ex);
                 ModelState.AddModelError("", "An error occurred while processing your request. Please try again later.");
             }
             return View("Error");
@@ -142,13 +142,13 @@ namespace Vexed.Controllers
                 }
                 catch (DbUpdateException ex)
                 {
-                    _logger.LogError("Error occurred while creating Contact Information", ex);
+                    _logger.LogError("Error occurred while editing Contact Information", ex);
                     ModelState.AddModelError("", "Unable to save changes. Please try again.");
                     return View("Error");
                 }
                 catch (Exception ex)
                 {
-                    _logger.LogError($"Error updating contact info with ID {id} ", ex);
+                    _logger.LogError($"Error updating Contact Info with Id {id} ", ex);
                     ModelState.AddModelError("", "An error occurred while processing your request. Please try again later.");
                     return View("Error");
                 }
@@ -174,7 +174,7 @@ namespace Vexed.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError("Error occurred while getting contact information for user", ex);
+                _logger.LogError($"Error occurred while getting contact information with Id {id}", ex);
                 return View("Error");
             }
 
@@ -200,13 +200,13 @@ namespace Vexed.Controllers
             }
             catch (DbUpdateException ex)
             {
-                _logger.LogError("Error occurred while creating Contact Information", ex);
+                _logger.LogError("Error occurred while deleting Contact Information", ex);
                 ModelState.AddModelError("", "Unable to save changes. Please try again.");
                 return View("Error");
             }
             catch (Exception ex)
             {
-                _logger.LogError("Error occurred while getting contact information for user", ex);
+                _logger.LogError("Error occurred while deleting Contact Information for user", ex);
                 ModelState.AddModelError("", "An error occurred while processing your request. Please try again.");
                 return View("Error");
             }
