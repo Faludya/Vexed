@@ -2,8 +2,9 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Vexed.Models;
+using DataModels;
 
-namespace Vexed.Data
+namespace DataAccess
 {
     public class VexedDbContext : IdentityDbContext<IdentityUser>
     {
@@ -11,9 +12,10 @@ namespace Vexed.Data
 
         public DbSet<ContactInfo>? ContactsInfo { get; set; }
         public DbSet<EmergencyContact>? EmergencyContacts { get; set; }
+        public DbSet<LeaveRequest>? LeaveRequests{ get; set; }
+        public DbSet<Qualification> Qualifications { get; set; }
+        public DbSet<TimeCard>? TimeCards{ get; set; }
         public DbSet<UserDetails>? UsersDetails{ get; set; }
         public DbSet<UserEmployment>? UsersEmployments{ get; set; }
-        public DbSet<TimeCard>? TimeCards{ get; set; }
-        public DbSet<LeaveRequest>? LeaveRequests{ get; set; }
     }
 }

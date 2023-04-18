@@ -7,12 +7,15 @@ using Microsoft.Extensions.Options;
 using Shared;
 using System.Globalization;
 using System.Reflection;
-using Vexed.Data;
+using DataAccess;
 using Vexed.Models;
 using Vexed.Repositories;
 using Vexed.Repositories.Abstractions;
 using Vexed.Services;
 using Vexed.Services.Abstractions;
+using Abstractions.Repositories;
+using Abstractions.Services;
+using AppLogic;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("VexedDbContextConnection") ?? throw new InvalidOperationException("Connection string 'VexedDbContextConnection' not found.");
@@ -39,6 +42,9 @@ builder.Services.AddScoped<IEmergencyContactService, EmergencyContactService>();
 
 builder.Services.AddScoped<ILeaveRequestRepository, LeaveRequestRepository>();
 builder.Services.AddScoped<ILeaveRequestService, LeaveRequestService>();
+
+builder.Services.AddScoped<IQualificationRepository, QualificationRepository>();
+builder.Services.AddScoped<IQualificationService, QualificationService>();
 
 builder.Services.AddScoped<ITimeCardRepository, TimeCardRepository>();
 builder.Services.AddScoped<ITimeCardService, TimeCardService>();

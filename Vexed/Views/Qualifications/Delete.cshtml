@@ -1,0 +1,83 @@
+﻿@using Vexed.Services;
+@inject LanguageService language
+
+@model DataModels.Qualification
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<div class="row page-titles mx-0">
+    <div class="col-sm-6 p-md-0">
+        <div class="welcome-text">
+            <h4>@language.GetKey("Delete")</h4>
+            <span class="ml-1"> Delete qualification</span>
+        </div>
+    </div>
+</div>
+
+
+<body class="vh-10">
+    <div class="container py-5 h-10">
+        <div class="row d-flex justify-content-center align-items-center h-10">
+            <div class="col-md-8 col-lg-8">
+                <div class="card shadow-2-strong" style="border-radius: 1rem;">
+                    <div class="card-body text-center">
+
+                        <h3 class="mb-5 text-danger">@language.GetKey("Delete") @language.GetKey("Qualification")?</h3>
+                        <hr />
+                        <div class="container">
+                            <div class="text-left text-dark">
+                                <div class="row">
+                                    <div class="col">
+                                        <i class='bx bxs-category'></i>
+                                        <b>@language.GetKey("Title")</b>
+                                    </div>
+                                    <div class="col">
+                                        @Html.DisplayFor(model => model.Title)
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <i class='bx bxs-book-content'></i>
+                                        <b>@language.GetKey("Description")</b>
+                                    </div>
+                                    <div class="col">
+                                        @Html.DisplayFor(model => model.Description)
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <i class='bx bxs-book-content'></i>
+                                        <b>@language.GetKey("DateObtained")</b>
+                                    </div>
+                                    <div class="col">
+                                        @Html.DisplayFor(model => model.DateObtained)
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <i class='bx bxs-book-content'></i>
+                                        <b>@language.GetKey("ExpiryDate")</b>
+                                    </div>
+                                    <div class="col">
+                                        @Html.DisplayFor(model => model.ExpiryDate)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr class="my-4">
+                        <form asp-action="Delete">
+                            <a class="btn btn-outline-dark" asp-action="Index">@language.GetKey("BackToList")</a>
+                            <input type="hidden" asp-for="Id" />
+                            <input type="submit" value="@language.GetKey("Delete")" class="btn btn-danger" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>

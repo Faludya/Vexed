@@ -1,0 +1,112 @@
+﻿@using Vexed.Services;
+@inject LanguageService language
+
+@model DataModels.Qualification
+
+@{
+    ViewData["Title"] = "Create";
+}
+<link rel="stylesheet" href="/vendor/select2/css/select2.min.css">
+
+<div class="row page-titles mx-0">
+    <div class="col-sm-6 p-md-0">
+        <div class="welcome-text">
+            <h4>@language.GetKey("Create")</h4>
+            <span class="ml-1"> New qualification</span>
+        </div>
+    </div>
+</div>
+
+<body class="vh-10">
+    <div class="container py-5 h-10">
+        <div class="row d-flex justify-content-center align-items-center h-10">
+            <div class="col-md-8 col-lg-8">
+                <div class="card shadow-2-strong" style="border-radius: 1rem;">
+                    <div class="card-body text-center">
+                        <h4>@language.GetKey("Qualification")</h4>
+                        <hr />
+                        <div class="text-left p-3 text-dark">
+                            <form asp-action="Create" enctype="multipart/form-data">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                                <div class="form-group row my-3">
+                                    <div class="col-4 my-2">
+                                        <i class='bx bxs-category'></i>
+                                        <b>@language.GetKey("Title"):</b>
+                                    </div>
+                                    <div class="col-8">
+                                        <input asp-for="Title" class="form-control"/>
+                                        <span asp-validation-for="Title" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row my-3">
+                                    <div class="col-4 my-2">
+                                        <i class='bx bxs-book-content'></i>
+                                        <b>@language.GetKey("Description"):</b>
+                                    </div>
+                                    <div class="col-8">
+                                        <input asp-for="Description" class="form-control" />
+                                        <span asp-validation-for="Description" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row my-3">
+                                    <div class="col-4 my-2">
+                                        <i class='bx bxs-book-content'></i>
+                                        <b>@language.GetKey("DateObtained"):</b>
+                                    </div>
+                                    <div class="col-8">
+                                        <input asp-for="DateObtained" class="form-control" />
+                                        <span asp-validation-for="DateObtained" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row my-3">
+                                    <div class="col-4 my-2">
+                                        <i class='bx bxs-book-content'></i>
+                                        <b>@language.GetKey("ExpiryDate"):</b>
+                                    </div>
+                                    <div class="col-8">
+                                        <input asp-for="ExpiryDate" class="form-control" />
+                                        <span asp-validation-for="ExpiryDate" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row my-3">
+                                    <div class="col-4 my-2">
+                                        <i class='bx bxs-book-content'></i>
+                                        <b>@language.GetKey("Attatchment"):</b>
+                                    </div>
+                                    <div class="col-8">
+                                        <input type="file" class="form-control-file" name="attachmentFile" accept="image/*,.pdf" />
+                                        <span asp-validation-for="AttachmentUrl" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row my-4">
+                                    <div class="col-4">
+                                        <a class="btn btn-outline-dark" asp-action="Index">@language.GetKey("BackToList")</a>
+                                    </div>
+                                    <div class="col-8">
+                                        <input type="submit" value="@language.GetKey("Create")" class="btn btn-primary" />
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+
+@section Scripts {
+    <script src="/vendor/select2/js/select2.full.min.js"></script>
+    <script src="/js/plugins-init/select2-init.js"></script>
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
