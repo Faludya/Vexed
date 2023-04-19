@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Shared;
-using Vexed.Data;
+using DataAccess;
 using Vexed.Models;
 using Vexed.Services;
 using Vexed.Services.Abstractions;

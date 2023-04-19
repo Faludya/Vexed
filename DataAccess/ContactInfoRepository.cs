@@ -1,6 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using DataAccess;
+using Microsoft.EntityFrameworkCore;
 using Shared;
-using Vexed.Data;
 using Vexed.Models;
 using Vexed.Repositories.Abstractions;
 

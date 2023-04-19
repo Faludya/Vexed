@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
-using Vexed.Data;
+using DataAccess;
 using Vexed.Repositories.Abstractions;
 
 namespace Vexed.Repositories

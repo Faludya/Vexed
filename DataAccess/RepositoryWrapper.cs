@@ -1,6 +1,7 @@
 ﻿using Shared;
-using Vexed.Data;
+using DataAccess;
 using Vexed.Repositories.Abstractions;
+using Abstractions.Repositories;
 
 namespace Vexed.Repositories
 {
@@ -46,6 +47,46 @@ namespace Vexed.Repositories
             }
         }
 
+        private ILeaveRequestRepository _leaveRequestRepository;
+        public ILeaveRequestRepository LeaveRequestRepository
+        {
+            get
+            {
+                if (_leaveRequestRepository == null)
+                {
+                    _leaveRequestRepository = new LeaveRequestRepository(_vexedDbContext, _logger);
+                }
+                return _leaveRequestRepository;
+            }
+        }
+
+        private IQualificationRepository _qualificationRepository;
+        public IQualificationRepository QualificationRepository
+        {
+            get
+            {
+                if(_qualificationRepository == null)
+                {
+                    _qualificationRepository = new QualificationRepository(_vexedDbContext, _logger);
+                }
+                return _qualificationRepository;
+            }
+        }
+
+        private ITimeCardRepository _timeCardRepository;
+        public ITimeCardRepository TimeCardRepository
+        {
+            get
+            {
+                if (_timeCardRepository == null)
+                {
+                    _timeCardRepository = new TimeCardRepository(_vexedDbContext, _logger);
+                }
+                return _timeCardRepository;
+            }
+        }
+
+
         private IUserDetailsRepository _userDetailsRepository;
         public IUserDetailsRepository UserDetailsRepository
         {
@@ -69,32 +110,6 @@ namespace Vexed.Repositories
                     _userEmploymentRepository = new UserEmploymentRepository(_vexedDbContext, _logger);
                 }
                 return _userEmploymentRepository;
-            }
-        }
-
-        private ILeaveRequestRepository _leaveRequestRepository;
-        public ILeaveRequestRepository LeaveRequestRepository
-        {
-            get
-            {
-                if(_leaveRequestRepository == null)
-                {
-                    _leaveRequestRepository = new LeaveRequestRepository(_vexedDbContext, _logger);
-                }
-                return _leaveRequestRepository;
-            }
-        }
-
-        private ITimeCardRepository _timeCardRepository;
-        public ITimeCardRepository TimeCardRepository
-        {
-            get
-            {
-                if(_timeCardRepository == null)
-                {
-                    _timeCardRepository = new TimeCardRepository(_vexedDbContext, _logger);
-                }
-                return _timeCardRepository;
             }
         }
 

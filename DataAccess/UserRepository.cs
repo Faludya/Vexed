@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Shared;
-using Vexed.Data;
+using DataAccess;
 using Vexed.Models;
 using Vexed.Models.ViewModels;
 using Vexed.Repositories.Abstractions;
