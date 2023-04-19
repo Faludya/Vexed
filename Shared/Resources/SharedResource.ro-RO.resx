@@ -186,6 +186,9 @@
   <data name="ApproveLeaves" xml:space="preserve">
     <value>Aprobă concedii</value>
   </data>
+  <data name="Attachment" xml:space="preserve">
+    <value>Atașament</value>
+  </data>
   <data name="BackToList" xml:space="preserve">
     <value>Înapoi la listă</value>
   </data>
@@ -222,6 +225,9 @@
   <data name="Create" xml:space="preserve">
     <value>Creează</value>
   </data>
+  <data name="DateObtained" xml:space="preserve">
+    <value>Data obținerii</value>
+  </data>
   <data name="DateOfBirth" xml:space="preserve">
     <value>Data nașterii</value>
   </data>
@@ -230,6 +236,9 @@
   </data>
   <data name="Department" xml:space="preserve">
     <value>Departament</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Descriere</value>
   </data>
   <data name="Details" xml:space="preserve">
     <value>Detalii</value>
@@ -248,6 +257,9 @@
   </data>
   <data name="EndDate" xml:space="preserve">
     <value>Data de încheiere</value>
+  </data>
+  <data name="ExpiryDate" xml:space="preserve">
+    <value>Data expirării</value>
   </data>
   <data name="FirstName" xml:space="preserve">
     <value>Prenume</value>
@@ -327,14 +339,26 @@
   <data name="Nationality" xml:space="preserve">
     <value>Naţionalitate</value>
   </data>
+  <data name="NewQualification" xml:space="preserve">
+    <value>Nouă calificare</value>
+  </data>
+  <data name="NoQualificationsToDisplay" xml:space="preserve">
+    <value>Nu aveți calificări de afișat</value>
+  </data>
   <data name="Phone" xml:space="preserve">
     <value>Telefon</value>
+  </data>
+  <data name="PleaseAddQualifications" xml:space="preserve">
+    <value>Vă rugăm să adăugați calificările dvs. pentru a le vedea afișate</value>
   </data>
   <data name="PreferredName" xml:space="preserve">
     <value>Prenume preferat</value>
   </data>
   <data name="ProjectCode" xml:space="preserve">
     <value>Cod proiect</value>
+  </data>
+  <data name="Qualification" xml:space="preserve">
+    <value>Calificare</value>
   </data>
   <data name="Quantity" xml:space="preserve">
     <value>Cantitate</value>
@@ -372,6 +396,9 @@
   <data name="TimeCards" xml:space="preserve">
     <value>Cartelă de pontaj</value>
   </data>
+  <data name="Title" xml:space="preserve">
+    <value>Titlu</value>
+  </data>
   <data name="Type" xml:space="preserve">
     <value>Categorie</value>
   </data>
@@ -383,6 +410,9 @@
   </data>
   <data name="View" xml:space="preserve">
     <value>Vizualizează</value>
+  </data>
+  <data name="ViewQualificationDoc" xml:space="preserve">
+    <value>Vedeți documentul de calificare</value>
   </data>
   <data name="YourContact" xml:space="preserve">
     <value>Contactul tău</value>
@@ -398,6 +428,9 @@
   </data>
   <data name="YourLeaveRequest" xml:space="preserve">
     <value>Cererea dvs. de concediu</value>
+  </data>
+  <data name="YourQualifications" xml:space="preserve">
+    <value>Calificările tale</value>
   </data>
   <data name="YourTimeCards" xml:space="preserve">
     <value>Pontajul dvs. de ore</value>

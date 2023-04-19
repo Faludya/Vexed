@@ -6,11 +6,12 @@
     ViewData["Title"] = "Index";
 }
 <link rel="stylesheet" href="/vendor/datatables/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="/css/qualifications.css" />
 
 <div class="row page-titles mx-0">
     <div class="col-sm-6 p-md-0">
         <div class="welcome-text">
-            <h4>Your Qualifications!</h4>
+            <h4>@language.GetKey("YourQualifications")!</h4>
             <span class="ml-1">All in one place</span>
         </div>
     </div>
@@ -20,81 +21,35 @@
                 <i class="fa fa-plus color-primary"></i>
             </span>@language.GetKey("Create")
         </a>
-
     </div>
 </div>
 
-<div class="row">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-body">
-                <form>
-                    <div class="table-responsive">
-                        <table id="example" class="table table-responsive-sm">
-                            <thead class="thead-primary">
-                                <tr>
-                                    <th>
-                                        <i class='bx bxs-category'></i>
-                                        @language.GetKey("Title")
-                                    </th>
-                                    <th>
-                                        <i class='bx bxs-book-content'></i>
-                                        @language.GetKey("Description")
-                                    </th>
-                                    <th>
-                                        <i class='bx bxs-book-content'></i>
-                                        @language.GetKey("DateObtained")
-                                    </th>
-                                    <th>
-                                        <i class='bx bxs-book-content'></i>
-                                        @language.GetKey("ExpiryDate")
-                                    </th>
-                                    <th align='right' data-orderable="false">
-
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody class="text-dark">
-                                @foreach (var item in Model)
-                                {
-                                    <tr>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Title)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Description)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.DateObtained)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.ExpiryDate)
-                                        </td>
-                                        <td align="center">
-                                            <div class="btn-group">
-                                                <button id="btnGroupDrop1" type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown">
-                                                    <i class='ti-layout-menu-v'></i>
-                                                </button>
-                                                <div class="dropdown-menu">
-                                                    <a class="dropdown-item text-dark" asp-action="Edit" asp-route-id="@item.Id">
-                                                        <i class='bx bxs-edit-alt'></i> @language.GetKey("Edit")
-                                                    </a>
-                                                    <a class="dropdown-item" asp-action="Details" asp-route-id="@item.Id">
-                                                        <i class='bx bxs-detail'></i> @language.GetKey("Details")
-                                                    </a>
-                                                    <a class="dropdown-item text-danger" asp-action="Delete" asp-route-id="@item.Id">
-                                                        <i class='bx bxs-trash'></i> @language.GetKey("Delete")
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
+@if(Model.Count() == 0)
+{
+    <div class="my-5" style="text-align:center">
+        <h2>@language.GetKey("NoQualificationsToDisplay")</h2>
+        <p>@language.GetKey("PleaseAddQualifications")</p>
+    </div>
+}
+else
+{
+    <div class="container mx-5">
+        <ul class="q-ul">
+            @foreach (var item in Model)
+            {
+                <li>
+                    <div>
+                        <q-title href=" @item.AttachmentUrl" target="_blank">
+                                @item.Title
+                        </q-title>
+                        <q-time class="text-muted">@item.DateObtained.ToShortDateString()</q-time>
+                        <p>@item.Description</p>
+                        <a class="text-dark" asp-action="Edit" asp-route-id="@item.Id">
+                            <i class='bx bxs-edit-alt'></i> @language.GetKey("Edit")
+                        </a>
                     </div>
-                </form>
-            </div>
-        </div>
+                </li>
+            }
+        </ul>
     </div>
-</div>
+}

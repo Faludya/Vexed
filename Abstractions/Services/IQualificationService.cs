@@ -1,4 +1,5 @@
 ﻿using DataModels;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,12 +14,12 @@ namespace Abstractions.Services
         /// <summary>
         /// Creates a new Qualification
         /// </summary>
-        Task CreateQualification(Qualification qualification);
+        Task CreateQualification(Qualification qualification, IFormFile attachmentFile);
 
         /// <summary>
         /// Updates the details of a Qualification.
         /// </summary>
-        Task UpdateQualification(Qualification qualification);
+        Task UpdateQualification(Qualification qualification, IFormFile attachmentFile);
 
         /// <summary>
         /// Removes the Qualification from the database.

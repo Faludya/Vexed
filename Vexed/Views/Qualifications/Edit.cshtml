@@ -11,8 +11,16 @@
     <div class="col-sm-6 p-md-0">
         <div class="welcome-text">
             <h4>@language.GetKey("Edit")</h4>
-            <span class="ml-1"> Edit qualifications </span>
+            <span class="ml-1">@language.GetKey("Edit") @language.GetKey("Qualification") </span>
         </div>
+    </div>
+
+    <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+        <a class="btn btn-rounded btn-danger" asp-action="Delete" asp-route-id="@Model.Id">
+            <span class="btn-icon-left text-dark">
+                <i class="fa fa-close color-primary"></i>
+            </span>@language.GetKey("Delete")
+        </a>
     </div>
 </div>
 
@@ -25,14 +33,15 @@
                         <h4>@language.GetKey("Qualification")</h4>
                         <hr />
                         <div class="text-left p-3 text-dark">
-                            <form asp-action="Edit">
+                            <form asp-action="Edit" enctype="multipart/form-data">
                                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                                 <input type="hidden" asp-for="Id" />
                                 <input type="hidden" asp-for="UserId" />
+                                <input type="hidden" asp-for="AttachmentUrl" />
 
                                 <div class="form-group row my-3">
                                     <div class="col-4 my-2">
-                                        <i class='bx bxs-category'></i>
+                                        <i class='bx bx-certification'></i>
                                         <b>@language.GetKey("Title"):</b>
                                     </div>
                                     <div class="col-8">
@@ -43,18 +52,18 @@
 
                                 <div class="form-group row my-3">
                                     <div class="col-4 my-2">
-                                        <i class='bx bxs-book-content'></i>
+                                        <i class='bx bxs-edit-alt'></i>
                                         <b>@language.GetKey("Description"):</b>
                                     </div>
                                     <div class="col-8">
-                                        <input asp-for="Description" class="form-control" />
+                                        <textarea asp-for="Description" class="form-control" rows="3" style="resize: vertical;"></textarea>
                                         <span asp-validation-for="Description" class="text-danger"></span>
                                     </div>
                                 </div>
 
                                 <div class="form-group row my-3">
                                     <div class="col-4 my-2">
-                                        <i class='bx bxs-book-content'></i>
+                                        <i class='bx bx-calendar-check'></i>
                                         <b>@language.GetKey("DateObtained"):</b>
                                     </div>
                                     <div class="col-8">
@@ -65,7 +74,7 @@
 
                                 <div class="form-group row my-3">
                                     <div class="col-4 my-2">
-                                        <i class='bx bxs-book-content'></i>
+                                        <i class='bx bx-calendar-x'></i>
                                         <b>@language.GetKey("ExpiryDate"):</b>
                                     </div>
                                     <div class="col-8">
@@ -76,12 +85,16 @@
 
                                 <div class="form-group row my-3">
                                     <div class="col-4 my-2">
-                                        <i class='bx bxs-book-content'></i>
+                                        <i class='bx bx-file'></i>
                                         <b>@language.GetKey("Attachment"):</b>
                                     </div>
                                     <div class="col-8">
                                         <input type="file" class="form-control-file" name="attachmentFile" accept="image/*,.pdf" />
                                         <span asp-validation-for="AttachmentUrl" class="text-danger"></span>
+                                        <a href=" @Model.AttachmentUrl" target="_blank">
+                                            @language.GetKey("ViewQualificationDoc")
+                                        </a>
+
                                     </div>
                                 </div>
 

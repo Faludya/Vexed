@@ -16,11 +16,13 @@ namespace Vexed.Controllers
     {
         private readonly IQualificationService _qualificationService;
         private readonly Logger _logger;
+        private readonly IWebHostEnvironment _env;
 
-        public QualificationsController( IQualificationService qualificationService, Logger logger)
+        public QualificationsController( IQualificationService qualificationService, Logger logger, IWebHostEnvironment env)
         {
             _qualificationService = qualificationService;
             _logger = logger;
+            _env = env;
         }
 
         public async Task<IActionResult> Index()
@@ -58,26 +60,14 @@ namespace Vexed.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    if (attachmentFile != null && attachmentFile.Length > 0)
-                    {
-                        // Save the file to disk or database
-                        var fileName = Path.GetFileName(attachmentFile.FileName);
-                        var filePath = Path.Combine("wwwroot", "uploads", fileName);
-                        using (var fileStream = new FileStream(filePath, FileMode.Create))
-                        {
-                            await attachmentFile.CopyToAsync(fileStream);
-                        }
-
-                        // Set the attachment URL property of the qualification
-                        qualification.AttachmentUrl = "/uploads/" + fileName;
-                    }
-                    else
+                    if (attachmentFile == null || attachmentFile.Length <= 0)
                     {
                         ModelState.AddModelError("AttachmentUrl", "Please select a file to upload.");
                         return View(qualification);
                     }
+
                     qualification.UserId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-                    await _qualificationService.CreateQualification(qualification);
+                    await _qualificationService.CreateQualification(qualification, attachmentFile);
                     return RedirectToAction(nameof(Index));
                 }
                 return View(qualification);
@@ -124,12 +114,13 @@ namespace Vexed.Controllers
                 return NotFound();
             }
 
+            ModelState.Remove("attachmentFile");
             if (ModelState.IsValid)
             {
                 try
                 {
                     //TODO: delete old file and add new file
-                    await _qualificationService.UpdateQualification(qualification);
+                    await _qualificationService.UpdateQualification(qualification, attachmentFile);
                     return RedirectToAction(nameof(Index));
                 }
                 catch (DbUpdateException ex)

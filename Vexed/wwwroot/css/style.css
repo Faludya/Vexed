@@ -16312,7 +16312,7 @@ button {
       display: table;
       clear: both; }
     .widget-timeline .timeline > li > .timeline-panel {
-      width: calc(100% - 35px);
+      /*width: calc(100% - 35px);*/
       float: right;
       border-radius: 2px;
       padding: 5px 20px;

@@ -10,7 +10,7 @@
     <div class="col-sm-6 p-md-0">
         <div class="welcome-text">
             <h4>@language.GetKey("Delete")</h4>
-            <span class="ml-1"> Delete qualification</span>
+            <span class="ml-1"> @language.GetKey("Delete") @language.GetKey("Qualification")</span>
         </div>
     </div>
 </div>
@@ -29,7 +29,7 @@
                             <div class="text-left text-dark">
                                 <div class="row">
                                     <div class="col">
-                                        <i class='bx bxs-category'></i>
+                                        <i class='bx bx-certification'></i>
                                         <b>@language.GetKey("Title")</b>
                                     </div>
                                     <div class="col">
@@ -39,7 +39,7 @@
 
                                 <div class="row">
                                     <div class="col">
-                                        <i class='bx bxs-book-content'></i>
+                                        <i class='bx bxs-edit-alt'></i>
                                         <b>@language.GetKey("Description")</b>
                                     </div>
                                     <div class="col">
@@ -49,7 +49,7 @@
 
                                 <div class="row">
                                     <div class="col">
-                                        <i class='bx bxs-book-content'></i>
+                                        <i class='bx bx-calendar-check'></i>
                                         <b>@language.GetKey("DateObtained")</b>
                                     </div>
                                     <div class="col">
@@ -59,11 +59,25 @@
 
                                 <div class="row">
                                     <div class="col">
-                                        <i class='bx bxs-book-content'></i>
+                                        <i class='bx bx-calendar-x'></i>
                                         <b>@language.GetKey("ExpiryDate")</b>
                                     </div>
                                     <div class="col">
                                         @Html.DisplayFor(model => model.ExpiryDate)
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <i class='bx bx-file'></i>
+                                        <b>@language.GetKey("Attachment")</b>
+                                    </div>
+                                    <div class="col">
+                                        @Html.DisplayFor(model => model.AttachmentUrl)
+                                        <br />
+                                        <a href=" @Model.AttachmentUrl" target="_blank">
+                                            @language.GetKey("ViewQualificationDoc")
+                                        </a>
                                     </div>
                                 </div>
                             </div>
