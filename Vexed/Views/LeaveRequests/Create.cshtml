@@ -80,7 +80,7 @@
                                         <b>@language.GetKey("Comments"):</b>
                                     </div>
                                     <div class="col-8">
-                                        <input asp-for="Comments" class="form-control" />
+                                        <textarea asp-for="Comments" class="form-control" rows="3" style="resize: vertical;"></textarea>
                                         <span asp-validation-for="Comments" class="text-danger"></span>
                                     </div>
                                 </div>
