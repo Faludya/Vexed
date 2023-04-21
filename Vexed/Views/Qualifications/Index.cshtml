@@ -44,7 +44,7 @@ else
                         </q-title>
                         <q-time class="text-muted">@item.DateObtained.ToShortDateString()</q-time>
                         <p>@item.Description</p>
-                        <a class="text-dark" asp-action="Edit" asp-route-id="@item.Id">
+                        <a class="q-a text-dark" asp-action="Edit" asp-route-id="@item.Id">
                             <i class='bx bxs-edit-alt'></i> @language.GetKey("Edit")
                         </a>
                     </div>
