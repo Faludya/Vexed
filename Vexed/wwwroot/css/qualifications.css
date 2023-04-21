@@ -56,7 +56,8 @@
         padding: 5px 15px;
     }
 
-q-title {
+.q-title {
+    color: black;
     font-weight: bold;
     font-size: 18px;
     display: block;

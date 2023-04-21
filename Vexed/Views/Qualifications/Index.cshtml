@@ -39,9 +39,9 @@ else
             {
                 <li>
                     <div>
-                        <q-title href=" @item.AttachmentUrl" target="_blank">
+                        <a class="q-title" href=" @item.AttachmentUrl" target="_blank">
                                 @item.Title
-                        </q-title>
+                        </a>
                         <q-time class="text-muted">@item.DateObtained.ToShortDateString()</q-time>
                         <p>@item.Description</p>
                         <a class="q-a text-dark" asp-action="Edit" asp-route-id="@item.Id">
