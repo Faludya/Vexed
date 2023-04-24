@@ -40,7 +40,7 @@ namespace Vexed.Controllers
         {
             try
             {
-                return View(await _leaveRequestService.GetAllLeaveRequests());
+                return View(await _leaveRequestService.GetLeaveRequestsHR());
             }
             catch (Exception ex)
             {

@@ -1,4 +1,5 @@
-﻿using Vexed.Models;
+﻿using Shared.ViewModels;
+using Vexed.Models;
 
 namespace Vexed.Services.Abstractions
 {
@@ -31,9 +32,9 @@ namespace Vexed.Services.Abstractions
         Task<TimeCard> GetLastTimeCard(Guid userId);
 
         /// <summary>
-        /// Returns all the Time Cards from the database.
+        /// Returns all the Time Cards from the database ordered for HR
         /// </summary>
-        Task<List<TimeCard>> GetAllTimeCards();
+        Task<List<UserTimeCardsViewModel>> GetTimeCardsHR();
 
         /// <summary>
         /// Returns all the Time Cards for a given user.

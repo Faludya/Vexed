@@ -3,6 +3,7 @@ using Shared;
 using DataAccess;
 using Vexed.Models;
 using Vexed.Repositories.Abstractions;
+using Shared.ViewModels;
 
 namespace Vexed.Repositories
 {
@@ -38,6 +39,48 @@ namespace Vexed.Repositories
                 _logger.LogError(ex.Message, ex);
                 throw;
             }
+        }
+
+        public async Task<List<UserLeaveRequestsViewModel>> GetLeaveRequestsHR()
+        {
+            try
+            {
+                var approvedBySuperiorRequests = await _vexedDbContext.LeaveRequests
+                    .Where(lr => lr.Status == StatusManager.SuperiorApproval)
+                    .OrderByDescending(lr => lr.EndDate)
+                    .Join(_vexedDbContext.UsersDetails,
+                                    lr => lr.UserId,
+                                    ud => ud.UserId,
+                                    (lr, ud) => new UserLeaveRequestsViewModel
+                                    {
+                                        LeaveRequest = lr,
+                                        UserDetails = ud
+                                    })
+                    .ToListAsync();
+
+                var otherRequests = await _vexedDbContext.LeaveRequests
+                    .Where(lr => lr.Status != StatusManager.SuperiorApproval)
+                    .OrderByDescending(lr => lr.EndDate)
+                    .Join(_vexedDbContext.UsersDetails,
+                                    lr => lr.UserId,
+                                    ud => ud.UserId,
+                                    (lr, ud) => new UserLeaveRequestsViewModel
+                                    {
+                                        LeaveRequest = lr,
+                                        UserDetails = ud
+                                    })
+                    .ToListAsync();
+
+                var userLeaveRequests = approvedBySuperiorRequests.Concat(otherRequests).ToList();
+
+                return userLeaveRequests;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                throw;
+            }
+
         }
 
         public async Task<List<LeaveRequest>> GetLeaveRequestsSuperior(Guid superiorId)

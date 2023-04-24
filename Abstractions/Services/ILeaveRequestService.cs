@@ -1,4 +1,5 @@
-﻿using Vexed.Models;
+﻿using Shared.ViewModels;
+using Vexed.Models;
 
 namespace Vexed.Services.Abstractions
 {
@@ -25,9 +26,9 @@ namespace Vexed.Services.Abstractions
         Task<LeaveRequest> GetLeaveRequestById(int id);
 
         /// <summary>
-        /// Returns all Leave requests from the database.
+        /// Returns all Leave requests from the database ordered for HR
         /// </summary>
-        Task<List<LeaveRequest>> GetAllLeaveRequests();
+        Task<List<UserLeaveRequestsViewModel>> GetLeaveRequestsHR();
 
         /// <summary>
         /// Returns all the Leave Requests for a given user.

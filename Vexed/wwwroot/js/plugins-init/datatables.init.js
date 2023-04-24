@@ -4,6 +4,7 @@
 
     //example 1
     var table = $('#example').DataTable({
+        order: [],
         createdRow: function ( row, data, index ) {
            $(row).addClass('selected')
         }
@@ -22,7 +23,6 @@
     table.rows().every(function() {
     this.nodes().to$().removeClass('selected')
     });
-
 
 
     //example 2

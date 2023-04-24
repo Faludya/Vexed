@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Shared;
+using Shared.ViewModels;
 using Vexed.Models;
 using Vexed.Repositories.Abstractions;
 using Vexed.Services.Abstractions;
@@ -48,12 +49,11 @@ namespace Vexed.Services
             }
         }
 
-        public async Task<List<TimeCard>> GetAllTimeCards()
+        public async Task<List<UserTimeCardsViewModel>> GetTimeCardsHR()
         {
             try
             {
-                var queryable = await _repositoryWrapper.TimeCardRepository.FindAll();
-                return await queryable.ToListAsync();
+                return await _repositoryWrapper.TimeCardRepository.GetTimeCardsHR();
             }
             catch (Exception ex)
             {

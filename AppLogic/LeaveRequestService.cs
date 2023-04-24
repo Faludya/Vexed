@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Shared;
+using Shared.ViewModels;
 using Vexed.Models;
 using Vexed.Repositories.Abstractions;
 using Vexed.Services.Abstractions;
@@ -47,12 +48,11 @@ namespace Vexed.Services
             }
         }
 
-        public async Task<List<LeaveRequest>> GetAllLeaveRequests()
+        public async Task<List<UserLeaveRequestsViewModel>> GetLeaveRequestsHR()
         {
             try
             {
-                var queryable = await _repositoryWrapper.LeaveRequestRepository.FindAll();
-                return await queryable.ToListAsync();
+                return await _repositoryWrapper.LeaveRequestRepository.GetLeaveRequestsHR();
             }
             catch (Exception ex)
             {

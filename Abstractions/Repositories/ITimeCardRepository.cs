@@ -1,4 +1,5 @@
-﻿using Vexed.Models;
+﻿using Shared.ViewModels;
+using Vexed.Models;
 
 namespace Vexed.Repositories.Abstractions
 {
@@ -23,5 +24,10 @@ namespace Vexed.Repositories.Abstractions
         /// Returns all the Time Cards for a given superior.
         /// </summary>
         Task<List<TimeCard>> GetTimeCardsSuperior(Guid superiorId);
+
+        /// <summary>
+        /// Returns all the Time Cards sorted by date and status
+        /// </summary>
+        Task<List<UserTimeCardsViewModel>> GetTimeCardsHR();
     }
 }
