@@ -3,7 +3,7 @@
 @model IEnumerable<Shared.ViewModels.UserTimeCardsViewModel>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "IndexHR";
     IDictionary<string, string> statusBadge = new Dictionary<string, string>()
     {
         { StatusManager.Submitted, "badge-outline-warning"},
@@ -14,8 +14,6 @@
 
 }
 <link rel="stylesheet" href="/vendor/datatables/css/jquery.dataTables.min.css" />
-<link rel="stylesheet" href="/css/accordion-table.css" />
-
 
 <div class="row page-titles mx-0">
     <div class="col-sm-6 p-md-0">
@@ -30,19 +28,17 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <form>
+                <form asp-action="IndexHR">
                     <div class="table-responsive">
                         <table id="example" class="table table-responsive-sm">
                             <thead class="thead-primary">
                                 <tr>
+                                    <th data-orderable="false"></th>
+                                    <th>
+                                        @language.GetKey("FullName")
+                                    </th>
                                     <th>
                                         @language.GetKey("ProjectCode")
-                                    </th>
-                                    <th>
-                                        @language.GetKey("TaskDetails")
-                                    </th>
-                                    <th>
-                                        @language.GetKey("Location")
                                     </th>
                                     <th>
                                         @language.GetKey("StartDate")
@@ -56,9 +52,7 @@
                                     <th>
                                         @language.GetKey("Status")
                                     </th>
-                                    <th>
-                                        @language.GetKey("Comments")
-                                    </th>
+                                    <th data-orderable="false"></th>
                                     <th data-orderable="false"></th>
                                 </tr>
                             </thead>
@@ -67,13 +61,15 @@
                                 {
                                     <tr>
                                         <td>
+                                            <btn class="btn" data-toggle="modal" data-target="#exampleModalCenter-@item.TimeCard.Id" style="cursor: pointer;">
+                                                <i class="fa fa-plus color-primary"></i>
+                                            </btn>
+                                        </td>
+                                        <td>
+                                            @item.UserDetails.FirstName @item.UserDetails.LastName
+                                        </td>
+                                        <td>
                                             @Html.DisplayFor(modelItem => item.TimeCard.ProjectCode)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.TimeCard.TaskDetails)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.TimeCard.Location)
                                         </td>
                                         <td>
                                             @Html.DisplayFor(modelItem => item.TimeCard.StartDate)
@@ -88,13 +84,133 @@
                                             <span class="badge @statusBadge[item.TimeCard.Status] badge-rounded">@Html.DisplayFor(modelItem => item.TimeCard.Status)</span>
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.TimeCard.Comments)
+                                            <button class="btn btn-success text-light" type="submit" asp-route-statusAction="@StatusManager.HRApproval" asp-route-id="@item.TimeCard.Id">
+                                                <span>
+                                                    <i class="fa fa-check"></i>
+                                                </span>@language.GetKey("Approve")
+                                            </button>
                                         </td>
                                         <td>
-                                            <button class="btn btn-primary" type="submit" asp-action="IndexHR" asp-controller="TimeCards" asp-route-statusAction="@StatusManager.HRApproval" asp-route-id="@item.TimeCard.Id">@language.GetKey("Approve")</button> |
-                                            <button class="btn btn-danger" type="submit" asp-action="IndexHR" asp-controller="TimeCards" asp-route-statusAction="@StatusManager.Cancelled" asp-route-id="@item.TimeCard.Id">@language.GetKey("Cancel")</button> |
+                                            <button class="btn btn-danger text-light" type="submit" asp-route-statusAction="@StatusManager.Cancelled" asp-route-id="@item.TimeCard.Id">
+                                                <span>
+                                                    <i class="fa fa-times"></i>
+                                                </span>@language.GetKey("Reject")
+                                            </button>
                                         </td>
-                                    </tr>                                   
+                                    </tr>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="exampleModalCenter-@item.TimeCard.Id">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">Time card details - @item.UserDetails.FirstName @item.UserDetails.LastName</h5>
+                                                    <button type="button" class="close" data-dismiss="modal">
+                                                        <span>&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="container">
+                                                        <div class="text-left text-dark">
+                                                            <div class="row">
+                                                                <div class="col">
+                                                                    <i class='bx bx-barcode'></i>
+                                                                    <b>@language.GetKey("ProjectCode")</b>
+                                                                </div>
+                                                                <div class="col">
+                                                                    @Html.DisplayFor(modelItem => item.TimeCard.ProjectCode)
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row">
+                                                                <div class="col">
+                                                                    <i class='bx bx-detail'></i>
+                                                                    <b>@language.GetKey("TaskDetails")</b>
+                                                                </div>
+                                                                <div class="col">
+                                                                    @Html.DisplayFor(modelItem => item.TimeCard.TaskDetails)
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row">
+                                                                <div class="col">
+                                                                    <i class='bx bx-map'></i>
+                                                                    <b>@language.GetKey("Location")</b>
+                                                                </div>
+                                                                <div class="col">
+                                                                    @Html.DisplayFor(modelItem => item.TimeCard.Location)
+                                                                </div>
+                                                            </div>
+
+                                                            <hr class="dotted" />
+                                                            <div class="row">
+                                                                <div class="col">
+                                                                    <i class='bx bx-chevrons-right'></i>
+                                                                    <b>@language.GetKey("StartDate")</b>
+                                                                </div>
+                                                                <div class="col">
+                                                                    @Html.DisplayFor(modelItem => item.TimeCard.StartDate)
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row">
+                                                                <div class="col">
+                                                                    <i class='bx bx-chevrons-left'></i>
+                                                                    <b>@language.GetKey("EndDate")</b>
+                                                                </div>
+                                                                <div class="col">
+                                                                    @Html.DisplayFor(modelItem => item.TimeCard.EndDate)
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row">
+                                                                <div class="col">
+                                                                    <i class='bx bx-bar-chart-alt-2'></i>
+                                                                    <b>@language.GetKey("Quantity")</b>
+                                                                </div>
+                                                                <div class="col">
+                                                                    @Html.DisplayFor(modelItem => item.TimeCard.Quantity)
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row">
+                                                                <div class="col">
+                                                                    <i class='bx bx-stats'></i>
+                                                                    <b>@language.GetKey("Status")</b>
+                                                                </div>
+                                                                <div class="col">
+                                                                    @Html.DisplayFor(modelItem => item.TimeCard.Status)
+                                                                </div>
+                                                            </div>
+
+                                                            <hr class="dotted" />
+                                                            <div class="row">
+                                                                <div class="col">
+                                                                    <i class='bx bx-comment'></i>
+                                                                    <b>@language.GetKey("Comments")</b>
+                                                                </div>
+                                                                <div class="col">
+                                                                    @Html.DisplayFor(modelItem => item.TimeCard.Comments)
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button class="btn btn-success text-light" type="submit" asp-route-statusAction="@StatusManager.HRApproval" asp-route-id="@item.TimeCard.Id">
+                                                        <span>
+                                                            <i class="fa fa-check"></i>
+                                                        </span>@language.GetKey("Approve")
+                                                    </button>
+                                                    <button class="btn btn-danger text-light" type="submit" asp-route-statusAction="@StatusManager.Cancelled" asp-route-id="@item.TimeCard.Id">
+                                                        <span>
+                                                            <i class="fa fa-times"></i>
+                                                        </span>@language.GetKey("Reject")
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 }
                             </tbody>
                         </table>
@@ -104,3 +220,4 @@
         </div>
     </div>
 </div>
+

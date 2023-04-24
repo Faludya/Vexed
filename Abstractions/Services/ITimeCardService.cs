@@ -32,7 +32,7 @@ namespace Vexed.Services.Abstractions
         Task<TimeCard> GetLastTimeCard(Guid userId);
 
         /// <summary>
-        /// Returns all the Time Cards from the database.
+        /// Returns all the Time Cards from the database ordered for HR
         /// </summary>
         Task<List<UserTimeCardsViewModel>> GetTimeCardsHR();
 

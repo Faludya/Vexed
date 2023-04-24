@@ -1,4 +1,5 @@
-﻿using Vexed.Models;
+﻿using Shared.ViewModels;
+using Vexed.Models;
 
 namespace Vexed.Repositories.Abstractions
 {
@@ -18,5 +19,10 @@ namespace Vexed.Repositories.Abstractions
         /// Returns all the Leave Requests for a given superior.
         /// </summary>
         Task<List<LeaveRequest>> GetLeaveRequestsSuperior(Guid superiorId);
+
+        /// <summary>
+        /// Returns all the Leave Requests sorted by date and status
+        /// </summary>
+        Task<List<UserLeaveRequestsViewModel>> GetLeaveRequestsHR();
     }
 }
