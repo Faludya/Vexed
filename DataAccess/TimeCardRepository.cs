@@ -3,6 +3,7 @@ using Shared;
 using DataAccess;
 using Vexed.Models;
 using Vexed.Repositories.Abstractions;
+using Shared.ViewModels;
 
 namespace Vexed.Repositories
 {
@@ -12,6 +13,47 @@ namespace Vexed.Repositories
         public TimeCardRepository(VexedDbContext vexedDbContext, Logger logger) : base(vexedDbContext)
         {
             _logger = logger;
+        }
+
+        public async Task<List<UserTimeCardsViewModel>> GetTimeCardsHR()
+        {
+            try
+            {
+                var approvedBySuperiorCards = await _vexedDbContext.TimeCards
+                    .Where(c => c.Status == StatusManager.SuperiorApproval)
+                    .OrderByDescending(c => c.EndDate)
+                    .Join(_vexedDbContext.UsersDetails,
+                                        tc => tc.UserId,
+                                        ud => ud.UserId,
+                                        (tc, ud) => new UserTimeCardsViewModel
+                                        {
+                                            TimeCard = tc,
+                                            UserDetails = ud
+                                        })
+                    .ToListAsync();
+
+                var otherCards = await _vexedDbContext.TimeCards
+                    .Where(c => c.Status != StatusManager.SuperiorApproval)
+                    .OrderByDescending(c => c.EndDate)
+                    .Join(_vexedDbContext.UsersDetails,
+                                        tc => tc.UserId,
+                                        ud => ud.UserId,
+                                        (tc, ud) => new UserTimeCardsViewModel
+                                        {
+                                            TimeCard = tc,
+                                            UserDetails = ud
+                                        })
+                    .ToListAsync();
+
+                var userTimeCards = approvedBySuperiorCards.Concat(otherCards).ToList();
+
+                return userTimeCards;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                throw;
+            }
         }
 
         public async Task<TimeCard> GetLastTimeCard(Guid userId)

@@ -40,7 +40,7 @@ namespace Vexed.Controllers
         {
             try
             {
-                return View(await _timeCardService.GetAllTimeCards());
+                return View(await _timeCardService.GetTimeCardsHR());
             }
             catch (Exception ex)
             {

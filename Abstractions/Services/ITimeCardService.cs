@@ -1,4 +1,5 @@
-﻿using Vexed.Models;
+﻿using Shared.ViewModels;
+using Vexed.Models;
 
 namespace Vexed.Services.Abstractions
 {
@@ -33,7 +34,7 @@ namespace Vexed.Services.Abstractions
         /// <summary>
         /// Returns all the Time Cards from the database.
         /// </summary>
-        Task<List<TimeCard>> GetAllTimeCards();
+        Task<List<UserTimeCardsViewModel>> GetTimeCardsHR();
 
         /// <summary>
         /// Returns all the Time Cards for a given user.
