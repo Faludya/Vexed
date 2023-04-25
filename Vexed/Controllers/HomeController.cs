@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -17,7 +18,10 @@ namespace Vexed.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            if (!User.Identity.IsAuthenticated)
+                return View();
+            else
+                return RedirectToAction("Dashboard");
         }
 
         public IActionResult Privacy()
@@ -31,6 +35,10 @@ namespace Vexed.Controllers
             return View();
         }
         public IActionResult AboutUs()
+        {
+            return View();
+        }
+        public IActionResult Dashboard()
         {
             return View();
         }
