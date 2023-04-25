@@ -1,6 +1,7 @@
 ﻿
 .q-ul {
-/*    padding: 50px 0px;*/
+    /*    padding: 50px 0px;*/
+    position: relative;
     color: black;
     padding-bottom: 100px;
 }
@@ -56,6 +57,13 @@
         padding: 5px 15px;
     }
 
+.icon-top {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 5px 15px;
+}
+
 .q-title {
     color: black;
     font-weight: bold;
@@ -63,7 +71,7 @@
     display: block;
     /*margin-bottom: 10px;*/
 }
-q-time {
+.q-time {
     color: GrayText;
     display: block;
     margin-bottom: 10px;

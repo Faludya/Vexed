@@ -41,8 +41,21 @@ else
                     <div>
                         <a class="q-title" href=" @item.AttachmentUrl" target="_blank">
                                 @item.Title
+                            @if(item.ExpiryDate >= DateTime.Now || item.ExpiryDate == null)
+                            {
+                                <i class="bx bxs-badge-check text-success" style="position: absolute; top: 5px; right: 15px;"></i>
+                            }
+                            else
+                            {
+                                <i class="bx bxs-alarm-exclamation text-warning" style="position: absolute; top: 5px; right: 15px;"></i>
+                            }
                         </a>
-                        <q-time class="text-muted">@item.DateObtained.ToShortDateString()</q-time>
+                        <p class="q-time text-muted">@item.DateObtained.ToShortDateString()
+                            @if(item.ExpiryDate < DateTime.Now)
+                            {
+                                <i>(Expired: @item.ExpiryDate)</i>
+                            }
+                        </p>
                         <p>@item.Description</p>
                         <a class="q-a text-dark" asp-action="Edit" asp-route-id="@item.Id">
                             <i class='bx bxs-edit-alt'></i> @language.GetKey("Edit")
