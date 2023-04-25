@@ -4,7 +4,9 @@
   "use strict"
   
   // single select box
-  $("#single-select").select2();
+  //$("#single-select").select2();
+    $('#single-select').val($('#single-select option:first').val());
+
 
   // multi select box
   $('.multi-select').select2();
