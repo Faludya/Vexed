@@ -1,6 +1,6 @@
 ﻿@using Vexed.Services;
 @inject LanguageService language
-@model Vexed.Models.UserEmployment
+@model Vexed.Models.ViewModels.EmploymentViewModel
 
 @{
     ViewData["Title"] = "Edit";
@@ -25,10 +25,20 @@
                         <h4>@language.GetKey("UserEmployment")</h4>
                         <hr />
                         <div class="text-left p-3 text-dark">
-                            <form asp-action="Edit">
+                            <form asp-action="Create">
                                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                                <input type="hidden" asp-for="Id" />
-                                <input type="hidden" asp-for="UserId" />
+
+                                <div class="form-group row my-3">
+                                    <div class="col-4 my-2">
+                                        <i class='bx bx-user'></i>
+                                        <b>@language.GetKey("UserName"):</b>
+                                    </div>
+                                    <div class="col-8">
+                                        @Html.DropDownListFor(m => m.SelectedUserId, new SelectList(Model.UserNamesVM, "UserId", "UserName"), new { @class = "form-control", @id = "single-select" })
+                                        <input type="hidden" asp-for="SelectedUserId" />
+                                        <input type="hidden" asp-for="UserNamesVM" />
+                                    </div>
+                                </div>
 
                                 <div class="form-group row my-3">
                                     <div class="col-4 my-2">
@@ -36,8 +46,8 @@
                                         <b>@language.GetKey("CompanyName"):</b>
                                     </div>
                                     <div class="col-8">
-                                        <input asp-for="CompanyName" class="form-control" />
-                                        <span asp-validation-for="CompanyName" class="text-danger"></span>
+                                        <input asp-for="UserEmployment.CompanyName" class="form-control" />
+                                        <span asp-validation-for="UserEmployment.CompanyName" class="text-danger"></span>
                                     </div>
                                 </div>
 
@@ -47,8 +57,8 @@
                                         <b>@language.GetKey("Department"):</b>
                                     </div>
                                     <div class="col-8">
-                                        <input asp-for="Department" class="form-control" />
-                                        <span asp-validation-for="Department" class="text-danger"></span>
+                                        <input asp-for="UserEmployment.Department" class="form-control" />
+                                        <span asp-validation-for="UserEmployment.Department" class="text-danger"></span>
                                     </div>
                                 </div>
 
@@ -58,8 +68,8 @@
                                         <b>@language.GetKey("Function"):</b>
                                     </div>
                                     <div class="col-8">
-                                        <input asp-for="Function" class="form-control" />
-                                        <span asp-validation-for="Function" class="text-danger"></span>
+                                        <input asp-for="UserEmployment.Function" class="form-control" />
+                                        <span asp-validation-for="UserEmployment.Function" class="text-danger"></span>
                                     </div>
                                 </div>
 
@@ -69,8 +79,8 @@
                                         <b>@language.GetKey("Location"):</b>
                                     </div>
                                     <div class="col-8">
-                                        <input asp-for="Location" class="form-control" />
-                                        <span asp-validation-for="Location" class="text-danger"></span>
+                                        <input asp-for="UserEmployment.Location" class="form-control" />
+                                        <span asp-validation-for="UserEmployment.Location" class="text-danger"></span>
                                     </div>
                                 </div>
 
@@ -80,8 +90,8 @@
                                         <b>@language.GetKey("HireDate"):</b>
                                     </div>
                                     <div class="col-8">
-                                        <input asp-for="HireDate" class="form-control" />
-                                        <span asp-validation-for="HireDate" class="text-danger"></span>
+                                        <input asp-for="UserEmployment.HireDate" class="form-control" />
+                                        <span asp-validation-for="UserEmployment.HireDate" class="text-danger"></span>
                                     </div>
                                 </div>
 
@@ -90,11 +100,17 @@
                                         <i class='bx bx-wallet-alt'></i>
                                         <b>@language.GetKey("HourlyPay"):</b>
                                     </div>
-                                    <div class="col-8">
-                                        <input asp-for="HourlyPay" class="form-control" />
-                                        <span asp-validation-for="HourlyPay" class="text-danger"></span>
+                                    <div class="input-group col-8">
+                                        <div class="input-group">
+                                            <input asp-for="UserEmployment.HourlyPay" class="form-control">
+                                            <div class="input-group-append">
+                                                <span class="input-group-text">$</span>
+                                            </div>
+                                        </div>
+                                        <span asp-validation-for="UserEmployment.HourlyPay" class="text-danger"></span>
                                     </div>
                                 </div>
+
 
                                 <div class="form-group row my-3">
                                     <div class="col-4 my-2">
@@ -102,8 +118,10 @@
                                         <b>@language.GetKey("SuperiorName"):</b>
                                     </div>
                                     <div class="col-8">
-                                        <input asp-for="SuperiorName" class="form-control" />
-                                        <span asp-validation-for="SuperiorName" class="text-danger"></span>
+                                        @Html.DropDownListFor(m => m.SelectedSuperiorId, new SelectList(Model.SuperiorNamesVM, "UserId", "UserName"), new { @class = "form-control", id = "superior-dropdown" })
+                                        <input type="hidden" asp-for="SelectedSuperiorId" />
+                                        <input type="hidden" asp-for="SuperiorNamesVM" />
+                                        <input id="superior-name" type="hidden" asp-for="UserEmployment.SuperiorName" />
                                     </div>
                                 </div>
 

@@ -130,7 +130,26 @@ namespace Vexed.Controllers
                 {
                     return NotFound();
                 }
-                return View(userDetails);
+
+                UsersDetailsViewModel usersDetailsViewModel = new UsersDetailsViewModel();
+                List<UserNameVM> userNameVM = await _userService.GetAllUserNames();
+
+                // Find the index of the corresponding element in the list
+                int index = userNameVM.FindIndex(x => x.UserId == userDetails.UserId.ToString());
+
+                // If the element exists in the list, remove it and insert it at the beginning
+                if (index != -1)
+                {
+                    var user = userNameVM[index];
+                    userNameVM.RemoveAt(index);
+                    userNameVM.Insert(0, user);
+                }
+
+                usersDetailsViewModel.UserNamesVM = userNameVM;
+                usersDetailsViewModel.UserDetails = userDetails;
+                ViewData["Users"] = new SelectList(userNameVM);
+
+                return View(usersDetailsViewModel);
             }
             catch (Exception ex)
             {

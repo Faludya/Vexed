@@ -33,6 +33,10 @@ namespace Vexed.Repositories
         {
             try
             {
+                var users = await _vexedDbContext.Users
+                        .Select(u => new UserNameVM { UserId = u.Id, UserName = u.UserName })
+                        .ToListAsync(); 
+
                 return await _vexedDbContext.Users
                         .Select(u => new UserNameVM { UserId = u.Id, UserName = u.UserName })
                         .ToListAsync();

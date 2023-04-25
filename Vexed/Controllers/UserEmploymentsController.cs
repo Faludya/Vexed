@@ -131,7 +131,39 @@ namespace Vexed.Controllers
                 {
                     return NotFound();
                 }
-                return View(userEmployment);
+
+                EmploymentViewModel employmentVM = new EmploymentViewModel();
+                List<UserNameVM> userNameVM = await _userService.GetAllUserNames();
+                List<UserNameVM> superiorUserNames = await _userService.GetAllUserNames();
+
+                // Find the index of the corresponding element in the list
+                int index = userNameVM.FindIndex(x => x.UserId == userEmployment.UserId.ToString());
+
+                // If the element exists in the list, remove it and insert it at the beginning
+                if (index != -1)
+                {
+                    var user = userNameVM[index];
+                    userNameVM.RemoveAt(index);
+                    userNameVM.Insert(0, user);
+                }
+
+                // Find the index of the corresponding element in the list
+                index = superiorUserNames.FindIndex(x => x.UserId == userEmployment.SuperiorId.ToString());
+
+                // If the element exists in the list, remove it and insert it at the beginning
+                if (index != -1)
+                {
+                    var user = superiorUserNames[index];
+                    superiorUserNames.RemoveAt(index);
+                    superiorUserNames.Insert(0, user);
+                }
+
+                employmentVM.UserNamesVM = userNameVM;
+                employmentVM.SuperiorNamesVM = superiorUserNames;
+                ViewData["Users"] = new SelectList(userNameVM);
+                ViewData["Superiors"] = new SelectList(superiorUserNames);
+
+                return View(employmentVM);
             }
             catch (Exception ex)
             {
