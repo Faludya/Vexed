@@ -100,7 +100,7 @@ namespace Vexed.Areas.Identity.Pages.Account
                 }
                 else
                 {
-                    return LocalRedirect("~/Home/Calendar");
+                    return LocalRedirect("~/Home/Dashboard");
                 }
             }
 
@@ -109,14 +109,14 @@ namespace Vexed.Areas.Identity.Pages.Account
 
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
-            ReturnUrl = returnUrl ?? Url.Content("~/Home/Calendar");
+            ReturnUrl = returnUrl ?? Url.Content("~/Home/Dashboard");
 
             return Page();
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
-            returnUrl ??= Url.Content("~/Home/Calendar");
+            returnUrl ??= Url.Content("~/Home/Dashboard");
 
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
