@@ -3,6 +3,7 @@ using Shared;
 using DataAccess;
 using Vexed.Models;
 using Vexed.Repositories.Abstractions;
+using System.Linq;
 
 namespace Vexed.Repositories
 {
@@ -19,6 +20,19 @@ namespace Vexed.Repositories
             try
             {
             return await _vexedDbContext.UsersEmployments.Select(u => u.UserId.ToString().ToLower()).ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                throw;
+            }
+        }
+
+        public async Task<List<UserEmployment>> GetTeamMembersEmployment(Guid superiorId)
+        {
+            try
+            {
+                return await _vexedDbContext.UsersEmployments.Where(u => u.SuperiorId == superiorId && u.UserId != superiorId).ToListAsync();
             }
             catch (Exception ex)
             {
@@ -65,5 +79,28 @@ namespace Vexed.Repositories
                 throw;
             }
         }
+
+        public async Task<UserEmployment> GetUserSuperior(Guid userId)
+        {
+            try
+            {
+                var currUser = await _vexedDbContext.UsersEmployments.Where(e => e.UserId == userId).FirstOrDefaultAsync();
+                if (currUser != null && currUser.SuperiorId != null)
+                {
+                    var superiorEmployment = await GetUserEmploymentByUserId(currUser.SuperiorId);
+                    if (superiorEmployment != null)
+                    {
+                        return superiorEmployment;
+                    }
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                throw;
+            }
+        }
+
     }
 }

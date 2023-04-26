@@ -40,11 +40,11 @@ namespace Vexed.Repositories
             }
         }
 
-        public async Task<List<UserDetails>> GetUserDetails(Guid userId)
+        public async Task<UserDetails> GetUserDetails(Guid userId)
         {
             try
             {
-                return await _vexedDbContext.UsersDetails.Where(u => u.UserId == userId).ToListAsync();
+                return await _vexedDbContext.UsersDetails.Where(u => u.UserId == userId).FirstOrDefaultAsync();
             }
             catch (Exception ex)
             {

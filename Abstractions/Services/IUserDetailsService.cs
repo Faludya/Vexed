@@ -37,6 +37,6 @@ namespace Vexed.Services.Abstractions
         /// <summary>
         /// Returns all the User Details for a given user.
         /// </summary>
-        Task<List<UserDetails>> GetUsersDetails(Guid userId);
+        Task<UserDetails> GetUserDetails(Guid userId);
     }
 }

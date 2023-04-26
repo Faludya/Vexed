@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Shared.ViewModels;
 using Vexed.Models.ViewModels;
 
 namespace Vexed.Services.Abstractions
@@ -10,5 +11,6 @@ namespace Vexed.Services.Abstractions
         Task<List<UserNameVM>> GetUnassignedUserDetails();
         Task<List<UserNameVM>> GetUnassignedUserEmployment();
         Task<List<UserNameVM>> GetAllUserNames();
+        OrganizationChartViewModel GetOrganizationChart(Guid userId);
     }
 }

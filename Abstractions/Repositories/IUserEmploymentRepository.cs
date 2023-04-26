@@ -23,5 +23,15 @@ namespace Vexed.Repositories.Abstractions
         /// Returns all the UserIds from the database
         /// </summary>
         Task<List<string>> GetAllUserEmploymentIds();
+
+        /// <summary>
+        /// Get the superior for the given user
+        /// </summary>
+        Task<UserEmployment> GetUserSuperior(Guid userId);
+        /// <summary>
+        /// Get the employments for the subordinates of the superior
+        /// </summary>
+        Task<List<UserEmployment>> GetTeamMembersEmployment(Guid superiorId);
     }
+
 }
