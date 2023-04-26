@@ -113,11 +113,15 @@
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-light" data-dismiss="modal">@language.GetKey("Close")</button>
-                                                    <button class="btn btn-danger text-light" type="submit" asp-route-id="@item.Id">
-                                                        <span>
-                                                            <i class='bx bxs-trash'></i>
-                                                        </span>@language.GetKey("Delete")
-                                                    </button>
+                                                    <form asp-action="Delete" method="post">
+                                                        <input type="hidden" asp-for="@item.Id" name="id" />
+                                                        <button class="btn btn-danger text-light" type="submit">
+                                                            <span>
+                                                                <i class='bx bxs-trash'></i>
+                                                            </span>@language.GetKey("Delete")
+                                                        </button>
+                                                    </form>
+
                                                 </div>
                                             </div>
                                         </div>

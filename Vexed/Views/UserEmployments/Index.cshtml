@@ -103,13 +103,116 @@
                                                     <a class="dropdown-item" asp-action="Details" asp-route-id="@item.Id">
                                                         <i class='bx bxs-detail'></i> @language.GetKey("Details")
                                                     </a>
-                                                    <a class="dropdown-item text-danger" asp-action="Delete" asp-route-id="@item.Id">
+                                                    <a class="dropdown-item text-danger" data-toggle="modal" data-target="#exampleModalCenter-@item.Id">
                                                         <i class='bx bxs-trash'></i> @language.GetKey("Delete")
                                                     </a>
                                                 </div>
                                             </div>
                                         </td>
                                     </tr>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="exampleModalCenter-@item.Id">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                        <h5 class="modal-title">@language.GetKey("Delete") @language.GetKey("UserEmployment")?</h5>
+                                                    <button type="button" class="close" data-dismiss="modal">
+                                                        <span>&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="container">
+                                                        <div class="text-left text-dark">
+                                                            <div class="row">
+                                                                <div class="col">
+                                                                    <i class='bx bxs-school'></i>
+                                                                    <b>@language.GetKey("CompanyName")</b>
+                                                                </div>
+                                                                <div class="col">
+                                                                    @Html.DisplayFor(modelItem => item.CompanyName)
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row">
+                                                                <div class="col">
+                                                                    <i class='bx bxl-codepen'></i>
+                                                                    <b>@language.GetKey("Department")</b>
+                                                                </div>
+                                                                <div class="col">
+                                                                    @Html.DisplayFor(modelItem => item.Department)
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row">
+                                                                <div class="col">
+                                                                    <i class='bx bxl-codepen'></i>
+                                                                    <b>@language.GetKey("Function")</b>
+                                                                </div>
+                                                                <div class="col">
+                                                                    @Html.DisplayFor(modelItem => item.Function)
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row">
+                                                                <div class="col">
+                                                                    <i class='bx bx-map'></i>
+                                                                    <b>@language.GetKey("Location")</b>
+                                                                </div>
+                                                                <div class="col">
+                                                                    @Html.DisplayFor(modelItem => item.Location)
+                                                                </div>
+                                                            </div>
+
+                                                            <hr class="dotted" />
+                                                            <div class="row">
+                                                                <div class="col">
+                                                                    <i class='bx bx-calendar-check'></i>
+                                                                    <b>@language.GetKey("HireDate")</b>
+                                                                </div>
+                                                                <div class="col">
+                                                                    @Html.DisplayFor(modelItem => item.HireDate)
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row">
+                                                                <div class="col">
+                                                                    <i class='bx bx-wallet-alt'></i>
+                                                                    <b>@language.GetKey("HourlyPay")</b>
+                                                                </div>
+                                                                <div class="col">
+                                                                    @Html.DisplayFor(modelItem => item.HourlyPay)
+                                                                </div>
+                                                            </div>
+
+                                                            <hr class="dotted" />
+                                                            <div class="row">
+                                                                <div class="col">
+                                                                    <i class='bx bxs-face'></i>
+                                                                    <b>@language.GetKey("SuperiorName")</b>
+                                                                </div>
+                                                                <div class="col">
+                                                                    @Html.DisplayFor(modelItem => item.SuperiorName)
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-light" data-dismiss="modal">@language.GetKey("Close")</button>
+                                                    <form asp-action="Delete" method="post">
+                                                        <input type="hidden" asp-for="@item.Id" name="id" />
+                                                        <button class="btn btn-danger text-light" type="submit">
+                                                            <span>
+                                                                <i class='bx bxs-trash'></i>
+                                                            </span>@language.GetKey("Delete")
+                                                        </button>
+                                                    </form>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 }
                             </tbody>
                         </table>
