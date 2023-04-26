@@ -83,7 +83,7 @@ namespace Vexed.Services
             }
         }
 
-        public async Task<List<UserDetails>> GetUsersDetails(Guid userId)
+        public async Task<UserDetails> GetUserDetails(Guid userId)
         {
             try
             {

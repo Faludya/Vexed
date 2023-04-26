@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Shared;
+using Shared.ViewModels;
 using Vexed.Models;
 using Vexed.Models.ViewModels;
 using Vexed.Services.Abstractions;
@@ -256,6 +257,30 @@ namespace Vexed.Controllers
                 ModelState.AddModelError("", "An error occurred while processing your request. Please try again later.");
             }
             return View("Error");
+        }
+
+        public IActionResult OrganizationChart(string? userId)
+        {
+            try
+            {
+                OrganizationChartViewModel orgChart = new OrganizationChartViewModel();
+                if (userId == null)
+                {
+                    var currentUserId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+                    orgChart = _userService.GetOrganizationChart(currentUserId);
+                }
+                else
+                {
+                    var selectedUserId = Guid.Parse(userId);
+                    orgChart = _userService.GetOrganizationChart(selectedUserId);
+                }
+                return View(orgChart);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error occurred while getting User Employment for HR", ex);
+                return View("Error");
+            }
         }
     }
 }
