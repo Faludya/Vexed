@@ -80,7 +80,11 @@
                                     </div>
                                     <div class="col-8">
                                         <input type="file" class="form-control-file" name="attachmentFile" accept="image/*,.pdf" />
-                                        <span asp-validation-for="AttachmentUrl" class="text-danger"></span>
+                                        @if (ViewData.ModelState.TryGetValue("attachmentFile", out var attachmentFileState) &&
+                                        attachmentFileState.Errors.Count > 0)
+                                        {
+                                            <span class="text-danger">Please select a file</span>
+                                        }
                                     </div>
                                 </div>
 
