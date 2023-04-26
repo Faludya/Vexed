@@ -62,7 +62,7 @@ namespace Vexed.Controllers
                 {
                     if (attachmentFile == null || attachmentFile.Length <= 0)
                     {
-                        ModelState.AddModelError("AttachmentUrl", "Please select a file to upload.");
+                        ModelState.AddModelError("attachmentFile", "Please select a file to upload.");
                         return View(qualification);
                     }
 
@@ -119,7 +119,6 @@ namespace Vexed.Controllers
             {
                 try
                 {
-                    //TODO: delete old file and add new file
                     await _qualificationService.UpdateQualification(qualification, attachmentFile);
                     return RedirectToAction(nameof(Index));
                 }
@@ -176,7 +175,6 @@ namespace Vexed.Controllers
                 var qualification = await _qualificationService.GetQualificationById(id);
                 if (qualification != null)
                 {
-                    //TODO: remove attachment
                     await _qualificationService.DeleteQualification(qualification);
                 }
 
