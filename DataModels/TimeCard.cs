@@ -38,8 +38,10 @@ namespace Vexed.Models
         [DefaultValue(8)]
 
         [Required(ErrorMessage = "{0} is required")]
-        public float Quantity { get; set; }
+        public float DailyHours { get; set; }
 
+        [Required(ErrorMessage = "{0} is required")]
+        public float TotalHours { get; set; }
 
         public string? Status { get; set; }
         public string? Comments { get; set; }
