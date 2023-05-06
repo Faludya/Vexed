@@ -64,6 +64,10 @@
                                         <i class='bx bx-stats'></i>
                                         @language.GetKey("Status")
                                     </th>
+                                    <th>
+                                        <i class='bx bx-stats'></i>
+                                        @language.GetKey("TotalHours")
+                                    </th>
                                     <th align='right' data-orderable="false">
                                     </th>
                                 </tr>
@@ -86,6 +90,9 @@
                                         </td>
                                         <td>
                                             <span class="badge @statusBadge[item.Status] badge-rounded">@Html.DisplayFor(modelItem => item.Status)</span>
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.TotalHours)
                                         </td>
                                         <td align="center">
                                             <div class="btn-group">
@@ -193,10 +200,19 @@
                                                             <div class="row">
                                                                 <div class="col">
                                                                     <i class='bx bx-bar-chart-alt-2'></i>
-                                                                    <b>@language.GetKey("Quantity")</b>
+                                                                    <b>@language.GetKey("DailyHours")</b>
                                                                 </div>
                                                                 <div class="col">
-                                                                    @Html.DisplayFor(modelItem => item.Quantity)
+                                                                    @Html.DisplayFor(modelItem => item.DailyHours)
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col">
+                                                                    <i class='bx bx-bar-chart-alt-2'></i>
+                                                                    <b>@language.GetKey("TotalHours")</b>
+                                                                </div>
+                                                                <div class="col">
+                                                                    @Html.DisplayFor(modelItem => item.TotalHours)
                                                                 </div>
                                                             </div>
 

@@ -47,7 +47,7 @@
                                         @language.GetKey("EndDate")
                                     </th>
                                     <th>
-                                        @language.GetKey("Quantity")
+                                        @language.GetKey("TotalHours")
                                     </th>
                                     <th>
                                         @language.GetKey("Status")
@@ -78,7 +78,7 @@
                                             @Html.DisplayFor(modelItem => item.TimeCard.EndDate)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.TimeCard.Quantity)
+                                            @Html.DisplayFor(modelItem => item.TimeCard.TotalHours)
                                         </td>
                                         <td>
                                             <span class="badge @statusBadge[item.TimeCard.Status] badge-rounded">@Html.DisplayFor(modelItem => item.TimeCard.Status)</span>
@@ -169,7 +169,7 @@
                                                                     <b>@language.GetKey("Quantity")</b>
                                                                 </div>
                                                                 <div class="col">
-                                                                    @Html.DisplayFor(modelItem => item.TimeCard.Quantity)
+                                                                    @Html.DisplayFor(modelItem => item.TimeCard.DailyHours)
                                                                 </div>
                                                             </div>
 

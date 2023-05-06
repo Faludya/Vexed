@@ -81,10 +81,21 @@
                                 <div class="row">
                                     <div class="col">
                                         <i class='bx bx-bar-chart-alt-2'></i>
-                                        <b>@language.GetKey("Quantity")</b>
+                                        <b>@language.GetKey("DailyHours")</b>
                                     </div>
                                     <div class="col">
-                                        @Html.DisplayFor(model => model.Quantity)
+                                        @Html.DisplayFor(model => model.DailyHours)
+                                    </div>
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="col">
+                                        <i class='bx bx-bar-chart-alt-2'></i>
+                                        <b>@language.GetKey("TotalHours")</b>
+                                    </div>
+                                    <div class="col">
+                                        @Html.DisplayFor(model => model.TotalHours)
                                     </div>
                                 </div>
 

@@ -76,7 +76,7 @@
                                         <b>@language.GetKey("StartDate"):</b>
                                     </div>
                                     <div class="col-8">
-                                        <input asp-for="StartDate" class="form-control" />
+                                        <input asp-for="StartDate" class="form-control" id="StartDate" onchange="calculateTotalHours()" />
                                         <span asp-validation-for="StartDate" class="text-danger"></span>
                                     </div>
                                 </div>
@@ -87,7 +87,7 @@
                                         <b>@language.GetKey("EndDate"):</b>
                                     </div>
                                     <div class="col-8">
-                                        <input asp-for="EndDate" class="form-control" />
+                                        <input asp-for="EndDate" class="form-control" id="EndDate" onchange="calculateTotalHours()" />
                                         <span asp-validation-for="EndDate" class="text-danger"></span>
                                         @Html.ValidationSummary(false, "", new { @class = "text-danger" })
                                     </div>
@@ -96,11 +96,22 @@
                                 <div class="form-group row my-3">
                                     <div class="col-4 my-2">
                                         <i class='bx bx-bar-chart-alt-2'></i>
-                                        <b>@language.GetKey("Quantity"):</b>
+                                        <b>@language.GetKey("DailyHours"):</b>
                                     </div>
                                     <div class="col-8">
-                                        <input asp-for="Quantity" class="form-control" />
-                                        <span asp-validation-for="Quantity" class="text-danger"></span>
+                                        <input asp-for="DailyHours" class="form-control" id="DailyHours" onchange="calculateTotalHours()" />
+                                        <span asp-validation-for="DailyHours" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row my-3">
+                                    <div class="col-4 my-2">
+                                        <i class='bx bx-bar-chart-alt-2'></i>
+                                        <b>@language.GetKey("TotalHours"):</b>
+                                    </div>
+                                    <div class="col-8">
+                                        <input asp-for="TotalHours" class="form-control" id="TotalHours" readonly/>
+                                        <span asp-validation-for="TotalHours" class="text-danger"></span>
                                     </div>
                                 </div>
 
@@ -141,4 +152,36 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+
+    <script>
+        // Get references to the input fields
+        const startDateInput = document.getElementById("StartDate");
+        const endDateInput = document.getElementById("EndDate");
+        const dailyHoursInput = document.getElementById("DailyHours");
+        const totalHoursInput = document.getElementById("TotalHours");
+
+        // Function to calculate total hours
+        function calculateTotalHours() {
+            // Check if any of the input fields are null
+            if (!startDateInput.value || !endDateInput.value || !dailyHoursInput.value) {
+                return;
+            }
+
+            // Parse the date values and calculate the difference in days
+            const startDate = new Date(startDateInput.value);
+            const endDate = new Date(endDateInput.value);
+            const dailyHours = parseFloat(dailyHoursInput.value);
+            const oneDay = 24 * 60 * 60 * 1000; // Number of milliseconds in a day
+            const diffInDays = Math.round((endDate - startDate) / oneDay) + 1;
+
+            // Calculate the total hours and set the value of the TotalHours input
+            const totalHours = diffInDays * dailyHours;
+            totalHoursInput.value = totalHours.toFixed(2);
+        }
+
+        // Attach event listeners to the input fields
+        startDateInput.addEventListener("change", calculateTotalHours);
+        endDateInput.addEventListener("change", calculateTotalHours);
+        dailyHoursInput.addEventListener("change", calculateTotalHours);
+    </script>
 }

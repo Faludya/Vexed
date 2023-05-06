@@ -154,7 +154,7 @@ namespace Vexed.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,UserId,ProjectCode,TaskDetails,Location,StartDate,EndDate,Quantity,Status,Comments")] TimeCard timeCard)
+        public async Task<IActionResult> Create([Bind("Id,UserId,ProjectCode,TaskDetails,Location,StartDate,EndDate,DailyHours,TotalHours,Status,Comments")] TimeCard timeCard)
         {
             try
             {
@@ -212,7 +212,7 @@ namespace Vexed.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,UserId, SuperiorId, ProjectCode,TaskDetails,Location,StartDate,EndDate,Quantity,Status,Comments")] TimeCard timeCard)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,UserId, SuperiorId, ProjectCode,TaskDetails,Location,StartDate,EndDate,DailyHours,TotalHours,Status,Comments")] TimeCard timeCard)
         {
             if (id != timeCard.Id)
             {
