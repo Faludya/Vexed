@@ -63,6 +63,7 @@ namespace Vexed.Controllers
                 {
                     return NotFound();
                 }
+                TempData["SuccessMessage"] = "Leave request updated successfully!";
 
                 return RedirectToAction(nameof(IndexHR));
             }
@@ -101,6 +102,7 @@ namespace Vexed.Controllers
                 {
                     return NotFound();
                 }
+                TempData["SuccessMessage"] = "Leave request updated successfully!";
 
                 return RedirectToAction(nameof(IndexSuperior));
             }
@@ -164,6 +166,8 @@ namespace Vexed.Controllers
                     leaveRequest.UserId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
                     leaveRequest.Status = StatusManager.SetStatus(leaveRequest.Status);
                     await _leaveRequestService.CreateLeaveRequest(leaveRequest);
+                    TempData["SuccessMessage"] = "Leave request created successfully!";
+
                     return RedirectToAction(nameof(Index));
                 }
                 return View(leaveRequest);
@@ -193,6 +197,7 @@ namespace Vexed.Controllers
                 {
                     return NotFound();
                 }
+
                 return View(leaveRequest);
             }
             catch (Exception ex)
@@ -224,6 +229,8 @@ namespace Vexed.Controllers
                 try
                 {
                     await _leaveRequestService.UpdateLeaveRequest(leaveRequest);
+                    TempData["SuccessMessage"] = "Leave request edited successfully!";
+
                     return RedirectToAction(nameof(Index));
                 }
                 catch (DbUpdateException ex)
@@ -275,6 +282,7 @@ namespace Vexed.Controllers
                 if (leaveRequest != null)
                 {
                     await _leaveRequestService.DeleteLeaveRequest(leaveRequest);
+                    TempData["SuccessMessage"] = "Leave request deleted successfully!";
                 }
             
                 return RedirectToAction(nameof(Index));

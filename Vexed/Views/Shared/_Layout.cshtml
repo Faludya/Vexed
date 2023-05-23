@@ -23,6 +23,8 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-EYqbJGVCCZvB8ZPTW6M3q2JjU6OwT8y39TJkKVC0rAZrZc0F+9dWntPKoiJh+0bhQQSlEXg8KKx+SW5ueHbklA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
+    <!-- Toastr -->
+    <link rel="stylesheet" href="/vendor/toastr/css/toastr.min.css">
 
 </head>
 
@@ -221,12 +223,17 @@ else
 
             </div>
             <!--********************************** Sidebar end ***********************************-->
+
+
             <!--********************************** Content body start ***********************************-->
             <div class="content-body">
                 <!-- row -->
                 <div class="container-fluid">
-                    @RenderBody()
+                    <!--Toastr-->
+                    <div id="toast-container" class="toast-top-right"></div>
+                    <div id="successMessage" data-value="@TempData["SuccessMessage"]"></div>
 
+                    @RenderBody()
                 </div>
             </div>
             <!--********************************** Content body end ***********************************-->
@@ -282,6 +289,13 @@ else
         <!-- BOT -->
         @*<script type="text/javascript">!function (t, e) { t.artibotApi = { l: [], t: [], on: function () { this.l.push(arguments) }, trigger: function () { this.t.push(arguments) } }; var a = !1, i = e.createElement("script"); i.async = !0, i.type = "text/javascript", i.src = "https://app.artibot.ai/loader.js", e.getElementsByTagName("head").item(0).appendChild(i), i.onreadystatechange = i.onload = function () { if (!(a || this.readyState && "loaded" != this.readyState && "complete" != this.readyState)) { new window.ArtiBot({ i: "dc2af663-9532-4a38-83a7-1fd532dc2b5e" }); a = !0 } } }(window, document);</script>*@
         <script>var BotStar = { appId: "s9664f250-d3db-11ed-8d15-77cb2b3ccda0", mode: "livechat" }; !function (t, a) { var e = function () { (e.q = e.q || []).push(arguments) }; e.q = e.q || [], t.BotStarApi = e; !function () { var t = a.createElement("script"); t.type = "text/javascript", t.async = 1, t.src = "https://widget.botstar.com/static/js/widget.js"; var e = a.getElementsByTagName("script")[0]; e.parentNode.insertBefore(t, e) }(); }(window, document)</script>
+
+        <!-- Notification -->
+        <script src="/js/notifications.js"></script>
+
+        <!-- Toastr -->
+        <script src="/vendor/toastr/js/toastr.min.js"></script>
+        <script src="/js/plugins-init/toastr-init.js"></script>
 
         @RenderSection("scripts", required: false)
     </body>

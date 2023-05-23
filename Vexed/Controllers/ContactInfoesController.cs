@@ -82,6 +82,8 @@ namespace Vexed.Controllers
                 {
                     contactInfo.UserId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
                     await _contactInfoService.CreateContactInfo(contactInfo);
+                    TempData["SuccessMessage"] = "Contact info created successfully!";
+
                     return RedirectToAction(nameof(Index));
                 }
                 return View(contactInfo);
@@ -138,6 +140,8 @@ namespace Vexed.Controllers
                 try
                 {
                     await _contactInfoService.UpdateContactInfo(contactInfo);
+                    TempData["SuccessMessage"] = "Contact info edited successfully!";
+
                     return RedirectToAction(nameof(Index));
                 }
                 catch (DbUpdateException ex)
@@ -194,8 +198,9 @@ namespace Vexed.Controllers
                 if (contactInfo != null)
                 {
                     await _contactInfoService.DeleteContactInfo(contactInfo);
+                    TempData["SuccessMessage"] = "Contact info deleted successfully!";
                 }
-            
+                
                 return RedirectToAction(nameof(Index));
             }
             catch (DbUpdateException ex)

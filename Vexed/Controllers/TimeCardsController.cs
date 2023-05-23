@@ -63,6 +63,7 @@ namespace Vexed.Controllers
                 {
                     return NotFound();
                 }
+                TempData["SuccessMessage"] = "Time card updated successfully!";
 
                 return RedirectToAction(nameof(IndexHR));
             }
@@ -101,6 +102,7 @@ namespace Vexed.Controllers
                 {
                     return NotFound();
                 }
+                TempData["SuccessMessage"] = "Time card updated successfully!";
 
                 return RedirectToAction(nameof(IndexSuperior));
             }
@@ -135,7 +137,6 @@ namespace Vexed.Controllers
             {
                 if (copyCard != null)
                 {
-                    //TODO: 
                     var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
                     var previousCard = await _timeCardService.GetLastTimeCard(userId);
                     ViewData["LocationTypes"] = new SelectList(_timeCardService.GetLocationTypes(previousCard.Location));
@@ -170,6 +171,7 @@ namespace Vexed.Controllers
 
                     timeCard.UserId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
                     await _timeCardService.CreateTimeCard(timeCard);
+                    TempData["SuccessMessage"] = "Time card created successfully!";
 
                     return RedirectToAction(nameof(Index));
                 }
@@ -232,6 +234,8 @@ namespace Vexed.Controllers
                 try
                 {
                     await _timeCardService.UpdateTimeCard(timeCard);
+                    TempData["SuccessMessage"] = "Time card edited successfully!";
+
                     return RedirectToAction(nameof(Index));
                 }
                 catch (DbUpdateException ex)
@@ -283,6 +287,7 @@ namespace Vexed.Controllers
                 if (timeCard != null)
                 {
                     await _timeCardService.DeleteTimeCard(timeCard);
+                    TempData["SuccessMessage"] = "Time card deleted successfully!";
                 }
             
                 return RedirectToAction(nameof(Index));
