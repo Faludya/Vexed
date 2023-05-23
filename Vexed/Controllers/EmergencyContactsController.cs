@@ -85,6 +85,8 @@ namespace Vexed.Controllers
                 {
                     emergencyContact.UserId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
                     await _emergencyContactService.CreateEmergencyContact(emergencyContact);
+                    TempData["SuccessMessage"] = "Emergency contact created successfully!";
+
                     return RedirectToAction(nameof(Index));
                 }
                 return View(emergencyContact);
@@ -137,6 +139,7 @@ namespace Vexed.Controllers
                 try
                 {
                     await _emergencyContactService.UpdateEmergencyContact(emergencyContact);
+                    TempData["SuccessMessage"] = "Emergency contact edited successfully!";
                 }
                 catch (DbUpdateException ex)
                 {
@@ -192,6 +195,7 @@ namespace Vexed.Controllers
                 if (emergencyContact != null)
                 {
                     await _emergencyContactService.DeleteEmergencyContact(emergencyContact);
+                    TempData["SuccessMessage"] = "Emergency contact deleted successfully!";
                 }
             
                 return RedirectToAction(nameof(Index));

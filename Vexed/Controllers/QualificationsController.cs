@@ -68,6 +68,8 @@ namespace Vexed.Controllers
 
                     qualification.UserId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
                     await _qualificationService.CreateQualification(qualification, attachmentFile);
+                    TempData["SuccessMessage"] = "Qualification created successfully!";
+
                     return RedirectToAction(nameof(Index));
                 }
                 return View(qualification);
@@ -120,6 +122,8 @@ namespace Vexed.Controllers
                 try
                 {
                     await _qualificationService.UpdateQualification(qualification, attachmentFile);
+                    TempData["SuccessMessage"] = "Qualification edited successfully!";
+
                     return RedirectToAction(nameof(Index));
                 }
                 catch (DbUpdateException ex)
@@ -176,6 +180,7 @@ namespace Vexed.Controllers
                 if (qualification != null)
                 {
                     await _qualificationService.DeleteQualification(qualification);
+                    TempData["SuccessMessage"] = "Qualification deleted successfully!";
                 }
 
                 return RedirectToAction(nameof(Index));

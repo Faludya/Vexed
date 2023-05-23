@@ -102,6 +102,8 @@ namespace Vexed.Controllers
                     var userDetails = usersDetailsVM.UserDetails;
                     userDetails.UserId = Guid.Parse(usersDetailsVM.SelectedUserId);
                     await _userDetailsService.CreateUserDetails(userDetails);
+                    TempData["SuccessMessage"] = "Details created successfully!";
+
                     return RedirectToAction(nameof(Index));
                 }
                 return View(usersDetailsVM);
@@ -173,6 +175,8 @@ namespace Vexed.Controllers
                 try
                 {
                     await _userDetailsService.UpdateUserDetails(userDetails);
+                    TempData["SuccessMessage"] = "Details edited successfully!";
+
                     return RedirectToAction(nameof(Index));
                 }
                 catch (DbUpdateException ex)
@@ -227,7 +231,8 @@ namespace Vexed.Controllers
                 {
                     await _userDetailsService.DeleteUserDetails(userDetails);
                 }
-            
+                TempData["SuccessMessage"] = "Details deleted successfully!";
+
                 return RedirectToAction(nameof(Index));
             }
             catch (DbUpdateException ex)

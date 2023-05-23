@@ -104,6 +104,8 @@ namespace Vexed.Controllers
                     userEmployment.SuperiorName = await _userService.GetUserName(employmentVM.SelectedSuperiorId);
                     //_userEmploymentService.CreateUserEmployment(userEmployment);
                     await _userEmploymentService.CreateUserEmployment(userEmployment);
+                    TempData["SuccessMessage"] = "Employment created successfully!";
+
                     return RedirectToAction(nameof(Index));
                 }
                 return View(employmentVM);
@@ -188,6 +190,8 @@ namespace Vexed.Controllers
                 try
                 {
                     await _userEmploymentService.UpdateUserEmployment(userEmployment);
+                    TempData["SuccessMessage"] = "Employment edited successfully!";
+
                     return RedirectToAction(nameof(Index));
 
                 }
@@ -242,6 +246,7 @@ namespace Vexed.Controllers
                 if (userEmployment != null)
                 {
                     await _userEmploymentService.DeleteUserEmployment(userEmployment);
+                    TempData["SuccessMessage"] = "Employment deleted successfully!";
                 }
             
                 return RedirectToAction(nameof(Index));
