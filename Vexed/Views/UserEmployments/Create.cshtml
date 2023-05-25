@@ -75,6 +75,16 @@
 
                                 <div class="form-group row my-3">
                                     <div class="col-4 my-2">
+                                        <i class='bx bx-purchase-tag-alt'></i>
+                                        <b>@language.GetKey("Roles"):</b>
+                                    </div>
+                                    <div class="col-8">
+                                        @Html.DropDownListFor(m => m.UserRoles, new MultiSelectList(Model.UserRoles), "Select Role", new { @class = "form-control", @id = "roles-dropdown", multiple = "multiple" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group row my-3">
+                                    <div class="col-4 my-2">
                                         <i class='bx bx-map'></i>
                                         <b>@language.GetKey("Location"):</b>
                                     </div>
@@ -120,8 +130,9 @@
                                     <div class="col-8">
                                         @Html.DropDownListFor(m => m.SelectedSuperiorId, new SelectList(Model.SuperiorNamesVM, "UserId", "UserName"), "Select User", new { @class = "form-control", @id = "superior-dropdown" })
                                         <input type="hidden" asp-for="SelectedSuperiorId" />
+                                        <input type="hidden" asp-for="UserEmployment.SuperiorName" id="superior-name" />
                                         <input type="hidden" asp-for="SuperiorNamesVM" />
-                                        <input id="superior-name" type="hidden" asp-for="UserEmployment.SuperiorName" />
+
                                     </div>
                                 </div>
 
@@ -155,6 +166,11 @@
             maximumSelectionLength: 10,
             placeholder: 'Select an option'
         });
+
+        $('#roles-dropdown').select2({
+            placeholder: 'Select an option',
+            multiple: true
+        });
     </script>
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
@@ -162,10 +178,13 @@
     <script>
         var dropdown = document.getElementById("superior-dropdown");
         var nameInput = document.getElementById("superior-name");
-        dropdown.addEventListener("change", function() {
+
+        dropdown.addEventListener("change", function () {
             var selectedOption = this.options[this.selectedIndex];
             var name = selectedOption.text;
             nameInput.value = name;
         });
     </script>
+
+
 }

@@ -1,10 +1,13 @@
 ﻿@using Vexed.Services;
-@inject LanguageService language
+@inject LanguageService language    
 @model Vexed.Models.UserEmployment
 
 @{
     ViewData["Title"] = "Details";
+    var roles = ViewData["UserRoles"] as List<string>;
+    var displayRoles = string.Join(" | ", roles);
 }
+
 <div class="row page-titles mx-0">
     <div class="col-sm-6 p-md-0">
         <div class="welcome-text">
@@ -52,6 +55,16 @@
                                     </div>
                                     <div class="col">
                                         @Html.DisplayFor(model => model.Function)
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <i class='bx bx-purchase-tag-alt'></i>
+                                        <b>@language.GetKey("Roles")</b>
+                                    </div>
+                                    <div class="col">
+                                        @displayRoles
                                     </div>
                                 </div>
 

@@ -2,6 +2,7 @@
 using DataAccess;
 using Vexed.Repositories.Abstractions;
 using Abstractions.Repositories;
+using Microsoft.AspNetCore.Identity;
 
 namespace Vexed.Repositories
 {
@@ -9,11 +10,15 @@ namespace Vexed.Repositories
     {
         private VexedDbContext _vexedDbContext;
         private Logger _logger;
+        private UserManager<IdentityUser> _userManager;
+        private RoleManager<IdentityRole> _roleManager;
 
-        public RepositoryWrapper(VexedDbContext vexedDbContext, Logger logger)
+        public RepositoryWrapper(VexedDbContext vexedDbContext, Logger logger, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             _vexedDbContext = vexedDbContext;
             _logger = logger;
+            _userManager = userManager;
+            _roleManager = roleManager;
         }
 
         public async Task Save()
@@ -120,7 +125,7 @@ namespace Vexed.Repositories
             {
                 if (_userRepository == null)
                 {
-                    _userRepository = new UserRepository(_vexedDbContext, _logger);
+                    _userRepository = new UserRepository(_vexedDbContext, _logger, _userManager, _roleManager);
                 }
                 return _userRepository;
             }

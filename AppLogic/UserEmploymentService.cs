@@ -36,6 +36,7 @@ namespace Vexed.Services
             try
             {
                 await _repositoryWrapper.UserEmploymentRepository.Delete(userEmployment);
+                await _repositoryWrapper.UserRepository.DeleteUserRoles(userEmployment.UserId);
                 await _repositoryWrapper.Save();
             }
             catch (Exception ex)

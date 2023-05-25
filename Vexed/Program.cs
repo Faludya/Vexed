@@ -57,7 +57,6 @@ builder.Services.AddScoped<IUserEmploymentService, UserEmploymentService>();
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
-
 #endregion
 
 #region Language setup
