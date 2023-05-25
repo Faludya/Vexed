@@ -137,5 +137,57 @@ namespace Vexed.Services
                 throw;
             }
         }
+
+        public async Task<List<string>> GetAllUserRoles()
+        {
+            try
+            {
+                return await _repositoryWrapper.UserRepository.GetAllUserRoles();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                throw;
+            }
+        }
+
+        public async Task<List<string>> GetUserRoles(Guid userId)
+        {
+            try
+            {
+                return await _repositoryWrapper.UserRepository.GetUserRoles(userId);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                throw;
+            }
+        }
+
+        public async Task CreateUserRole(Guid userId, string roleName)
+        {
+            try
+            {
+                await _repositoryWrapper.UserRepository.CreateUserRole(userId, roleName);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                throw;
+            }
+        }
+
+        public async Task UpdateUserRoles(Guid userId, List<string> selectedRoles)
+        {
+            try
+            {
+                await _repositoryWrapper.UserRepository.UpdateUserRoles(userId, selectedRoles);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                throw;
+            }
+        }
     }
 }

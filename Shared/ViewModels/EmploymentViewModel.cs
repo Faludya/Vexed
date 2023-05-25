@@ -7,5 +7,7 @@
         public List<UserNameVM> SuperiorNamesVM { get; set; }
         public string SelectedUserId { get; set; }
         public string SelectedSuperiorId { get; set; }
+        public List<string> AllRoles { get; set; }
+        public List<string> UserRoles { get; set; }
     }
 }
