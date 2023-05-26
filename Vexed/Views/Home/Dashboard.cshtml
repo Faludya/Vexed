@@ -1,1 +1,42 @@
-﻿Dashboard
+﻿@using Vexed.Services;
+@inject LanguageService language
+@model Shared.ViewModels.DashboardViewModel
+
+<div class="card">
+    <div class="card-header">
+        <h4 class="card-title">Todo</h4>
+    </div>
+    <div class="card-body px-0 text-dark">
+        <div class="todo-list">
+            <div class="tdl-holder">
+                <div class="tdl-content widget-todo mr-4" style="margin-bottom: 10px;">
+                    <ul id="todo_list">
+                        @foreach (var task in Model.ToDoList)
+                        {
+                            <li data-task-id="@task.Id">
+                                <label>
+                                    <input type="checkbox" class="task-checkbox" @(task.Completed ? "checked" : "")><i></i><span>
+                                        @task.Text
+                                    </span>
+                                    <a href="#" class="ti-trash task-item" data-task-id="@task.Id"></a>
+                                </label>
+                            </li>
+                        }
+                    </ul>
+                </div>
+                <form id="taskForm">
+                    <div class="px-4" style="margin-top: 10px;">
+                        <input type="text" id="taskText" class="tdl-new form-control" placeholder="Write new item and hit 'Enter'...">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="/js/dashboard.js"></script>
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
