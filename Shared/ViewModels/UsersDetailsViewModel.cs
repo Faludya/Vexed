@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Shared.ViewModels.CombinedClasses;
 
 namespace Vexed.Models.ViewModels
 {

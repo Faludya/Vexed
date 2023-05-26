@@ -10,5 +10,6 @@ namespace Shared.ViewModels
     public class DashboardViewModel
     {
         public List<ToDo> ToDoList { get; set; }
+        public List<dynamic> LastCards { get; set; }
     }
 }

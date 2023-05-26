@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Shared.ViewModels;
-using Vexed.Models.ViewModels;
+using Shared.ViewModels.CombinedClasses;
 
 namespace Vexed.Services.Abstractions
 {
@@ -17,5 +17,7 @@ namespace Vexed.Services.Abstractions
         Task<List<string>> GetUserRoles(Guid userId);
         Task CreateUserRole(Guid userId,  string roleName);
         Task UpdateUserRoles(Guid userId, List<string> selectedRoles);
+
+        Task<List<dynamic>> GetLastCards(Guid userId);
     }
 }

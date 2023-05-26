@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Shared;
 using Shared.ViewModels;
+using Shared.ViewModels.CombinedClasses;
 using System.Linq;
 using Vexed.Models;
-using Vexed.Models.ViewModels;
 using Vexed.Repositories.Abstractions;
 using Vexed.Services.Abstractions;
 
@@ -182,6 +182,45 @@ namespace Vexed.Services
             try
             {
                 await _repositoryWrapper.UserRepository.UpdateUserRoles(userId, selectedRoles);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                throw;
+            }
+        }
+
+        public async Task<List<dynamic>> GetLastCards(Guid userId)
+        {
+            try
+            {
+                var timeCards = await _repositoryWrapper.TimeCardRepository.GetTimeCards(userId);
+                timeCards.Sort((t1, t2) => t2.StartDate.CompareTo(t2.StartDate));
+                timeCards = timeCards.Take(10).ToList();
+
+                var leaveRequests = await _repositoryWrapper.LeaveRequestRepository.GetLeaveRequests(userId);
+                leaveRequests.Sort((l1, l2) => l2.StartDate.CompareTo(l1.StartDate));
+                leaveRequests= leaveRequests.Take(10).ToList();
+
+                // Combine the time cards and leave requests into a single list
+                var combinedEntries = new List<dynamic>();
+                foreach (var timeCard in timeCards)
+                {
+                    combinedEntries.Add(new { Name = timeCard.ProjectCode, Status = timeCard.Status, StartDate = timeCard.StartDate, EndDate = timeCard.EndDate, Type = "Time Card" });
+                }
+
+                foreach (var leaveRequest in leaveRequests)
+                {
+                    combinedEntries.Add(new { Name = leaveRequest.Type, Status = leaveRequest.Status, StartDate = leaveRequest.StartDate, EndDate = leaveRequest.EndDate, Type = "Leave Request" });
+                }
+
+                // Sort the combined entries based on timestamp or other relevant criteria
+                combinedEntries.Sort((entry1, entry2) => entry2.StartDate.CompareTo(entry1.StartDate));
+
+                // Select the necessary fields for display
+                var displayEntries = combinedEntries.Take(10).ToList();
+
+                return displayEntries;
             }
             catch (Exception ex)
             {

@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Shared;
 using Shared.ViewModels;
+using Shared.ViewModels.CombinedClasses;
 using Vexed.Models;
 using Vexed.Models.ViewModels;
 using Vexed.Services.Abstractions;
@@ -56,7 +57,6 @@ namespace Vexed.Controllers
                 {
                     return NotFound();
                 }
-                ViewData["UserRoles"] = _userService.GetUserRoles(userEmployments.UserId).Result;
 
                 return View(userEmployments);
             }
@@ -75,14 +75,11 @@ namespace Vexed.Controllers
                 EmploymentViewModel employmentVM = new EmploymentViewModel();
                 List<UserNameVM> userNameVM = await _userService.GetUnassignedUserEmployment();
                 List<UserNameVM> superiorUserNames = await _userService.GetAllUserNames();
-                var rolesList = await _userService.GetAllUserRoles();
-    
+
                 employmentVM.UserNamesVM = userNameVM;
                 employmentVM.SuperiorNamesVM = superiorUserNames;
-                employmentVM.UserRoles = rolesList;
                 ViewData["Users"] = new SelectList(userNameVM);
                 ViewData["Superiors"] = new SelectList(superiorUserNames);
-                ViewData["RolesList"] = new SelectList(rolesList);
 
                 return View(employmentVM);
             }
@@ -100,22 +97,14 @@ namespace Vexed.Controllers
         {
             try
             {
-                ModelState.Remove("UserEmployment.SuperiorName");
-
                 if (ModelState.IsValid)
                 {
                     var userEmployment = employmentVM.UserEmployment;
                     userEmployment.UserId = Guid.Parse(employmentVM.SelectedUserId);
                     userEmployment.SuperiorId = Guid.Parse(employmentVM.SelectedSuperiorId);
                     userEmployment.SuperiorName = await _userService.GetUserName(employmentVM.SelectedSuperiorId);
-                    
+                    //_userEmploymentService.CreateUserEmployment(userEmployment);
                     await _userEmploymentService.CreateUserEmployment(userEmployment);
-                    foreach(var role in employmentVM.UserRoles)
-                    {
-                        await _userService.CreateUserRole(userEmployment.UserId, role);
-                    }
-                    TempData["SuccessMessage"] = "Employment created successfully!";
-
                     return RedirectToAction(nameof(Index));
                 }
                 return View(employmentVM);
@@ -148,8 +137,6 @@ namespace Vexed.Controllers
                 EmploymentViewModel employmentVM = new EmploymentViewModel();
                 List<UserNameVM> userNameVM = await _userService.GetAllUserNames();
                 List<UserNameVM> superiorUserNames = await _userService.GetAllUserNames();
-                var userRoles = await _userService.GetUserRoles(userEmployment.UserId);
-                var allRoles = await _userService.GetAllUserRoles();
 
                 // Find the index of the corresponding element in the list
                 int index = userNameVM.FindIndex(x => x.UserId == userEmployment.UserId.ToString());
@@ -175,12 +162,8 @@ namespace Vexed.Controllers
 
                 employmentVM.UserNamesVM = userNameVM;
                 employmentVM.SuperiorNamesVM = superiorUserNames;
-                employmentVM.UserEmployment = userEmployment;
-                employmentVM.UserRoles = userRoles;
-                employmentVM.AllRoles = allRoles;
                 ViewData["Users"] = new SelectList(userNameVM);
                 ViewData["Superiors"] = new SelectList(superiorUserNames);
-                ViewData["RolesList"] = new SelectList(allRoles);
 
                 return View(employmentVM);
             }
@@ -194,9 +177,9 @@ namespace Vexed.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "HumanResources")]
-        public async Task<IActionResult> Edit(int id, EmploymentViewModel employmentVM)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,UserId,CompanyName,Department,Function,Location,HireDate,HourlyPay,SuperiorName")] UserEmployment userEmployment)
         {
-            if (id != employmentVM.UserEmployment.Id)
+            if (id != userEmployment.Id)
             {
                 return NotFound();
             }
@@ -205,13 +188,7 @@ namespace Vexed.Controllers
             {
                 try
                 {
-                    employmentVM.UserEmployment.UserId = Guid.Parse(employmentVM.SelectedUserId);
-                    employmentVM.UserEmployment.SuperiorId = Guid.Parse(employmentVM.SelectedSuperiorId);
-
-                    await _userEmploymentService.UpdateUserEmployment(employmentVM.UserEmployment);
-                    await _userService.UpdateUserRoles(employmentVM.UserEmployment.UserId, employmentVM.UserRoles);
-                    TempData["SuccessMessage"] = "Employment edited successfully!";
-
+                    await _userEmploymentService.UpdateUserEmployment(userEmployment);
                     return RedirectToAction(nameof(Index));
 
                 }
@@ -228,7 +205,7 @@ namespace Vexed.Controllers
                     return View("Error");
                 }
             }
-            return View(employmentVM.UserEmployment);
+            return View(userEmployment);
         }
 
         [Authorize(Roles = "HumanResources")]
@@ -266,7 +243,6 @@ namespace Vexed.Controllers
                 if (userEmployment != null)
                 {
                     await _userEmploymentService.DeleteUserEmployment(userEmployment);
-                    TempData["SuccessMessage"] = "Employment deleted successfully!";
                 }
             
                 return RedirectToAction(nameof(Index));
