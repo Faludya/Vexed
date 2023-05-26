@@ -9,6 +9,7 @@ using Shared.ViewModels;
 using System.Diagnostics;
 using System.Security.Claims;
 using Vexed.Models;
+using Vexed.Services.Abstractions;
 
 namespace Vexed.Controllers
 {
@@ -16,11 +17,13 @@ namespace Vexed.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IToDoService _toDoService;
+        private readonly IUserService _userService;
 
-        public HomeController(ILogger<HomeController> logger, IToDoService toDoService)
+        public HomeController(ILogger<HomeController> logger, IToDoService toDoService, IUserService userService)
         {
             _logger = logger;
             _toDoService = toDoService;
+            _userService = userService;
         }
 
         public IActionResult Index()
@@ -47,8 +50,10 @@ namespace Vexed.Controllers
         }
         public IActionResult Dashboard()
         {
+            var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             var dashboard = new DashboardViewModel();
-            dashboard.ToDoList = _toDoService.GetToDoList(Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier))).Result;
+            dashboard.ToDoList = _toDoService.GetToDoList(userId).Result;
+            dashboard.LastCards = _userService.GetLastCards(userId).Result;
             return View(dashboard);
         }
 

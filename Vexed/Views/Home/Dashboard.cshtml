@@ -2,40 +2,135 @@
 @inject LanguageService language
 @model Shared.ViewModels.DashboardViewModel
 
-<div class="card">
-    <div class="card-header">
-        <h4 class="card-title">Todo</h4>
-    </div>
-    <div class="card-body px-0 text-dark">
-        <div class="todo-list">
-            <div class="tdl-holder">
-                <div class="tdl-content widget-todo mr-4" style="margin-bottom: 10px;">
-                    <ul id="todo_list">
-                        @foreach (var task in Model.ToDoList)
-                        {
-                            <li data-task-id="@task.Id">
-                                <label>
-                                    <input type="checkbox" class="task-checkbox" @(task.Completed ? "checked" : "")><i></i><span>
-                                        @task.Text
-                                    </span>
-                                    <a href="#" class="ti-trash task-item" data-task-id="@task.Id"></a>
-                                </label>
-                            </li>
-                        }
-                    </ul>
+@{
+    IDictionary<string, string> statusBadge = new Dictionary<string, string>()
+    {
+        {StatusManager.Submitted, "badge-warning"},
+        {StatusManager.SuperiorApproval, "badge-info"},
+        {StatusManager.HRApproval, "badge-success"},
+        {StatusManager.Cancelled, "badge-danger"},
+    };
+    IDictionary<string, string> statusColor = new Dictionary<string, string>()
+    {
+        {StatusManager.Submitted, "#ffc107"},
+        {StatusManager.SuperiorApproval, "#17a2b8"},
+        {StatusManager.HRApproval, "#28a745"},
+        {StatusManager.Cancelled, "#dc3545"},
+    };
+}
+
+<div class="row">
+    <div class="col-xl-6 col-lg-6 col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <div id="calendar" class="app-fullcalendar fc fc-unthemed fc-ltr">
                 </div>
-                <form id="taskForm">
-                    <div class="px-4" style="margin-top: 10px;">
-                        <input type="text" id="taskText" class="tdl-new form-control" placeholder="Write new item and hit 'Enter'...">
-                    </div>
-                </form>
             </div>
         </div>
     </div>
+    <div class="col-xl-6 col-lg-6 col-md-6">
+        <!-- To Do list-->
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Todo</h4>
+            </div>
+            <div class="card-body px-0 text-dark">
+                <div class="todo-list">
+                    <div class="tdl-holder">
+                        <div class="tdl-content widget-todo mr-4" style="margin-bottom: 10px;">
+                            <ul id="todo_list">
+                                @foreach (var task in Model.ToDoList)
+                                {
+                                    <li data-task-id="@task.Id">
+                                        <label>
+                                            <input type="checkbox" class="task-checkbox" @(task.Completed ? "checked" : "")><i></i><span>
+                                                @task.Text
+                                            </span>
+                                            <a href="#" class="ti-trash task-item" data-task-id="@task.Id"></a>
+                                        </label>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                        <form id="taskForm">
+                            <div class="px-4" style="margin-top: 10px;">
+                                <input type="text" id="taskText" class="tdl-new form-control" placeholder="Write new item and hit 'Enter'...">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
 </div>
+
+<div class="row">
+    <div class="col-xl-6 col-lg-6 col-md-6">
+        <!-- Last 10 Cards -->
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Last cards</h4>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table mb-0">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var card in Model.LastCards)
+                            {
+                                <tr>
+                                    <td>
+                                        <div class="round-img">
+                                            <a href=""><img width="35" src="/images/avatar/1.png" alt=""></a>
+                                        </div>
+                                    </td>
+                                    <td>@card.Name</td>
+                                    <td><span>@card.StartDate.ToString("dd/MM/yyyy")</span></td>
+                                    <td><span>@card.EndDate.ToString("dd/MM/yyyy")</span></td>
+                                    <td><span class="badge @statusBadge[card.Status]">@card.Status</span></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-6 col-lg-6 col-md-6">
+  
+    </div>
+</div>
+
 
 @section Scripts {
     <script src="/js/dashboard.js"></script>
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.7/index.global.min.js'></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                events: @Html.Raw(Json.Serialize(Model.LastCards.Select(card => new {
+                title = card.Name,
+                start = card.StartDate.ToString("yyyy-MM-dd"),
+                end = card.EndDate.AddDays(1).ToString("yyyy-MM-dd"),
+                color = statusColor.ContainsKey(card.Status) ? statusColor[card.Status] : ""
+                }))),
+            });
+            calendar.render();
+        });
+    </script>
+
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }

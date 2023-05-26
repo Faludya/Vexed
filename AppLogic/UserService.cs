@@ -189,5 +189,55 @@ namespace Vexed.Services
                 throw;
             }
         }
+
+        public async Task<List<CardsVM>> GetLastCards(Guid userId)
+        {
+            try
+            {
+                var timeCards = await _repositoryWrapper.TimeCardRepository.GetTimeCards(userId);
+                timeCards.Sort((t1, t2) => t2.StartDate.CompareTo(t2.StartDate));
+                timeCards = timeCards.Take(10).ToList();
+
+                var leaveRequests = await _repositoryWrapper.LeaveRequestRepository.GetLeaveRequests(userId);
+                leaveRequests.Sort((l1, l2) => l2.StartDate.CompareTo(l1.StartDate));
+                leaveRequests = leaveRequests.Take(10).ToList();
+
+                // Combine the time cards and leave requests into a single list
+                var combinedEntries = new List<CardsVM>();
+
+                foreach (var timeCard in timeCards)
+                {
+                    combinedEntries.Add(new CardsVM { 
+                        Name = timeCard.ProjectCode, 
+                        Status = timeCard.Status, 
+                        StartDate = timeCard.StartDate, 
+                        EndDate = timeCard.EndDate
+                    });
+                }
+
+                foreach (var leaveRequest in leaveRequests)
+                {
+                    combinedEntries.Add(new CardsVM { 
+                        Name = leaveRequest.Type, 
+                        Status = leaveRequest.Status, 
+                        StartDate = leaveRequest.StartDate, 
+                        EndDate = leaveRequest.EndDate
+                    });
+                }
+
+                // Sort the combined entries based on timestamp or other relevant criteria
+                combinedEntries.Sort((entry1, entry2) => entry2.StartDate.CompareTo(entry1.StartDate));
+
+                // Select the necessary fields for display
+                var displayEntries = combinedEntries.Take(10).ToList();
+
+                return displayEntries;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                throw;
+            }
+        }
     }
 }
