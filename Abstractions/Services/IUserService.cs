@@ -18,6 +18,6 @@ namespace Vexed.Services.Abstractions
         Task CreateUserRole(Guid userId,  string roleName);
         Task UpdateUserRoles(Guid userId, List<string> selectedRoles);
 
-        Task<List<dynamic>> GetLastCards(Guid userId);
+        Task<List<CardsVM>> GetLastCards(Guid userId);
     }
 }

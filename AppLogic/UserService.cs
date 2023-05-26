@@ -190,7 +190,7 @@ namespace Vexed.Services
             }
         }
 
-        public async Task<List<dynamic>> GetLastCards(Guid userId)
+        public async Task<List<CardsVM>> GetLastCards(Guid userId)
         {
             try
             {
@@ -203,15 +203,25 @@ namespace Vexed.Services
                 leaveRequests= leaveRequests.Take(10).ToList();
 
                 // Combine the time cards and leave requests into a single list
-                var combinedEntries = new List<dynamic>();
+                var combinedEntries = new List<CardsVM>();
                 foreach (var timeCard in timeCards)
                 {
-                    combinedEntries.Add(new { Name = timeCard.ProjectCode, Status = timeCard.Status, StartDate = timeCard.StartDate, EndDate = timeCard.EndDate, Type = "Time Card" });
+                    combinedEntries.Add(new CardsVM { 
+                        Name = timeCard.ProjectCode, 
+                        Status = timeCard.Status, 
+                        StartDate = timeCard.StartDate, 
+                        EndDate = timeCard.EndDate
+                    });
                 }
 
                 foreach (var leaveRequest in leaveRequests)
                 {
-                    combinedEntries.Add(new { Name = leaveRequest.Type, Status = leaveRequest.Status, StartDate = leaveRequest.StartDate, EndDate = leaveRequest.EndDate, Type = "Leave Request" });
+                    combinedEntries.Add(new CardsVM { 
+                        Name = leaveRequest.Type, 
+                        Status = leaveRequest.Status, 
+                        StartDate = leaveRequest.StartDate, 
+                        EndDate = leaveRequest.EndDate
+                    });
                 }
 
                 // Sort the combined entries based on timestamp or other relevant criteria
