@@ -1,4 +1,6 @@
-﻿namespace Vexed.Models.ViewModels
+﻿using Shared.ViewModels.CombinedClasses;
+
+namespace Vexed.Models.ViewModels
 {
     public class EmploymentViewModel
     {
@@ -7,7 +9,5 @@
         public List<UserNameVM> SuperiorNamesVM { get; set; }
         public string SelectedUserId { get; set; }
         public string SelectedSuperiorId { get; set; }
-        public List<string> AllRoles { get; set; }
-        public List<string> UserRoles { get; set; }
     }
 }

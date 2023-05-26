@@ -4,6 +4,43 @@
 
 <div class="card">
     <div class="card-header">
+        <h4 class="card-title">New Orders</h4>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table mb-0">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Start Date</th>
+                        <th>EndDate</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach(var card in Model.LastCards)
+                    {
+                        <tr>
+                            <td>
+                                <div class="round-img">
+                                    <a href=""><img width="35" src="./images/avatar/1.png" alt=""></a>
+                                </div>
+                            </td>
+                            <td>@card.Name</td>
+                            <td><span>@card.StartDate</span></td>
+                            <td><span>@card.EndDate</span></td>
+                            <td><span class="badge badge-success">@card.Status</span></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">
         <h4 class="card-title">Todo</h4>
     </div>
     <div class="card-body px-0 text-dark">

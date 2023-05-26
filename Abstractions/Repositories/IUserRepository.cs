@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Shared.ViewModels.CombinedClasses;
 using Vexed.Models;
-using Vexed.Models.ViewModels;
 
 namespace Vexed.Repositories.Abstractions
 {
@@ -35,18 +35,5 @@ namespace Vexed.Repositories.Abstractions
         /// </summary>
         Task<List<UserNameVM>> GetAllUserNames();
 
-        /// <summary>
-        /// Returns all the Roles a user can have
-        /// </summary>
-        Task<List<string>> GetAllUserRoles();
-
-        /// <summary>
-        /// Returns the Roles the user with the UserId has
-        /// </summary>
-        Task<List<string>> GetUserRoles(Guid userId);
-
-        Task CreateUserRole(Guid userId, string roleName);
-        Task UpdateUserRoles(Guid userId, List<string> selectedRoles);
-        Task DeleteUserRoles(Guid userId);
     }
 }
