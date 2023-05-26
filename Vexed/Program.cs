@@ -49,6 +49,9 @@ builder.Services.AddScoped<IQualificationService, QualificationService>();
 builder.Services.AddScoped<ITimeCardRepository, TimeCardRepository>();
 builder.Services.AddScoped<ITimeCardService, TimeCardService>();
 
+builder.Services.AddScoped<IToDoRepository, ToDoRepository>();
+builder.Services.AddScoped<IToDoService, ToDoService>();
+
 builder.Services.AddScoped<IUserDetailsRepository, UserDetailsRepository>();
 builder.Services.AddScoped<IUserDetailsService, UserDetailsService>();
 

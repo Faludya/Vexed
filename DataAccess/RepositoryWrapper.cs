@@ -91,6 +91,19 @@ namespace Vexed.Repositories
             }
         }
 
+        private IToDoRepository _toDoRepository;
+        public IToDoRepository ToDoRepository
+        {
+            get
+            {
+                if (_toDoRepository == null)
+                {
+                    _toDoRepository = new ToDoRepository(_vexedDbContext, _logger);
+                }
+                return _toDoRepository;
+            }
+        }
+
 
         private IUserDetailsRepository _userDetailsRepository;
         public IUserDetailsRepository UserDetailsRepository
