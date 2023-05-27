@@ -4,6 +4,7 @@ using DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,13 +12,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Vexed.Migrations
 {
     [DbContext(typeof(VexedDbContext))]
-    partial class VexedDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230527085718_AddedSalary")]
+    partial class AddedSalary
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.16")
+                .HasAnnotation("ProductVersion", "6.0.15")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -55,7 +57,7 @@ namespace Vexed.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Qualifications", (string)null);
+                    b.ToTable("Qualifications");
                 });
 
             modelBuilder.Entity("DataModels.Salary", b =>
@@ -136,7 +138,7 @@ namespace Vexed.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Salaries", (string)null);
+                    b.ToTable("Salaries");
                 });
 
             modelBuilder.Entity("DataModels.ToDo", b =>
@@ -159,7 +161,7 @@ namespace Vexed.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ToDos", (string)null);
+                    b.ToTable("ToDos");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -385,7 +387,7 @@ namespace Vexed.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ContactsInfo", (string)null);
+                    b.ToTable("ContactsInfo");
                 });
 
             modelBuilder.Entity("Vexed.Models.EmergencyContact", b =>
@@ -428,7 +430,7 @@ namespace Vexed.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("EmergencyContacts", (string)null);
+                    b.ToTable("EmergencyContacts");
                 });
 
             modelBuilder.Entity("Vexed.Models.LeaveRequest", b =>
@@ -457,9 +459,6 @@ namespace Vexed.Migrations
                     b.Property<Guid>("SuperiorId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<float?>("TotalHours")
-                        .HasColumnType("real");
-
                     b.Property<string>("Type")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -469,7 +468,7 @@ namespace Vexed.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("LeaveRequests", (string)null);
+                    b.ToTable("LeaveRequests");
                 });
 
             modelBuilder.Entity("Vexed.Models.TimeCard", b =>
@@ -518,7 +517,7 @@ namespace Vexed.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TimeCards", (string)null);
+                    b.ToTable("TimeCards");
                 });
 
             modelBuilder.Entity("Vexed.Models.UserDetails", b =>
@@ -572,7 +571,7 @@ namespace Vexed.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("UsersDetails", (string)null);
+                    b.ToTable("UsersDetails");
                 });
 
             modelBuilder.Entity("Vexed.Models.UserEmployment", b =>
@@ -617,7 +616,7 @@ namespace Vexed.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("UsersEmployments", (string)null);
+                    b.ToTable("UsersEmployments");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

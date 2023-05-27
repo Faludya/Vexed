@@ -37,6 +37,7 @@
                                         @Html.DropDownListFor(m => m.SelectedUserId, new SelectList(Model.UserNamesVM, "UserId", "UserName"), "Select User", new { @class = "form-control", @id = "single-select" })
                                         <input type="hidden" asp-for="SelectedUserId" />
                                         <input type="hidden" asp-for="UserNamesVM" />
+                                        <input type="hidden" asp-for="AllRoles" />
                                     </div>
                                 </div>
 

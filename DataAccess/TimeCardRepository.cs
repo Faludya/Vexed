@@ -107,5 +107,60 @@ namespace Vexed.Repositories
                 throw;
             }
         }
+
+        public async Task<float> GetTotalWorkedHours(Guid userId)
+        {
+            try
+            {
+                var currentDate = DateTime.Now;
+                var currentMonthStart = new DateTime(currentDate.Year, currentDate.Month, 1);
+                var currentMonthEnd = currentMonthStart.AddMonths(1).AddDays(-1);
+
+                var approvedTimecards = _vexedDbContext.TimeCards
+                                             .Where(tc => tc.UserId == userId && tc.Status == StatusManager.HRApproval &&
+                                                          tc.StartDate >= currentMonthStart && tc.EndDate <= currentMonthEnd)
+                                             .ToList();
+                float totalWorkedHours = 0;
+                totalWorkedHours += approvedTimecards.Sum(tc => tc.TotalHours);
+
+                return totalWorkedHours;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                throw;
+            }
+        }
+
+        public async Task<int> GetTotalWorkedDays(Guid userId)
+        {
+            try
+            {
+                var currentDate = DateTime.Now;
+                var currentMonthStart = new DateTime(currentDate.Year, currentDate.Month, 1);
+                var currentMonthEnd = currentMonthStart.AddMonths(1).AddDays(-1);
+
+                var approvedTimecards = _vexedDbContext.TimeCards
+                    .Where(tc => tc.UserId == userId && tc.Status == StatusManager.HRApproval &&
+                                 tc.StartDate >= currentMonthStart && tc.EndDate <= currentMonthEnd)
+                    .ToList();
+
+                int totalWorkedDays = 0;
+                foreach (var timeCard in approvedTimecards)
+                {
+                    TimeSpan duration = timeCard.EndDate - timeCard.StartDate;
+                    int workedDays = duration.Days + 1;
+                    totalWorkedDays += workedDays;
+                }
+
+                return totalWorkedDays;
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                throw;
+            }
+        }
     }
 }

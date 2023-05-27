@@ -15,6 +15,61 @@ namespace Vexed.Repositories
             _logger = logger;
         }
 
+        public async Task<float> GetLeaveHours(Guid userId)
+        {
+            try
+            {
+                var currentDate = DateTime.Now;
+                var currentMonthStart = new DateTime(currentDate.Year, currentDate.Month, 1);
+                var currentMonthEnd = currentMonthStart.AddMonths(1).AddDays(-1);
+
+                var approvedLeaves = _vexedDbContext.LeaveRequests
+                                             .Where(lr => lr.UserId == userId && lr.Status == StatusManager.HRApproval &&
+                                                          lr.StartDate >= currentMonthStart && lr.EndDate <= currentMonthEnd)
+                                             .ToList();
+                float totaPayedHours = 0;
+                totaPayedHours += (float)approvedLeaves.Sum(lr => lr.TotalHours);
+
+                return totaPayedHours;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                throw;
+            }
+        }
+
+        public async Task<int> GetLeaveDays(Guid userId)
+        {
+            try
+            {
+                var currentDate = DateTime.Now;
+                var currentMonthStart = new DateTime(currentDate.Year, currentDate.Month, 1);
+                var currentMonthEnd = currentMonthStart.AddMonths(1).AddDays(-1);
+
+                var approvedLeaves= _vexedDbContext.LeaveRequests
+                    .Where(lr => lr.UserId == userId && lr.Status == StatusManager.HRApproval &&
+                                 lr.StartDate >= currentMonthStart && lr.EndDate <= currentMonthEnd)
+                    .ToList();
+
+                int totalDays = 0;
+                foreach (var timeCard in approvedLeaves)
+                {
+                    TimeSpan duration = timeCard.EndDate - timeCard.StartDate;
+                    int workedDays = duration.Days + 1;
+                    totalDays += workedDays;
+                }
+
+                return totalDays;
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                throw;
+            }
+        }
+
         public async Task<LeaveRequest> GetLeaveRequestById(int id)
         {
             try

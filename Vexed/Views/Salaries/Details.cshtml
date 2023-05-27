@@ -1,0 +1,62 @@
+﻿@using Vexed.Services;
+@inject LanguageService language
+@model Vexed.Models.ContactInfo
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+
+<div class="row page-titles mx-0">
+    <div class="col-sm-6 p-md-0">
+        <div class="welcome-text">
+            <h4>@language.GetKey("Details")</h4>
+            <span class="ml-1"> Contact info details</span>
+        </div>
+    </div>
+</div>
+
+<body class="vh-10">
+    <div class="container py-5 h-10">
+        <div class="row d-flex justify-content-center align-items-center h-10">
+            <div class="col-md-8 col-lg-8">
+                <div class="card shadow-2-strong" style="border-radius: 1rem;">
+                    <div class="card-body text-center">
+
+                        <h3 class="mb-5">@language.GetKey("YourContact")</h3>
+                        <hr />
+                        <div class="container">
+                            <div class="text-left text-dark">
+                                <div class="row">
+                                    <div class="col">
+                                        <i class='bx bxs-category'></i>
+                                        <b>@language.GetKey("Type")</b>
+                                    </div>
+                                    <div class="col">
+                                        @Html.DisplayFor(model => model.Type)
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <i class='bx bxs-book-content'></i>
+                                        <b>@language.GetKey("Contact")</b>
+                                    </div>
+                                    <div class="col">
+                                        @Html.DisplayFor(model => model.Contact)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr class="my-4">
+                        <a class="btn btn-lg btn-primary" asp-action="Edit" asp-route-id="@Model?.Id">@language.GetKey("Edit")</a>
+                        <a class="btn btn-lg btn-outline-dark" asp-action="Index">@language.GetKey("BackToList")</a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+

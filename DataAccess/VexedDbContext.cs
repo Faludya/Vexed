@@ -14,6 +14,7 @@ namespace DataAccess
         public DbSet<EmergencyContact>? EmergencyContacts { get; set; }
         public DbSet<LeaveRequest>? LeaveRequests{ get; set; }
         public DbSet<Qualification> Qualifications { get; set; }
+        public DbSet<Salary> Salaries { get; set; }
         public DbSet<TimeCard>? TimeCards{ get; set; }
         public DbSet<ToDo>? ToDos{ get; set; }
         public DbSet<UserDetails>? UsersDetails{ get; set; }

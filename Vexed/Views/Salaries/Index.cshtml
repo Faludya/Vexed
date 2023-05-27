@@ -1,0 +1,137 @@
+﻿@using Vexed.Services;
+@inject LanguageService language
+@model IEnumerable<DataModels.Salary>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<link rel="stylesheet" href="/vendor/datatables/css/jquery.dataTables.min.css" />
+
+<div class="row page-titles mx-0">
+    <div class="col-sm-6 p-md-0">
+        <div class="welcome-text">
+            <h4>Your Contact info!</h4>
+            <span class="ml-1">All in one place</span>
+        </div>
+    </div>
+    <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+        <a class="btn btn-rounded btn-primary" asp-action="Create">
+            <span class="btn-icon-left text-dark">
+                <i class="fa fa-plus color-primary"></i>
+            </span>@language.GetKey("Create")
+        </a>
+
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <form>
+                    <div class="table-responsive">
+                        <table id="example" class="table table-responsive-sm">
+                            <thead class="thead-primary">
+                                <tr>
+                                    <th>
+                                        <i class='bx bxs-category'></i>
+                                        @language.GetKey("FullName")
+                                    </th>
+                                    <th>
+                                        <i class='bx bxs-book-content'></i>
+                                        @language.GetKey("Function")
+                                    </th>
+                                    <th align='right' data-orderable="false">
+
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-dark">
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.FullName)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Function)
+                                        </td>
+                                        <td align="center">
+                                            <div class="btn-group">
+                                                <button id="btnGroupDrop1" type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown">
+                                                    <i class='ti-layout-menu-v'></i>
+                                                </button>
+                                                <div class="dropdown-menu">
+                                                    <a class="dropdown-item text-dark" asp-action="Edit" asp-route-id="@item.Id">
+                                                        <i class='bx bxs-edit-alt'></i> @language.GetKey("Edit")
+                                                    </a>
+                                                    <a class="dropdown-item" asp-action="Details" asp-route-id="@item.Id">
+                                                        <i class='bx bxs-detail'></i> @language.GetKey("Details")
+                                                    </a>
+                                                    <a class="dropdown-item text-danger" data-toggle="modal" data-target="#exampleModalCenter-@item.Id">
+                                                        <i class='bx bxs-trash'></i> @language.GetKey("Delete")
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="exampleModalCenter-@item.Id">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">@language.GetKey("Delete") @language.GetKey("Contact")?</h5>
+                                                    <button type="button" class="close" data-dismiss="modal">
+                                                        <span>&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="container">
+                                                        <div class="text-left text-dark">
+                                                            <div class="row">
+                                                                <div class="col">
+                                                                    <i class='bx bxs-category'></i>
+                                                                    <b>@language.GetKey("Type")</b>
+                                                                </div>
+                                                                <div class="col">
+                                                                    @Html.DisplayFor(itemModel => item.FullName)
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row">
+                                                                <div class="col">
+                                                                    <i class='bx bxs-book-content'></i>
+                                                                    <b>@language.GetKey("Contact")</b>
+                                                                </div>
+                                                                <div class="col">
+                                                                    @Html.DisplayFor(itemModel => item.Function)
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-light" data-dismiss="modal">@language.GetKey("Close")</button>
+                                                    <form asp-action="Delete" method="post">
+                                                        <input type="hidden" asp-for="@item.Id" name="id" />
+                                                        <button class="btn btn-danger text-light" type="submit">
+                                                            <span>
+                                                                <i class='bx bxs-trash'></i>
+                                                            </span>@language.GetKey("Delete")
+                                                        </button>
+                                                    </form>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
