@@ -29,5 +29,15 @@ namespace Vexed.Repositories.Abstractions
         /// Returns all the Time Cards sorted by date and status
         /// </summary>
         Task<List<UserTimeCardsViewModel>> GetTimeCardsHR();
+
+        /// <summary>
+        /// Returns all the worked hours of a user for the current month.
+        /// </summary>
+        Task<float> GetTotalWorkedHours(Guid superiorId);
+
+        /// <summary>
+        /// Returns all the worked days of a user for the current month.
+        /// </summary>
+        Task<int> GetTotalWorkedDays(Guid superiorId);
     }
 }

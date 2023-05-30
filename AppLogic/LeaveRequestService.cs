@@ -23,6 +23,9 @@ namespace Vexed.Services
             try
             {
                 leaveRequest.SuperiorId = await _repositoryWrapper.UserRepository.GetUserSuperior(leaveRequest.UserId);
+                TimeSpan duration = leaveRequest.EndDate - leaveRequest.StartDate;
+                int totalDays = duration.Days + 1;
+                leaveRequest.TotalHours = leaveRequest.Quantity * totalDays;
 
                 await _repositoryWrapper.LeaveRequestRepository.Create(leaveRequest);
                 await _repositoryWrapper.Save();
@@ -91,6 +94,10 @@ namespace Vexed.Services
         {
             try
             {
+                TimeSpan duration = leaveRequest.EndDate - leaveRequest.StartDate;
+                int totalDays = duration.Days + 1;
+                leaveRequest.TotalHours = leaveRequest.Quantity * totalDays;
+
                 await _repositoryWrapper.LeaveRequestRepository.Update(leaveRequest);
                 await _repositoryWrapper.Save();
             }

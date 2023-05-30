@@ -8,6 +8,7 @@ namespace Vexed.Repositories.Abstractions
         IEmergencyContactRepository EmergencyContactRepository { get; }
         ILeaveRequestRepository LeaveRequestRepository { get; }
         IQualificationRepository QualificationRepository { get; }
+        ISalaryRepository SalaryRepository{ get; }
         ITimeCardRepository TimeCardRepository { get; }
         IToDoRepository ToDoRepository{ get; }
         IUserDetailsRepository UserDetailsRepository { get; }

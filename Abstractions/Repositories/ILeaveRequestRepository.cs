@@ -24,5 +24,15 @@ namespace Vexed.Repositories.Abstractions
         /// Returns all the Leave Requests sorted by date and status
         /// </summary>
         Task<List<UserLeaveRequestsViewModel>> GetLeaveRequestsHR();
+
+        /// <summary>
+        /// Returns the total hours of paid leaves for the user
+        /// </summary>
+        Task<float> GetLeaveHours(Guid userId);
+
+        /// <summary>
+        /// Returns the total days of paid leaves for the user
+        /// </summary>
+        Task<int> GetLeaveDays(Guid userId);
     }
 }

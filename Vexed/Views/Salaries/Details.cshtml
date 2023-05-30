@@ -1,0 +1,209 @@
+﻿@using Vexed.Services;
+@inject LanguageService language
+@model DataModels.Salary;
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+
+<div class="row page-titles mx-0">
+    <div class="col-sm-6 p-md-0">
+        <div class="welcome-text">
+            <h4>@language.GetKey("Details")</h4>
+            <span class="ml-1"> Contact info details</span>
+        </div>
+    </div>
+</div>
+
+<body class="vh-10">
+    <div class="container py-5 h-10">
+        <div class="row d-flex justify-content-center align-items-center h-10">
+            <div class="col-md-8 col-lg-8">
+                <div class="card shadow-2-strong" style="border-radius: 1rem;">
+                    <div class="card-body text-center">
+
+                        <h3 class="mb-5">@language.GetKey("YourSalary")</h3>
+                        <hr />
+                        <div class="container">
+                            <div class="text-left text-dark">
+                                <div class="row">
+                                    <div class="col">
+                                        <i class='bx bx-user'></i>
+                                        <b>@language.GetKey("FullName")</b>
+                                    </div>
+                                    <div class="col">
+                                        @Html.DisplayFor(model => model.FullName)
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <i class='bx bxl-codepen'></i>
+                                        <b>@language.GetKey("Function")</b>
+                                    </div>
+                                    <div class="col">
+                                        @Html.DisplayFor(model => model.Function)
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <i class='bx bxl-codepen'></i>
+                                        <b>@language.GetKey("Department")</b>
+                                    </div>
+                                    <div class="col">
+                                        @Html.DisplayFor(model => model.Department)
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <i class='bx bxs-school'></i>
+                                        <b>@language.GetKey("Company")</b>
+                                    </div>
+                                    <div class="col">
+                                        @Html.DisplayFor(model => model.Company)
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <i class='bx bx-calendar-check'></i>
+                                        <b>@language.GetKey("GeneratedDate")</b>
+                                    </div>
+                                    <div class="col">
+                                        @Html.DisplayFor(model => model.GeneratedDate)
+                                    </div>
+                                </div>
+
+                                <hr class="dotted" />
+                                <!-- Work time -->
+                                <div class="row">
+                                    <div class="col">
+                                        <i class='bx bxs-hourglass-top'></i>
+                                        <b>@language.GetKey("TotalWorkedHours")</b>
+                                    </div>
+                                    <div class="col">
+                                        @Html.DisplayFor(model => model.TotalWorkedHours)
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <i class='bx bxs-hourglass-bottom'></i>
+                                        <b>@language.GetKey("TotalWorkedDays")</b>
+                                    </div>
+                                    <div class="col">
+                                        @Html.DisplayFor(model => model.TotalWorkedDays)
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <i class='bx bx-money-withdraw'></i>
+                                        <b>@language.GetKey("GrossSalary")</b>
+                                    </div>
+                                    <div class="col">
+                                        @Html.DisplayFor(model => model.GrossSalary)
+                                    </div>
+                                </div>
+
+                                <hr class="dotted" />
+                                <!-- Texes -->
+                                <div class="row">
+                                    <div class="col">
+                                        <i class='bx bx-dollar-circle'></i>
+                                        <b>@language.GetKey("SocialInsurance")</b>
+                                    </div>
+                                    <div class="col">
+                                        @Html.DisplayFor(model => model.SocialInsuranceValue)
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <i class='bx bx-dollar-circle'></i>
+                                        <b>@language.GetKey("HealthInsurance")</b>
+                                    </div>
+                                    <div class="col">
+                                        @Html.DisplayFor(model => model.HealthInsuranceValue)
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <i class='bx bx-dollar-circle'></i>
+                                        <b>@language.GetKey("PersonalIncome")</b>
+                                    </div>
+                                    <div class="col">
+                                        @Html.DisplayFor(model => model.PersonalIncomeValue)
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <i class='bx bx-dollar-circle'></i>
+                                        <b>@language.GetKey("WorkInsurance")</b>
+                                    </div>
+                                    <div class="col">
+                                        @Html.DisplayFor(model => model.WorkInsuranceValue)
+                                    </div>
+                                </div>
+
+                                <hr class="dotted" />
+                                <!-- Salary -->
+                                <div class="row">
+                                    <div class="col">
+                                        <i class='bx bx-wallet'></i>
+                                        <b>@language.GetKey("NetSalary")</b>
+                                    </div>
+                                    <div class="col">
+                                        @Html.DisplayFor(model => model.NetSalary)
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <i class='bx bx-sticker'></i>
+                                        <b>@language.GetKey("MealTicket")</b>
+                                    </div>
+                                    <div class="col">
+                                        @Html.DisplayFor(model => model.MealTicketValue)
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <i class='bx bx-food-menu'></i>
+                                        <b>@language.GetKey("MealTicketTotal")</b>
+                                    </div>
+                                    <div class="col">
+                                        @Html.DisplayFor(model => model.MealTicketTotal)
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <i class='bx bx-food-menu'></i>
+                                        <b>@language.GetKey("Status")</b>
+                                    </div>
+                                    <div class="col">
+                                        @Html.DisplayFor(model => model.Status)
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <hr class="my-4">
+                        <a class="btn btn-lg btn-primary" asp-action="Edit" asp-route-id="@Model?.Id">@language.GetKey("Edit")</a>
+                        <a class="btn btn-lg btn-outline-dark" asp-action="Index">@language.GetKey("BackToList")</a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+

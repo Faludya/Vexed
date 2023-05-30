@@ -40,6 +40,22 @@ namespace Vexed.Repositories
             }
         }
 
+        public string GetFullName(Guid userId)
+        {
+            try
+            {
+                var firstName = _vexedDbContext.UsersDetails.Where(u => u.UserId == userId).Select(u => u.FirstName).FirstOrDefault();
+                var LastName = _vexedDbContext.UsersDetails.Where(u => u.UserId == userId).Select(u => u.LastName).FirstOrDefault();
+                var fullName = firstName + " " + LastName;
+                return fullName;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                throw;
+            }
+        }
+
         public async Task<UserDetails> GetUserDetails(Guid userId)
         {
             try

@@ -78,6 +78,18 @@ namespace Vexed.Repositories
             }
         }
 
+        private ISalaryRepository _salaryRepository;
+        public ISalaryRepository SalaryRepository
+        {
+            get
+            {
+                if (_salaryRepository == null)
+                {
+                    _salaryRepository = new SalaryRepository(_vexedDbContext, _logger);
+                }
+                return _salaryRepository;
+            }
+        }
         private ITimeCardRepository _timeCardRepository;
         public ITimeCardRepository TimeCardRepository
         {

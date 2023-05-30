@@ -46,6 +46,9 @@ builder.Services.AddScoped<ILeaveRequestService, LeaveRequestService>();
 builder.Services.AddScoped<IQualificationRepository, QualificationRepository>();
 builder.Services.AddScoped<IQualificationService, QualificationService>();
 
+builder.Services.AddScoped<ISalaryRepository, SalaryRepository>();
+builder.Services.AddScoped<ISalaryService, SalaryService>();
+
 builder.Services.AddScoped<ITimeCardRepository, TimeCardRepository>();
 builder.Services.AddScoped<ITimeCardService, TimeCardService>();
 
@@ -60,6 +63,8 @@ builder.Services.AddScoped<IUserEmploymentService, UserEmploymentService>();
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
+
+builder.Services.AddScoped<IPdfService, PdfService>();
 #endregion
 
 #region Language setup

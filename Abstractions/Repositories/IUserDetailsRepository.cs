@@ -29,5 +29,10 @@ namespace Vexed.Repositories.Abstractions
         /// </summary>
         Task<List<string>> GetAllUserDetailIds();
 
+        /// <summary>
+        /// Returns the Full Name for a given user.
+        /// </summary>
+        string GetFullName(Guid userId);
+
     }
 }

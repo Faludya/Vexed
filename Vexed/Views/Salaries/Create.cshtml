@@ -1,0 +1,321 @@
+﻿@using Vexed.Services;
+@inject LanguageService language
+
+@model Shared.ViewModels.SalaryVM
+
+@{
+    ViewData["Title"] = "Create";
+}
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+<div class="row page-titles mx-0">
+    <div class="col-sm-6 p-md-0">
+        <div class="welcome-text">
+            <h4>@language.GetKey("Create")</h4>
+            <span class="ml-1"> New contact info </span>
+        </div>
+    </div>
+</div>
+
+<body class="vh-10">
+    <div class="container py-5 h-10">
+        <div class="row d-flex justify-content-center align-items-center h-10">
+            <div class="col-md-8 col-lg-8">
+                <div class="card shadow-2-strong" style="border-radius: 1rem;">
+                    <div class="card-body text-center">
+                        <h4>@language.GetKey("Salary")</h4>
+                        <hr />
+                        <div class="text-left p-3 text-dark">
+                            <form asp-action="Create" id="salaryCreateForm">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                                <input type="hidden" asp-for="Salary.Id"/>
+                                <input type="hidden" asp-for="Salary.UserId" />
+
+                                <!-- User -->
+                                <div class="form-group row my-3">
+                                    <div class="col-4 my-2">
+                                        <i class='bx bx-user'></i>
+                                        <b>@language.GetKey("UserName"):</b>
+                                    </div>
+                                    <div class="col-8 d-flex align-items-center">
+                                        <div class="w-65">
+                                            @Html.DropDownListFor(m => m.SelectedUserId, new SelectList(Model.UserNameVMs, "UserId", "UserName"), "Select User", new { @class = "form-control", @id = "single-select" })
+                                            <input type="hidden" asp-for="SelectedUserId" id="hidden-selectedUserId" />
+                                        </div>
+                                        <a class="btn btn-primary ml-3 text-light" id="createButton" href="#">
+                                              @language.GetKey("Select")
+                                            <span class="btn-icon-right">
+                                                <i class="fa fa-hand-pointer-o color-primary"></i>
+                                            </span>
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row my-3">
+                                    <div class="col-4 my-2">
+                                        <i class='bx bx-user'></i>
+                                        <b>@language.GetKey("FullName"):</b>
+                                    </div>
+                                    <div class="col-8">
+                                        <input asp-for="Salary.FullName" class="form-control" />
+                                        <span asp-validation-for="Salary.FullName" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row my-3">
+                                    <div class="col-4 my-2">
+                                        <i class='bx bxl-codepen'></i>
+                                        <b>@language.GetKey("Function"):</b>
+                                    </div>
+                                    <div class="col-8">
+                                        <input asp-for="Salary.Function" class="form-control" />
+                                        <span asp-validation-for="Salary.Function" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row my-3">
+                                    <div class="col-4 my-2">
+                                        <i class='bx bxl-codepen'></i>
+                                        <b>@language.GetKey("Department"):</b>
+                                    </div>
+                                    <div class="col-8">
+                                        <input asp-for="Salary.Department" class="form-control" />
+                                        <span asp-validation-for="Salary.Department" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row my-3">
+                                    <div class="col-4 my-2">
+                                        <i class='bx bxs-school'></i>
+                                        <b>@language.GetKey("Company"):</b>
+                                    </div>
+                                    <div class="col-8">
+                                        <input asp-for="Salary.Company" class="form-control" />
+                                        <span asp-validation-for="Salary.Company" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row my-3">
+                                    <div class="col-4 my-2">
+                                        <i class='bx bx-calendar-check'></i>
+                                        <b>@language.GetKey("GeneratedDate"):</b>
+                                    </div>
+                                    <div class="col-8">
+                                        <input asp-for="Salary.GeneratedDate" class="form-control" />
+                                        <span asp-validation-for="Salary.GeneratedDate" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <hr />
+                                <!-- Work time -->
+                                <div class="form-group row my-3">
+                                    <div class="col-4 my-2">
+                                        <i class='bx bxs-hourglass-top'></i>
+                                        <b>@language.GetKey("TotalWorkedHours"):</b>
+                                    </div>
+                                    <div class="col-8">
+                                        <input asp-for="Salary.TotalWorkedHours" class="form-control" />
+                                        <span asp-validation-for="Salary.TotalWorkedHours" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row my-3">
+                                    <div class="col-4 my-2">
+                                        <i class='bx bxs-hourglass-bottom' ></i>
+                                        <b>@language.GetKey("TotalWorkedDays"):</b>
+                                    </div>
+                                    <div class="col-8">
+                                        <input asp-for="Salary.TotalWorkedDays" class="form-control" />
+                                        <span asp-validation-for="Salary.TotalWorkedDays" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row my-3">
+                                    <div class="col-4 my-2">
+                                        <i class='bx bx-money-withdraw'></i>
+                                        <b>@language.GetKey("GrossSalary"):</b>
+                                    </div>
+                                    <div class="col-8">
+                                        <input asp-for="Salary.GrossSalary" class="form-control" />
+                                        <span asp-validation-for="Salary.GrossSalary" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <hr />
+                                <!-- Taxes -->
+                                <div class="form-group row my-3">
+                                    <div class="col-4 my-2">
+                                        <i class='bx bx-dollar-circle'></i>
+                                        <b>@language.GetKey("SocialInsurance"):</b>
+                                    </div>
+                                    <div class="col-8">
+                                        <div class="input-group mb-3">
+                                            <input asp-for="Salary.SocialInsuranceValue" class="form-control" />
+                                            <span asp-validation-for="Salary.SocialInsuranceValue" class="text-danger"></span>
+                                            <div class="input-group-append">
+                                                <span class="input-group-text">$</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row my-3">
+                                    <div class="col-4 my-2">
+                                        <i class='bx bx-dollar-circle'></i>
+                                        <b>@language.GetKey("HealthInsurance"):</b>
+                                    </div>
+                                    <div class="col-8">
+                                        <div class="input-group mb-3">
+                                            <input asp-for="Salary.HealthInsuranceValue" class="form-control" />
+                                            <span asp-validation-for="Salary.HealthInsuranceValue" class="text-danger"></span>
+                                            <div class="input-group-append">
+                                                <span class="input-group-text">$</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row my-3">
+                                    <div class="col-4 my-2">
+                                        <i class='bx bx-dollar-circle'></i>
+                                        <b>@language.GetKey("PersonalIncome"):</b>
+                                    </div>
+                                    <div class="col-8">
+                                        <div class="input-group mb-3">
+                                            <input asp-for="Salary.PersonalIncomeValue" class="form-control" />
+                                            <span asp-validation-for="Salary.PersonalIncomeValue" class="text-danger"></span>
+                                            <div class="input-group-append">
+                                                <span class="input-group-text">$</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row my-3">
+                                    <div class="col-4 my-2">
+                                        <i class='bx bx-dollar-circle'></i>
+                                        <b>@language.GetKey("WorkInsurance"):</b>
+                                    </div>
+                                    <div class="col-8">
+                                        <div class="input-group mb-3">
+                                            <input asp-for="Salary.WorkInsuranceValue" class="form-control" />
+                                            <span asp-validation-for="Salary.WorkInsuranceValue" class="text-danger"></span>
+                                            <div class="input-group-append">
+                                                <span class="input-group-text">$</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <hr />
+                                <!-- Salary -->
+                                <div class="form-group row my-3">
+                                    <div class="col-4 my-2">
+                                        <i class='bx bx-wallet' ></i>
+                                        <b>@language.GetKey("NetSalary"):</b>
+                                    </div>
+                                    <div class="col-8">
+                                        <input asp-for="Salary.NetSalary" class="form-control" />
+                                        <span asp-validation-for="Salary.NetSalary" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row my-3">
+                                    <div class="col-4 my-2">
+                                        <i class='bx bx-sticker' ></i>
+                                        <b>@language.GetKey("MealTicket"):</b>
+                                    </div>
+                                    <div class="col-8">
+                                        <input asp-for="Salary.MealTicketValue" class="form-control" />
+                                        <span asp-validation-for="Salary.MealTicketValue" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row my-3">
+                                    <div class="col-4 my-2">
+                                        <i class='bx bx-food-menu' ></i>
+                                        <b>@language.GetKey("MealTicketTotal"):</b>
+                                    </div>
+                                    <div class="col-8">
+                                        <input asp-for="Salary.MealTicketTotal" class="form-control" />
+                                        <span asp-validation-for="Salary.MealTicketTotal" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row my-3">
+                                    <div class="col-4 my-2">
+                                        <i class='bx bx-food-menu' ></i>
+                                        <b>@language.GetKey("Status"):</b>
+                                    </div>
+                                    <div class="col-8">
+                                        <input asp-for="Salary.Status" class="form-control" />
+                                        <span asp-validation-for="Salary.Status" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row my-4">
+                                    <div class="col-4">
+                                        <a class="btn btn-outline-dark" asp-action="Index">@language.GetKey("BackToList")</a>
+                                    </div>
+                                    <div class="col-4">
+                                        <input type="submit" value="@language.GetKey("Create")" class="btn btn-primary" />
+                                    </div>
+                                    <div class="col-4">
+                                        <a class="btn btn-rounded btn-info ml-3" asp-action="GeneratePdf">
+                                            <span class="btn-icon-left">
+                                                <i class='fa fa-file'></i>
+                                            </span>
+                                            @language.GetKey("Generate PDF")
+                                        </a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        $('#single-select').select2({
+            maximumSelectionLength: 10,
+            placeholder: 'Select an option'
+        });
+
+        $(function () {
+            // When the dropdown value changes
+            $('#single-select').on('change', function () {
+                // Get the selected value
+                var selectedValue = $(this).val();
+
+                // Update the hidden input field value
+                $('#hidden-selectedUserId').val(selectedValue);
+            });
+        });
+
+        $(function () {
+            $('#createButton').on('click', function (e) {
+                e.preventDefault();
+
+                // Get the selected value
+                var selectedValue = $('#single-select').val();
+
+                // Construct the URL with the selectedUserId query parameter
+                var url = '@Url.Action("Create", "Salaries")' + '?selectedUserId=' + encodeURIComponent(selectedValue);
+
+                // Navigate to the URL
+                window.location.href = url;
+            });
+        });
+
+    </script>
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
