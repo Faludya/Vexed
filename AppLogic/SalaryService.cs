@@ -90,9 +90,9 @@ namespace AppLogic
 
                 salary.NetSalary = netSalary;
                 salary.MealTicketTotal = mealTicketsTotal;
-                salary.Status = SalaryStatusManager.NotGenerated;
+                salary.Status = SalaryStatusManager.Generated;
 
-                await CreateSalary(salary);
+                //await CreateSalary(salary);
 
                 return salary;
             }

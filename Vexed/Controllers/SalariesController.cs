@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Shared;
+using Shared.ViewModels;
 using System.Security.Claims;
 using Vexed.Services.Abstractions;
 
@@ -13,17 +14,17 @@ namespace Vexed.Controllers
     [Authorize]
     public class SalariesController : Controller
     {
-        private readonly UserManager<IdentityUser> _userManager;
         private readonly ISalaryService _salaryService;
         private readonly Logger _logger;
-        private readonly IUserEmploymentService _userEmploymentService;
+        private readonly IUserService _userService;
+        private readonly IPdfService _pdfService;
 
-        public SalariesController(UserManager<IdentityUser> userManager, ISalaryService salaryService, Logger logger, IUserEmploymentService userEmploymentService)
+        public SalariesController(ISalaryService salaryService, Logger logger, IUserService userService, IPdfService pdfService)
         {
-            _userManager = userManager;
             _salaryService = salaryService;
             _logger = logger;
-            _userEmploymentService = userEmploymentService;
+            _userService = userService;
+            _pdfService = pdfService;
         }
 
         public async Task<IActionResult> Index()
@@ -72,16 +73,25 @@ namespace Vexed.Controllers
             }
         }
 
-        public async Task<IActionResult> CreateAsync()
+        public async Task<IActionResult> Create(string selectedUserId)
         {
             try
             {
-                var salary = new Salary();
-                salary.UserId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-                salary = await _salaryService.GenerateSalary(salary.UserId);
-                TempData["SuccessMessage"] = "Salary generated successfully!";
+                var salaryVM = new SalaryVM();
+                salaryVM.UserNameVMs = await _userService.GetAllUserNames();
 
-                return View(salary);
+                if (selectedUserId != null && selectedUserId != Guid.Empty.ToString())
+                {
+                    var salary = new Salary();
+                    salary.UserId = Guid.Parse(selectedUserId);
+                    salary = await _salaryService.GenerateSalary(salary.UserId);
+
+                    salaryVM.Salary = salary;
+                    TempData["SuccessMessage"] = "Salary generated successfully!";
+                    return View(salaryVM);
+                }
+
+                return View(salaryVM);
             }
             catch (DbUpdateException ex)
             {
@@ -99,17 +109,18 @@ namespace Vexed.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Salary salary)
+        public async Task<IActionResult> Create(SalaryVM salaryVM)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    //TODO: generate PDF?
+                    await _salaryService.CreateSalary(salaryVM.Salary);
+                    TempData["SuccessMessage"] = "Salary created successfully!";
 
                     return RedirectToAction(nameof(Index));
                 }
-                return View(salary);
+                return View(salaryVM);
             }
             catch (DbUpdateException ex)
             {
@@ -122,6 +133,20 @@ namespace Vexed.Controllers
                 ModelState.AddModelError("", "An error occurred while processing your request. Please try again later.");
             }
             return View("Error");
+        }
+
+        public async Task<IActionResult> GeneratePdf()
+        {
+            // Generate the PDF using the service
+            var salary = await _salaryService.GetSalaryById(1);
+            byte[] pdfBytes = _pdfService.GenerateSalaryPdf(salary);
+
+            // Set the response headers
+            Response.Headers.Add("Content-Disposition", "attachment; filename=\"myFile.pdf\"");
+            Response.Headers.Add("Content-Type", "application/pdf");
+
+            // Write the PDF bytes to the response
+            return File(pdfBytes, "application/pdf");
         }
 
         public async Task<IActionResult> Edit(int id)

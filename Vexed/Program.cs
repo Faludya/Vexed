@@ -63,6 +63,8 @@ builder.Services.AddScoped<IUserEmploymentService, UserEmploymentService>();
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
+
+builder.Services.AddScoped<IPdfService, PdfService>();
 #endregion
 
 #region Language setup

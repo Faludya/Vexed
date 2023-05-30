@@ -1,11 +1,21 @@
-﻿@using Vexed.Services;
+﻿@using Shared;
+@using Vexed.Services;
 @inject LanguageService language
 @model IEnumerable<DataModels.Salary>
 
 @{
     ViewData["Title"] = "Index";
+    IDictionary<string, string> statusBadge = new Dictionary<string, string>()
+    {
+        { SalaryStatusManager.NotGenerated, "badge-outline-warning"},
+        {SalaryStatusManager.Generated, "badge-outline-info"},
+        {SalaryStatusManager.SalarySent, "badge-outline-success"},
+        {SalaryStatusManager.Cancelled, "badge-outline-danger"},
+    };
 }
 <link rel="stylesheet" href="/vendor/datatables/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/css/bootstrap-datepicker.min.css">
+
 
 <div class="row page-titles mx-0">
     <div class="col-sm-6 p-md-0">
@@ -20,7 +30,30 @@
                 <i class="fa fa-plus color-primary"></i>
             </span>@language.GetKey("Create")
         </a>
+    </div>
+</div>
 
+<div class="row page-titles mx-0">
+    <div class="col-sm-6 p-md-0">
+        <div class="welcome-text">
+            <h5>Current month: @DateTime.Now.ToString("dd-MMMM-yyyy")</h5>
+        </div>
+    </div>
+    <div class="col-md-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+        <form formaction="Index" method="post">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="flex-grow-1">
+                    <input type="text" id="yearMonthPicker" class="form-control" readonly />
+                    <input type="hidden" id="selectedDate" name="selectedDate" />
+                </div>
+                <button type="submit" class="btn btn-rounded btn-warning ml-3">
+                    <span class="btn-icon-left text-warning">
+                        <i class="fa fa-calendar color-warning"></i>
+                    </span>Filter
+                </button>
+            </div>
+
+        </form>
     </div>
 </div>
 
@@ -41,8 +74,23 @@
                                         <i class='bx bxs-book-content'></i>
                                         @language.GetKey("Function")
                                     </th>
+                                    <th>
+                                        <i class='bx bxl-codepen'></i>
+                                        @language.GetKey("Department")
+                                    </th>
+                                    <th>
+                                        <i class='bx bxs-school'></i>
+                                        @language.GetKey("Company")
+                                    </th>
+                                    <th>
+                                        <i class='bx bxs-book-content'></i>
+                                        @language.GetKey("GeneratedDate")
+                                    </th>
+                                    <th>
+                                        <i class='bx bx-stats'></i>
+                                        @language.GetKey("Status")
+                                    </th>
                                     <th align='right' data-orderable="false">
-
                                     </th>
                                 </tr>
                             </thead>
@@ -56,6 +104,18 @@
                                         <td>
                                             @Html.DisplayFor(modelItem => item.Function)
                                         </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Department)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Company)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.GeneratedDate)
+                                        </td>
+                                        <td>
+                                            <span class="badge @statusBadge[item.Status] badge-rounded">@Html.DisplayFor(modelItem => item.Status)</span>
+                                        </td>
                                         <td align="center">
                                             <div class="btn-group">
                                                 <button id="btnGroupDrop1" type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown">
@@ -68,64 +128,13 @@
                                                     <a class="dropdown-item" asp-action="Details" asp-route-id="@item.Id">
                                                         <i class='bx bxs-detail'></i> @language.GetKey("Details")
                                                     </a>
-                                                    <a class="dropdown-item text-danger" data-toggle="modal" data-target="#exampleModalCenter-@item.Id">
+                                                    <a class="dropdown-item text-danger" asp-action="Delete" asp-route-id="@item.Id">
                                                         <i class='bx bxs-trash'></i> @language.GetKey("Delete")
                                                     </a>
                                                 </div>
                                             </div>
                                         </td>
                                     </tr>
-
-                                    <!-- Modal -->
-                                    <div class="modal fade" id="exampleModalCenter-@item.Id">
-                                        <div class="modal-dialog modal-dialog-centered" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title">@language.GetKey("Delete") @language.GetKey("Contact")?</h5>
-                                                    <button type="button" class="close" data-dismiss="modal">
-                                                        <span>&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <div class="container">
-                                                        <div class="text-left text-dark">
-                                                            <div class="row">
-                                                                <div class="col">
-                                                                    <i class='bx bxs-category'></i>
-                                                                    <b>@language.GetKey("Type")</b>
-                                                                </div>
-                                                                <div class="col">
-                                                                    @Html.DisplayFor(itemModel => item.FullName)
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="row">
-                                                                <div class="col">
-                                                                    <i class='bx bxs-book-content'></i>
-                                                                    <b>@language.GetKey("Contact")</b>
-                                                                </div>
-                                                                <div class="col">
-                                                                    @Html.DisplayFor(itemModel => item.Function)
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-light" data-dismiss="modal">@language.GetKey("Close")</button>
-                                                    <form asp-action="Delete" method="post">
-                                                        <input type="hidden" asp-for="@item.Id" name="id" />
-                                                        <button class="btn btn-danger text-light" type="submit">
-                                                            <span>
-                                                                <i class='bx bxs-trash'></i>
-                                                            </span>@language.GetKey("Delete")
-                                                        </button>
-                                                    </form>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
                                 }
                             </tbody>
                         </table>
@@ -135,3 +144,26 @@
         </div>
     </div>
 </div>
+
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/js/bootstrap-datepicker.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/locales/bootstrap-datepicker.en-GB.min.js"></script>
+    <script>
+        $("#yearMonthPicker").datepicker({
+            format: 'MM-yyyy',
+            minViewMode: 'months',
+            autoclose: true
+        }).on('changeDate', function (e) {
+            var selectedDate = new Date(e.date.getFullYear(), e.date.getMonth(), 1);
+            selectedDate.setDate(selectedDate.getDate() + 1);
+
+            $("#selectedDate").val(selectedDate.toISOString());
+        });
+
+    </script>
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
