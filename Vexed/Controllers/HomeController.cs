@@ -54,6 +54,7 @@ namespace Vexed.Controllers
             var dashboard = new DashboardViewModel();
             dashboard.ToDoList = _toDoService.GetToDoList(userId).Result;
             dashboard.LastCards = _userService.GetLastCards(userId).Result;
+            dashboard.Salary = new Salary();
             return View(dashboard);
         }
 

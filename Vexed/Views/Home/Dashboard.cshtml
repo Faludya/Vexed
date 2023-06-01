@@ -17,7 +17,123 @@
         {StatusManager.HRApproval, "#28a745"},
         {StatusManager.Cancelled, "#dc3545"},
     };
+
+    // Retrieve the last time card from the list
+    var lastCard = Model.LastCards.FirstOrDefault();
+
+    // Set the default progress bar width
+    var progressBarWidth = "0%";
+    var status = string.Empty;
+    var statusIndex = 0;
+    if (lastCard != null)
+    {
+        // Get the status of the last time card
+        status = lastCard.Status;
+
+        // Check the status and map it to the progress bar width
+        switch (status)
+        {
+            case StatusManager.Submitted:
+                progressBarWidth = "1%";
+                statusIndex = 1;
+                break;
+            case StatusManager.SuperiorApproval:
+                progressBarWidth = "50%";
+                statusIndex = 2;
+                break;
+            case StatusManager.HRApproval:
+                progressBarWidth = "100%";
+                statusIndex = 3;
+                break;
+            case StatusManager.Cancelled:
+                progressBarWidth = "0%";
+                break;
+            default:
+                progressBarWidth = "0%";
+                break;
+        }
+    }
+    var completedTasks = Model.ToDoList.Count(t => t.Completed);
 }
+
+<link rel="stylesheet" href="/vendor/owl-carousel/css/owl.carousel.min.css">
+<link rel="stylesheet" href="/vendor/owl-carousel/css/owl.theme.default.min.css">
+
+<div class="row">
+    <div class="col-lg-3 col-sm-6">
+        <div class="card">
+            <div class="stat-widget-one card-body">
+                <div class="stat-icon d-inline-block">
+                    <i class="ti-wallet text-primary border-primary"></i>
+                </div>
+                <div class="stat-content d-inline-block">
+                    <div class="stat-text">Salary status</div>
+                    <div class="stat-digit">@(Model.Salary.Status == null ? "Not generated" : Model.Salary.Status) </div>
+                </div>
+                <div class="progress mt-3">
+                    <div class="progress-bar progress-bar-primary" style="width: @(DateTime.Now.Day * 100 / DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month))%" role="progressbar" aria-valuenow="@DateTime.Now.Day" aria-valuemin="1" aria-valuemax="@DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month)"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-3 col-sm-6">
+        <div class="card">
+            <div class="stat-widget-one card-body">
+                <div class="stat-icon d-inline-block">
+                    <i class="ti-notepad text-warning border-warning"></i>
+                </div>
+                <div class="stat-content d-inline-block">
+                    <div class="stat-text">Completed tasks</div>
+                    <div class="stat-digit">
+                        <span id="completed_tasks_count">@completedTasks</span>/<span id="total_tasks_count">@Model.ToDoList.Count</span>
+                    </div>
+                </div>
+                <div class="progress mt-3">
+                    <div id="progress_bar" class="progress-bar progress-bar-warning" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <div class="col-lg-3 col-sm-6">
+        <div class="card">
+            <div class="stat-widget-one card-body">
+                <div class="stat-icon d-inline-block">
+                    <i class="ti-timer text-info border-info"></i>
+                </div>
+                <div class="stat-content d-inline-block">
+                    <div class="stat-text">This week's card status</div>
+                    <div class="stat-digit">@lastCard.Status</div>
+                </div>
+                <div class="progress mt-3">
+                    <div class="progress-bar progress-bar-info" style="width: @progressBarWidth;" role="progressbar" aria-valuenow="@statusIndex" aria-valuemin="1" aria-valuemax="3"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-3 col-sm-6">
+        <div class="card">
+            <div class="stat-widget-one card-body">
+                <div class="stat-icon d-inline-block">
+                    <i class="ti-vimeo text-secondary border-secondary"></i>
+                </div>
+                <div class="stat-content d-inline-block">
+                    <div class="stat-text">Project</div>
+                    <div class="stat-digit">Rates Hub</div>
+                </div>
+                <div class="progress mt-3">
+                    <div class="progress-bar progress-bar-secondary" style="width: 65%" role="progressbar" aria-valuenow="@DateTime.Now.Day" aria-valuemin="1" aria-valuemax="@DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month)"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /# column -->
+</div>
 
 <div class="row">
     <div class="col-xl-6 col-lg-6 col-md-6">
@@ -28,6 +144,8 @@
             </div>
         </div>
     </div>
+
+
     <div class="col-xl-6 col-lg-6 col-md-6">
         <!-- To Do list-->
         <div class="card">
@@ -58,6 +176,47 @@
                             </div>
                         </form>
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Message  -->
+        <div class="container">
+            <div class="row d-flex align-items-center">
+                <div class="col col-lg-6 mb-4 mb-lg-0">
+                    <figure class="text-center bg-white py-1 shadow-2" style="border-radius: .75rem;">
+                        <i class="far fa-gem fa-lg mb-4" style="color: #673BB7;"></i>
+                        <blockquote class="blockquote pb-2">
+                            <img class="mb-2" src="~/images/avatar/4.png"/>
+                            <p>
+                                <i class="ti-angle-double-left" style="color: #673BB7;"></i>
+                                <span class="lead font-italic">
+                                    I have not failed. I've just found 10,000 ways that won't
+                                    work.
+                                </span>
+                                <i class="ti-angle-double-right" style="color: #673BB7;"></i>
+                            </p>
+                        </blockquote>
+                        <figcaption class="blockquote-footer mb-0 font-italic">
+                            Thomas Edison
+                        </figcaption>
+                    </figure>
+                </div>
+                <div class="col col-lg-6">
+                    <figure class="text-center bg-white py-1 shadow-2" style="border-radius: .75rem;">
+                        <i class="far fa-gem fa-lg mb-4" style="color: #593bdb;"></i>
+                        <blockquote class="blockquote pb-2">
+                            <img class="mb-2" src="~/images/avatar/2.png" />
+                            <p>
+                                <i class="ti-angle-double-left" style="color: #593bdb;"></i>
+                                <span class="lead font-italic">Be less curious about people and more curious about ideas.</span>
+                                <i class="ti-angle-double-right" style="color: #593bdb;"></i>
+                            </p>
+                        </blockquote>
+                        <figcaption class="blockquote-footer mb-0 font-italic">
+                            Marie Skłodowska Curie
+                        </figcaption>
+                    </figure>
                 </div>
             </div>
         </div>
@@ -114,6 +273,8 @@
 
 @section Scripts {
     <script src="/js/dashboard.js"></script>
+    <!-- Owl Carousel -->
+    <script src="/vendor/owl-carousel/js/owl.carousel.min.js"></script>
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.7/index.global.min.js'></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {

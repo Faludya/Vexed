@@ -34,6 +34,9 @@ $(document).ready(function () {
                 // Optionally, display an error message to the user
             }
         });
+
+
+        updateCompletedTasksUI(('#todo_list'), totalTasks);
     }
 
     function deleteTask(taskId) {
@@ -48,6 +51,7 @@ $(document).ready(function () {
 
                 // Remove the task element from the list
                 $('[data-task-id="' + taskId + '"]').remove();
+
             },
             error: function (error) {
                 // Handle the error response
@@ -55,6 +59,8 @@ $(document).ready(function () {
                 // Optionally, display an error message to the user
             }
         });
+
+        updateCompletedTasksUI($('#todo_list'), $('#todo_list'));
     }
 
     function updateTaskStatus(taskId, completed) {
@@ -107,4 +113,5 @@ $(document).ready(function () {
         var completed = $(this).is(':checked');
         updateTaskStatus(taskId, completed);
     });
+
 });
