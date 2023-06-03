@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Vexed.Models;
 using DataModels;
 
 namespace DataAccess
@@ -13,6 +12,8 @@ namespace DataAccess
         public DbSet<ContactInfo>? ContactsInfo { get; set; }
         public DbSet<EmergencyContact>? EmergencyContacts { get; set; }
         public DbSet<LeaveRequest>? LeaveRequests{ get; set; }
+        public DbSet<Project>? Projects{ get; set; }
+        public DbSet<ProjectTeam>? ProjectTeams{ get; set; }
         public DbSet<Qualification> Qualifications { get; set; }
         public DbSet<Salary> Salaries { get; set; }
         public DbSet<TimeCard>? TimeCards{ get; set; }

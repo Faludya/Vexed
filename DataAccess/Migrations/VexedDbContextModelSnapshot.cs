@@ -22,6 +22,87 @@ namespace Vexed.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("DataModels.Project", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ImageLink")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProjectManager")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("ProjectManagerId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Technologies")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UsefulLinks")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Projects");
+                });
+
+            modelBuilder.Entity("DataModels.ProjectTeam", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("ImageLink")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ProjectId")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("UserProjectRole")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ProjectTeams");
+                });
+
             modelBuilder.Entity("DataModels.Qualification", b =>
                 {
                     b.Property<int>("Id")
@@ -55,7 +136,7 @@ namespace Vexed.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Qualifications", (string)null);
+                    b.ToTable("Qualifications");
                 });
 
             modelBuilder.Entity("DataModels.Salary", b =>
@@ -136,7 +217,7 @@ namespace Vexed.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Salaries", (string)null);
+                    b.ToTable("Salaries");
                 });
 
             modelBuilder.Entity("DataModels.ToDo", b =>
@@ -159,7 +240,7 @@ namespace Vexed.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ToDos", (string)null);
+                    b.ToTable("ToDos");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -385,7 +466,7 @@ namespace Vexed.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ContactsInfo", (string)null);
+                    b.ToTable("ContactsInfo");
                 });
 
             modelBuilder.Entity("Vexed.Models.EmergencyContact", b =>
@@ -428,7 +509,7 @@ namespace Vexed.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("EmergencyContacts", (string)null);
+                    b.ToTable("EmergencyContacts");
                 });
 
             modelBuilder.Entity("Vexed.Models.LeaveRequest", b =>
@@ -469,7 +550,7 @@ namespace Vexed.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("LeaveRequests", (string)null);
+                    b.ToTable("LeaveRequests");
                 });
 
             modelBuilder.Entity("Vexed.Models.TimeCard", b =>
@@ -518,7 +599,7 @@ namespace Vexed.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TimeCards", (string)null);
+                    b.ToTable("TimeCards");
                 });
 
             modelBuilder.Entity("Vexed.Models.UserDetails", b =>
@@ -572,7 +653,7 @@ namespace Vexed.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("UsersDetails", (string)null);
+                    b.ToTable("UsersDetails");
                 });
 
             modelBuilder.Entity("Vexed.Models.UserEmployment", b =>
@@ -617,7 +698,7 @@ namespace Vexed.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("UsersEmployments", (string)null);
+                    b.ToTable("UsersEmployments");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

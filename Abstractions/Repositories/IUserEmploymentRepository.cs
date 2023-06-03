@@ -1,4 +1,4 @@
-﻿using Vexed.Models;
+﻿using DataModels;
 
 namespace Vexed.Repositories.Abstractions
 {

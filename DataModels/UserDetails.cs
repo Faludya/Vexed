@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.CompilerServices;
 
-namespace Vexed.Models
+namespace DataModels
 {
     public class UserDetails
     {

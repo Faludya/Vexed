@@ -1,4 +1,4 @@
-﻿namespace Vexed.Models.ViewModels
+﻿namespace DataModels.ViewModels
 {
     public class UserNameVM
     {

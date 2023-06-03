@@ -65,6 +65,32 @@ namespace Vexed.Repositories
             }
         }
 
+        private IProjectRepository _projectRepository;
+        public IProjectRepository ProjectRepository
+        {
+            get
+            {
+                if (_projectRepository == null)
+                {
+                    _projectRepository = new ProjectRepository(_vexedDbContext, _logger);
+                }
+                return _projectRepository;
+            }
+        }
+
+        private IProjectTeamRepository _projectTeamRepository;
+        public IProjectTeamRepository ProjectTeamRepository
+        {
+            get
+            {
+                if (_projectTeamRepository == null)
+                {
+                    _projectTeamRepository = new ProjectTeamRepository(_vexedDbContext, _logger);
+                }
+                return _projectTeamRepository;
+            }
+        }
+
         private IQualificationRepository _qualificationRepository;
         public IQualificationRepository QualificationRepository
         {

@@ -43,6 +43,12 @@ builder.Services.AddScoped<IEmergencyContactService, EmergencyContactService>();
 builder.Services.AddScoped<ILeaveRequestRepository, LeaveRequestRepository>();
 builder.Services.AddScoped<ILeaveRequestService, LeaveRequestService>();
 
+builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
+builder.Services.AddScoped<IProjectService, ProjectService>();
+
+builder.Services.AddScoped<IProjectTeamRepository, ProjectTeamRepository>();
+builder.Services.AddScoped<IProjectTeamService, ProjectTeamService>();
+
 builder.Services.AddScoped<IQualificationRepository, QualificationRepository>();
 builder.Services.AddScoped<IQualificationService, QualificationService>();
 

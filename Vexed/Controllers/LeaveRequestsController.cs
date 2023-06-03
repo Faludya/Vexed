@@ -4,9 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Shared;
-using Vexed.Models;
-using Vexed.Services;
+using DataModels;
 using Vexed.Services.Abstractions;
+using Vexed.Models;
 
 namespace Vexed.Controllers
 {

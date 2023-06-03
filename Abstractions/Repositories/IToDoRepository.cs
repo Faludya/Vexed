@@ -1,10 +1,4 @@
 ﻿using DataModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Vexed.Models;
 using Vexed.Repositories.Abstractions;
 
 namespace Abstractions.Repositories

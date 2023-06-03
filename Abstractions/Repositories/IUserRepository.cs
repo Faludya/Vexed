@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Vexed.Models;
-using Vexed.Models.ViewModels;
+﻿using DataModels.ViewModels;
+using Microsoft.AspNetCore.Identity;
+
 
 namespace Vexed.Repositories.Abstractions
 {

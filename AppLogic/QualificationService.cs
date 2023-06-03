@@ -4,15 +4,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Shared;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography.Pkcs;
-using System.Text;
-using System.Threading.Tasks;
-using Vexed.Models;
 using Vexed.Repositories.Abstractions;
-using Vexed.Services.Abstractions;
 
 namespace AppLogic
 {

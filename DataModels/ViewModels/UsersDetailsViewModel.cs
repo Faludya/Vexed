@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-
-namespace Vexed.Models.ViewModels
+﻿namespace DataModels.ViewModels
 {
     public class UsersDetailsViewModel
     {

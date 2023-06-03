@@ -1,0 +1,105 @@
+﻿@using Newtonsoft.Json;
+@using Vexed.Services;
+@inject LanguageService language
+@model IEnumerable<DataModels.Project>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<link rel="stylesheet" href="/vendor/datatables/css/jquery.dataTables.min.css" />
+
+<div class="row page-titles mx-0">
+    <div class="col-sm-6 p-md-0">
+        <div class="welcome-text">
+            <h4>Your Projects!</h4>
+            <span class="ml-1">All in one place</span>
+        </div>
+    </div>
+    <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+        <a class="btn btn-rounded btn-primary" asp-action="Create">
+            <span class="btn-icon-left text-dark">
+                <i class="fa fa-plus color-primary"></i>
+            </span>@language.GetKey("Create")
+        </a>
+
+    </div>
+</div>
+
+<div class="container py-5">
+    @if (Model.Count() == 0)
+    {
+        <h1 class="text-center">You don't have any projects yet!</h1>
+    }
+    else
+    {
+        @foreach (var project in Model)
+        {
+            <div class="row justify-content-center mb-3">
+                <div class="col-12">
+                    <div class="card shadow-0 border rounded-3">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-12 col-lg-3 col-xl-3 mb-4 mb-lg-0">
+                                    <div class="bg-image hover-zoom ripple rounded ripple-surface">
+                                        <img src="@project.ImageLink"
+                                             class="w-100" />
+                                        <a href="#!">
+                                            <div class="hover-overlay">
+                                                <div class="mask" style="background-color: rgba(253, 253, 253, 0.15);"></div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-lg-6 col-xl-6">
+                                    <h5>@project.Name</h5>
+                                    <div class="d-flex flex-row">
+                                        <div class="text-danger mb-1 me-2">
+                                            <i class="fa fa-people-group"></i>
+                                        </div>
+                                        <span>@project.ProjectManager</span>
+                                    </div>
+                                    <div class="mt-1 mb-0 text-muted d-inline">
+                                        @{
+                                            project.TechnologiesList = JsonConvert.DeserializeObject<List<string>>(project.Technologies);
+                                            for (int i = 0; i < project.TechnologiesList.Count; i++)
+                                            {
+                                                <span>@project.TechnologiesList[i]</span>
+                                                @if (i < project.TechnologiesList.Count - 1)
+                                                {
+                                                    <span class="text-primary"> • </span>
+                                                }
+                                            }
+                                        }
+                                    </div>
+                                    <div class="mt-xl-5">
+                                        <p class="text-truncate mt-xl-5">
+                                            @project.Description
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-lg-3 col-xl-3 border-sm-start-none border-start">
+                                    <div class="d-flex flex-row align-items-center mb-1">
+                                        <h6 class="mb-1 me-1">@project.StartDate.ToString("dd/MM/yyyy") - @project.EndDate.ToString("dd/MM/yyyy")</h6>
+                                    </div>
+                                    @if (project.EndDate >= DateTime.Now)
+                                    {
+                                        <h6 class="text-success">On going</h6>
+                                    }
+                                    else
+                                    {
+                                        <h6 class="text-danger">Finished</h6>
+                                    }
+                                    <div class="d-flex flex-column mt-xl-5 mb-0">
+                                        <a class="btn btn-outline-primary btn-sm mt-xl-4" asp-action="Details" asp-route-id="@project.Id">
+                                            <i class='bx bxs-detail'></i> @language.GetKey("Details")
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+</div>

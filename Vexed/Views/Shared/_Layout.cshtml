@@ -218,6 +218,20 @@ else
                             </li>
                         }
 
+                        @if (User.IsInRole("TechnicalManager"))
+                        {
+                            <li class="nav-label">Project Management</li>
+                            <li>
+                                <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                                    <i class='bx bx-box'></i><span class="nav-text">Teams and projects</span>
+                                </a>
+                                <ul aria-expanded="false">
+                                    <li><a asp-controller="Projects" asp-action="Index">Projects</a></li>
+                                    <li><a asp-controller="ProjectTeams" asp-action="Index">Teams</a></li>
+                                </ul>
+                            </li>
+                        }
+
                     </ul>
                 </div>
 

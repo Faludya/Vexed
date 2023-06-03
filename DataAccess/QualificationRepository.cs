@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Vexed.Models;
-using Vexed.Repositories.Abstractions;
-using Vexed.Repositories;
+﻿using Vexed.Repositories;
 using Abstractions.Repositories;
 using Shared;
 using DataModels;
