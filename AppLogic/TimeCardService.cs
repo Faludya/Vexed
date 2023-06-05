@@ -1,9 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Shared;
-using Shared.ViewModels;
-using Vexed.Models;
+﻿using Shared;
+using DataModels.ViewModels;
+using DataModels;
 using Vexed.Repositories.Abstractions;
 using Vexed.Services.Abstractions;
+using Vexed.Models;
 
 namespace Vexed.Services
 {

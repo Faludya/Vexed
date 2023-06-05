@@ -1,11 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Shared;
-using Shared.ViewModels;
-using System.Linq;
-using Vexed.Models;
-using Vexed.Models.ViewModels;
+using DataModels.ViewModels;
 using Vexed.Repositories.Abstractions;
 using Vexed.Services.Abstractions;
+using DataModels;
 
 namespace Vexed.Services
 {

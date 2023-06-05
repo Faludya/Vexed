@@ -1,6 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Shared.ViewModels;
-using Vexed.Models.ViewModels;
+﻿using DataModels.ViewModels;
+using Microsoft.AspNetCore.Identity;
 
 namespace Vexed.Services.Abstractions
 {

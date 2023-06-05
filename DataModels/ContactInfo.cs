@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Vexed.Models
+namespace DataModels
 {
     public class ContactInfo
     {

@@ -1,0 +1,134 @@
+﻿@using Vexed.Services;
+@inject LanguageService language
+
+@model DataModels.Project
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<div class="row page-titles mx-0">
+    <div class="col-sm-6 p-md-0">
+        <div class="welcome-text">
+            <h4>@language.GetKey("Delete")</h4>
+            <span class="ml-1"> Delete project</span>
+        </div>
+    </div>
+</div>
+
+
+<body class="vh-10">
+    <div class="container py-5 h-10">
+        <div class="row d-flex justify-content-center align-items-center h-10">
+            <div class="col-md-8 col-lg-8">
+                <div class="card shadow-2-strong" style="border-radius: 1rem;">
+                    <div class="card-body text-center">
+
+                        <h3 class="mb-5 text-danger">@language.GetKey("Delete") @language.GetKey("Project")?</h3>
+                        <hr />
+                        <div class="container">
+                            <div class="text-left text-dark">
+                                <div class="row">
+                                    <div class="col">
+                                        <i class='bx bx-message-square'></i>
+                                        <b>@language.GetKey("Name")</b>
+                                    </div>
+                                    <div class="col">
+                                        @Html.DisplayFor(model => model.Name)
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <i class='bx bxl-codepen'></i>
+                                        <b>@language.GetKey("Code")</b>
+                                    </div>
+                                    <div class="col">
+                                        @Html.DisplayFor(model => model.Code)
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <i class='bx bx-detail'></i>
+                                        <b>@language.GetKey("Description")</b>
+                                    </div>
+                                    <div class="col">
+                                        @Html.DisplayFor(model => model.Description)
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <i class='bx bx-stats'></i>
+                                        <b>@language.GetKey("Status")</b>
+                                    </div>
+                                    <div class="col">
+                                        @Html.DisplayFor(model => model.Status)
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <<i class='bx bx-calendar'></i>
+                                        <b>@language.GetKey("StartDate")</b>
+                                    </div>
+                                    <div class="col">
+                                        @Html.DisplayFor(model => model.StartDate)
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <i class='bx bx-calendar'></i>
+                                        <b>@language.GetKey("EndDate")</b>
+                                    </div>
+                                    <div class="col">
+                                        @Html.DisplayFor(model => model.EndDate)
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <i class='bx bx-user-voice'></i>
+                                        <b>@language.GetKey("ProjectManager")</b>
+                                    </div>
+                                    <div class="col">
+                                        @Html.DisplayFor(model => model.ProjectManager)
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <i class='bx bx-shape-circle'></i>
+                                        <b>@language.GetKey("Technologies")</b>
+                                    </div>
+                                    <div class="col">
+                                        @Html.DisplayFor(model => model.Technologies)
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <i class='bx bx-link'></i>
+                                        <b>@language.GetKey("UsefulLinks")</b>
+                                    </div>
+                                    <div class="col">
+                                        @Html.DisplayFor(model => model.UsefulLinks)
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <hr class="my-4">
+                        <form asp-action="Delete">
+                            <a class="btn btn-outline-dark" asp-action="Index">@language.GetKey("BackToList")</a> 
+                            <input type="hidden" asp-for="Id" />
+                            <input type="submit" value="@language.GetKey("Delete")" class="btn btn-danger" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>

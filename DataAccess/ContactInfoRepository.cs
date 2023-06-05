@@ -1,7 +1,7 @@
 ﻿using DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Shared;
-using Vexed.Models;
+using DataModels;
 using Vexed.Repositories.Abstractions;
 
 namespace Vexed.Repositories

@@ -1,17 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Security.Cryptography.Pkcs;
-using System.Threading.Tasks;
+﻿using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Shared;
-using DataAccess;
-using Vexed.Models;
-using Vexed.Services;
+using DataModels;
 using Vexed.Services.Abstractions;
 
 namespace Vexed.Controllers

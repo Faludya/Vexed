@@ -1,8 +1,9 @@
-﻿@using Vexed.Services
+﻿@using Shared;
+@using Vexed.Services
 @using Vexed.Models @*add it to use the StatusManger in the js file*@
 
 @inject LanguageService language
-@model IEnumerable<Vexed.Models.TimeCard>
+@model IEnumerable<DataModels.TimeCard>
 
 @{
     ViewData["Title"] = "Index";

@@ -1,11 +1,9 @@
-﻿using Abstractions.Repositories;
-using Abstractions.Services;
+﻿using Abstractions.Services;
 using DataModels;
+using DataModels.ViewModels;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
-using Shared.ViewModels;
 using System.Diagnostics;
 using System.Security.Claims;
 using Vexed.Models;
@@ -48,12 +46,13 @@ namespace Vexed.Controllers
         {
             return View();
         }
-        public IActionResult Dashboard()
+        public async Task<IActionResult> Dashboard()
         {
-            var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            Guid userId = default;
+            Guid.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier),out userId);
             var dashboard = new DashboardViewModel();
-            dashboard.ToDoList = _toDoService.GetToDoList(userId).Result;
-            dashboard.LastCards = _userService.GetLastCards(userId).Result;
+            dashboard.ToDoList = await _toDoService.GetToDoList(userId);
+            dashboard.LastCards = await _userService.GetLastCards(userId);
             dashboard.Salary = new Salary();
             return View(dashboard);
         }

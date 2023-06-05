@@ -1,14 +1,9 @@
 ﻿using Abstractions.Services;
 using DataModels;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Shared;
 using System.Security.Claims;
-using Vexed.Models;
-using Vexed.Services;
-using Vexed.Services.Abstractions;
 
 namespace Vexed.Controllers
 {

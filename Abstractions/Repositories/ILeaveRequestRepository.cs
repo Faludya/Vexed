@@ -1,5 +1,5 @@
-﻿using Shared.ViewModels;
-using Vexed.Models;
+﻿using DataModels.ViewModels;
+using DataModels;
 
 namespace Vexed.Repositories.Abstractions
 {

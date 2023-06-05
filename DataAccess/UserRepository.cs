@@ -2,10 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using Shared;
 using DataAccess;
-using Vexed.Models;
-using Vexed.Models.ViewModels;
 using Vexed.Repositories.Abstractions;
-using Microsoft.AspNetCore.Http;
+using DataModels.ViewModels;
 
 namespace Vexed.Repositories
 {

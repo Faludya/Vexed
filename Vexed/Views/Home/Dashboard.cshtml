@@ -1,6 +1,8 @@
-﻿@using Vexed.Services;
+﻿@using DataModels.ViewModels;
+@using Shared;
+@using Vexed.Services;
 @inject LanguageService language
-@model Shared.ViewModels.DashboardViewModel
+@model DataModels.ViewModels.DashboardViewModel
 
 @{
     IDictionary<string, string> statusBadge = new Dictionary<string, string>()
@@ -19,7 +21,8 @@
     };
 
     // Retrieve the last time card from the list
-    var lastCard = Model.LastCards.FirstOrDefault();
+    var lastCard = new CardsVM();
+    lastCard = Model.LastCards.FirstOrDefault();
 
     // Set the default progress bar width
     var progressBarWidth = "0%";
@@ -107,7 +110,9 @@
                 </div>
                 <div class="stat-content d-inline-block">
                     <div class="stat-text">This week's card status</div>
-                    <div class="stat-digit">@lastCard.Status</div>
+                    <div class="stat-digit">
+                        @(lastCard != null ? (lastCard.Status != null ? lastCard.Status : "Not submitted") : "Not submitted" )
+                    </div>
                 </div>
                 <div class="progress mt-3">
                     <div class="progress-bar progress-bar-info" style="width: @progressBarWidth;" role="progressbar" aria-valuenow="@statusIndex" aria-valuemin="1" aria-valuemax="3"></div>

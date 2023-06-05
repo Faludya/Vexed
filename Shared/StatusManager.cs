@@ -1,4 +1,4 @@
-﻿namespace Vexed.Models
+﻿namespace Shared
 {
     public static class StatusManager
     {
