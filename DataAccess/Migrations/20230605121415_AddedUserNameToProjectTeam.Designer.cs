@@ -4,6 +4,7 @@ using DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Vexed.Migrations
 {
     [DbContext(typeof(VexedDbContext))]
-    partial class VexedDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230605121415_AddedUserNameToProjectTeam")]
+    partial class AddedUserNameToProjectTeam
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -199,9 +201,6 @@ namespace Vexed.Migrations
                     b.Property<int>("ProjectId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("StartDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
@@ -214,8 +213,6 @@ namespace Vexed.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ProjectId");
 
                     b.ToTable("ProjectTeams");
                 });
@@ -708,17 +705,6 @@ namespace Vexed.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
-                });
-
-            modelBuilder.Entity("DataModels.ProjectTeam", b =>
-                {
-                    b.HasOne("DataModels.Project", "Project")
-                        .WithMany()
-                        .HasForeignKey("ProjectId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Project");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

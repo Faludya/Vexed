@@ -18,6 +18,16 @@ namespace DataModels
 
         [Required(ErrorMessage = "{0} is required")]
         public string UserProjectRole { get; set; }
+
+        [Required(ErrorMessage = "{0} is required")]
+        public string UserName { get; set; }
+
+        [Required(ErrorMessage = "{0} is required")]
+        public DateTime StartDate { get; set; }
+
         public string ImageLink { get; set; }
+
+        // Navigation property referencing the table containing Projects
+        public Project Project { get; set; }
     }
 }

@@ -1,0 +1,167 @@
+﻿@using Vexed.Services;
+@inject LanguageService language
+
+@model IEnumerable<DataModels.ProjectTeam>
+
+@{
+    ViewData["Title"] = "Index";
+
+    IDictionary<string, string> statusBadge = new Dictionary<string, string>()
+    {
+        {"Developer", "badge-warning"},
+        {"QA", "badge-info"},
+        {"Scrum Master", "badge-success"},
+        {"Business Analyst", "badge-danger"},
+    };
+
+    // Group the projects by associated people
+    var groupedProjects = Model.GroupBy(p => p.ProjectId);
+
+}
+<link rel="stylesheet" href="/vendor/datatables/css/jquery.dataTables.min.css" />
+
+<div class="row page-titles mx-0">
+    <div class="col-sm-6 p-md-0">
+        <div class="welcome-text">
+            <h4>Project teams!</h4>
+            <span class="ml-1">All in one place</span>
+        </div>
+    </div>
+    <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+        <a class="btn btn-rounded btn-primary" asp-action="Create">
+            <span class="btn-icon-left text-dark">
+                <i class="fa fa-plus color-primary"></i>
+            </span>@language.GetKey("Add")
+        </a>
+
+    </div>
+</div>
+
+<div class="row">
+@foreach (var project in groupedProjects)
+{
+    
+        <div class="col-6">
+            <div class="card">
+                <div class="card-body">
+                    <h3>
+                        <i class='bx bxs-cog'></i>
+                        @project.First().Project.Name</h3>
+
+                    <div class="table-responsive">
+                        <table class="table table-hover table-responsive-sm">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Name</th>
+                                    <th>Role</th>
+                                    <th>Date</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var member in project)
+                                {
+                                    <tr>
+                                        <th>
+                                            <div class="round-img">
+                                                <a href=""><img width="35" src="@member.ImageLink" alt=""></a>
+                                            </div>
+                                        </th>
+                                        <td>@member.UserName</td>
+                                        <td>
+                                            <span class="badge @statusBadge[member.UserProjectRole]">@member.UserProjectRole</span>
+                                        </td>
+                                        <td>@member.StartDate.ToString("dd/MM/yyyy")</td>
+                                        <td>
+                                            <span>
+                                                <a class="mr-4 text-dark" asp-action="Edit" asp-route-id="@member.Id" data-toggle="tooltip" data-placement="top" title="Edit">
+                                                    <i class="fa fa-pencil color-muted"></i>
+                                                </a>
+                                                <a class="text-danger" data-toggle="modal" data-target="#exampleModalCenter-@member.Id" data-placement="top" title="Delete">
+                                                    <i class="fa fa-close color-danger"></i>
+                                                </a>
+                                            </span>
+                                        </td>
+                                    </tr>
+
+                                    <!-- Delete -->
+                                    <div class="modal fade" id="exampleModalCenter-@member.Id">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">@language.GetKey("Remove") @language.GetKey("Member")?</h5>
+                                                    <button type="button" class="close" data-dismiss="modal">
+                                                        <span>&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="container">
+                                                        <div class="text-left text-dark">
+                                                            <div class="row">
+                                                                <div class="col">
+                                                                    <i class='bx bxs-user-detail'></i>
+                                                                    <b>@language.GetKey("Name")</b>
+                                                                </div>
+                                                                <div class="col">
+                                                                    @Html.DisplayFor(itemModel => member.UserName)
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row">
+                                                                <div class="col">
+                                                                    <i class='bx bx-package'></i>
+                                                                    <b>@language.GetKey("Role")</b>
+                                                                </div>
+                                                                <div class="col">
+                                                                    @Html.DisplayFor(itemModel => member.UserProjectRole)
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row">
+                                                                <div class="col">
+                                                                    <i class='bx bxl-vimeo'></i>
+                                                                    <b>@language.GetKey("Project")</b>
+                                                                </div>
+                                                                <div class="col">
+                                                                    @Html.DisplayFor(itemModel => project.First().Project.Name)
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row">
+                                                                <div class="col">
+                                                                    <i class='bx bx-calendar'></i>
+                                                                    <b>@language.GetKey("Date")</b>
+                                                                </div>
+                                                                <div class="col">
+                                                                    @member.StartDate.ToString("dd/MM/yyyy")
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-light" data-dismiss="modal">@language.GetKey("Close")</button>
+                                                    <form asp-action="Delete" method="post">
+                                                        <input type="hidden" asp-for="@member.Id" name="id" />
+                                                        <button class="btn btn-danger text-light" type="submit">
+                                                            <span>
+                                                                <i class='bx bxs-trash'></i>
+                                                            </span>@language.GetKey("Remove")
+                                                        </button>
+                                                    </form>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+}
+</div>

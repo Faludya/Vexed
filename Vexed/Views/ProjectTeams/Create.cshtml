@@ -1,0 +1,154 @@
+﻿@using Vexed.Services;
+@inject LanguageService language
+
+@model DataModels.ViewModels.TeamsProjectsVM
+
+@{
+    ViewData["Title"] = "Create";
+}
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+<div class="row page-titles mx-0">
+    <div class="col-sm-6 p-md-0">
+        <div class="welcome-text">
+            <h4>@language.GetKey("Create")</h4>
+            <span class="ml-1"> New Project member </span>
+        </div>
+    </div>
+</div>
+
+<body class="vh-10">
+    <div class="container py-5 h-10">
+        <div class="row d-flex justify-content-center align-items-center h-10">
+            <div class="col-md-8 col-lg-8">
+                <div class="card shadow-2-strong" style="border-radius: 1rem;">
+                    <div class="card-body text-center">
+                        <h4>@language.GetKey("ProjectMember")</h4>
+                        <hr />
+                        <div class="text-left p-3 text-dark">
+                            <form asp-action="Create">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <input type="hidden" asp-for="ProjectTeam.Id" class="form-control" />
+
+                                <div class="form-group row my-3">
+                                    <div class="col-4 my-2">
+                                        <i class='bx bxs-user-detail'></i>
+                                        <b>@language.GetKey("Name"):</b>
+                                    </div>
+                                    <div class="col-8">
+                                        @Html.DropDownListFor(m => m.ProjectTeam.UserId, new SelectList(Model.UserNames, "UserId", "UserName"), "Select User", new { @class = "form-control", @id = "user-select" })
+                                        <input type="hidden" asp-for="ProjectTeam.UserId" class="form-control" />
+                                        <input type="hidden" asp-for="ProjectTeam.UserName" class="form-control" />
+                                        <span asp-validation-for="ProjectTeam.UserName" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row my-3">
+                                    <div class="col-4 my-2">
+                                        <i class='bx bx-package'></i>
+                                        <b>@language.GetKey("Role"):</b>
+                                    </div>
+                                    <div class="col-8">
+                                        <select id="role-select" asp-for="ProjectTeam.UserProjectRole" class="form-control">
+                                            <option value="" disabled selected>Select a role</option>
+                                            <option value="Developer">Developer</option>
+                                            <option value="QA">QA</option>
+                                            <option value="Scrum Master">Scrum Master</option>
+                                            <option value="Business Analyst">Business Analyst</option>
+                                        </select>
+                                        <span asp-validation-for="ProjectTeam.UserProjectRole" class="text-danger"></span>
+
+                                        <input type="hidden" asp-for="ProjectTeam.ImageLink" class="form-control" id="image-link" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group row my-3">
+                                    <div class="col-4 my-2">
+                                        <i class='bx bxl-vimeo'></i>
+                                        <b>@language.GetKey("Project"):</b>
+                                    </div>
+                                    <div class="col-8">
+                                        @Html.DropDownListFor(m => m.ProjectTeam.ProjectId, new SelectList(Model.Projects, "Id", "Name"), "Select User", new { @class = "form-control", @id = "project-select" })
+
+                                        <input type="hidden" asp-for="ProjectTeam.ProjectId" class="form-control" />
+                                        <span asp-validation-for="ProjectTeam.ProjectId" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row my-3">
+                                    <div class="col-4 my-2">
+                                        <i class='bx bx-calendar'></i>
+                                        <b>@language.GetKey("StartDate"):</b>
+                                    </div>
+                                    <div class="col-8">
+                                        <input asp-for="ProjectTeam.StartDate" class="form-control" />
+                                        <span asp-validation-for="ProjectTeam.StartDate" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row my-4">
+                                    <div class="col-4">
+                                        <a class="btn btn-outline-dark" asp-action="Index">@language.GetKey("BackToList")</a>
+                                    </div>
+                                    <div class="col-8">
+                                        <input type="submit" value="@language.GetKey("Create")" class="btn btn-primary" />
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        $('#user-select').select2({
+            maximumSelectionLength: 10,
+            placeholder: 'Select an option'
+
+        });
+        $('#role-select').select2({
+            maximumSelectionLength: 10,
+            placeholder: 'Select an option'
+        });
+
+        $('#project-select').select2({
+            maximumSelectionLength: 10,
+            placeholder: 'Select an option'
+        });
+
+        var dropdown = document.getElementById("role-select");
+        var imageLink = document.getElementById("image-link");
+
+        $(document).ready(function () {
+            $('#role-select').change(function () {
+                var selectedOption = $(this).find('option:selected');
+                var role = selectedOption.text();
+                var imageLink = $('#image-link');
+
+                if (role == "Developer") {
+                    imageLink.val("https://cdn-icons-png.flaticon.com/512/6478/6478099.png");
+                } else if (role == "QA") {
+                    imageLink.val("https://cdn-icons-png.flaticon.com/512/6213/6213479.png");
+                } else if (role == "Business Analyst") {
+                    imageLink.val("https://cdn-icons-png.flaticon.com/512/3273/3273076.png");
+                } else if (role == "Scrum Master") {
+                    imageLink.val("https://cdn-icons-png.flaticon.com/512/4727/4727529.png");
+                } else {
+                    imageLink.val("https://cdn-icons-png.flaticon.com/256/4647/4647172.png");
+                }
+
+                console.log(imageLink.val());
+            });
+        });
+    </script>
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

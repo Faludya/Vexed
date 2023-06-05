@@ -14,7 +14,7 @@ namespace Vexed.Repositories
             _vexedDbContext = vexedDbContext;
         }
 
-        public async Task<IQueryable<T>> FindAll()
+        public virtual async Task<IQueryable<T>> FindAll()
         {
             return await Task.Run(() => _vexedDbContext.Set<T>().AsNoTracking());
         }

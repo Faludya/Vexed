@@ -14,11 +14,21 @@ namespace DataAccess
             _logger = logger;
         }
 
+        public override async Task<IQueryable<ProjectTeam>> FindAll()
+        {
+            return await Task.Run(() => _vexedDbContext.Set<ProjectTeam>()
+                .Include(pt => pt.Project) // Include the related Project
+                .AsNoTracking());
+        }
+
+
         public async Task<ProjectTeam> GetProjectTeamById(int id)
         {
             try
             {
-                return await _vexedDbContext.ProjectTeams.Where(l => l.Id == id).FirstOrDefaultAsync();
+                return await _vexedDbContext.ProjectTeams.Where(l => l.Id == id)
+                    .Include(pt => pt.Project)
+                    .FirstOrDefaultAsync();
             }
             catch (Exception ex)
             {
