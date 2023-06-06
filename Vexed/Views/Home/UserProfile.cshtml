@@ -1,0 +1,255 @@
+﻿@using Newtonsoft.Json;
+@using Vexed.Services;
+@inject LanguageService language
+
+@model DataModels.ViewModels.UserProfileVM
+
+@{
+    ViewData["Title"] = "Profile";
+    DateTime hiringDate = Model.Employment.HireDate;
+    DateTime currentDate = DateTime.Now;
+    int totalDaysInYear = DateTime.IsLeapYear(currentDate.Year) ? 366 : 365; // Account for leap years
+
+    double experienceInYears = (currentDate - hiringDate).TotalDays / totalDaysInYear;
+
+    // Round the decimal value to one decimal place
+    experienceInYears = Math.Round(experienceInYears, 1);
+}
+<link rel="icon" type="/image/png" sizes="16x16" href="/images/favicon.png">
+
+<div class="row page-titles mx-0">
+    <div class="col-sm-6 p-md-0">
+        <div class="welcome-text">
+            <h4>Hi, welcome back!</h4>
+            <p class="mb-0">Your business dashboard template</p>
+        </div>
+    </div>
+    <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="javascript:void(0)">App</a></li>
+            <li class="breadcrumb-item active"><a href="javascript:void(0)">Profile</a></li>
+        </ol>
+    </div>
+</div>
+<!-- row -->
+<div class="row">
+    <div class="col-lg-12">
+        <div class="profile">
+            <div class="profile-head">
+                <div class="photo-content">
+                    <div class="cover-photo"></div>
+                    <div class="profile-photo">
+                        <img src="https://themewagon.github.io/focus-2/images/profile/profile.png" class="img-fluid rounded-circle" alt="">
+                    </div>
+                </div>
+                <div class="profile-info">
+                    <div class="row justify-content-center">
+                        <div class="col-xl-8">
+                            <div class="row">
+                                <div class="col-xl-4 col-sm-4 border-right-1 prf-col">
+                                    <div class="profile-name">
+                                        <h4 class="text-primary">@Model.Details.FirstName @Model.Details.LastName</h4>
+                                        <p>@Model.Employment.Function</p>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-sm-4 border-right-1 prf-col">
+                                    <div class="profile-email">
+                                        <h4 class="text-muted">hello@email.com</h4>
+                                        <p>Email</p>
+                                    </div>
+                                </div>
+                                <!-- <div class="col-xl-4 col-sm-4 prf-col">
+                                    <div class="profile-call">
+                                        <h4 class="text-muted">(+1) 321-837-1030</h4>
+                                        <p>Phone No.</p>
+                                    </div>
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-body">
+                <div class="profile-statistics">
+                    <div class="text-center mt-4 border-bottom-1 pb-3">
+                        <div class="row">
+                            <div class="col">
+                                <h3 class="m-b-0">@Model.Qualifications.Count</h3><span>Qualifications</span>
+                            </div>
+                            <div class="col">
+                                <h3 class="m-b-0">@experienceInYears</h3><span>Place Stay</span>
+                            </div>
+                            <div class="col">
+                                <h3 class="m-b-0">@Model.ProjectTeams.Count</h3><span>Projects</span>
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <a href="mailto:@Model.Email?subject=Email Subject&body=Email Body" class="btn btn-primary pl-5 pr-5 mr-3 mb-4">Email</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="profile-blog pt-3 border-bottom-1 pb-1">
+                    <!-- Qualifications -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">Qualifications</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="widget-timeline">
+                                <ul class="timeline">
+                                    @foreach (var qualification in Model.Qualifications)
+                                    {
+                                        <li>
+                                            <div class="timeline-badge primary"></div>
+                                            <a class="timeline-panel text-muted">
+                                                <span>@qualification.DateObtained.ToString("dd/MM/yyyy")</span>
+                                                <h6 class="m-t-5">@qualification.Title</h6>
+                                            </a>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contacts accordion -->
+                    <div class="card-body">
+                        <div id="accordion-one" class="accordion">
+                            <div class="accordion__item">
+                                <div class="accordion__header" data-toggle="collapse" data-target="#default_collapseOne">
+                                    <span class="accordion__header--text">Contact info</span>
+                                    <span class="accordion__header--indicator"></span>
+                                </div>
+                                <div id="default_collapseOne" class="collapse accordion__body show" data-parent="#accordion-one">
+                                    <div class="accordion__body--text">
+                                        @foreach (var contact in Model.ContactInfos)
+                                        {
+                                            <p>@contact.Type: @contact.Contact</p>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion__item">
+                                <div class="accordion__header collapsed" data-toggle="collapse" data-target="#default_collapseTwo">
+                                    <span class="accordion__header--text">Emergency contacts</span>
+                                    <span class="accordion__header--indicator"></span>
+                                </div>
+                                <div id="default_collapseTwo" class="collapse accordion__body" data-parent="#accordion-one">
+                                    <div class="accordion__body--text">
+                                        @foreach (var contact in Model.EmergencyContacts)
+                                        {
+                                            <p>@contact.FirstName @contact.LastName (@contact.Relationship)</p>
+                                            <p>Phone: @contact.Phone </p>
+                                            <p>Mail: @contact.Email </p>
+                                            <p>Address: @contact.Address </p>
+                                            <p>Additional Info: @contact.AdditionalInformation </p>
+                                            <hr />
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-body">
+                @foreach (var pt in Model.ProjectTeams)
+                {
+                    <div class="row justify-content-center mb-3">
+                        <div class="col-12">
+                            <div class="card shadow-0 border rounded-3">
+                                <div class="card-body p-3">
+                                    <div class="pt-4 border-bottom-1">
+                                        <div class="row">
+                                            <div class="col-8">
+                                                <h4 class="text-primary">@pt.Project.Name</h4>
+                                                <p>
+                                                    @pt.Project.Description
+                                                </p>
+                                            </div>
+                                            <div class="col-4">
+                                                <img src="@pt.Project.ImageLink" class="w-100" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="profile-skills px-3 border-bottom-1 mb-4">
+                                    <h4 class="text-primary mb-4">Technologies</h4>
+                                    @{
+                                        pt.Project.TechnologiesList = JsonConvert.DeserializeObject<List<string>>(pt.Project.Technologies);
+                                        foreach(var technlogy in pt.Project.TechnologiesList)
+                                        {
+                                            <a class="btn btn-outline-dark btn-rounded pl-4 my-3 my-sm-0 pr-4 mr-3 m-b-10 text-dark">@technlogy</a>
+                                        }
+                                    }                                    
+                                </div>
+                                <div class="profile-personal-info px-3">
+                                    <h4 class="text-primary mb-4">Information</h4>
+                                    <div class="row mb-4">
+                                        <div class="col-3">
+                                            <h5 class="f-w-500">
+                                                Role <span class="pull-right">:</span>
+                                            </h5>
+                                        </div>
+                                        <div class="col-9">
+                                            <span>@pt.UserProjectRole</span>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-4">
+                                        <div class="col-3">
+                                            <h5 class="f-w-500">
+                                                Project Manager<span class="pull-right">:</span>
+                                            </h5>
+                                        </div>
+                                        <div class="col-9">
+                                            <span>@pt.Project.ProjectManager</span>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-4">
+                                        <div class="col-3">
+                                            <h5 class="f-w-500">Start date <span class="pull-right">:</span></h5>
+                                        </div>
+                                        <div class="col-9">
+                                            <span>@pt.StartDate.ToString("dd/MM/yyyy")</span>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-4">
+                                        <div class="col-3">
+                                            <h5 class="f-w-500">Project status <span class="pull-right">:</span></h5>
+                                        </div>
+                                        <div class="col-9">
+                                            <span>
+                                                @pt.Project.Status
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-4">
+                                        <div class="col-3">
+                                            <h5 class="f-w-500">
+                                                Project duration <span class="pull-right">:</span>
+                                            </h5>
+                                        </div>
+                                        <div class="col-9">
+                                            <span>@pt.Project.StartDate.ToString("dd/MM/yyyy") - @pt.Project.EndDate.ToString("dd/MM/yyyy")</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

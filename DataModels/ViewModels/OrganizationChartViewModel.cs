@@ -2,7 +2,7 @@
 {
     public class OrganizationChartViewModel
     {
-        public UserProfileVM Superior { get; set; }
-        public List<UserProfileVM> TeamMembers { get; set; }
+        public UserInfoVM Superior { get; set; }
+        public List<UserInfoVM> TeamMembers { get; set; }
     }
 }

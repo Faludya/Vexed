@@ -57,7 +57,7 @@ namespace Vexed.Repositories
         {
             try
             {
-                return await _vexedDbContext.UsersEmployments.Where(u => u.UserId == userId).FirstOrDefaultAsync();
+                return await _vexedDbContext.UsersEmployments.FirstOrDefaultAsync(u => u.UserId == userId);
             }
             catch (Exception ex)
             {
@@ -65,6 +65,7 @@ namespace Vexed.Repositories
                 throw;
             }
         }
+
 
         public async Task<List<UserEmployment>> GetUserEmployments(Guid userId)
         {

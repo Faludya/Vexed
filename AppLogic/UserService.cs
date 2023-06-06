@@ -4,6 +4,8 @@ using DataModels.ViewModels;
 using Vexed.Repositories.Abstractions;
 using Vexed.Services.Abstractions;
 using DataModels;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Vexed.Services
 {
@@ -96,13 +98,13 @@ namespace Vexed.Services
             try
             {
                 OrganizationChartViewModel orgChar = new OrganizationChartViewModel();
-                orgChar.TeamMembers = new List<UserProfileVM>();
+                orgChar.TeamMembers = new List<UserInfoVM>();
                 //Find the superior and add it first to the list
                 var superiorEmployment = _repositoryWrapper.UserEmploymentRepository.GetUserSuperior(userId).Result;
                 var superiorDetails = _repositoryWrapper.UserDetailsRepository.GetUserDetails(superiorEmployment.UserId).Result;
                 var superiorEmail = _repositoryWrapper.UserRepository.GetUserName(superiorEmployment.UserId.ToString()).Result;
 
-                var superiorProfile = new UserProfileVM()
+                var superiorProfile = new UserInfoVM()
                 {
                     Employment = superiorEmployment,
                     Details = superiorDetails,
@@ -117,7 +119,7 @@ namespace Vexed.Services
                     var userDetails = _repositoryWrapper.UserDetailsRepository.GetUserDetails(member.UserId).Result;
                     var userEmail = _repositoryWrapper.UserRepository.GetUserName(member.UserId.ToString()).Result;
 
-                    var memberProfile = new UserProfileVM()
+                    var memberProfile = new UserInfoVM()
                     {
                         Employment = member,
                         Details = userDetails,
@@ -230,6 +232,30 @@ namespace Vexed.Services
                 var displayEntries = combinedEntries.Take(10).ToList();
 
                 return displayEntries;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                throw;
+            }
+        }
+
+        public async Task<UserProfileVM> GetUserProfile(Guid userId)
+        {
+            try
+            {
+                var userProfile = new UserProfileVM();
+
+                userProfile.Employment = await _repositoryWrapper.UserEmploymentRepository.GetUserEmploymentByUserId(userId);
+                userProfile.ProjectTeams = await _repositoryWrapper.ProjectTeamRepository.GetUserProjectTeam(userId);
+                userProfile.Email = await GetUserName(userId.ToString());
+                userProfile.Details = await _repositoryWrapper.UserDetailsRepository.GetUserDetails(userId);
+                userProfile.Qualifications = await _repositoryWrapper.QualificationRepository.GetQualifications(userId);
+                userProfile.ContactInfos = await _repositoryWrapper.ContactInfoRepository.GetContactInfos(userId);
+                userProfile.EmergencyContacts = await _repositoryWrapper.EmergencyContactRepository.GetEmergencyContacts(userId);
+
+
+                return userProfile; 
             }
             catch (Exception ex)
             {
