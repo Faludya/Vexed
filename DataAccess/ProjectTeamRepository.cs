@@ -21,6 +21,20 @@ namespace DataAccess
                 .AsNoTracking());
         }
 
+        public async Task<List<ProjectTeam>> GetUserProjectTeam(Guid userId)
+        {
+            try
+            {
+                return await _vexedDbContext.ProjectTeams.Where(l => l.UserId == userId)
+                    .Include(pt => pt.Project)
+                    .ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                throw;
+            }
+        }
 
         public async Task<ProjectTeam> GetProjectTeamById(int id)
         {

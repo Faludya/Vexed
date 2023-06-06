@@ -46,6 +46,7 @@ namespace Vexed.Controllers
                 {
                     var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
                     var userEmployment = await _userEmploymentService.GetUserEmploymentByUserId(userId);
+                    ViewData["UserRoles"] = await _userService.GetUserRoles(userId);
                     return View(userEmployment);
                 }
 
@@ -54,7 +55,7 @@ namespace Vexed.Controllers
                 {
                     return NotFound();
                 }
-                ViewData["UserRoles"] = _userService.GetUserRoles(userEmployments.UserId).Result;
+                ViewData["UserRoles"] = await _userService.GetUserRoles(userEmployments.UserId);
 
                 return View(userEmployments);
             }

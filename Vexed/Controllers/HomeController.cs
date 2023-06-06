@@ -32,9 +32,10 @@ namespace Vexed.Controllers
                 return RedirectToAction("Dashboard");
         }
 
-        public IActionResult Privacy()
+        public async Task<IActionResult> UserProfile(Guid userId)
         {
-            return View();
+            var userProfile = await _userService.GetUserProfile(userId);
+            return View(userProfile);
         }
 
         [Authorize]

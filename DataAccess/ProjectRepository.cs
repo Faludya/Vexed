@@ -18,7 +18,7 @@ namespace DataAccess
         { 
             try
             {
-                return await _vexedDbContext.Projects.Where(l => l.Id == id).FirstOrDefaultAsync();
+                return await _vexedDbContext.Projects.FirstOrDefaultAsync(l => l.Id == id);
             }
             catch (Exception ex)
             {
