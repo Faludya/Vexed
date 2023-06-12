@@ -4,10 +4,16 @@
 }
 @inject LanguageService language
 
-
-<head>
-    <link href="/css/newstyle.css" rel="stylesheet" />
-</head>
+<style>
+    .myhome-bg {
+        background-image: url('images/plaing_bg.svg');
+        /* Additional background properties */
+        background-repeat: no-repeat;
+        background-size: cover;
+        /* Add other styles for the header */
+        /* other styles... */
+    }
+</style>
 
 <body class="d-flex flex-column h-100">
 
@@ -19,9 +25,9 @@
                     <div class="my-5 text-center text-xl-start">
                         <h1 class="display-5 fw-bolder text-white mb-2">@language.GetKey("index_header_h1")</h1>
                         <p class="lead fw-normal text-white-50 mb-4">@language.GetKey("index_header_p")</p>
-                        <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xl-start">
-                            <a class="btn btn-primary btn-lg px-4 me-sm-3" href="#features">@language.GetKey("button_getStarted")</a>
-                            <a class="btn btn-outline-light btn-lg px-4" href="#!">@language.GetKey("button_learnMore")</a>
+                        <div class="d-grid d-sm-flex justify-content-sm-center justify-content-xl-start">
+                            <a class="btn btn-dark btn-lg px-4 mx-4" asp-area="Identity" asp-page="/Account/Login">@language.GetKey("button_getStarted")</a>
+                            <a class="btn btn-outline-light btn-lg px-4" asp-action="AboutUs">@language.GetKey("button_learnMore")</a>
                         </div>
                     </div>
                 </div>

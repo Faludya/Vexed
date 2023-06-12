@@ -16,12 +16,14 @@ namespace Vexed.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly IToDoService _toDoService;
         private readonly IUserService _userService;
+        private readonly IProjectTeamService _projectTeamService;
 
-        public HomeController(ILogger<HomeController> logger, IToDoService toDoService, IUserService userService)
+        public HomeController(ILogger<HomeController> logger, IToDoService toDoService, IUserService userService, IProjectTeamService projectTeamService)
         {
             _logger = logger;
             _toDoService = toDoService;
             _userService = userService;
+            _projectTeamService = projectTeamService;
         }
 
         public IActionResult Index()
@@ -54,6 +56,8 @@ namespace Vexed.Controllers
             var dashboard = new DashboardViewModel();
             dashboard.ToDoList = await _toDoService.GetToDoList(userId);
             dashboard.LastCards = await _userService.GetLastCards(userId);
+            dashboard.ProjectTeams = await _projectTeamService.GetUserProjectTeam(userId);
+            dashboard.ProjectTeams.OrderByDescending(pt => pt.Project.EndDate);
             dashboard.Salary = new Salary();
             return View(dashboard);
         }
