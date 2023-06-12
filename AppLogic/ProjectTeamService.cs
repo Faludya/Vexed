@@ -71,6 +71,19 @@ namespace AppLogic
             }
         }
 
+        public async Task<List<ProjectTeam>> GetUserProjectTeam(Guid userId)
+        {
+            try
+            {
+                return await _repositoryWrapper.ProjectTeamRepository.GetUserProjectTeam(userId);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                throw;
+            }
+        }
+
         public async Task UpdateProjectTeam(ProjectTeam projectTeam)
         {
             try

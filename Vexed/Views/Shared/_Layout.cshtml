@@ -31,7 +31,7 @@
 
 @if (!User.Identity.IsAuthenticated)
 {
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm bg-light">
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm" style="background-color: #19284d !important;">
         <div class="container-fluid">
             <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Vexed</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -41,10 +41,10 @@
             <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                 <ul class="navbar-nav flex-grow-1">
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">@language.GetKey("home")</a>
+                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">@language.GetKey("home")</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="AboutUs">@language.GetKey("aboutus")</a>
+                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="AboutUs">@language.GetKey("aboutus")</a>
                     </li>
 
                     <li class="nav-item dropdown">
@@ -61,10 +61,10 @@
                 </ul>
                 <!--Login and register buttons-->
                 <li class="nav-item">
-                    <a class="nav-link text-dark" id="register" asp-area="Identity" asp-page="/Account/Register">@language.GetKey("Register")</a>
+                    <a class="nav-link" id="register" asp-area="Identity" asp-page="/Account/Register">@language.GetKey("Register")</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-dark" id="login" asp-area="Identity" asp-page="/Account/Login">@language.GetKey("Login")</a>
+                    <a class="nav-link" id="login" asp-area="Identity" asp-page="/Account/Login">@language.GetKey("Login")</a>
                 </li>
             </div>
         </div>
@@ -116,7 +116,7 @@ else
                             <ul class="navbar-nav header-right">
                                 <li class="nav-item dropdown header-profile">
                                     <a class="nav-link" href="#" role="button" data-toggle="dropdown">
-                                        <i class="mdi mdi-account"></i>
+                                        <i class='bx bxs-landscape'></i>
                                     </a>
 
                                     <a>@User.Identity.Name</a>
@@ -134,7 +134,7 @@ else
                                             <i class='bx bxs-user nav_icon'></i> <span class="ml-2">Profile </span>
                                         </a>
                                         <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
-                                            <i class='bx bxs-user nav_icon'></i> <span class="ml-2">Account </span>
+                                            <i class='bx bx-shield-alt-2'></i> <span class="ml-2">Account </span>
                                         </a>
                                         <a class="dropdown-item text-danger" data-toggle="modal" data-target="#basicModal" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
                                             <i class='bx bx-log-out nav_icon'></i> <span class="ml-2">Logout </span>
