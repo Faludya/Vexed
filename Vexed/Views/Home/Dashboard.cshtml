@@ -84,28 +84,6 @@
         <div class="card">
             <div class="stat-widget-one card-body">
                 <div class="stat-icon d-inline-block">
-                    <i class="ti-notepad text-warning border-warning"></i>
-                </div>
-                <div class="stat-content d-inline-block">
-                    <div class="stat-text">Completed tasks</div>
-                    <div class="stat-digit">
-                        <span id="completed_tasks_count">@completedTasks</span>/<span id="total_tasks_count">@Model.ToDoList.Count</span>
-                    </div>
-                </div>
-                <div class="progress mt-3">
-                    <div id="progress_bar" class="progress-bar progress-bar-warning" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-
-
-    <div class="col-lg-3 col-sm-6">
-        <div class="card">
-            <div class="stat-widget-one card-body">
-                <div class="stat-icon d-inline-block">
                     <i class="ti-timer text-info border-info"></i>
                 </div>
                 <div class="stat-content d-inline-block">
@@ -116,6 +94,25 @@
                 </div>
                 <div class="progress mt-3">
                     <div class="progress-bar progress-bar-info" style="width: @progressBarWidth;" role="progressbar" aria-valuenow="@statusIndex" aria-valuemin="1" aria-valuemax="3"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-3 col-sm-6">
+        <div class="card">
+            <div class="stat-widget-one card-body">
+                <div class="stat-icon d-inline-block">
+                    <i class="ti-briefcase text-warning border-warning"></i>
+                </div>
+                <div class="stat-content d-inline-block">
+                    <div class="stat-text">Project role</div>
+                    <div class="stat-digit">
+                        <span>@Model.ProjectTeams.Last().UserProjectRole</span>
+                    </div>
+                </div>
+                <div class="progress mt-3">
+                    <div class="progress-bar progress-bar-warning" style="width: 50%" role="progressbar" aria-valuenow="@DateTime.Now.Day" aria-valuemin="1" aria-valuemax="@DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month)"></div>
                 </div>
             </div>
         </div>

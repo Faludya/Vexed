@@ -36,7 +36,14 @@
                 <div class="photo-content">
                     <div class="cover-photo"></div>
                     <div class="profile-photo">
-                        <img src="https://themewagon.github.io/focus-2/images/profile/profile.png" class="img-fluid rounded-circle" alt="">
+                        @if(Model.Details.Gender == "Feminine")
+                        {
+                            <img src="/images/avatar/profile_f.png" class="img-fluid rounded-circle" alt="">
+                        }
+                        else
+                        {
+                            <img src="/images/avatar/profile_m.png" class="img-fluid rounded-circle" alt="">
+                        }
                     </div>
                 </div>
                 <div class="profile-info">
@@ -55,12 +62,6 @@
                                         <p>Email</p>
                                     </div>
                                 </div>
-                                <!-- <div class="col-xl-4 col-sm-4 prf-col">
-                                    <div class="profile-call">
-                                        <h4 class="text-muted">(+1) 321-837-1030</h4>
-                                        <p>Phone No.</p>
-                                    </div>
-                                </div> -->
                             </div>
                         </div>
                     </div>
