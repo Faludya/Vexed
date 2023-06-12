@@ -29,11 +29,30 @@
 
 </head>
 
+<style>
+    .logo-wrapper {
+        display: inline-block;
+        width: 30px; /* Adjust the width as needed */
+        height: auto;
+        vertical-align: middle;
+    }
+
+    .logo-image {
+        max-width: 100%;
+        height: auto;
+    }
+</style>
+
 @if (!User.Identity.IsAuthenticated)
 {
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm" style="background-color: #343957 !important;">
         <div class="container-fluid">
-            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Vexed</a>
+            <a class="navbar-brand d-flex" asp-area="" asp-controller="Home" asp-action="Index">
+                <span class="logo-wrapper">
+                    <img class="logo-image" src="/images/logo.png" alt="Logo">
+                </span>
+                <div class="mx-3">𝚅 𝙴 𝚇 𝙴 𝙳</div>
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -48,13 +67,16 @@
                     </li>
 
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="true">Language</a>
-                        <div class="dropdown-menu">
+                        <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            @language.GetKey("Language")
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="languageDropdown">
                             <a class="dropdown-item" asp-controller="Home" asp-action="ChangeLanguage" asp-route-culture="en-US">
-                                <img src="~/images/flags/united-kingdom.png" width="20">English
+                                <img src="~/images/flags/united-kingdom.png" width="20"> English
                             </a>
                             <a class="dropdown-item" asp-controller="Home" asp-action="ChangeLanguage" asp-route-culture="ro-RO">
-                                <img src="~/images/flags/romania.png" width="20">Romana
+                                <img src="~/images/flags/romania.png" width="20"> Română
                             </a>
                         </div>
                     </li>
@@ -72,6 +94,9 @@
     @RenderBody()
 
     @RenderSection("scripts", required: false)
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 }
 else
 {
@@ -274,6 +299,10 @@ else
         <script src="/vendor/global/global.min.js"></script>
         <script src="/js/quixnav-init.js"></script>
         <script src="/js/custom.min.js"></script>
+
+
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
 
 
         <!-- Vectormap -->
