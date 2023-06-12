@@ -4,8 +4,28 @@
 
 @{
     ViewData["Title"] = "Index";
+    IDictionary<string, string> typeImage = new Dictionary<string, string>
+    {
+        {"Work Phone", "https://cdn-icons-png.flaticon.com/128/10797/10797339.png"},
+        {"Personal Phone", "https://cdn-icons-png.flaticon.com/128/10797/10797339.png"},
+        {"Work Email", "https://cdn-icons-png.flaticon.com/128/10335/10335094.png"},
+        {"Personal Email", "https://cdn-icons-png.flaticon.com/128/10335/10335094.png"},
+        {"Fax", "https://cdn-icons-png.flaticon.com/128/9851/9851892.png"}
+    };
 }
 <link rel="stylesheet" href="/vendor/datatables/css/jquery.dataTables.min.css" />
+
+<style>
+    body {
+        background-color: #f5f7fa;
+    }
+
+    .testimonial-card .avatar {
+        width: 50px;
+        margin-top: 5px;
+        margin-bottom: -20px;
+        }
+</style>
 
 <div class="row page-titles mx-0">
     <div class="col-sm-6 p-md-0">
@@ -24,114 +44,89 @@
     </div>
 </div>
 
-<div class="row">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-body">
-                <form>
-                    <div class="table-responsive">
-                        <table id="example" class="table table-responsive-sm">
-                            <thead class="thead-primary">
-                                <tr>
-                                    <th>
-                                        <i class='bx bxs-category'></i>
-                                        @language.GetKey("Type")
-                                    </th>
-                                    <th>
-                                        <i class='bx bxs-book-content'></i>
-                                        @language.GetKey("Contact")
-                                    </th>
-                                    <th align='right' data-orderable="false">
 
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody class="text-dark">
-                                @foreach (var item in Model)
-                                {
-                                    <tr>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Type)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Contact)
-                                        </td>
-                                        <td align="center">
-                                            <div class="btn-group">
-                                                <button id="btnGroupDrop1" type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown">
-                                                    <i class='ti-layout-menu-v'></i>
-                                                </button>
-                                                <div class="dropdown-menu">
-                                                    <a class="dropdown-item text-dark" asp-action="Edit" asp-route-id="@item.Id">
-                                                        <i class='bx bxs-edit-alt'></i> @language.GetKey("Edit")
-                                                    </a>
-                                                    <a class="dropdown-item" asp-action="Details" asp-route-id="@item.Id">
-                                                        <i class='bx bxs-detail'></i> @language.GetKey("Details")
-                                                    </a>
-                                                    <a class="dropdown-item text-danger" data-toggle="modal" data-target="#exampleModalCenter-@item.Id">
-                                                        <i class='bx bxs-trash'></i> @language.GetKey("Delete")
-                                                    </a>
-                                                </div>
+<form>
+    <div class="container">
+        <div class="row justify-content-center">
+
+                @foreach (var contact in Model)
+                {
+                    <div class="col-md-4">
+                        <div class="card testimonial-card mt-2 mb-3">
+                            <div class="avatar mx-auto white">
+                                <img src="@typeImage[contact.Type]" class=" img-fluid" alt="woman avatar">
+                            </div>
+                            <div class="card-body text-center">
+                                <hr />
+                                <div class="text-muted">@contact.Type</div>
+                                <p>@contact.Contact</p>
+                            </div>
+                            <div class="card-footer d-flex justify-content-center">
+                                <a class="text-muted mx-3" asp-action="Edit" asp-route-id="@contact.Id">
+                                    <i class='bx bxs-edit-alt'></i> @language.GetKey("Edit")
+                                </a>
+                                <a class="text-muted mx-3" asp-action="Details" asp-route-id="@contact.Id">
+                                    <i class='bx bxs-detail'></i> @language.GetKey("Details")
+                                </a>
+                                <a class="text-danger mx-3" data-toggle="modal" data-target="#exampleModalCenter-@contact.Id">
+                                    <i class='bx bxs-trash'></i> @language.GetKey("Delete")
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModalCenter-@contact.Id">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">@language.GetKey("Delete") @language.GetKey("Contact")?</h5>
+                                <button type="button" class="close" data-dismiss="modal">
+                                    <span>&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="container">
+                                    <div class="text-left text-dark">
+                                        <div class="row">
+                                            <div class="col">
+                                                <i class='bx bxs-category'></i>
+                                                <b>@language.GetKey("Type")</b>
                                             </div>
-                                        </td>
-                                    </tr>
+                                            <div class="col">
+                                                @Html.DisplayFor(itemModel => contact.Type)
+                                            </div>
+                                        </div>
 
-                                    <!-- Modal -->
-                                    <div class="modal fade" id="exampleModalCenter-@item.Id">
-                                        <div class="modal-dialog modal-dialog-centered" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title">@language.GetKey("Delete") @language.GetKey("Contact")?</h5>
-                                                    <button type="button" class="close" data-dismiss="modal">
-                                                        <span>&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <div class="container">
-                                                        <div class="text-left text-dark">
-                                                            <div class="row">
-                                                                <div class="col">
-                                                                    <i class='bx bxs-category'></i>
-                                                                    <b>@language.GetKey("Type")</b>
-                                                                </div>
-                                                                <div class="col">
-                                                                    @Html.DisplayFor(itemModel => item.Type)
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="row">
-                                                                <div class="col">
-                                                                    <i class='bx bxs-book-content'></i>
-                                                                    <b>@language.GetKey("Contact")</b>
-                                                                </div>
-                                                                <div class="col">
-                                                                    @Html.DisplayFor(itemModel => item.Contact)
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-light" data-dismiss="modal">@language.GetKey("Close")</button>
-                                                    <form asp-action="Delete" method="post">
-                                                        <input type="hidden" asp-for="@item.Id" name="id" />
-                                                        <button class="btn btn-danger text-light" type="submit">
-                                                            <span>
-                                                                <i class='bx bxs-trash'></i>
-                                                            </span>@language.GetKey("Delete")
-                                                        </button>
-                                                    </form>
-
-                                                </div>
+                                        <div class="row">
+                                            <div class="col">
+                                                <i class='bx bxs-book-content'></i>
+                                                <b>@language.GetKey("Contact")</b>
+                                            </div>
+                                            <div class="col">
+                                                @Html.DisplayFor(itemModel => contact.Contact)
                                             </div>
                                         </div>
                                     </div>
-                                }
-                            </tbody>
-                        </table>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-light" data-dismiss="modal">@language.GetKey("Close")</button>
+                                <form asp-action="Delete" method="post">
+                                    <input type="hidden" asp-for="@contact.Id" name="id" />
+                                    <button class="btn btn-danger text-light" type="submit">
+                                        <span>
+                                            <i class='bx bxs-trash'></i>
+                                        </span>@language.GetKey("Delete")
+                                    </button>
+                                </form>
+
+                            </div>
+                        </div>
                     </div>
-                </form>
-            </div>
+                </div>
+            }
         </div>
     </div>
-</div>
+
+</form>
