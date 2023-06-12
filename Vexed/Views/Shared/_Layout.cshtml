@@ -31,7 +31,7 @@
 
 @if (!User.Identity.IsAuthenticated)
 {
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm" style="background-color: #19284d !important;">
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm" style="background-color: #343957 !important;">
         <div class="container-fluid">
             <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Vexed</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -75,7 +75,6 @@
 }
 else
 {
-
     <body>
 
         <!--******************* Preloader start ********************-->
@@ -94,8 +93,9 @@ else
             <div class="nav-header">
                 <a href="index.html" class="brand-logo">
                     <img class="logo-abbr" src="/images/logo.png" alt="">
-                    <img class="logo-compact" src="/images/logo-text.png" alt="">
-                    <img class="brand-title" src="/images/logo-text.png" alt="">
+                    <div class="mx-3 brand-title">𝚅 𝙴 𝚇 𝙴 𝙳</div>
+                    @*<img class="logo-compact" src="/images/logo-text.png" alt="">*@
+                    @*<img class="brand-title" src="/images/logo-text.png" alt="">*@
                 </a>
 
                 <div class="nav-control">
