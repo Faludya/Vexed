@@ -5,30 +5,6 @@
 @using Microsoft.AspNetCore.Identity
 @inject SignInManager<IdentityUser> SignInManager
 
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Focus - Bootstrap Admin Dashboard </title>
-    <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
-    <link rel="stylesheet" href="/vendor/owl-carousel/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="/vendor/owl-carousel/css/owl.theme.default.min.css">
-    <link href="/vendor/jqvmap/css/jqvmap.min.css" rel="stylesheet">
-    <link href="/css/style.css" rel="stylesheet">
-
-    <!--Icons-->
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-EYqbJGVCCZvB8ZPTW6M3q2JjU6OwT8y39TJkKVC0rAZrZc0F+9dWntPKoiJh+0bhQQSlEXg8KKx+SW5ueHbklA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-    <!-- Toastr -->
-    <link rel="stylesheet" href="/vendor/toastr/css/toastr.min.css">
-
-</head>
-
 <style>
     .logo-wrapper {
         display: inline-block;
@@ -42,6 +18,29 @@
         height: auto;
     }
 </style>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Focus - Bootstrap Admin Dashboard </title>
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
+    <link rel="stylesheet" href="/vendor/owl-carousel/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="/vendor/owl-carousel/css/owl.theme.default.min.css">
+    <link href="/css/style.css" rel="stylesheet">
+
+    <!--Icons-->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-EYqbJGVCCZvB8ZPTW6M3q2JjU6OwT8y39TJkKVC0rAZrZc0F+9dWntPKoiJh+0bhQQSlEXg8KKx+SW5ueHbklA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Toastr -->
+    <link rel="stylesheet" href="/vendor/toastr/css/toastr.min.css">
+
+</head>
 
 @if (!User.Identity.IsAuthenticated)
 {
@@ -321,11 +320,6 @@ else
 
         <!-- Owl Carousel -->
         <script src="/vendor/owl-carousel/js/owl.carousel.min.js"></script>
-
-        <!-- Counter Up -->
-        <script src="/vendor/jqvmap/js/jquery.vmap.min.js"></script>
-        <script src="/vendor/jqvmap/js/jquery.vmap.usa.js"></script>
-        <script src="/vendor/jquery.counterup/jquery.counterup.min.js"></script>
 
 
         <script src="/js/dashboard/dashboard-1.js"></script>
