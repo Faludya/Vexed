@@ -61,6 +61,7 @@
 
 <link rel="stylesheet" href="/vendor/owl-carousel/css/owl.carousel.min.css">
 <link rel="stylesheet" href="/vendor/owl-carousel/css/owl.theme.default.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqvmap/1.5.1/jquery.vmap.min.js">
 
 <div class="row">
     <div class="col-lg-3 col-sm-6">
@@ -261,6 +262,15 @@
             </div>
         </div>
 
+        <!-- Map -->
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Country</h4>
+            </div>
+            <div class="card-body">
+                <div id="vmap" class="vmap" style="width: 100%;"></div>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -269,6 +279,33 @@
     <!-- Owl Carousel -->
     <script src="/vendor/owl-carousel/js/owl.carousel.min.js"></script>
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.7/index.global.min.js'></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqvmap/1.5.1/jquery.vmap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqvmap/1.5.1/maps/jquery.vmap.europe.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#vmap').vectorMap({
+                map: 'europe_en',
+                backgroundColor: 'transparent',
+                borderColor: 'rgb(239, 242, 244)',
+                borderOpacity: 0.25,
+                borderWidth: 1,
+                color: 'rgb(89, 59, 219, 0.9)',
+                enableZoom: true,
+                hoverColor: 'rgba(171, 178, 255, 0.9)',
+                hoverOpacity: null,
+                normalizeFunction: 'linear',
+                scaleColors: ['#b6d6ff', '#005ace'],
+                selectedColor: 'rgba(171, 178, 255, 0.9)',
+                selectedRegions: null,
+                showTooltip: true,
+                selectedRegions: ['RO'],
+            });
+        });
+    </script>
+
+
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
