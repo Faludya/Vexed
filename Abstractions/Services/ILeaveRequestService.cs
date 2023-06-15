@@ -50,5 +50,10 @@ namespace Vexed.Services.Abstractions
         /// to the first position.
         /// </summary>
         List<string> GetLeaveTypes(string selectedLeave);
+
+        /// <summary>
+        /// Returns all the Leave Requests for a given user.
+        /// </summary>
+        Task<List<TeamLeaveRequestVM>> GetTeamLeaveRequests(Guid userId);
     }
 }

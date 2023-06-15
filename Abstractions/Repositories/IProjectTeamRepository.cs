@@ -11,8 +11,13 @@ namespace Abstractions.Repositories
         Task<ProjectTeam> GetProjectTeamById(int id);
 
         /// <summary>
-        /// Returns the first Project Team with the given <c>projectId</c> and userid
+        /// Returns the first Project Team with the given userid
         /// </summary>
         Task<List<ProjectTeam>> GetUserProjectTeam(Guid userId);
+
+        /// <summary>
+        /// Returns the list of Project Team with the given <c>projectId</c> and userid
+        /// </summary>
+        Task<List<ProjectTeam>> GetUserProjectTeam(int projectId);
     }
 }

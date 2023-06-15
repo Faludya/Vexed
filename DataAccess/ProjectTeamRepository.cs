@@ -50,5 +50,19 @@ namespace DataAccess
                 throw;
             }
         }
+
+        public async Task<List<ProjectTeam>> GetUserProjectTeam(int projectId)
+        {
+            try
+            {
+                return await _vexedDbContext.ProjectTeams.Where(l => l.ProjectId == projectId)
+                    .ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                throw;
+            }
+        }
     }
 }

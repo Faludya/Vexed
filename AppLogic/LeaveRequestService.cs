@@ -157,5 +157,40 @@ namespace Vexed.Services
                 throw;
             }
         }
+
+        public async Task<List<TeamLeaveRequestVM>> GetTeamLeaveRequests(Guid userId)
+        {
+            try
+            {
+                //Get User team members
+                var team = await _repositoryWrapper.ProjectTeamRepository.GetUserProjectTeam(userId);
+                team.OrderByDescending(t => t.StartDate);
+                var project = team[0].Project;
+                var projectTeams = await _repositoryWrapper.ProjectTeamRepository.GetUserProjectTeam(project.Id);
+                var teamLeaves = new List<TeamLeaveRequestVM>();
+
+                //Get time cards for each member
+                foreach(var member in projectTeams)
+                {
+                    var userName = _repositoryWrapper.UserDetailsRepository.GetFullName(member.UserId);
+                    var leaves = await _repositoryWrapper.LeaveRequestRepository.GetLeaveRequests(member.UserId);
+
+                    var teamLR = new TeamLeaveRequestVM
+                    {
+                        UserName = userName,
+                        Leaves = leaves,
+                    };
+
+                    teamLeaves.Add(teamLR);
+                }
+
+                return teamLeaves;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                throw;
+            }
+        }
     }
 }

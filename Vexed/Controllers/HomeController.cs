@@ -17,13 +17,15 @@ namespace Vexed.Controllers
         private readonly IToDoService _toDoService;
         private readonly IUserService _userService;
         private readonly IProjectTeamService _projectTeamService;
+        private readonly ILeaveRequestService _leaveRequestService;
 
-        public HomeController(ILogger<HomeController> logger, IToDoService toDoService, IUserService userService, IProjectTeamService projectTeamService)
+        public HomeController(ILogger<HomeController> logger, IToDoService toDoService, IUserService userService, IProjectTeamService projectTeamService, ILeaveRequestService leaveRequestService)
         {
             _logger = logger;
             _toDoService = toDoService;
             _userService = userService;
             _projectTeamService = projectTeamService;
+            _leaveRequestService = leaveRequestService;
         }
 
         public IActionResult Index()
@@ -62,9 +64,13 @@ namespace Vexed.Controllers
             return View(dashboard);
         }
 
-        public IActionResult Calendar()
+        public async Task<IActionResult> Calendar()
         {
-            return View();
+            Guid userId;
+            Guid.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out userId);
+            var teamVM = await _leaveRequestService.GetTeamLeaveRequests(userId);
+            
+            return View(teamVM);
         }
 
         [HttpPost]
