@@ -7,6 +7,9 @@
     ViewData["Title"] = "Details";
 }
 
+<link href="/css/card.css" rel="stylesheet" />
+
+
 <div class="row page-titles mx-0">
     <div class="col-sm-6 p-md-0">
         <div class="welcome-text">
@@ -20,71 +23,87 @@
     <div class="container py-5 h-10">
         <div class="row d-flex justify-content-center align-items-center h-10">
             <div class="col-md-8 col-lg-8">
-                <div class="card shadow-2-strong" style="border-radius: 1rem;">
+                <div class="card testimonial-card shadow-2-strong" style="border-radius: 1rem;">
+                    <div class="avatar-simple mx-auto mb-1 mt-2 white">
+                        <img src="https://cdn-icons-png.flaticon.com/128/8303/8303821.png" class=" img-fluid" alt="woman avatar">
+                    </div>
                     <div class="card-body text-center">
 
-                        <h3 class="mb-5">@language.GetKey("YourLeaveRequest")</h3>
+                        <h3 class="mb-3">@language.GetKey("YourLeaveRequest")</h3>
                         <hr />
                         <div class="container">
                             <div class="text-left text-dark">
+                                
                                 <div class="row">
-                                    <div class="col">
-                                        <i class='bx bxs-category'></i>
-                                        <b>@language.GetKey("Type")</b>
+                                    <div class="col my-1">
+                                        <b class="mx-4">
+                                            <i class='bx bxs-category'></i>
+                                            @language.GetKey("Type") <span class="pull-right">:</span>
+                                        </b>
                                     </div>
-                                    <div class="col">
+                                    <div class="col my-1">
                                         @Html.DisplayFor(model => model.Type)
                                     </div>
                                 </div>
 
                                 <hr class="dotted" />
                                 <div class="row">
-                                    <div class="col">
-                                        <i class='bx bx-chevrons-right'></i>
-                                        <b>@language.GetKey("StartDate")</b>
+                                    <div class="col my-1">
+                                        <b class="mx-4">
+                                            <i class='bx bx-chevrons-right'></i>
+                                            @language.GetKey("StartDate") <span class="pull-right">:</span>
+                                        </b>
                                     </div>
-                                    <div class="col">
+                                    <div class="col my-1">
                                         @Html.DisplayFor(model => model.StartDate)
                                     </div>
                                 </div>
 
                                 <div class="row">
-                                    <div class="col">
-                                        <i class='bx bx-chevrons-left'></i>
-                                        <b>@language.GetKey("EndDate")</b>
+                                    <div class="col my-1">
+                                        <b class="mx-4">
+                                            <i class='bx bx-chevrons-left'></i>
+                                            @language.GetKey("EndDate") <span class="pull-right">:</span>
+                                        </b>
                                     </div>
-                                    <div class="col">
+                                    <div class="col my-1">
                                         @Html.DisplayFor(model => model.EndDate)
                                     </div>
                                 </div>
 
                                 <div class="row">
-                                    <div class="col">
-                                        <i class='bx bx-bar-chart-alt-2'></i>
-                                        <b>@language.GetKey("Quantity")</b>
+                                    <div class="col my-1">
+                                        <b class="mx-4">
+                                            <i class='bx bx-bar-chart-alt-2'></i>
+                                            @language.GetKey("Quantity") <span class="pull-right">:</span>
+                                        </b>
                                     </div>
-                                    <div class="col">
+                                    <div class="col my-1">
                                         @Html.DisplayFor(model => model.Quantity)
                                     </div>
                                 </div>
 
                                 <div class="row">
-                                    <div class="col">
-                                        <i class='bx bx-stats'></i>
-                                        <b>@language.GetKey("Status")</b>
+                                    <div class="col my-1">
+                                        <b class="mx-4">
+                                            <i class='bx bx-stats'></i>
+                                            @language.GetKey("Status") <span class="pull-right">:</span>
+                                        </b>
                                     </div>
-                                    <div class="col">
+                                    <div class="col my-1">
                                         @Html.DisplayFor(model => model.Status)
                                     </div>
                                 </div>
 
                                 <hr class="dotted" />
                                 <div class="row">
-                                    <div class="col">
-                                        <i class='bx bx-comment'></i>
-                                        <b>@language.GetKey("Comments")</b>
+                                    <div class="col my-1">
+                                        <b class="mx-4">
+                                            <i class='bx bx-comment'></i>
+                                            @language.GetKey("Comments") <span class="pull-right">:</span>
+                                        </b>
                                     </div>
-                                    <div class="col">
+                                    <div class="col my-1">
                                         @Html.DisplayFor(model => model.Comments)
                                     </div>
                                 </div>

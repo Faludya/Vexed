@@ -6,12 +6,13 @@
     ViewData["Title"] = "Edit";
 }
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<link href="/css/card.css" rel="stylesheet" />
 
 <div class="row page-titles mx-0">
     <div class="col-sm-6 p-md-0">
         <div class="welcome-text">
             <h4>@language.GetKey("Edit")</h4>
-            <span class="ml-1"> Edit leave request </span>
+            <span class="ml-1"> Edit time cards </span>
         </div>
     </div>
 </div>
@@ -20,9 +21,13 @@
     <div class="container py-5 h-10">
         <div class="row d-flex justify-content-center align-items-center h-10">
             <div class="col-md-8 col-lg-8">
-                <div class="card shadow-2-strong" style="border-radius: 1rem;">
+                <div class="card testimonial-card shadow-2-strong" style="border-radius: 1rem;">
                     <div class="card-body text-center">
-                        <h4>@language.GetKey("TimeCard")</h4>
+                        <div class="avatar-simple mx-auto mb-1 mt-2 white">
+                            <img src="https://cdn-icons-png.flaticon.com/512/8174/8174657.png" class=" img-fluid" alt="woman avatar">
+                        </div>
+
+                        <h3>@language.GetKey("TimeCard")</h3>
                         <hr />
                         <div class="text-left p-3 text-dark">
                             <form asp-action="Edit">
