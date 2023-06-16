@@ -1,5 +1,6 @@
 ﻿using Abstractions.Services;
 using DataModels;
+using DataModels.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -13,14 +14,16 @@ namespace Vexed.Controllers
     public class ProjectsController : Controller
     {
         private readonly IProjectService _projectService;
+        private readonly IProjectTeamService _projectTeamService;
         private readonly IUserService _userService;
         private readonly Logger _logger;
 
-        public ProjectsController(IProjectService projectService, IUserService userService, Logger logger)
+        public ProjectsController(IProjectService projectService, IUserService userService, Logger logger, IProjectTeamService projectTeamService)
         {
             _projectService = projectService;
             _logger = logger;
             _userService = userService;
+            _projectTeamService = projectTeamService;
         }
 
         public async Task<IActionResult> Index()
@@ -46,7 +49,15 @@ namespace Vexed.Controllers
                     return NotFound();
                 }
 
-                return View(project);
+                //TODO: Change to only project team
+                var projectTeam = await _projectTeamService.GetProjectTeamMembers(project.Id);
+                var projectInfo = new ProjectInfoVM()
+                {
+                    Project = project,
+                    Team = projectTeam,
+                };
+
+                return View(projectInfo);
             }
             catch (Exception ex)
             {

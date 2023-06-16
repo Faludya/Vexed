@@ -1,7 +1,7 @@
 ﻿@using Newtonsoft.Json;
 @using Vexed.Services;
 @inject LanguageService language
-@model DataModels.Project
+@model DataModels.ViewModels.ProjectInfoVM
 
 @{
     ViewData["Title"] = "Details";
@@ -23,10 +23,10 @@
                 <i class='ti-layout-menu-v'></i>
             </button>
             <div class="dropdown-menu">
-                <a class="dropdown-item text-dark" asp-action="Edit" asp-route-id="@Model.Id">
+                <a class="dropdown-item text-dark" asp-action="Edit" asp-route-id="@Model.Project.Id">
                     <i class='bx bxs-edit-alt'></i> @language.GetKey("Edit")
                 </a>
-                <a class="dropdown-item text-danger" data-toggle="modal" data-target="#exampleModalCenter-@Model.Id">
+                <a class="dropdown-item text-danger" data-toggle="modal" data-target="#exampleModalCenter-@Model.Project.Id">
                     <i class='bx bxs-trash'></i> @language.GetKey("Delete")
                 </a>
             </div>
@@ -42,8 +42,8 @@
             <div class="card-body">
 
                 <div class="p-3 mb-4 rounded bg-light">
-                    <h1 class="mx-2 fst-italic">⛰️ @Model.Name</h1>
-                    <p class="m-3">@Model.Description</p>
+                    <h1 class="mx-2 fst-italic">⛰️ @Model.Project.Name</h1>
+                    <p class="m-3">@Model.Project.Description</p>
                 </div>
 
                     <div class="row mb-2 p-3">
@@ -57,9 +57,11 @@
                                 <div class="mt-1 mb-0 card-text text-muted">
                                     <div class="d-inline">
                                         @{
-                                            Model.TechnologiesList = JsonConvert.DeserializeObject<List<string>>(Model.Technologies);
-                                            string technologies = string.Join(" • ", Model.TechnologiesList);
-                                            <p class="card-text">@technologies</p>
+                                            Model.Project.TechnologiesList = JsonConvert.DeserializeObject<List<string>>(Model.Project.Technologies);
+                                            foreach (var technlogy in Model.Project.TechnologiesList)
+                                            {
+                                                <a class="btn btn-outline-dark btn-rounded pl-4 my-3 pr-4 text-dark">@technlogy</a>
+                                            }
                                         }
                                     </div>
                                 </div>
@@ -80,12 +82,11 @@
                                 <div class="mt-1 mb-0 card-text text-dark">
                                     <div class="d-inline">
                                         @{
-                                            Model.UsefulLinksList = JsonConvert.DeserializeObject<List<string>>(Model.UsefulLinks);
-                                            foreach(var link in Model.UsefulLinksList)
+                                            Model.Project.UsefulLinksList = JsonConvert.DeserializeObject<List<string>>(Model.Project.UsefulLinks);
+                                            foreach (var link in Model.Project.UsefulLinksList)
                                             {
                                                 var uri = new Uri(link);
-                                                var test = uri;
-                                                <a href=\"{@link}\" class="text-dark">• @uri.Host</a>
+                                                <a class="btn btn-outline-dark btn-rounded pl-4 my-3 pr-4 text-dark" href="@uri.AbsoluteUri">@uri.Host</a>
                                             }
                                         }
                                     </div>
@@ -102,95 +103,57 @@
                     <div class="row g-5">
                         <div class="col-md-8">
                             <h2 class="pb-4 mb-4 fst-italic border-bottom">
-                            <i>The Powerhouse Behind @Model.Name</i>
+                            <i>The Powerhouse Behind @Model.Project.Name</i>
                             </h2>
 
-
+                        <!--Project members-->
                         <div class="row justify-content-center">
                             <div class="col-md-4 text-center">
-                                <div class="card mb-3">
+                                <div class="card mb-3 shadow">
                                     <div class="card-header bg-primary" style="height: 5px;"></div>
                                     <div class="card-body">
-                                        <a asp-action="OrganizationChart" asp-route-userId="@Model.ProjectManager">
-                                            <h4>John Doe</h4>
+                                        <a asp-action="OrganizationChart" asp-route-userId="@Model.Project.ProjectManagerId">
+                                            <h4>@Model.Project.ProjectManager</h4>
                                         </a>
                                         <p class="text-dark">
                                             <i class='bx bx-group text-primary'></i>
                                             Project Manager
-                                        </p>
-                                        <p>
-                                            user@user.com
                                         </p>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
+                        <hr />
+                        <br />
                         <div class="row justify-content-center">
-                            <div class="col-md-4 text-center">
-                                <div class="card mb-3">
-                                    <div class="card-header bg-primary" style="height: 5px;"></div>
-                                    <div class="card-body">
-                                        <a asp-action="OrganizationChart" asp-route-userId="@Model.ProjectManager">
-                                            <h4>John Doe</h4>
-                                        </a>
-                                        <p class="text-dark">
-                                            <i class='bx bx-group text-primary'></i>
-                                            Project Manager
-                                        </p>
-                                        <p>
-                                            user@user.com
-                                        </p>
+                            @foreach (var member in Model.Team)
+                            {
+                                <div class="col-md-4 text-center">
+                                    <div class="card mb-3 shadow">
+                                        <div class="card-header bg-primary" style="height: 5px;"></div>
+                                        <div class="card-body">
+                                            <a asp-action="OrganizationChart" asp-route-userId="@member.UserId">
+                                                <h4>@member.UserName</h4>
+                                            </a>
+                                            <p class="text-dark">
+                                                <i class='bx bx-group text-primary'></i>
+                                                @member.UserProjectRole
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            }
 
-                            <div class="col-md-4 text-center">
-                                <div class="card mb-3">
-                                    <div class="card-header bg-primary" style="height: 5px;"></div>
-                                    <div class="card-body">
-                                        <a asp-action="OrganizationChart" asp-route-userId="@Model.ProjectManager">
-                                            <h4>John Doe</h4>
-                                        </a>
-                                        <p class="text-dark">
-                                            <i class='bx bx-group text-primary'></i>
-                                            Project Manager
-                                        </p>
-                                        <p>
-                                            user@user.com
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <br />
-                            <div class="col-md-4 text-center">
-                                <div class="card border border-secondary rounded mb-3">
-                                    <div class="card-header bg-primary" style="height: 5px;"></div>
-                                    <div class="card-body">
-                                        <a asp-action="OrganizationChart" asp-route-userId="@Model.ProjectManager">
-                                            <h4>John Doe</h4>
-                                        </a>
-                                        <p class="text-dark">
-                                            <i class='bx bx-group text-primary'></i>
-                                            Project Manager
-                                        </p>
-                                        <p>
-                                            user@user.com
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
 
                         <!--col end-->
-                        </div>
+                    </div>
 
-                        <div class="col-md-4">
-                            <div class="position-sticky" style="top: 2rem;">
-                                <div class="p-4 mb-3 bg-light rounded">
-                                    <h4 class="fst-italic">Project showcase</h4>
-                                <img src="@Model.ImageLink" class="w-100" style="border-radius: 3%;" />
+                    <div class="col-md-4">
+                        <div class="position-sticky" style="top: 2rem;">
+                            <div class="p-4 mb-3 bg-light rounded">
+                                <h4 class="fst-italic">Project showcase</h4>
+                                <img src="@Model.Project.ImageLink" class="w-100" style="border-radius: 3%;" />
                                 </div>
                             </div>
                         </div>
@@ -205,7 +168,7 @@
     </div>
 </div>
 <!-- Modal -->
-<div class="modal fade" id="exampleModalCenter-@Model.Id">
+<div class="modal fade" id="exampleModalCenter-@Model.Project.Id">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -224,7 +187,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-light" data-dismiss="modal">@language.GetKey("Close")</button>
                 <form asp-action="Delete" method="post">
-                    <input type="hidden" asp-for="@Model.Id" name="id" />
+                    <input type="hidden" asp-for="@Model.Project.Id" name="id" />
                     <button class="btn btn-danger text-light" type="submit">
                         <span>
                             <i class='bx bxs-trash'></i>
