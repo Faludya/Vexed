@@ -33,5 +33,10 @@ namespace Abstractions.Services
         /// Returns the current Project Team with the given <c>projectId</c> and userid
         /// </summary>
         Task<List<ProjectTeam>> GetUserProjectTeam(Guid userId);
+
+        /// <summary>
+        /// Returns all the members for the Project.
+        /// </summary>
+        Task<List<ProjectTeam>> GetProjectTeamMembers(int projectId);
     }
 }
