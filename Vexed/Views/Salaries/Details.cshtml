@@ -5,7 +5,7 @@
 @{
     ViewData["Title"] = "Details";
 }
-
+<link href="/css/card.css" rel="stylesheet" />
 
 <div class="row page-titles mx-0">
     <div class="col-sm-6 p-md-0">
@@ -20,59 +20,72 @@
     <div class="container py-5 h-10">
         <div class="row d-flex justify-content-center align-items-center h-10">
             <div class="col-md-8 col-lg-8">
-                <div class="card shadow-2-strong" style="border-radius: 1rem;">
+                <div class="card testimonial-card shadow-2-strong" style="border-radius: 1rem;">
+                    <div class="avatar-simple mx-auto mb-1 mt-2 white">
+                        <img src="https://cdn-icons-png.flaticon.com/512/8057/8057858.png" class=" img-fluid" alt="woman avatar">
+                    </div>
                     <div class="card-body text-center">
 
-                        <h3 class="mb-5">@language.GetKey("YourSalary")</h3>
+                        <h3 class="mb-3">@language.GetKey("YourSalary")</h3>
                         <hr />
                         <div class="container">
                             <div class="text-left text-dark">
                                 <div class="row">
-                                    <div class="col">
-                                        <i class='bx bx-user'></i>
-                                        <b>@language.GetKey("FullName")</b>
+                                    <div class="col my-1">
+                                        <b class="mx-4">
+                                            <i class='bx bx-user'></i>
+                                            @language.GetKey("FullName") <span class="pull-right">:</span>
+                                        </b>
                                     </div>
-                                    <div class="col">
+                                    <div class="col my-1">
                                         @Html.DisplayFor(model => model.FullName)
                                     </div>
                                 </div>
-
+                                
                                 <div class="row">
-                                    <div class="col">
-                                        <i class='bx bxl-codepen'></i>
-                                        <b>@language.GetKey("Function")</b>
+                                    <div class="col my-1">
+                                        <b class="mx-4">
+                                            <i class='bx bxl-codepen'></i>
+                                            @language.GetKey("Function") <span class="pull-right">:</span>
+                                        </b>
                                     </div>
-                                    <div class="col">
+                                    <div class="col my-1">
                                         @Html.DisplayFor(model => model.Function)
                                     </div>
                                 </div>
 
                                 <div class="row">
-                                    <div class="col">
-                                        <i class='bx bxl-codepen'></i>
-                                        <b>@language.GetKey("Department")</b>
+                                    <div class="col my-1">
+                                        <b class="mx-4">
+                                            <i class='bx bxl-codepen'></i>
+                                            @language.GetKey("Department") <span class="pull-right">:</span>
+                                        </b>
                                     </div>
-                                    <div class="col">
+                                    <div class="col my-1">
                                         @Html.DisplayFor(model => model.Department)
                                     </div>
                                 </div>
 
                                 <div class="row">
-                                    <div class="col">
-                                        <i class='bx bxs-school'></i>
-                                        <b>@language.GetKey("Company")</b>
+                                    <div class="col my-1">
+                                        <b class="mx-4">
+                                            <i class='bx bxs-school'></i>
+                                            @language.GetKey("Company") <span class="pull-right">:</span>
+                                        </b>
                                     </div>
-                                    <div class="col">
+                                    <div class="col my-1">
                                         @Html.DisplayFor(model => model.Company)
                                     </div>
                                 </div>
 
                                 <div class="row">
-                                    <div class="col">
-                                        <i class='bx bx-calendar-check'></i>
-                                        <b>@language.GetKey("GeneratedDate")</b>
+                                    <div class="col my-1">
+                                        <b class="mx-4">
+                                            <i class='bx bx-calendar-check'></i>
+                                            @language.GetKey("GeneratedDate") <span class="pull-right">:</span>
+                                        </b>
                                     </div>
-                                    <div class="col">
+                                    <div class="col my-1">
                                         @Html.DisplayFor(model => model.GeneratedDate)
                                     </div>
                                 </div>
@@ -80,31 +93,37 @@
                                 <hr class="dotted" />
                                 <!-- Work time -->
                                 <div class="row">
-                                    <div class="col">
-                                        <i class='bx bxs-hourglass-top'></i>
-                                        <b>@language.GetKey("TotalWorkedHours")</b>
+                                    <div class="col my-1">
+                                        <b class="mx-4">
+                                            <i class='bx bxs-hourglass-top'></i>
+                                            @language.GetKey("TotalWorkedHours") <span class="pull-right">:</span>
+                                        </b>
                                     </div>
-                                    <div class="col">
+                                    <div class="col my-1">
                                         @Html.DisplayFor(model => model.TotalWorkedHours)
                                     </div>
                                 </div>
 
                                 <div class="row">
-                                    <div class="col">
-                                        <i class='bx bxs-hourglass-bottom'></i>
-                                        <b>@language.GetKey("TotalWorkedDays")</b>
+                                    <div class="col my-1">
+                                        <b class="mx-4">
+                                            <i class='bx bxs-hourglass-bottom'></i>
+                                            @language.GetKey("TotalWorkedDays") <span class="pull-right">:</span>
+                                        </b>
                                     </div>
-                                    <div class="col">
+                                    <div class="col my-1">
                                         @Html.DisplayFor(model => model.TotalWorkedDays)
                                     </div>
                                 </div>
 
                                 <div class="row">
-                                    <div class="col">
-                                        <i class='bx bx-money-withdraw'></i>
-                                        <b>@language.GetKey("GrossSalary")</b>
+                                    <div class="col my-1">
+                                        <b class="mx-4">
+                                            <i class='bx bx-money-withdraw'></i>
+                                            @language.GetKey("GrossSalary") <span class="pull-right">:</span>
+                                        </b>
                                     </div>
-                                    <div class="col">
+                                    <div class="col my-1">
                                         @Html.DisplayFor(model => model.GrossSalary)
                                     </div>
                                 </div>
@@ -112,41 +131,49 @@
                                 <hr class="dotted" />
                                 <!-- Texes -->
                                 <div class="row">
-                                    <div class="col">
-                                        <i class='bx bx-dollar-circle'></i>
-                                        <b>@language.GetKey("SocialInsurance")</b>
+                                    <div class="col my-1">
+                                        <b class="mx-4">
+                                            <i class='bx bx-dollar-circle'></i>
+                                            @language.GetKey("SocialInsurance") <span class="pull-right">:</span>
+                                        </b>
                                     </div>
-                                    <div class="col">
+                                    <div class="col my-1">
                                         @Html.DisplayFor(model => model.SocialInsuranceValue)
                                     </div>
                                 </div>
 
                                 <div class="row">
-                                    <div class="col">
-                                        <i class='bx bx-dollar-circle'></i>
-                                        <b>@language.GetKey("HealthInsurance")</b>
+                                    <div class="col my-1">
+                                        <b class="mx-4">
+                                            <i class='bx bx-dollar-circle'></i>
+                                            @language.GetKey("HealthInsurance") <span class="pull-right">:</span>
+                                        </b>
                                     </div>
-                                    <div class="col">
+                                    <div class="col my-1">
                                         @Html.DisplayFor(model => model.HealthInsuranceValue)
                                     </div>
                                 </div>
 
                                 <div class="row">
-                                    <div class="col">
-                                        <i class='bx bx-dollar-circle'></i>
-                                        <b>@language.GetKey("PersonalIncome")</b>
+                                    <div class="col my-1">
+                                        <b class="mx-4">
+                                            <i class='bx bx-dollar-circle'></i>
+                                            @language.GetKey("PersonalIncome") <span class="pull-right">:</span>
+                                        </b>
                                     </div>
-                                    <div class="col">
+                                    <div class="col my-1">
                                         @Html.DisplayFor(model => model.PersonalIncomeValue)
                                     </div>
                                 </div>
 
                                 <div class="row">
-                                    <div class="col">
-                                        <i class='bx bx-dollar-circle'></i>
-                                        <b>@language.GetKey("WorkInsurance")</b>
+                                    <div class="col my-1">
+                                        <b class="mx-4">
+                                            <i class='bx bx-dollar-circle'></i>
+                                            @language.GetKey("WorkInsurance") <span class="pull-right">:</span>
+                                        </b>
                                     </div>
-                                    <div class="col">
+                                    <div class="col my-1">
                                         @Html.DisplayFor(model => model.WorkInsuranceValue)
                                     </div>
                                 </div>
@@ -154,41 +181,49 @@
                                 <hr class="dotted" />
                                 <!-- Salary -->
                                 <div class="row">
-                                    <div class="col">
-                                        <i class='bx bx-wallet'></i>
-                                        <b>@language.GetKey("NetSalary")</b>
+                                    <div class="col my-1">
+                                        <b class="mx-4">
+                                            <i class='bx bx-wallet'></i>
+                                            @language.GetKey("NetSalary") <span class="pull-right">:</span>
+                                        </b>
                                     </div>
-                                    <div class="col">
+                                    <div class="col my-1">
                                         @Html.DisplayFor(model => model.NetSalary)
                                     </div>
                                 </div>
 
                                 <div class="row">
-                                    <div class="col">
-                                        <i class='bx bx-sticker'></i>
-                                        <b>@language.GetKey("MealTicket")</b>
+                                    <div class="col my-1">
+                                        <b class="mx-4">
+                                            <i class='bx bx-sticker'></i>
+                                            @language.GetKey("MealTicket") <span class="pull-right">:</span>
+                                        </b>
                                     </div>
-                                    <div class="col">
+                                    <div class="col my-1">
                                         @Html.DisplayFor(model => model.MealTicketValue)
                                     </div>
                                 </div>
 
                                 <div class="row">
-                                    <div class="col">
-                                        <i class='bx bx-food-menu'></i>
-                                        <b>@language.GetKey("MealTicketTotal")</b>
+                                    <div class="col my-1">
+                                        <b class="mx-4">
+                                            <i class='bx bx-food-menu'></i>
+                                            @language.GetKey("MealTicketTotal") <span class="pull-right">:</span>
+                                        </b>
                                     </div>
-                                    <div class="col">
+                                    <div class="col my-1">
                                         @Html.DisplayFor(model => model.MealTicketTotal)
                                     </div>
                                 </div>
 
                                 <div class="row">
-                                    <div class="col">
-                                        <i class='bx bx-food-menu'></i>
-                                        <b>@language.GetKey("Status")</b>
+                                    <div class="col my-1">
+                                        <b class="mx-4">
+                                            <i class='bx bx-food-menu'></i>
+                                            @language.GetKey("Status") <span class="pull-right">:</span>
+                                        </b>
                                     </div>
-                                    <div class="col">
+                                    <div class="col my-1">
                                         @Html.DisplayFor(model => model.Status)
                                     </div>
                                 </div>

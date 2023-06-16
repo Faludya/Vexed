@@ -1,0 +1,29 @@
+﻿body {
+    background-color: #f5f7fa;
+}
+
+.testimonial-card .card-up {
+    height: 100px;
+    overflow: hidden;
+    border-top-left-radius: .25rem;
+    border-top-right-radius: .25rem;
+}
+
+.aqua-gradient {
+    background: linear-gradient(40deg, #544D72, #544D72) !important;
+}
+
+.testimonial-card .avatar {
+    width: 100px;
+    margin-top: -70px;
+    overflow: hidden;
+    border: 5px solid #EBEEFF;
+    border-radius: 50%;
+}
+
+
+.testimonial-card .avatar-simple {
+    width: 50px;
+    margin-top: 5px;
+    margin-bottom: -20px;
+}
