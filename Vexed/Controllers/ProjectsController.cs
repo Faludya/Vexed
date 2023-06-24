@@ -74,7 +74,11 @@ namespace Vexed.Controllers
                 project.ProjectManagersList = await _userService.GetAllUserNames();
                 project.StartDate = DateTime.Now;
                 project.EndDate = DateTime.Now;
-                return View(project);
+
+                var projectTechVM = new ProjectTechnologiesVM();
+                projectTechVM.Project = project;
+                
+                return View(projectTechVM);
             }
             catch (Exception ex)
             {
@@ -85,20 +89,25 @@ namespace Vexed.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Project project)
+        public async Task<IActionResult> Create(ProjectTechnologiesVM projectVM)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    project.Technologies = JsonSerializer.Serialize(project.Technologies);
-                    project.UsefulLinks = JsonSerializer.Serialize(project.UsefulLinks);
+                    var project = projectVM.Project;
+                    var splitListTech = project.Technologies.Split(',').ToList();
+                    project.Technologies = JsonSerializer.Serialize(splitListTech);
+
+                    var splitListLinks = project.UsefulLinks.Split(',').ToList();
+                    project.UsefulLinks = JsonSerializer.Serialize(splitListLinks);
+                    
                     await _projectService.CreateProject(project);
                     TempData["SuccessMessage"] = "Project created successfully!";
 
                     return RedirectToAction(nameof(Index));
                 }
-                return View(project);
+                return View(projectVM);
             }
             catch (DbUpdateException ex)
             {
@@ -124,8 +133,13 @@ namespace Vexed.Controllers
                     return NotFound();
                 }
                 project.ProjectManagersList = await _userService.GetAllUserNames();
+                project.TechnologiesList = JsonSerializer.Deserialize<List<string>>(project.Technologies);
+                project.UsefulLinksList = JsonSerializer.Deserialize<List<string>>(project.UsefulLinks);
 
-                return View(project);
+                var projectTechVM = new ProjectTechnologiesVM();
+                projectTechVM.Project = project;
+
+                return View(projectTechVM);
             }
             catch (Exception ex)
             {
@@ -137,9 +151,9 @@ namespace Vexed.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Project project)
+        public async Task<IActionResult> Edit(int id, ProjectTechnologiesVM projectVM)
         {
-            if (id != project.Id)
+            if (id != projectVM.Project.Id)
             {
                 return NotFound();
             }
@@ -148,8 +162,13 @@ namespace Vexed.Controllers
             {
                 try
                 {
-                    project.Technologies = JsonSerializer.Serialize(project.Technologies);
-                    project.UsefulLinks = JsonSerializer.Serialize(project.UsefulLinks);
+                    var project = projectVM.Project;
+
+                    var splitListTech = project.Technologies.Split(',').ToList();
+                    project.Technologies = JsonSerializer.Serialize(splitListTech);
+
+                    var splitListLinks = project.UsefulLinks.Split(',').ToList();
+                    project.UsefulLinks = JsonSerializer.Serialize(splitListLinks);
                     await _projectService.UpdateProject(project);
                     TempData["SuccessMessage"] = "Project edited successfully!";
                 }
@@ -167,7 +186,7 @@ namespace Vexed.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(project);
+            return View(projectVM);
         }
 
         public async Task<IActionResult> Delete(int id)

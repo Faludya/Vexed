@@ -140,7 +140,7 @@ namespace Vexed.Controllers
             byte[] pdfBytes = _pdfService.GenerateSalaryPdf(salary);
 
             // Set the response headers
-            Response.Headers.Add("Content-Disposition", "attachment; filename=\"myFile.pdf\"");
+            Response.Headers.Add("Content-Disposition", "attachment; filename=\"salary.pdf\"");
             Response.Headers.Add("Content-Type", "application/pdf");
 
             // Write the PDF bytes to the response

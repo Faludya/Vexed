@@ -87,6 +87,7 @@ namespace Vexed.Controllers
                 ModelState.Remove("ProjectTeam.Project");
                 ModelState.Remove("UserNames");
                 ModelState.Remove("ProjectTeam.UserName");
+                ModelState.Remove("ProjectTeam.Id");
                 if (ModelState.IsValid)
                 {
                     await _projectTeamService.CreateProjectTeam(memberVM.ProjectTeam);
@@ -94,7 +95,7 @@ namespace Vexed.Controllers
 
                     return RedirectToAction(nameof(Index));
                 }
-                return View(memberVM.ProjectTeam);
+                return View(memberVM);
             }
             catch (DbUpdateException ex)
             {

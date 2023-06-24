@@ -246,6 +246,20 @@ else
                             </li>
                         }
 
+                        @if (User.IsInRole("TechnicalManager") ||  User.IsInRole("ProjectManager"))
+                        {
+                            <li class="nav-label">Approve Requests</li>
+                            <li>
+                                <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                                    <i class='bx bx-box'></i><span class="nav-text">Time cards and leaves</span>
+                                </a>
+                                <ul aria-expanded="false">
+                                    <li><a asp-controller="TimeCards" asp-action="IndexSuperior">Time Cards</a></li>
+                                    <li><a asp-controller="LeaveRequets" asp-action="IndexSuperior">Leave Requests</a></li>
+                                </ul>
+                            </li>
+                        }
+
                         @if (User.IsInRole("TechnicalManager"))
                         {
                             <li class="nav-label">Project Management</li>

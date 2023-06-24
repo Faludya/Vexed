@@ -1,7 +1,7 @@
 ﻿@using Vexed.Services;
 @inject LanguageService language
 
-@model DataModels.Project
+@model DataModels.ViewModels.ProjectTechnologiesVM
 
 @{
     ViewData["Title"] = "Create";
@@ -28,7 +28,7 @@
                         <div class="text-left p-3 text-dark">
                             <form asp-action="Create">
                                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                                <input type="hidden" asp-for="Id" class="form-control" />
+                                <input type="hidden" asp-for="Project.Id" class="form-control" />
 
                                 <div class="form-group row my-3">
                                     <div class="col-4 my-2">
@@ -36,8 +36,8 @@
                                         <b>@language.GetKey("Name"):</b>
                                     </div>
                                     <div class="col-8">
-                                        <input asp-for="Name" class="form-control" />
-                                        <span asp-validation-for="Name" class="text-danger"></span>
+                                        <input asp-for="Project.Name" class="form-control" />
+                                        <span asp-validation-for="Project.Name" class="text-danger"></span>
                                     </div>
                                 </div>
 
@@ -47,8 +47,8 @@
                                         <b>@language.GetKey("Code"):</b>
                                     </div>
                                     <div class="col-8">
-                                        <input asp-for="Code" class="form-control" />
-                                        <span asp-validation-for="Code" class="text-danger"></span>
+                                        <input asp-for="Project.Code" class="form-control" />
+                                        <span asp-validation-for="Project.Code" class="text-danger"></span>
                                     </div>
                                 </div>
 
@@ -58,8 +58,8 @@
                                         <b>@language.GetKey("Description"):</b>
                                     </div>
                                     <div class="col-8">
-                                        <textarea asp-for="Description" class="form-control" rows="3" style="resize: vertical;"></textarea>
-                                        <span asp-validation-for="Description" class="text-danger"></span>
+                                        <textarea asp-for="Project.Description" class="form-control" rows="3" style="resize: vertical;"></textarea>
+                                        <span asp-validation-for="Project.Description" class="text-danger"></span>
                                     </div>
                                 </div>
 
@@ -69,8 +69,8 @@
                                         <b>@language.GetKey("Image"):</b>
                                     </div>
                                     <div class="col-8">
-                                        <input asp-for="ImageLink" class="form-control" />
-                                        <span asp-validation-for="ImageLink" class="text-danger"></span>
+                                        <input asp-for="Project.ImageLink" class="form-control" />
+                                        <span asp-validation-for="Project.ImageLink" class="text-danger"></span>
                                     </div>
                                 </div>
 
@@ -80,8 +80,8 @@
                                         <b>@language.GetKey("Status"):</b>
                                     </div>
                                     <div class="col-8">
-                                        <input asp-for="Status" class="form-control" />
-                                        <span asp-validation-for="Status" class="text-danger"></span>
+                                        <input asp-for="Project.Status" class="form-control" />
+                                        <span asp-validation-for="Project.Status" class="text-danger"></span>
                                     </div>
                                 </div>
 
@@ -91,8 +91,8 @@
                                         <b>@language.GetKey("StartDate"):</b>
                                     </div>
                                     <div class="col-8">
-                                        <input asp-for="StartDate" class="form-control" />
-                                        <span asp-validation-for="StartDate" class="text-danger"></span>
+                                        <input asp-for="Project.StartDate" class="form-control" />
+                                        <span asp-validation-for="Project.StartDate" class="text-danger"></span>
                                     </div>
                                 </div>
 
@@ -102,8 +102,8 @@
                                         <b>@language.GetKey("EndDate"):</b>
                                     </div>
                                     <div class="col-8">
-                                        <input asp-for="EndDate" class="form-control" />
-                                        <span asp-validation-for="EndDate" class="text-danger"></span>
+                                        <input asp-for="Project.EndDate" class="form-control" />
+                                        <span asp-validation-for="Project.EndDate" class="text-danger"></span>
                                     </div>
                                 </div>
 
@@ -113,9 +113,9 @@
                                         <b>@language.GetKey("ProjectManager"):</b>
                                     </div>
                                     <div class="col-8">
-                                        @Html.DropDownListFor(m => m.ProjectManagerId, new SelectList(Model.ProjectManagersList, "UserId", "UserName"), "Select User", new { @class = "form-control", @id = "superior-dropdown" })
-                                        <input type="hidden" asp-for="ProjectManagerId" name="ProjectManagerId" id="superior-id" />
-                                        <input type="hidden" asp-for="ProjectManager" id="superior-name" />
+                                        @Html.DropDownListFor(m => m.Project.ProjectManagerId, new SelectList(Model.Project.ProjectManagersList, "UserId", "UserName"), "Select User", new { @class = "form-control", @id = "superior-dropdown" })
+                                        <input type="hidden" asp-for="Project.ProjectManagerId" name="ProjectManagerId" id="superior-id" />
+                                        <input type="hidden" asp-for="Project.ProjectManager" id="superior-name" />
 
                                     </div>
                                 </div>
@@ -126,8 +126,11 @@
                                         <b>@language.GetKey("Technologies"):</b>
                                     </div>
                                     <div class="col-8">
-                                        <textarea asp-for="Technologies" class="form-control" rows="3" style="resize: vertical;"></textarea>
-                                        <span asp-validation-for="Technologies" class="text-danger"></span>
+
+                                        @Html.DropDownListFor(m => m.Project.TechnologiesList, new MultiSelectList(Model.AllTechnologies), "Select technology", new { @class = "form-control", @id = "tech-dropdown", multiple = "multiple" })
+
+                                        <input type="hidden" asp-for="Project.Technologies" class="form-control" id="techField" />
+                                        <span asp-validation-for="Project.Technologies" class="text-danger"></span>
                                     </div>
                                 </div>
 
@@ -137,8 +140,34 @@
                                         <b>@language.GetKey("UsefulLinks"):</b>
                                     </div>
                                     <div class="col-8">
-                                        <textarea asp-for="UsefulLinks" class="form-control" rows="3" style="resize: vertical;"></textarea>
-                                        <span asp-validation-for="UsefulLinks" class="text-danger"></span>
+                                        @* <textarea asp-for="Project.UsefulLinks" class="form-control" rows="3" style="resize: vertical;"></textarea>
+                                        <span asp-validation-for="Project.UsefulLinks" class="text-danger"></span>*@
+                                        <input type="hidden" asp-for="Project.UsefulLinks" class="form-control" id="useful-links-field" />
+                                        <div id="links-container">
+                                            @foreach (var link in Model.Project.UsefulLinksList)
+                                            {
+                                                <div id="link-item-@link" class="row link-item py-1">
+                                                    <div class="col-9">
+                                                        <input type="text" id="link-input-@link" class="form-control" value="@link" readonly />
+                                                    </div>
+                                                    <div class="col-3">
+                                                        <button id="remove-link-btn-@link" class="btn btn-danger" type="button">Remove</button>
+                                                    </div>
+                                                </div>
+                                            }
+                                        </div>
+
+                                        <div class="row py-1">
+                                            <div class="col-9">
+                                                <input type="text" id="new-link-input" class="form-control" placeholder="Enter a new link" />
+                                            </div>
+                                            <div class="col-3">
+                                                <button id="add-link-btn" class="btn btn-primary" type="button">Add Link</button>
+                                            </div>
+                                        </div>
+
+
+
                                     </div>
                                 </div>
 
@@ -163,6 +192,91 @@
 
 @section Scripts {
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#tech-dropdown').select2({
+                placeholder: 'Select technologies',
+                multiple: true
+            });
+
+            //var technologies = @Html.Raw(Model.Project.Technologies);
+            //$('#tech-dropdown').val(technologies).trigger('change');
+
+            // Event handler for the change event
+            $('#tech-dropdown').on('change', function () {
+                // Get the selected values
+                var selectedValues = $(this).val();
+
+                // Remove unwanted characters
+                var formattedValues = JSON.stringify(selectedValues).replace(/\\r/g, '').replace(/\\n/g, '').replace(/\\/g, '').replace(/[\[\]"]+/g, '');
+
+                // Set the value of the hidden input field
+                $('#techField').val(formattedValues);
+                console.log(formattedValues);
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            // Event handler for the "Add Link" button
+            $('#add-link-btn').on('click', function () {
+                var newLink = $('#new-link-input').val();
+
+                // Create a new link item
+                var linkItem = $('<div></div>').attr('id', 'link-item-' + newLink).addClass('row link-item py-1');
+                var linkInputCol = $('<div></div>').addClass('col-9');
+                var linkInput = $('<input type="text" readonly>').attr('id', 'link-input-' + newLink).addClass('form-control').val(newLink);
+                var removeBtnCol = $('<div></div>').addClass('col-3');
+                var removeBtn = $('<button type="button" class="btn btn-danger">Remove</button>').attr('id', 'remove-link-btn-' + newLink);
+
+                // Append the link input and remove button to the link item
+                linkInputCol.append(linkInput);
+                removeBtnCol.append(removeBtn);
+                linkItem.append(linkInputCol, removeBtnCol);
+
+                // Append the link item to the links container
+                $('#links-container').append(linkItem);
+
+                // Clear the input field
+                $('#new-link-input').val('');
+
+                // Update the hidden input field
+                updateHiddenInput();
+            });
+
+            // Event handler for the "Remove" button
+            $('#links-container').on('click', '[id^=remove-link-btn-]', function () {
+                var linkId = $(this).attr('id');
+                var link = linkId.substring(linkId.lastIndexOf('-') + 1);
+
+                // Remove the link item
+                $('#link-item-' + link).remove();
+
+                // Update the hidden input field
+                updateHiddenInput();
+            });
+
+            // Function to update the hidden input field with the link values
+            function updateHiddenInput() {
+                var links = [];
+                $('.link-item input[type="text"]').each(function () {
+                    var link = $(this).val();
+                    links.push(link);
+                });
+
+                $('#useful-links-field').val(links.join(',')); // Update the hidden input field with comma-separated values
+            }
+
+            // Update the hidden input field initially
+            updateHiddenInput();
+        });
+
+
+
+    </script>
+
     <script>
         $('#superior-dropdown').select2({
             maximumSelectionLength: 10,
