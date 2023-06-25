@@ -253,7 +253,7 @@ namespace Vexed.Services
                 userProfile.Qualifications = await _repositoryWrapper.QualificationRepository.GetQualifications(userId);
                 userProfile.ContactInfos = await _repositoryWrapper.ContactInfoRepository.GetContactInfos(userId);
                 userProfile.EmergencyContacts = await _repositoryWrapper.EmergencyContactRepository.GetEmergencyContacts(userId);
-
+                userProfile.UserNameVMs = await _repositoryWrapper.UserRepository.GetAllUserNames();
 
                 return userProfile; 
             }
