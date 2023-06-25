@@ -36,11 +36,11 @@
                 <select id="user-select" class="form-control" asp-items="@userSelectList">
                     <option>Search for user...</option>
                 </select>
-                <input  asp-for="SelectedUserId" class="form-control" id="selectedUserIdField"/>
+                <input type="hidden"  asp-for="SelectedUserId" class="form-control" id="selectedUserIdField"/>
             </div>
-            <a class="btn btn-rounded btn-secondary ml-3" asp-action="UserProfile" asp-route-userId="@Model.SelectedUserId">
+            <a class="btn btn-rounded btn-secondary ml-3 text-light" id="search-button" style="cursor: pointer;">
                 <span class="btn-icon-left text-secondary">
-                    <i class="bx bx-search-alt-2 color-secondary"></i>
+                    <i class="bx bx-search-alt-2 color-light"></i>
                 </span>Search
             </a>
         </div>
@@ -285,10 +285,34 @@
             // Event handler for the change event
             $('#user-select').on('change', function () {
                 var selectedUserId = $(this).val();
+
                 // Update the SelectedUser variable with the new value
                 $('#selectedUserIdField').val(selectedUserId);
-                console.log(selectedUserIdField);
             });
+
+            // Event handler for the button click
+            $('#search-button').on('click', function () {
+                var userId = $('#selectedUserIdField').val();
+
+                // AJAX request to call the controller action
+                $.ajax({
+                    url: '/Home/UserProfile',
+                    type: 'GET',
+                    data: { userId: userId },
+                    success: function (response) {
+                        // Handle the success response
+                        var newUrl = '/Home/UserProfile?userid=' + encodeURIComponent(userId);
+                        history.pushState(null, '', newUrl);
+
+                        // Refresh the page
+                        location.reload();
+                    },
+                    error: function (xhr, status, error) {
+                        // Handle the error response
+                    }
+                });
+            });
+
         });
     </script>
     @{

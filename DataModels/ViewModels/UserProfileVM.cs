@@ -18,7 +18,7 @@ namespace DataModels.ViewModels
         public List<ContactInfo> ContactInfos { get; set; }
         public List<EmergencyContact> EmergencyContacts { get; set; }
         public List<UserNameVM> UserNameVMs { get; set; }
-        public Guid SelectedUserId{ get; set; }
+        public Guid SelectedUserId { get; set; }
 
 
         public UserProfileVM()
