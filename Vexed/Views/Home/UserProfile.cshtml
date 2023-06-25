@@ -15,6 +15,7 @@
     // Round the decimal value to one decimal place
     experienceInYears = Math.Round(experienceInYears, 1);
 }
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 <link rel="icon" type="/image/png" sizes="16x16" href="/images/favicon.png">
 
 <div class="row page-titles mx-0">
@@ -25,7 +26,25 @@
         </div>
     </div>
     <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
-        
+
+        <div class="d-flex justify-content-between align-items-center">
+            <div class="flex-grow-1" style="min-width:20rem;">
+                @*@Html.DropDownListFor(m => m.SelectedUser, new SelectList(Model.UserNameVMs, "UserId", "UserName"), "Search for user", new { @class = "form-control", @id = "user-select"})*@
+                @{
+                    var userSelectList = new SelectList(Model.UserNameVMs, "UserId", "UserName");
+                }
+                <select id="user-select" class="form-control" asp-items="@userSelectList">
+                    <option>Search for user...</option>
+                </select>
+                <input  asp-for="SelectedUserId" class="form-control" id="selectedUserIdField"/>
+            </div>
+            <a class="btn btn-rounded btn-secondary ml-3" asp-action="UserProfile" asp-route-userId="@Model.SelectedUserId">
+                <span class="btn-icon-left text-secondary">
+                    <i class="bx bx-search-alt-2 color-secondary"></i>
+                </span>Search
+            </a>
+        </div>
+
     </div>
 </div>
 <!-- row -->
@@ -252,3 +271,27 @@
         </div>
     </div>
 </div>
+
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#user-select').select2({
+                placeholder: 'Select User',
+                // Additional Select2 options
+            });
+
+            // Event handler for the change event
+            $('#user-select').on('change', function () {
+                var selectedUserId = $(this).val();
+                // Update the SelectedUser variable with the new value
+                $('#selectedUserIdField').val(selectedUserId);
+                console.log(selectedUserIdField);
+            });
+        });
+    </script>
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
