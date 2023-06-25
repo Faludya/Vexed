@@ -133,10 +133,19 @@ namespace Vexed.Controllers
             return View("Error");
         }
 
-        public async Task<IActionResult> GeneratePdf()
+        public async Task<IActionResult> GeneratePdf(int salaryId, SalaryVM salaryVM)
         {
+            Salary salary = new Salary();
+            if(salaryId != 0 && salaryId != null)
+            {
+                salary = await _salaryService.GetSalaryById(salaryId);
+            }
+            else if(salaryVM != null)
+            {
+                salary = salaryVM.Salary;
+            }
+
             // Generate the PDF using the service
-            var salary = await _salaryService.GetSalaryById(1);
             byte[] pdfBytes = _pdfService.GenerateSalaryPdf(salary);
 
             // Set the response headers

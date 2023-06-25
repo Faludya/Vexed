@@ -86,7 +86,8 @@
                                         <b>@language.GetKey("Gender"):</b>
                                     </div>
                                     <div class="col-8">
-                                        <input asp-for="@Model.UserDetails.Gender" class="form-control" />
+                                        @*<input asp-for="@Model.UserDetails.Gender" class="form-control" />*@
+                                        <select id="gender-select" asp-for="UserDetails.Gender" class="form-control"></select>
                                         <span asp-validation-for="@Model.UserDetails.Gender" class="text-danger"></span>
                                     </div>
                                 </div>
@@ -181,6 +182,15 @@
         $('#single-select').select2({
             maximumSelectionLength: 10,
             placeholder: 'Select an option'
+        });
+
+        $('#gender-select').select2({
+            placeholder: 'Select an option',
+            data: [
+                { id: '', text: 'Select an option' },
+                { id: 'Feminine', text: 'Feminine' },
+                { id: 'Masculine', text: 'Masculine' }
+            ]
         });
     </script>
     @{

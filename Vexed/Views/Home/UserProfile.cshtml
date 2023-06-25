@@ -96,7 +96,7 @@
                     <!-- Qualifications -->
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Qualifications</h4>
+                            <h4 class="card-title card-title-wrap">Qualifications</h4>
                         </div>
                         <div class="card-body">
                             <div class="widget-timeline">
@@ -105,9 +105,9 @@
                                     {
                                         <li>
                                             <div class="timeline-badge primary"></div>
-                                            <a class="timeline-panel text-muted">
-                                                <span>@qualification.DateObtained.ToString("dd/MM/yyyy")</span>
-                                                <h6 class="m-t-5">@qualification.Title</h6>
+                                            <a class="timeline-panel text-muted text-left" href=" @qualification.AttachmentUrl" target="_blank">
+                                                <span class="ml-5">@qualification.DateObtained.ToString("dd/MM/yyyy")</span>
+                                                <h6 class="m-t-5 ml-5">@qualification.Title</h6>
                                             </a>
                                         </li>
                                     }
@@ -115,6 +115,7 @@
                             </div>
                         </div>
                     </div>
+
 
                     <!-- Contacts accordion -->
                     <div class="card-body">
