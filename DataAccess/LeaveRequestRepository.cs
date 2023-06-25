@@ -139,11 +139,39 @@ namespace Vexed.Repositories
 
         }
 
-        public async Task<List<LeaveRequest>> GetLeaveRequestsSuperior(Guid superiorId)
+        public async Task<List<UserLeaveRequestsViewModel>> GetLeaveRequestsSuperior(Guid superiorId)
         {
             try
             {
-                return await _vexedDbContext.LeaveRequests.Where(l => l.SuperiorId == superiorId).ToListAsync();
+                var submittedLeaves = await _vexedDbContext.LeaveRequests
+                    .Where(lr => lr.Status == StatusManager.Submitted)
+                    .OrderByDescending(lr => lr.EndDate)
+                    .Join(_vexedDbContext.UsersDetails,
+                                    lr => lr.UserId,
+                                    ud => ud.UserId,
+                                    (lr, ud) => new UserLeaveRequestsViewModel
+                                    {
+                                        LeaveRequest = lr,
+                                        UserDetails = ud
+                                    })
+                    .ToListAsync();
+
+                var otherRequests = await _vexedDbContext.LeaveRequests
+                    .Where(lr => lr.Status != StatusManager.Submitted)
+                    .OrderByDescending(lr => lr.EndDate)
+                    .Join(_vexedDbContext.UsersDetails,
+                                    lr => lr.UserId,
+                                    ud => ud.UserId,
+                                    (lr, ud) => new UserLeaveRequestsViewModel
+                                    {
+                                        LeaveRequest = lr,
+                                        UserDetails = ud
+                                    })
+                    .ToListAsync();
+
+                var userLeaveRequests = submittedLeaves.Concat(otherRequests).ToList();
+
+                return userLeaveRequests;
             }
             catch (Exception ex)
             {

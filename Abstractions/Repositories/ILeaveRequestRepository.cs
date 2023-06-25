@@ -18,7 +18,7 @@ namespace Vexed.Repositories.Abstractions
         /// <summary>
         /// Returns all the Leave Requests for a given superior.
         /// </summary>
-        Task<List<LeaveRequest>> GetLeaveRequestsSuperior(Guid superiorId);
+        Task<List<UserLeaveRequestsViewModel>> GetLeaveRequestsSuperior(Guid superiorId);
 
         /// <summary>
         /// Returns all the Leave Requests sorted by date and status

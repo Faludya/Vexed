@@ -44,7 +44,7 @@ namespace Vexed.Services.Abstractions
         /// <summary>
         /// Returns all the Time Cards that belong to the superior.
         /// </summary>
-        Task<List<TimeCard>> GetTimeCardsForSuperior(Guid superiorId);
+        Task<List<UserTimeCardsViewModel>> GetTimeCardsForSuperior(Guid superiorId);
 
         /// <summary>
         /// Method <c>GetLocationTypes</c> returns a list of all Types of Locations.

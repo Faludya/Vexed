@@ -140,7 +140,7 @@ namespace Vexed.Services
             }
         }
 
-        public async Task<List<TimeCard>> GetTimeCardsForSuperior(Guid superiorId)
+        public async Task<List<UserTimeCardsViewModel>> GetTimeCardsForSuperior(Guid superiorId)
         {
             try
             {

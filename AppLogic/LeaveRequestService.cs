@@ -145,7 +145,7 @@ namespace Vexed.Services
             }
         }
 
-        public async Task<List<LeaveRequest>> GetLeaveRequestsForSuperior(Guid superiorId)
+        public async Task<List<UserLeaveRequestsViewModel>> GetLeaveRequestsForSuperior(Guid superiorId)
         {
             try
             {

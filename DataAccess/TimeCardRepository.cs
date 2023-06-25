@@ -95,11 +95,39 @@ namespace Vexed.Repositories
             }
         }
 
-        public async Task<List<TimeCard>> GetTimeCardsSuperior(Guid superiorId)
+        public async Task<List<UserTimeCardsViewModel>> GetTimeCardsSuperior(Guid superiorId)
         {
             try
             {
-                return await _vexedDbContext.TimeCards.Where(t => t.SuperiorId == superiorId).ToListAsync();
+                var submittedCards = await _vexedDbContext.TimeCards
+                    .Where(c => c.Status == StatusManager.Submitted)
+                    .OrderByDescending(c => c.EndDate)
+                    .Join(_vexedDbContext.UsersDetails,
+                                        tc => tc.UserId,
+                                        ud => ud.UserId,
+                                        (tc, ud) => new UserTimeCardsViewModel
+                                        {
+                                            TimeCard = tc,
+                                            UserDetails = ud
+                                        })
+                    .ToListAsync();
+
+                var otherCards = await _vexedDbContext.TimeCards
+                    .Where(c => c.Status != StatusManager.Submitted)
+                    .OrderByDescending(c => c.EndDate)
+                    .Join(_vexedDbContext.UsersDetails,
+                                        tc => tc.UserId,
+                                        ud => ud.UserId,
+                                        (tc, ud) => new UserTimeCardsViewModel
+                                        {
+                                            TimeCard = tc,
+                                            UserDetails = ud
+                                        })
+                    .ToListAsync();
+
+                var userTimeCards = submittedCards.Concat(otherCards).ToList();
+
+                return userTimeCards;
             }
             catch (Exception ex)
             {

@@ -23,7 +23,7 @@ namespace Vexed.Repositories.Abstractions
         /// <summary>
         /// Returns all the Time Cards for a given superior.
         /// </summary>
-        Task<List<TimeCard>> GetTimeCardsSuperior(Guid superiorId);
+        Task<List<UserTimeCardsViewModel>> GetTimeCardsSuperior(Guid superiorId);
 
         /// <summary>
         /// Returns all the Time Cards sorted by date and status
