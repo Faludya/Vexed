@@ -112,7 +112,7 @@
                                 <div class="card mb-3 shadow">
                                     <div class="card-header bg-primary" style="height: 5px;"></div>
                                     <div class="card-body">
-                                        <a asp-controller="UserEmployments" asp-action="OrganizationChart" asp-route-userId="@Model.Project.ProjectManagerId">
+                                        <a asp-controller="Home" asp-action="UserProfile" asp-route-userId="@Model.Project.ProjectManagerId">
                                             <h4>@Model.Project.ProjectManager</h4>
                                         </a>
                                         <p class="text-dark">
@@ -132,7 +132,7 @@
                                     <div class="card mb-3 shadow">
                                         <div class="card-header bg-primary" style="height: 5px;"></div>
                                         <div class="card-body">
-                                            <a asp-controller="UserEmployments" asp-action="OrganizationChart" asp-route-userId="@member.UserId">
+                                            <a asp-controller="Home" asp-action="UserProfile" asp-route-userId="@member.UserId">
                                                 <h4>@member.UserName</h4>
                                             </a>
                                             <p class="text-dark">
