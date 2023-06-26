@@ -21,8 +21,8 @@
 <div class="row page-titles mx-0">
     <div class="col-sm-6 p-md-0">
         <div class="welcome-text">
-            <h4>Hi, welcome back!</h4>
-            <p class="mb-0">Your company profile</p>
+            <h4>@language.GetKey("WelcomeBack")</h4>
+            <p class="mb-0">@language.GetKey("YourCompanyProfile")</p>
         </div>
     </div>
     <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
@@ -34,14 +34,14 @@
                     var userSelectList = new SelectList(Model.UserNameVMs, "UserId", "UserName");
                 }
                 <select id="user-select" class="form-control" asp-items="@userSelectList">
-                    <option>Search for user...</option>
+                    <option>@language.GetKey("SearchForUser")...</option>
                 </select>
                 <input type="hidden"  asp-for="SelectedUserId" class="form-control" id="selectedUserIdField"/>
             </div>
             <a class="btn btn-rounded btn-secondary ml-3 text-light" id="search-button" style="cursor: pointer;">
                 <span class="btn-icon-left text-secondary">
                     <i class="bx bx-search-alt-2 color-light"></i>
-                </span>Search
+                </span>@language.GetKey("Search")
             </a>
         </div>
 
@@ -97,13 +97,13 @@
                     <div class="text-center mt-4 border-bottom-1 pb-3">
                         <div class="row">
                             <div class="col">
-                                <h3 class="m-b-0">@Model.Qualifications.Count</h3><span>Qualifications</span>
+                                <h3 class="m-b-0">@Model.Qualifications.Count</h3><span>@language.GetKey("Qualifications")</span>
                             </div>
                             <div class="col">
-                                <h3 class="m-b-0">@experienceInYears</h3><span>Place Stay</span>
+                                <h3 class="m-b-0">@experienceInYears</h3><span>@language.GetKey("PlaceStay")</span>
                             </div>
                             <div class="col">
-                                <h3 class="m-b-0">@Model.ProjectTeams.Count</h3><span>Projects</span>
+                                <h3 class="m-b-0">@Model.ProjectTeams.Count</h3><span>@language.GetKey("Projects")</span>
                             </div>
                         </div>
                         <div class="mt-4">
@@ -115,7 +115,7 @@
                     <!-- Qualifications -->
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title card-title-wrap">Qualifications</h4>
+                            <h4 class="card-title card-title-wrap">@language.GetKey("Qualifications")</h4>
                         </div>
                         <div class="card-body">
                             <div class="widget-timeline">
@@ -141,7 +141,7 @@
                         <div id="accordion-one" class="accordion">
                             <div class="accordion__item">
                                 <div class="accordion__header" data-toggle="collapse" data-target="#default_collapseOne">
-                                    <span class="accordion__header--text">Contact info</span>
+                                    <span class="accordion__header--text">@language.GetKey("ContactInfo")</span>
                                     <span class="accordion__header--indicator"></span>
                                 </div>
                                 <div id="default_collapseOne" class="collapse accordion__body show" data-parent="#accordion-one">
@@ -155,7 +155,7 @@
                             </div>
                             <div class="accordion__item">
                                 <div class="accordion__header collapsed" data-toggle="collapse" data-target="#default_collapseTwo">
-                                    <span class="accordion__header--text">Emergency contacts</span>
+                                    <span class="accordion__header--text">@language.GetKey("EmergencyContact")</span>
                                     <span class="accordion__header--indicator"></span>
                                 </div>
                                 <div id="default_collapseTwo" class="collapse accordion__body" data-parent="#accordion-one">
@@ -163,10 +163,10 @@
                                         @foreach (var contact in Model.EmergencyContacts)
                                         {
                                             <p>@contact.FirstName @contact.LastName (@contact.Relationship)</p>
-                                            <p>Phone: @contact.Phone </p>
-                                            <p>Mail: @contact.Email </p>
-                                            <p>Address: @contact.Address </p>
-                                            <p>Additional Info: @contact.AdditionalInformation </p>
+                                            <p>@language.GetKey("Phone"): @contact.Phone </p>
+                                            <p>@language.GetKey("Email"): @contact.Email </p>
+                                            <p>@language.GetKey("Address"): @contact.Address </p>
+                                            <p>@language.GetKey("AdditionalInfo"): @contact.AdditionalInformation </p>
                                             <hr />
                                         }
                                     </div>
@@ -203,7 +203,7 @@
                                     </div>
                                 </div>
                                 <div class="profile-skills px-3 border-bottom-1 mb-4">
-                                    <h4 class="text-primary mb-4">Technologies</h4>
+                                    <h4 class="text-primary mb-4">@language.GetKey("Technologies")</h4>
                                     @{
                                         pt.Project.TechnologiesList = JsonConvert.DeserializeObject<List<string>>(pt.Project.Technologies);
                                         foreach(var technlogy in pt.Project.TechnologiesList)
@@ -213,11 +213,11 @@
                                     }                                    
                                 </div>
                                 <div class="profile-personal-info px-3">
-                                    <h4 class="text-primary mb-4">Information</h4>
+                                    <h4 class="text-primary mb-4">@language.GetKey("Information")</h4>
                                     <div class="row mb-4">
                                         <div class="col-3">
                                             <h5 class="f-w-500">
-                                                Role <span class="pull-right">:</span>
+                                                @language.GetKey("Role") <span class="pull-right">:</span>
                                             </h5>
                                         </div>
                                         <div class="col-9">
@@ -227,7 +227,7 @@
                                     <div class="row mb-4">
                                         <div class="col-3">
                                             <h5 class="f-w-500">
-                                                Project Manager<span class="pull-right">:</span>
+                                                @language.GetKey("ProjectManager")<span class="pull-right">:</span>
                                             </h5>
                                         </div>
                                         <div class="col-9">
@@ -236,7 +236,7 @@
                                     </div>
                                     <div class="row mb-4">
                                         <div class="col-3">
-                                            <h5 class="f-w-500">Start date <span class="pull-right">:</span></h5>
+                                            <h5 class="f-w-500">@language.GetKey("StartDate") <span class="pull-right">:</span></h5>
                                         </div>
                                         <div class="col-9">
                                             <span>@pt.StartDate.ToString("dd/MM/yyyy")</span>
@@ -244,7 +244,7 @@
                                     </div>
                                     <div class="row mb-4">
                                         <div class="col-3">
-                                            <h5 class="f-w-500">Project status <span class="pull-right">:</span></h5>
+                                            <h5 class="f-w-500"> @language.GetKey("ProjectStatus") <span class="pull-right">:</span></h5>
                                         </div>
                                         <div class="col-9">
                                             <span>
@@ -255,7 +255,7 @@
                                     <div class="row mb-4">
                                         <div class="col-3">
                                             <h5 class="f-w-500">
-                                                Project duration <span class="pull-right">:</span>
+                                                @language.GetKey("ProjectDuration") <span class="pull-right">:</span>
                                             </h5>
                                         </div>
                                         <div class="col-9">

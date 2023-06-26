@@ -13,7 +13,7 @@
     <div class="col-sm-6 p-md-0">
         <div class="welcome-text">
             <h4>@language.GetKey("Create")</h4>
-            <span class="ml-1"> New emergency contact </span>
+            <span class="ml-1"> @language.GetKey("NewEmergencyContact") </span>
         </div>
     </div>
 </div>
@@ -137,8 +137,6 @@
             placeholder: 'Select an option'
         });
     </script>
-@*    <script src="/vendor/select2/js/select2.full.min.js"></script>
-    <script src="/js/plugins-init/select2-init.js"></script>*@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }

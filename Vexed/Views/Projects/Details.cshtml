@@ -12,14 +12,14 @@
     <div class="col-sm-6 p-md-0">
         <div class="welcome-text">
             <h4>@language.GetKey("Details")</h4>
-            <span class="ml-1"> Project details</span>
+            <span class="ml-1"> @language.GetKey("ProjectDetails")</span>
         </div>
     </div>
 
     <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
         <div class="btn-group">
             <button type="button" class="btn btn-outline-primary dropdown-toggle" data-toggle="dropdown">
-                Actions
+                @language.GetKey("Actions")
                 <i class='ti-layout-menu-v'></i>
             </button>
             <div class="dropdown-menu">
@@ -50,9 +50,9 @@
                         <div class="col-md-6">
                             <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 mr-1 shadow-sm position-relative">
                                 <div class="col p-4 d-flex flex-column position-static">
-                                    <strong class="d-inline-block mb-2 text-primary">Technologies</strong>
-                                <h3 class="mb-0">Tools and Libraries</h3>
-                                <div class="mb-1 text-muted">Key Components</div>
+                                <strong class="d-inline-block mb-2 text-primary">@language.GetKey("Technologies")</strong>
+                                <h3 class="mb-0">@language.GetKey("ToolsAndLibraries")</h3>
+                                <div class="mb-1 text-muted">@language.GetKey("KeyComponents")</div>
                                 <br />
                                 <div class="mt-1 mb-0 card-text text-muted">
                                     <div class="d-inline">
@@ -75,9 +75,9 @@
                         <div class="col-md-6">
                             <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 ml-1 shadow-sm position-relative">
                                 <div class="col p-4 d-flex flex-column position-static">
-                                    <strong class="d-inline-block mb-2 text-warning">Useful Links</strong>
-                                <h3 class="mb-0">Helpful Resources</h3>
-                                    <div class="mb-1 text-muted">Related pages</div>
+                                <strong class="d-inline-block mb-2 text-warning">@language.GetKey("UsefulLinks")</strong>
+                                <h3 class="mb-0">@language.GetKey("HelpfulResources")</h3>
+                                <div class="mb-1 text-muted">@language.GetKey("RelatedPages")</div>
                                     <br />
                                 <div class="mt-1 mb-0 card-text text-dark">
                                     <div class="d-inline">
@@ -103,7 +103,7 @@
                     <div class="row g-5">
                         <div class="col-md-8">
                             <h2 class="pb-4 mb-4 fst-italic border-bottom">
-                            <i>The Powerhouse Behind @Model.Project.Name</i>
+                            <i>@language.GetKey("ThePowerhouseBehind")@Model.Project.Name</i>
                             </h2>
 
                         <!--Project members-->
@@ -117,7 +117,7 @@
                                         </a>
                                         <p class="text-dark">
                                             <i class='bx bx-group text-primary'></i>
-                                            Project Manager
+                                            @language.GetKey("ProjectManager")
                                         </p>
                                     </div>
                                 </div>
@@ -152,7 +152,7 @@
                     <div class="col-md-4">
                         <div class="position-sticky" style="top: 2rem;">
                             <div class="p-4 mb-3 bg-light rounded">
-                                <h4 class="fst-italic">Project showcase</h4>
+                                <h4 class="fst-italic">@language.GetKey("ProjectShowcase")</h4>
                                 <img src="@Model.Project.ImageLink" class="w-100" style="border-radius: 3%;" />
                                 </div>
                             </div>
@@ -180,7 +180,7 @@
             <div class="modal-body">
                 <div class="container">
                     <div class="text-left text-dark">
-                        <h3>Are you sure you want to delete this project?</h3>
+                        <h3>@language.GetKey("AreYouSureYouWantToDeleteProject")</h3>
                     </div>
                 </div>
             </div>

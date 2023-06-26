@@ -71,7 +71,7 @@
                     <i class="ti-wallet text-primary border-primary"></i>
                 </div>
                 <div class="stat-content d-inline-block">
-                    <div class="stat-text">Salary status</div>
+                    <div class="stat-text">@language.GetKey("SalaryStatus")</div>
                     <div class="stat-digit">@(Model.Salary.Status == null ? "Not generated" : Model.Salary.Status) </div>
                 </div>
                 <div class="progress mt-3">
@@ -88,7 +88,7 @@
                     <i class="ti-timer text-info border-info"></i>
                 </div>
                 <div class="stat-content d-inline-block">
-                    <div class="stat-text">This week's card status</div>
+                    <div class="stat-text">@language.GetKey("ThisWeeksCardStatus")</div>
                     <div class="stat-digit">
                         @(lastCard != null ? (lastCard.Status != null ? lastCard.Status : "Not submitted") : "Not submitted" )
                     </div>
@@ -107,7 +107,7 @@
                     <i class="ti-briefcase text-warning border-warning"></i>
                 </div>
                 <div class="stat-content d-inline-block">
-                    <div class="stat-text">Project role</div>
+                    <div class="stat-text">@language.GetKey("ProjectRole")</div>
                     <div class="stat-digit">
                         <span>@Model.ProjectTeams.Last().UserProjectRole</span>
                     </div>
@@ -126,7 +126,7 @@
                     <i class="ti-vimeo text-secondary border-secondary"></i>
                 </div>
                 <div class="stat-content d-inline-block">
-                    <div class="stat-text">Project</div>
+                    <div class="stat-text">@language.GetKey("Project")</div>
                     <div class="stat-digit">@Model.ProjectTeams.First().Project.Name</div>
                 </div>
                 <div class="progress mt-3">
@@ -150,7 +150,7 @@
         <!-- Last 10 cards -->
         <div class="card">
             <div class="card-header">
-                <h4 class="card-title">Last cards</h4>
+                <h4 class="card-title">@language.GetKey("LastCards")</h4>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -158,10 +158,10 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Name</th>
-                                <th>Start Date</th>
-                                <th>End Date</th>
-                                <th>Status</th>
+                                <th>@language.GetKey("Name")</th>
+                                <th>@language.GetKey("StartDate")</th>
+                                <th>@language.GetKey("EndDate")</th>
+                                <th>@language.GetKey("Status")</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -232,8 +232,7 @@
                             <p>
                                 <i class="ti-angle-double-left" style="color: #673BB7;"></i>
                                 <span class="lead font-italic">
-                                    I have not failed. I've just found 10,000 ways that won't
-                                    work.
+                                    @language.GetKey("ThomasEdisonMessage")
                                 </span>
                                 <i class="ti-angle-double-right" style="color: #673BB7;"></i>
                             </p>
@@ -250,7 +249,7 @@
                             <img class="mb-2" src="~/images/avatar/2.png" />
                             <p>
                                 <i class="ti-angle-double-left" style="color: #593bdb;"></i>
-                                <span class="lead font-italic">Be less curious about people and more curious about ideas.</span>
+                                <span class="lead font-italic">@language.GetKey("MarieCurieMessage")</span>
                                 <i class="ti-angle-double-right" style="color: #593bdb;"></i>
                             </p>
                         </blockquote>
@@ -265,7 +264,7 @@
         <!-- Map -->
         <div class="card">
             <div class="card-header">
-                <h4 class="card-title">Country</h4>
+                <h4 class="card-title">@language.GetKey("Country")</h4>
             </div>
             <div class="card-body">
                 <div id="vmap" class="vmap" style="width: 100%;"></div>

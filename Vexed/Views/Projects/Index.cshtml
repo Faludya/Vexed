@@ -11,8 +11,8 @@
 <div class="row page-titles mx-0">
     <div class="col-sm-6 p-md-0">
         <div class="welcome-text">
-            <h4>Your Projects!</h4>
-            <span class="ml-1">All in one place</span>
+            <h4>@language.GetKey("YourProjects")!</h4>
+            <span class="ml-1">@language.GetKey("AllInOnePlace")</span>
         </div>
     </div>
     <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
@@ -28,7 +28,7 @@
 <div class="container py-5">
     @if (Model.Count() == 0)
     {
-        <h1 class="text-center">You don't have any projects yet!</h1>
+        <h1 class="text-center">@language.GetKey("YouDontHaveProjects")</h1>
     }
     else
     {
@@ -83,11 +83,11 @@
                                     </div>
                                     @if (project.EndDate >= DateTime.Now)
                                     {
-                                        <h6 class="text-success">On going</h6>
+                                        <h6 class="text-success">@language.GetKey("OnGoing")</h6>
                                     }
                                     else
                                     {
-                                        <h6 class="text-danger">Finished</h6>
+                                        <h6 class="text-danger">@language.GetKey("Finished")</h6>
                                     }
                                     <div class="d-flex flex-column mt-xl-5 mb-0">
                                         <a class="btn btn-outline-primary btn-sm mt-xl-4" asp-action="Details" asp-route-id="@project.Id">

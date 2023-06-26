@@ -12,7 +12,7 @@
     <div class="col-sm-6 p-md-0">
         <div class="welcome-text">
             <h4>@language.GetKey("YourQualifications")!</h4>
-            <span class="ml-1">All in one place</span>
+            <span class="ml-1">@language.GetKey("AllInOnePlace")</span>
         </div>
     </div>
     <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
@@ -53,7 +53,7 @@ else
                         <p class="q-time text-muted">@item.DateObtained.ToShortDateString()
                             @if(item.ExpiryDate < DateTime.Now)
                             {
-                                <i>(Expired: @item.ExpiryDate.Value.ToShortDateString())</i>
+                                <i>(@language.GetKey("Expired"): @item.ExpiryDate.Value.ToShortDateString())</i>
                             }
                         </p>
                         <p>@item.Description</p>

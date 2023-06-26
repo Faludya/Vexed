@@ -155,13 +155,13 @@ else
 
                                         <hr />
                                         <a class="dropdown-item" asp-controller="Home" asp-action="UserProfile" asp-route-userId="@User.FindFirstValue(ClaimTypes.NameIdentifier)" title="Profile">
-                                            <i class='bx bxs-user nav_icon'></i> <span class="ml-2">Profile </span>
+                                            <i class='bx bxs-user nav_icon'></i> <span class="ml-2">@language.GetKey("Profile") </span>
                                         </a>
                                         <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
-                                            <i class='bx bx-shield-alt-2'></i> <span class="ml-2">Account </span>
+                                            <i class='bx bx-shield-alt-2'></i> <span class="ml-2">@language.GetKey("Account") </span>
                                         </a>
                                         <a class="dropdown-item text-danger" data-toggle="modal" data-target="#basicModal" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                                            <i class='bx bx-log-out nav_icon'></i> <span class="ml-2">Logout </span>
+                                            <i class='bx bx-log-out nav_icon'></i> <span class="ml-2">@language.GetKey("Logout") </span>
                                         </a>
                                     </div>
                                 </li>
@@ -190,58 +190,58 @@ else
                         <li class="nav-label">Cards</li>
                         <li>
                             <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                                <i class='bx bx-bookmark-plus'></i><span class="nav-text">Cards</span>
+                                <i class='bx bx-bookmark-plus'></i><span class="nav-text">@language.GetKey("Cards")</span>
                             </a>
                             <ul aria-expanded="false">
-                                <li><a asp-controller="TimeCards" asp-action="Index">Time Cards</a></li>
-                                <li><a asp-controller="LeaveRequests" asp-action="Index">Leave Requests</a></li>
+                                <li><a asp-controller="TimeCards" asp-action="Index">@language.GetKey("TimeCards")</a></li>
+                                <li><a asp-controller="LeaveRequests" asp-action="Index">@language.GetKey("LeaveRequests")</a></li>
                             </ul>
                         </li>
 
                         <li class="nav-label">Contact</li>
                         <li>
                             <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                                <i class='bx bxs-contact'></i><span class="nav-text">Contacts</span>
+                                <i class='bx bxs-contact'></i><span class="nav-text">@language.GetKey("Contacts")</span>
                             </a>
                             <ul aria-expanded="false">
-                                <li><a asp-controller="ContactInfoes" asp-action="Index">Information</a></li>
-                                <li><a asp-controller="EmergencyContacts" asp-action="Index">Emergency</a></li>
+                                <li><a asp-controller="ContactInfoes" asp-action="Index">@language.GetKey("Information")</a></li>
+                                <li><a asp-controller="EmergencyContacts" asp-action="Index">@language.GetKey("Emergency")</a></li>
                             </ul>
                         </li>
 
-                        <li class="nav-label">User</li>
+                        <li class="nav-label">@language.GetKey("User")</li>
                         <li>
                             <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                                <i class='bx bxs-user-detail'></i><span class="nav-text">User</span>
+                                <i class='bx bxs-user-detail'></i><span class="nav-text">@language.GetKey("User")</span>
                             </a>
                             <ul aria-expanded="false">
-                                <li><a asp-controller="Qualifications" asp-action="Index">Qualifications</a></li>
-                                <li><a asp-controller="UserEmployments" asp-action="OrganizationChart">Organization Chart</a></li>
-                                <li><a asp-controller="UserDetails" asp-action="Details">Details</a></li>
-                                <li><a asp-controller="UserEmployments" asp-action="Details">Employment</a></li>
+                                <li><a asp-controller="Qualifications" asp-action="Index">@language.GetKey("Qualifications")</a></li>
+                                <li><a asp-controller="UserEmployments" asp-action="OrganizationChart">@language.GetKey("OrganizationChart")</a></li>
+                                <li><a asp-controller="UserDetails" asp-action="Details">@language.GetKey("Details")</a></li>
+                                <li><a asp-controller="UserEmployments" asp-action="Details">@language.GetKey("Employment")</a></li>
                             </ul>
                         </li>
 
                         @if (User.IsInRole("HumanResources"))
                         {
-                            <li class="nav-label">Human Resources</li>
+                            <li class="nav-label">@language.GetKey("HumanResources")</li>
                             <li>
                                 <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                                    <i class='bx bx-box'></i><span class="nav-text">Manage requests</span>
+                                    <i class='bx bx-box'></i><span class="nav-text">@language.GetKey("ManageRequests")</span>
                                 </a>
                                 <ul aria-expanded="false">
-                                    <li><a asp-controller="TimeCards" asp-action="IndexHR">Time Cards</a></li>
-                                    <li><a asp-controller="LeaveRequests" asp-action="IndexHR">Leave Requests</a></li>
+                                    <li><a asp-controller="TimeCards" asp-action="IndexHR">@language.GetKey("TimeCards")</a></li>
+                                    <li><a asp-controller="LeaveRequests" asp-action="IndexHR">@language.GetKey("LeaveRequests")</a></li>
                                 </ul>
                             </li>
                             <li>
                                 <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                                    <i class='bx bx-group'></i><span class="nav-text">Manage users</span>
+                                    <i class='bx bx-group'></i><span class="nav-text">@language.GetKey("ManageUsers")</span>
                                 </a>
                                 <ul aria-expanded="false">
-                                    <li><a asp-controller="UserDetails" asp-action="Index">Details</a></li>
-                                    <li><a asp-controller="UserEmployments" asp-action="Index">Employment</a></li>
-                                    <li><a asp-controller="Salaries" asp-action="Index">Salaries</a></li>
+                                    <li><a asp-controller="UserDetails" asp-action="Index">@language.GetKey("Details")</a></li>
+                                    <li><a asp-controller="UserEmployments" asp-action="Index">@language.GetKey("Employment")</a></li>
+                                    <li><a asp-controller="Salaries" asp-action="Index">@language.GetKey("Salaries")</a></li>
                                 </ul>
                             </li>
                         }
@@ -251,25 +251,25 @@ else
                             <li class="nav-label">Approve Requests</li>
                             <li>
                                 <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                                    <i class='bx bx-box'></i><span class="nav-text">Manage requests</span>
+                                    <i class='bx bx-box'></i><span class="nav-text">@language.GetKey("ManageRequests")</span>
                                 </a>
                                 <ul aria-expanded="false">
-                                    <li><a asp-controller="TimeCards" asp-action="IndexSuperior">Time Cards</a></li>
-                                    <li><a asp-controller="LeaveRequests" asp-action="IndexSuperior">Leave Requests</a></li>
+                                    <li><a asp-controller="TimeCards" asp-action="IndexSuperior">@language.GetKey("TimeCards")</a></li>
+                                    <li><a asp-controller="LeaveRequests" asp-action="IndexSuperior">@language.GetKey("LeaveRequests")</a></li>
                                 </ul>
                             </li>
                         }
 
                         @if (User.IsInRole("TechnicalManager"))
                         {
-                            <li class="nav-label">Project Management</li>
+                            <li class="nav-label">@language.GetKey("ProjectManagement")</li>
                             <li>
                                 <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                                    <i class='bx bxs-group'></i><span class="nav-text">Teams and projects</span>
+                                    <i class='bx bxs-group'></i><span class="nav-text">@language.GetKey("TeamsAndProjects")</span>
                                 </a>
                                 <ul aria-expanded="false">
-                                    <li><a asp-controller="Projects" asp-action="Index">Projects</a></li>
-                                    <li><a asp-controller="ProjectTeams" asp-action="Index">Teams</a></li>
+                                    <li><a asp-controller="Projects" asp-action="Index">@language.GetKey("Projects")</a></li>
+                                    <li><a asp-controller="ProjectTeams" asp-action="Index">@language.GetKey("Teams")</a></li>
                                 </ul>
                             </li>
                         }

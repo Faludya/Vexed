@@ -12,7 +12,7 @@
     <div class="col-sm-6 p-md-0">
         <div class="welcome-text">
             <h4>@language.GetKey("Create")</h4>
-            <span class="ml-1"> New project</span>
+            <span class="ml-1"> @language.GetKey("NewProject")</span>
         </div>
     </div>
 </div>
@@ -151,7 +151,7 @@
                                                         <input type="text" id="link-input-@link" class="form-control" value="@link" readonly />
                                                     </div>
                                                     <div class="col-3">
-                                                        <button id="remove-link-btn-@link" class="btn btn-danger" type="button">Remove</button>
+                                                        <button id="remove-link-btn-@link" class="btn btn-danger" type="button">@language.GetKey("Delete")</button>
                                                     </div>
                                                 </div>
                                             }
@@ -159,10 +159,10 @@
 
                                         <div class="row py-1">
                                             <div class="col-9">
-                                                <input type="text" id="new-link-input" class="form-control" placeholder="Enter a new link" />
+                                                <input type="text" id="new-link-input" class="form-control" placeholder="@language.GetKey("EnterNewLink")" />
                                             </div>
                                             <div class="col-3">
-                                                <button id="add-link-btn" class="btn btn-primary" type="button">Add Link</button>
+                                                <button id="add-link-btn" class="btn btn-primary" type="button">@language.GetKey("AddLink")</button>
                                             </div>
                                         </div>
 

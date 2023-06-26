@@ -13,8 +13,8 @@
 <div class="row page-titles mx-0">
     <div class="col-sm-6 p-md-0">
         <div class="welcome-text">
-            <h4>Your Emergency contacts!</h4>
-            <span class="ml-1">All in one place</span>
+            <h4>@language.GetKey("YourEmergencyContact")!</h4>
+            <span class="ml-1">@language.GetKey("AllInOnePlace")</span>
         </div>
     </div>
     <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
@@ -56,7 +56,7 @@
                                     <div class="row mb-4">
                                         <div class="col-3">
                                             <h6 class="f-w-500">
-                                                Phone <span class="pull-right">:</span>
+                                                @language.GetKey("Phone") <span class="pull-right">:</span>
                                             </h6>
                                         </div>
                                         <div class="col-9 text-dark">
@@ -67,7 +67,7 @@
                                     <div class="row mb-4">
                                         <div class="col-3">
                                             <h6 class="f-w-500">
-                                                Email <span class="pull-right">:</span>
+                                                @language.GetKey("Email") <span class="pull-right">:</span>
                                             </h6>
                                         </div>
                                         <div class="col-9 text-dark">
@@ -80,7 +80,7 @@
                                     <div class="row mb-4">
                                         <div class="col-3">
                                             <h6 class="f-w-500">
-                                                Home<span class="pull-right">:</span>
+                                                @language.GetKey("Home") <span class="pull-right">:</span>
                                             </h6>
                                         </div>
                                         <div class="col-9 text-dark">
@@ -132,7 +132,7 @@
                                             <div class="row">
                                                 <div class="col">
                                                     <i class='bx bx-user'></i>
-                                                    <b>LastName</b>
+                                                    <b>@language.GetKey("LastName")</b>
                                                 </div>
                                                 <div class="col">
                                                     @Html.DisplayFor(modelItem => contact.LastName)

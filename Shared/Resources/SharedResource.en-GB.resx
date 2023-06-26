@@ -171,11 +171,20 @@
   <data name="Account" xml:space="preserve">
     <value>Account</value>
   </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Actions</value>
+  </data>
   <data name="AdditionalInfo" xml:space="preserve">
     <value>Additional Info</value>
   </data>
+  <data name="AddLink" xml:space="preserve">
+    <value>Add link</value>
+  </data>
   <data name="Address" xml:space="preserve">
     <value>Address</value>
+  </data>
+  <data name="AllInOnePlace" xml:space="preserve">
+    <value>All in one place</value>
   </data>
   <data name="Approve" xml:space="preserve">
     <value>Approve</value>
@@ -185,6 +194,9 @@
   </data>
   <data name="ApproveLeaves" xml:space="preserve">
     <value>Approve Leaves</value>
+  </data>
+  <data name="AreYouSureYouWantToDeleteProject" xml:space="preserve">
+    <value>Are you sure you want to delete this project?</value>
   </data>
   <data name="Attachment" xml:space="preserve">
     <value>Attachment</value>
@@ -201,6 +213,9 @@
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
+  <data name="Cards" xml:space="preserve">
+    <value>Cards</value>
+  </data>
   <data name="City" xml:space="preserve">
     <value>City</value>
   </data>
@@ -216,6 +231,12 @@
   <data name="ContactInfo" xml:space="preserve">
     <value>Contact Info</value>
   </data>
+  <data name="ContactInfoDetails" xml:space="preserve">
+    <value>Contact information details</value>
+  </data>
+  <data name="Contacts" xml:space="preserve">
+    <value>Contacts</value>
+  </data>
   <data name="CopyPreviousCard" xml:space="preserve">
     <value>Copy previous card</value>
   </data>
@@ -224,6 +245,12 @@
   </data>
   <data name="Create" xml:space="preserve">
     <value>Create</value>
+  </data>
+  <data name="CreateNewLeave" xml:space="preserve">
+    <value>Create new leave </value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Date</value>
   </data>
   <data name="DateObtained" xml:space="preserve">
     <value>Date obtained</value>
@@ -249,8 +276,14 @@
   <data name="Email" xml:space="preserve">
     <value>Email</value>
   </data>
+  <data name="Emergency" xml:space="preserve">
+    <value>Emergency</value>
+  </data>
   <data name="EmergencyContact" xml:space="preserve">
     <value>Emergency Contact</value>
+  </data>
+  <data name="EmergencyContactDetails" xml:space="preserve">
+    <value>Emergency Contact details</value>
   </data>
   <data name="Employment" xml:space="preserve">
     <value>Employment</value>
@@ -258,8 +291,20 @@
   <data name="EndDate" xml:space="preserve">
     <value>EndDate</value>
   </data>
+  <data name="EnterNewLink" xml:space="preserve">
+    <value>Enter a new link</value>
+  </data>
+  <data name="Expired" xml:space="preserve">
+    <value>Expired</value>
+  </data>
   <data name="ExpiryDate" xml:space="preserve">
     <value>Expiry Date</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>Filter</value>
+  </data>
+  <data name="Finished" xml:space="preserve">
+    <value>Finished</value>
   </data>
   <data name="FirstName" xml:space="preserve">
     <value>First Name</value>
@@ -270,14 +315,29 @@
   <data name="Gender" xml:space="preserve">
     <value>Gender</value>
   </data>
+  <data name="GeneratedDate" xml:space="preserve">
+    <value>Generated date</value>
+  </data>
+  <data name="GrossSalary" xml:space="preserve">
+    <value>Gross salary</value>
+  </data>
+  <data name="HealthInsurance" xml:space="preserve">
+    <value>Health insurance</value>
+  </data>
+  <data name="HelpfulResources" xml:space="preserve">
+    <value>Helpful resources</value>
+  </data>
   <data name="HireDate" xml:space="preserve">
     <value>Hire Date</value>
   </data>
-  <data name="home" xml:space="preserve">
+  <data name="Home" xml:space="preserve">
     <value>Home</value>
   </data>
   <data name="HourlyPay" xml:space="preserve">
     <value>Hourly Pay</value>
+  </data>
+  <data name="HumanResources" xml:space="preserve">
+    <value>Human Resources</value>
   </data>
   <data name="index_business_administrative" xml:space="preserve">
     <value>Administrative</value>
@@ -321,11 +381,26 @@
   <data name="index_section3_p" xml:space="preserve">
     <value>Everyone can access the portal from any device and all their work is synced.</value>
   </data>
+  <data name="Information" xml:space="preserve">
+    <value>Information</value>
+  </data>
+  <data name="KeyComponents" xml:space="preserve">
+    <value>Key components</value>
+  </data>
+  <data name="LastCards" xml:space="preserve">
+    <value>Last cards</value>
+  </data>
   <data name="LastName" xml:space="preserve">
     <value>Last Name</value>
   </data>
   <data name="LeaveRequest" xml:space="preserve">
     <value>Leave Request</value>
+  </data>
+  <data name="LeaveRequestDetails" xml:space="preserve">
+    <value>Leave request details</value>
+  </data>
+  <data name="LeaveRequests" xml:space="preserve">
+    <value>Leave Requests</value>
   </data>
   <data name="Location" xml:space="preserve">
     <value>Location</value>
@@ -336,17 +411,83 @@
   <data name="Login" xml:space="preserve">
     <value>Login</value>
   </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Logout</value>
+  </data>
+  <data name="ManageRequests" xml:space="preserve">
+    <value>Manage requests</value>
+  </data>
+  <data name="ManageUsers" xml:space="preserve">
+    <value>Manage users</value>
+  </data>
+  <data name="MarieCurieMessage" xml:space="preserve">
+    <value>Be less curious about people and more curious about ideas.</value>
+  </data>
+  <data name="MealTicket" xml:space="preserve">
+    <value>Meal ticket</value>
+  </data>
+  <data name="MealTicketTotal" xml:space="preserve">
+    <value>Meal ticket total</value>
+  </data>
+  <data name="Member" xml:space="preserve">
+    <value>Member</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
   <data name="Nationality" xml:space="preserve">
     <value>Nationality</value>
+  </data>
+  <data name="NetSalary" xml:space="preserve">
+    <value>Net salary</value>
+  </data>
+  <data name="NewContactInfo" xml:space="preserve">
+    <value>New contact information</value>
+  </data>
+  <data name="NewEmergencyContact" xml:space="preserve">
+    <value>New Emergency contact</value>
+  </data>
+  <data name="NewLeaveRequest" xml:space="preserve">
+    <value>New leave request</value>
+  </data>
+  <data name="NewProject" xml:space="preserve">
+    <value>New project</value>
+  </data>
+  <data name="NewProjectMember" xml:space="preserve">
+    <value>New project member</value>
   </data>
   <data name="NewQualification" xml:space="preserve">
     <value>New Qualification</value>
   </data>
+  <data name="NewSalary" xml:space="preserve">
+    <value>New salary</value>
+  </data>
+  <data name="NewTimeCard" xml:space="preserve">
+    <value>New time card</value>
+  </data>
+  <data name="NewUserDetails" xml:space="preserve">
+    <value>New user details</value>
+  </data>
+  <data name="NewUserEmployment" xml:space="preserve">
+    <value>New user employment</value>
+  </data>
   <data name="NoQualificationsToDisplay" xml:space="preserve">
     <value>You have no qualifications to display</value>
   </data>
+  <data name="OnGoing" xml:space="preserve">
+    <value>On going</value>
+  </data>
+  <data name="OrganizationChart" xml:space="preserve">
+    <value>Organization chart</value>
+  </data>
+  <data name="PersonalIncome" xml:space="preserve">
+    <value>Personal income</value>
+  </data>
   <data name="Phone" xml:space="preserve">
     <value>Phone</value>
+  </data>
+  <data name="PlaceStay" xml:space="preserve">
+    <value>Place stay</value>
   </data>
   <data name="PleaseAddQualifications" xml:space="preserve">
     <value>Please add your qualifications to see them displayed</value>
@@ -354,11 +495,50 @@
   <data name="PreferredName" xml:space="preserve">
     <value>Preferred Name</value>
   </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Profile</value>
+  </data>
+  <data name="Project" xml:space="preserve">
+    <value>Project</value>
+  </data>
   <data name="ProjectCode" xml:space="preserve">
     <value>Project Code</value>
   </data>
+  <data name="ProjectDetails" xml:space="preserve">
+    <value>Project details</value>
+  </data>
+  <data name="ProjectDuration" xml:space="preserve">
+    <value>Project duration</value>
+  </data>
+  <data name="ProjectManagement" xml:space="preserve">
+    <value>Project management</value>
+  </data>
+  <data name="ProjectManager" xml:space="preserve">
+    <value>Project manager</value>
+  </data>
+  <data name="ProjectMember" xml:space="preserve">
+    <value>Project member</value>
+  </data>
+  <data name="ProjectRole" xml:space="preserve">
+    <value>Project role</value>
+  </data>
+  <data name="Projects" xml:space="preserve">
+    <value>Proiecte</value>
+  </data>
+  <data name="ProjectShowcase" xml:space="preserve">
+    <value>Project showcase</value>
+  </data>
+  <data name="ProjectStatus" xml:space="preserve">
+    <value>Project status</value>
+  </data>
+  <data name="ProjectTeams" xml:space="preserve">
+    <value>Project teams</value>
+  </data>
   <data name="Qualification" xml:space="preserve">
     <value>Qualification</value>
+  </data>
+  <data name="Qualifications" xml:space="preserve">
+    <value>Qualifications</value>
   </data>
   <data name="Quantity" xml:space="preserve">
     <value>Quantity</value>
@@ -366,11 +546,44 @@
   <data name="Register" xml:space="preserve">
     <value>Register</value>
   </data>
+  <data name="RelatedPages" xml:space="preserve">
+    <value>Related pages</value>
+  </data>
   <data name="Relationship" xml:space="preserve">
     <value>Relationship</value>
   </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="Role" xml:space="preserve">
+    <value>Role</value>
+  </data>
+  <data name="Salaries" xml:space="preserve">
+    <value>Salaries</value>
+  </data>
+  <data name="Salary" xml:space="preserve">
+    <value>Salary</value>
+  </data>
+  <data name="SalaryDetails" xml:space="preserve">
+    <value>Salary details</value>
+  </data>
+  <data name="SalaryStatus" xml:space="preserve">
+    <value>Salary status</value>
+  </data>
   <data name="Save" xml:space="preserve">
     <value>Save</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="SearchForUser" xml:space="preserve">
+    <value>Search for user</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Select</value>
+  </data>
+  <data name="SocialInsurance" xml:space="preserve">
+    <value>Social insurance</value>
   </data>
   <data name="StartDate" xml:space="preserve">
     <value>Start date</value>
@@ -384,8 +597,29 @@
   <data name="TaskDetails" xml:space="preserve">
     <value>TaskDetails</value>
   </data>
+  <data name="Teams" xml:space="preserve">
+    <value>Teams</value>
+  </data>
+  <data name="TeamsAndProjects" xml:space="preserve">
+    <value>Teams and projects</value>
+  </data>
+  <data name="Technologies" xml:space="preserve">
+    <value>Technologies</value>
+  </data>
+  <data name="ThePowerhouseBehind" xml:space="preserve">
+    <value>The powerhouse behind</value>
+  </data>
+  <data name="ThisWeeksCardStatus" xml:space="preserve">
+    <value>This week's card status</value>
+  </data>
+  <data name="ThomasEdisonMessage" xml:space="preserve">
+    <value>I have not failed. I've just found 10,000 ways that won't work.</value>
+  </data>
   <data name="TimeCard" xml:space="preserve">
     <value>Time Card</value>
+  </data>
+  <data name="TimeCardDetails" xml:space="preserve">
+    <value>Time card details</value>
   </data>
   <data name="TimeCards" xml:space="preserve">
     <value>Time Cards</value>
@@ -393,8 +627,23 @@
   <data name="Title" xml:space="preserve">
     <value>Title</value>
   </data>
+  <data name="ToolsAndLibraries" xml:space="preserve">
+    <value>Tools and libraries</value>
+  </data>
+  <data name="TotalWorkedDays" xml:space="preserve">
+    <value>Total worked days</value>
+  </data>
+  <data name="TotalWorkedHours" xml:space="preserve">
+    <value>Total worked hours</value>
+  </data>
   <data name="Type" xml:space="preserve">
     <value>Type</value>
+  </data>
+  <data name="UsefulLinks" xml:space="preserve">
+    <value>Useful links</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>User</value>
   </data>
   <data name="UserDetails" xml:space="preserve">
     <value>User Details</value>
@@ -402,14 +651,32 @@
   <data name="UserEmployment" xml:space="preserve">
     <value>User Employment</value>
   </data>
+  <data name="UserEmploymentDetails" xml:space="preserve">
+    <value>User employment details</value>
+  </data>
   <data name="View" xml:space="preserve">
     <value>View</value>
   </data>
   <data name="ViewQualificationDoc" xml:space="preserve">
     <value>View qualification document</value>
   </data>
+  <data name="WelcomeBack" xml:space="preserve">
+    <value>Hi, welcome back!</value>
+  </data>
+  <data name="WorkInsurance" xml:space="preserve">
+    <value>Work insurance</value>
+  </data>
+  <data name="YouDontHaveProjects" xml:space="preserve">
+    <value>You don't have any projects yet!</value>
+  </data>
+  <data name="YourCompanyProfile" xml:space="preserve">
+    <value>Your company profile</value>
+  </data>
   <data name="YourContact" xml:space="preserve">
     <value>Your Contact</value>
+  </data>
+  <data name="YourContactInfo" xml:space="preserve">
+    <value>Your Contact Information</value>
   </data>
   <data name="YourDetails" xml:space="preserve">
     <value>Your Details</value>
@@ -423,10 +690,16 @@
   <data name="YourLeaveRequest" xml:space="preserve">
     <value>Your Leave Request</value>
   </data>
+  <data name="YourProjects" xml:space="preserve">
+    <value>Your Projects</value>
+  </data>
   <data name="YourQualifications" xml:space="preserve">
     <value>Your Qualifications</value>
   </data>
   <data name="YourTimeCard" xml:space="preserve">
     <value>Your Time Card</value>
+  </data>
+  <data name="YourUserDetails" xml:space="preserve">
+    <value>Your user details</value>
   </data>
 </root>
