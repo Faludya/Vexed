@@ -195,6 +195,9 @@
   <data name="ApproveLeaves" xml:space="preserve">
     <value>Aprobă concedii</value>
   </data>
+  <data name="ApproveRequests" xml:space="preserve">
+    <value>Aprobă cereri</value>
+  </data>
   <data name="AreYouSureYouWantToDeleteProject" xml:space="preserve">
     <value>Sigur doriți să ștergeți acest proiect?</value>
   </data>
@@ -248,6 +251,9 @@
   </data>
   <data name="CreateNewLeave" xml:space="preserve">
     <value>Creează cerere de concediu</value>
+  </data>
+  <data name="DailyHours" xml:space="preserve">
+    <value>Ore zilnice</value>
   </data>
   <data name="Date" xml:space="preserve">
     <value>Dată</value>
@@ -386,6 +392,9 @@
   </data>
   <data name="KeyComponents" xml:space="preserve">
     <value>Componente cheie</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Limbă</value>
   </data>
   <data name="LastCards" xml:space="preserve">
     <value>Ultimele cereri</value>
@@ -632,6 +641,9 @@
   </data>
   <data name="ToolsAndLibraries" xml:space="preserve">
     <value>Instrumente și biblioteci</value>
+  </data>
+  <data name="TotalHours" xml:space="preserve">
+    <value>Ore totale</value>
   </data>
   <data name="TotalWorkedDays" xml:space="preserve">
     <value>Total zile lucrate</value>

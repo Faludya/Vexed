@@ -59,7 +59,7 @@
             <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                 <ul class="navbar-nav flex-grow-1">
                     <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">@language.GetKey("home")</a>
+                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">@language.GetKey("Home")</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" asp-area="" asp-controller="Home" asp-action="AboutUs">@language.GetKey("aboutus")</a>
@@ -187,7 +187,7 @@ else
                             </ul>
                         </li>
 
-                        <li class="nav-label">Cards</li>
+                        <li class="nav-label">@language.GetKey("Cards")</li>
                         <li>
                             <a class="has-arrow" href="javascript:void()" aria-expanded="false">
                                 <i class='bx bx-bookmark-plus'></i><span class="nav-text">@language.GetKey("Cards")</span>
@@ -248,7 +248,7 @@ else
 
                         @if (User.IsInRole("TechnicalManager") ||  User.IsInRole("ProjectManager"))
                         {
-                            <li class="nav-label">Approve Requests</li>
+                            <li class="nav-label">@language.GetKey("ApproveRequests")</li>
                             <li>
                                 <a class="has-arrow" href="javascript:void()" aria-expanded="false">
                                     <i class='bx bx-box'></i><span class="nav-text">@language.GetKey("ManageRequests")</span>
