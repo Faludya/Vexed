@@ -711,6 +711,9 @@
   <data name="YourTimeCard" xml:space="preserve">
     <value>Your Time Card</value>
   </data>
+  <data name="YourTimeCards" xml:space="preserve">
+    <value>Your Time Cards</value>
+  </data>
   <data name="YourUserDetails" xml:space="preserve">
     <value>Your user details</value>
   </data>
