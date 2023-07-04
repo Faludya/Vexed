@@ -111,6 +111,7 @@ namespace Vexed.Controllers
         {
             try
             {
+                ModelState.Remove("UserNameVMs");
                 if (ModelState.IsValid)
                 {
                     await _salaryService.CreateSalary(salaryVM.Salary);
@@ -118,6 +119,7 @@ namespace Vexed.Controllers
 
                     return RedirectToAction(nameof(Index));
                 }
+                salaryVM.UserNameVMs = await _userService.GetAllUserNames();
                 return View(salaryVM);
             }
             catch (DbUpdateException ex)
