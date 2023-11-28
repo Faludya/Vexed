@@ -209,7 +209,7 @@ namespace Vexed.Services
                 {
                     combinedEntries.Add(new CardsVM { 
                         Name = timeCard.ProjectCode, 
-                        Status = timeCard.Status, 
+                        Status = timeCard.Status!, 
                         StartDate = timeCard.StartDate, 
                         EndDate = timeCard.EndDate
                     });
@@ -219,7 +219,7 @@ namespace Vexed.Services
                 {
                     combinedEntries.Add(new CardsVM { 
                         Name = leaveRequest.Type, 
-                        Status = leaveRequest.Status, 
+                        Status = leaveRequest.Status!, 
                         StartDate = leaveRequest.StartDate, 
                         EndDate = leaveRequest.EndDate
                     });

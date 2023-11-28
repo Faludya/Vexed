@@ -23,7 +23,7 @@ namespace Vexed.Services
             try
             {
                 timeCard.SuperiorId = await _repositoryWrapper.UserRepository.GetUserSuperior(timeCard.UserId);
-                timeCard.Status = StatusManager.SetStatus(timeCard.Status);
+                timeCard.Status = StatusManager.SetStatus(timeCard.Status!);
 
                 await _repositoryWrapper.TimeCardRepository.Create(timeCard);
                 await _repositoryWrapper.Save();

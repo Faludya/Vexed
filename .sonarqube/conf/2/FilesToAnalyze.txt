@@ -1,0 +1,8 @@
+﻿F:\Vexed\Shared\ErrorViewModel.cs
+F:\Vexed\Shared\LanguageService.cs
+F:\Vexed\Shared\Logger.cs
+F:\Vexed\Shared\SalaryStatusManager.cs
+F:\Vexed\Shared\SharedResource.cs
+F:\Vexed\Shared\StatusManager.cs
+F:\Vexed\Shared\Resources\SharedResource.en-GB.resx
+F:\Vexed\Shared\Resources\SharedResource.ro-RO.resx

@@ -162,27 +162,28 @@ namespace Vexed.Services
         {
             try
             {
-                //Get User team members
+                // Get User team members
                 var team = await _repositoryWrapper.ProjectTeamRepository.GetUserProjectTeam(userId);
-                team.OrderByDescending(t => t.StartDate);
+                team = team.OrderByDescending(t => t.StartDate).ToList();
+
                 var project = team[0].Project;
                 var projectTeams = await _repositoryWrapper.ProjectTeamRepository.GetUserProjectTeam(project.Id);
-                var teamLeaves = new List<TeamLeaveRequestVM>();
-
-                //Get time cards for each member
-                foreach(var member in projectTeams)
-                {
-                    var userName = _repositoryWrapper.UserDetailsRepository.GetFullName(member.UserId);
-                    var leaves = await _repositoryWrapper.LeaveRequestRepository.GetLeaveRequests(member.UserId);
-
-                    var teamLR = new TeamLeaveRequestVM
+                // Get time cards for each member
+                var teamLeaves = projectTeams
+                    .Select(async member =>
                     {
-                        UserName = userName,
-                        Leaves = leaves,
-                    };
+                        var userName = _repositoryWrapper.UserDetailsRepository.GetFullName(member.UserId);
+                        var leaves = await _repositoryWrapper.LeaveRequestRepository.GetLeaveRequests(member.UserId);
 
-                    teamLeaves.Add(teamLR);
-                }
+                        return new TeamLeaveRequestVM
+                        {
+                            UserName = userName,
+                            Leaves = leaves,
+                        };
+                    })
+                    .Select(task => task.Result)
+                    .ToList();
+
 
                 return teamLeaves;
             }
@@ -192,5 +193,6 @@ namespace Vexed.Services
                 throw;
             }
         }
+
     }
 }

@@ -28,11 +28,11 @@ namespace Vexed.Repositories.Abstractions
         /// <summary>
         /// Returns the total hours of paid leaves for the user
         /// </summary>
-        Task<float> GetLeaveHours(Guid userId);
+        float GetLeaveHours(Guid userId);
 
         /// <summary>
         /// Returns the total days of paid leaves for the user
         /// </summary>
-        Task<int> GetLeaveDays(Guid userId);
+        int GetLeaveDays(Guid userId);
     }
 }

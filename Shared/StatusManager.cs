@@ -30,7 +30,7 @@
             }
             else
             {
-                return currentState;
+                return currentState!;
             }
         }
 

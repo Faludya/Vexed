@@ -16,20 +16,20 @@ namespace Vexed.Repositories
             _logger = logger;
         }
 
-        public async Task<float> GetLeaveHours(Guid userId)
+        public float GetLeaveHours(Guid userId)
         {
             try
             {
                 var currentDate = DateTime.Now;
-                var currentMonthStart = new DateTime(currentDate.Year, currentDate.Month, 1);
-                var currentMonthEnd = currentMonthStart.AddMonths(1).AddDays(-1);
+                var currentMonthStart = new DateTime(currentDate.Year, currentDate.Month, 1, 0, 0, 0, DateTimeKind.Local);
+                var currentMonthEnd = currentMonthStart.AddMonths(1).AddDays(-1).AddHours(23).AddMinutes(59).AddSeconds(59).AddMilliseconds(999);
 
-                var approvedLeaves = _vexedDbContext.LeaveRequests
+                var approvedLeaves = _vexedDbContext.LeaveRequests!
                                              .Where(lr => lr.UserId == userId && lr.Status == StatusManager.HRApproval &&
                                                           lr.StartDate >= currentMonthStart && lr.EndDate <= currentMonthEnd)
                                              .ToList();
                 float totaPayedHours = 0;
-                totaPayedHours += (float)approvedLeaves.Sum(lr => lr.TotalHours);
+                totaPayedHours += (float)approvedLeaves.Sum(lr => lr.TotalHours)!;
 
                 return totaPayedHours;
             }
@@ -40,15 +40,15 @@ namespace Vexed.Repositories
             }
         }
 
-        public async Task<int> GetLeaveDays(Guid userId)
+        public int GetLeaveDays(Guid userId)
         {
             try
             {
                 var currentDate = DateTime.Now;
-                var currentMonthStart = new DateTime(currentDate.Year, currentDate.Month, 1);
-                var currentMonthEnd = currentMonthStart.AddMonths(1).AddDays(-1);
+                var currentMonthStart = new DateTime(currentDate.Year, currentDate.Month, 1, 0, 0, 0, DateTimeKind.Local);
+                var currentMonthEnd = currentMonthStart.AddMonths(1).AddDays(-1).AddHours(23).AddMinutes(59).AddSeconds(59).AddMilliseconds(999);
 
-                var approvedLeaves= _vexedDbContext.LeaveRequests
+                var approvedLeaves = _vexedDbContext.LeaveRequests!
                     .Where(lr => lr.UserId == userId && lr.Status == StatusManager.HRApproval &&
                                  lr.StartDate >= currentMonthStart && lr.EndDate <= currentMonthEnd)
                     .ToList();
@@ -75,7 +75,7 @@ namespace Vexed.Repositories
         {
             try
             {
-                return await _vexedDbContext.LeaveRequests.Where(l => l.Id == id).FirstOrDefaultAsync();
+                return await _vexedDbContext.LeaveRequests!.Where(l => l.Id == id).FirstAsync();
             }
             catch (Exception ex)
             {
@@ -88,7 +88,7 @@ namespace Vexed.Repositories
         {
             try
             {
-                return await _vexedDbContext.LeaveRequests.Where(l => l.UserId == userId).ToListAsync();
+                return await _vexedDbContext.LeaveRequests!.Where(l => l.UserId == userId).ToListAsync();
             }
             catch (Exception ex)
             {
@@ -101,10 +101,10 @@ namespace Vexed.Repositories
         {
             try
             {
-                var approvedBySuperiorRequests = await _vexedDbContext.LeaveRequests
+                var approvedBySuperiorRequests = await _vexedDbContext.LeaveRequests!
                     .Where(lr => lr.Status == StatusManager.SuperiorApproval)
                     .OrderByDescending(lr => lr.EndDate)
-                    .Join(_vexedDbContext.UsersDetails,
+                    .Join(_vexedDbContext.UsersDetails!,
                                     lr => lr.UserId,
                                     ud => ud.UserId,
                                     (lr, ud) => new UserLeaveRequestsViewModel
@@ -114,7 +114,7 @@ namespace Vexed.Repositories
                                     })
                     .ToListAsync();
 
-                var otherRequests = await _vexedDbContext.LeaveRequests
+                var otherRequests = await _vexedDbContext.LeaveRequests!
                     .Where(lr => lr.Status != StatusManager.SuperiorApproval)
                     .OrderByDescending(lr => lr.EndDate)
                     .Join(_vexedDbContext.UsersDetails,

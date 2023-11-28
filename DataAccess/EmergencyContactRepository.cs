@@ -18,7 +18,7 @@ namespace Vexed.Repositories
         {
             try
             {
-                return await _vexedDbContext.EmergencyContacts.Where(e => e.Id == id).FirstOrDefaultAsync();
+                return await _vexedDbContext.EmergencyContacts!.Where(e => e.Id == id).FirstAsync();
             }
             catch (Exception ex)
             {
@@ -31,7 +31,7 @@ namespace Vexed.Repositories
         {
             try
             {
-                return await _vexedDbContext.EmergencyContacts.Where(e => e.UserId == userId).ToListAsync();
+                return await _vexedDbContext.EmergencyContacts!.Where(e => e.UserId == userId).ToListAsync();
             }
             catch (Exception ex)
             {
