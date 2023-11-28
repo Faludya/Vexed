@@ -8,8 +8,8 @@ namespace Vexed.Services
 {
     public class ContactInfoService : IContactInfoService
     {
-        private IRepositoryWrapper _repositoryWrapper;
-        private Logger _logger;
+        private readonly IRepositoryWrapper _repositoryWrapper;
+        private readonly Logger _logger;
 
         public ContactInfoService(IRepositoryWrapper repositoryWrapper, Logger logger)
         {
