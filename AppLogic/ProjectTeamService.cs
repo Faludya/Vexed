@@ -7,8 +7,8 @@ namespace AppLogic
 {
     public class ProjectTeamService : IProjectTeamService
     {
-        private IRepositoryWrapper _repositoryWrapper;
-        private Logger _logger;
+        private readonly IRepositoryWrapper _repositoryWrapper;
+        private readonly Logger _logger;
 
         public ProjectTeamService(IRepositoryWrapper repositoryWrapper, Logger logger)
         {

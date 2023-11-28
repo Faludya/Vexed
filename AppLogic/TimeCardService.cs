@@ -9,8 +9,8 @@ namespace Vexed.Services
 {
     public class TimeCardService : ITimeCardService
     {
-        private IRepositoryWrapper _repositoryWrapper;
-        private Logger _logger;
+        private readonly IRepositoryWrapper _repositoryWrapper;
+        private readonly Logger _logger;
 
         public TimeCardService(IRepositoryWrapper repositoryWrapper, Logger logger)
         {

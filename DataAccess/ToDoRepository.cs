@@ -8,7 +8,7 @@ namespace DataAccess
 {
     public class ToDoRepository : RepositoryBase<ToDo>, IToDoRepository
     {
-        private Logger _logger;
+        private readonly Logger _logger;
         public ToDoRepository(VexedDbContext vexedDbContext, Logger logger) : base(vexedDbContext)
         {
             _logger = logger;

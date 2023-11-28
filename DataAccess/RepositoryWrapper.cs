@@ -8,10 +8,10 @@ namespace Vexed.Repositories
 {
     public class RepositoryWrapper : IRepositoryWrapper
     {
-        private VexedDbContext _vexedDbContext;
-        private Logger _logger;
-        private UserManager<IdentityUser> _userManager;
-        private RoleManager<IdentityRole> _roleManager;
+        private readonly VexedDbContext _vexedDbContext;
+        private readonly Logger _logger;
+        private readonly UserManager<IdentityUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
         public RepositoryWrapper(VexedDbContext vexedDbContext, Logger logger, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
         {

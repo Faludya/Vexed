@@ -8,7 +8,7 @@ namespace Vexed.Repositories
 {
     public class UserEmploymentRepository : RepositoryBase<UserEmployment>, IUserEmploymentRepository
     {
-        private Logger _logger;
+        private readonly Logger _logger;
         public UserEmploymentRepository(VexedDbContext vexedDbContext, Logger logger) : base(vexedDbContext)
         {
             _logger = logger;

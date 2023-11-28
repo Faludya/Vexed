@@ -9,7 +9,7 @@ namespace Vexed.Repositories
 {
     public class TimeCardRepository : RepositoryBase<TimeCard>, ITimeCardRepository
     {
-        private Logger _logger;
+        private readonly Logger _logger;
         public TimeCardRepository(VexedDbContext vexedDbContext, Logger logger) : base(vexedDbContext)
         {
             _logger = logger;

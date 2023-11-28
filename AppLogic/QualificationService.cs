@@ -10,8 +10,8 @@ namespace AppLogic
 {
     public class QualificationService : IQualificationService
     {
-        private IRepositoryWrapper _repositoryWrapper;
-        private Logger _logger;
+        private readonly IRepositoryWrapper _repositoryWrapper;
+        private readonly Logger _logger;
         private readonly IWebHostEnvironment _env;
 
         public QualificationService(IRepositoryWrapper repositoryWrapper, Logger logger, IWebHostEnvironment env)

@@ -11,14 +11,10 @@ namespace AppLogic
 {
     public class PdfService : IPdfService
     {
-        private IRepositoryWrapper _repositoryWrapper;
-        private Logger _logger;
         private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public PdfService(IRepositoryWrapper repositoryWrapper, Logger logger, IWebHostEnvironment webHostEnvironment)
+        public PdfService(IWebHostEnvironment webHostEnvironment)
         {
-            _repositoryWrapper = repositoryWrapper;
-            _logger = logger;
             _webHostEnvironment = webHostEnvironment;
         }
 

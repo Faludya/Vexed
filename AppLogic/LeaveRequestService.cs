@@ -8,8 +8,8 @@ namespace Vexed.Services
 {
     public class LeaveRequestService : ILeaveRequestService
     {
-        private IRepositoryWrapper _repositoryWrapper;
-        private Logger _logger;
+        private readonly IRepositoryWrapper _repositoryWrapper;
+        private readonly Logger _logger;
 
         public LeaveRequestService(IRepositoryWrapper repositoryWrapper, Logger logger)
         {

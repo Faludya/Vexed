@@ -8,7 +8,7 @@ namespace DataAccess
 {
     public class QualificationRepository : RepositoryBase<Qualification>, IQualificationRepository
     {
-        private Logger _logger;
+        private readonly Logger _logger;
         public QualificationRepository(VexedDbContext vexedDbContext, Logger logger) : base(vexedDbContext)
         {
             _logger = logger;

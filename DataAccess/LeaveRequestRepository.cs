@@ -10,7 +10,7 @@ namespace Vexed.Repositories
 {
     public class LeaveRequestRepository : RepositoryBase<LeaveRequest>, ILeaveRequestRepository
     {
-        private Logger _logger;
+        private readonly Logger _logger;
         public LeaveRequestRepository(VexedDbContext vexedDbContext, Logger logger) : base(vexedDbContext)
         {
             _logger = logger;

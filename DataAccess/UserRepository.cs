@@ -9,8 +9,8 @@ namespace Vexed.Repositories
 {
     public class UserRepository : RepositoryBase<IdentityUser>, IUserRepository
     {
-        private Logger _logger;
-        private UserManager<IdentityUser> _userManager;
+        private readonly Logger _logger;
+        private readonly UserManager<IdentityUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
 
         public UserRepository(VexedDbContext vexedDbContext, Logger logger, UserManager<IdentityUser> userManager, 

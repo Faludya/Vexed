@@ -8,7 +8,7 @@ namespace DataAccess
 {
     public class SalaryRepository : RepositoryBase<Salary>, ISalaryRepository
     {
-        private Logger _logger;
+        private readonly Logger _logger;
         public SalaryRepository(VexedDbContext vexedDbContext, Logger logger) : base(vexedDbContext)
         {
             _logger = logger;

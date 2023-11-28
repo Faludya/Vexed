@@ -7,8 +7,8 @@ namespace Vexed.Services
 {
     public class UserDetailsService : IUserDetailsService
     {
-        private IRepositoryWrapper _repositoryWrapper;
-        private Logger _logger;
+        private readonly IRepositoryWrapper _repositoryWrapper;
+        private readonly Logger _logger;
 
         public UserDetailsService(IRepositoryWrapper repositoryWrapper, Logger logger)
         {

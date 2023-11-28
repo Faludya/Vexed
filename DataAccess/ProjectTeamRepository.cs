@@ -8,7 +8,7 @@ namespace DataAccess
 {
     public class ProjectTeamRepository : RepositoryBase<ProjectTeam>, IProjectTeamRepository
     {
-        private Logger _logger;
+        private readonly Logger _logger;
         public ProjectTeamRepository(VexedDbContext vexedDbContext, Logger logger) : base(vexedDbContext)
         {
             _logger = logger;

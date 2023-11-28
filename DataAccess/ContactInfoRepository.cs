@@ -8,7 +8,7 @@ namespace Vexed.Repositories
 {
     public class ContactInfoRepository : RepositoryBase<ContactInfo>, IContactInfoRepository
     {
-        private Logger _logger;
+        private readonly Logger _logger;
         public ContactInfoRepository(VexedDbContext vexedDbContext, Logger logger) : base(vexedDbContext)
         {
             _logger = logger;
