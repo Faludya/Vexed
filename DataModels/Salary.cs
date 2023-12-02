@@ -9,6 +9,15 @@ namespace DataModels
 {
     public class Salary
     {
+        public Salary()
+        {
+            FullName = string.Empty;
+            Function = string.Empty;
+            Department = string.Empty;
+            Company = string.Empty;
+            Status = string.Empty;
+        }
+
         [Key]
         public int Id { get; set; }
         public Guid UserId { get; set; }

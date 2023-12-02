@@ -6,6 +6,18 @@ namespace DataModels
 {
     public class UserDetails
     {
+        public UserDetails()
+        {
+            FirstName = string.Empty;
+            LastName = string.Empty;
+            PreferredLastName = string.Empty;
+            Gender = string.Empty;
+            Nationality = string.Empty;
+            Country = string.Empty;
+            City = string.Empty;
+            Address = string.Empty;
+        }
+
         [Key]
         public int Id { get; set; }
         public Guid UserId { get; set; }

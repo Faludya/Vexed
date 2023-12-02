@@ -30,6 +30,7 @@ namespace DataModels.ViewModels
             ContactInfos = new List<ContactInfo>();
             EmergencyContacts = new List<EmergencyContact>();
             UserNameVMs = new List<UserNameVM>();
+            Email = string.Empty;
         }
     }
 }

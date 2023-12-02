@@ -7,12 +7,12 @@ namespace Vexed.Repositories.Abstractions
         /// <summary>
         /// Returns the first User Employment with the given <c>id</c>
         /// </summary>
-        Task<UserEmployment> GetUserEmploymentById(int id);
+        Task<UserEmployment?> GetUserEmploymentById(int id);
 
         /// <summary>
         /// Returns the first User Employment with the given <c>userId</c>
         /// </summary>
-        Task<UserEmployment> GetUserEmploymentByUserId(Guid userId);
+        Task<UserEmployment?> GetUserEmploymentByUserId(Guid userId);
 
         /// <summary>
         /// Returns all the User Employment for a given user.
@@ -27,7 +27,7 @@ namespace Vexed.Repositories.Abstractions
         /// <summary>
         /// Get the superior for the given user
         /// </summary>
-        Task<UserEmployment> GetUserSuperior(Guid userId);
+        Task<UserEmployment?> GetUserSuperior(Guid userId);
         /// <summary>
         /// Get the employments for the subordinates of the superior
         /// </summary>

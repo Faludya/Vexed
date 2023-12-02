@@ -18,6 +18,6 @@ namespace Abstractions.Repositories
         /// <summary>
         /// Updates the task to be either completed or not
         /// </summary>
-        Task UpdateTaskStatus(int id, bool isCompleted);
+        void UpdateTaskStatus(int id, bool isCompleted);
     }
 }

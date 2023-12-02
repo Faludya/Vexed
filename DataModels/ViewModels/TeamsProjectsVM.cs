@@ -11,5 +11,12 @@ namespace DataModels.ViewModels
         public ProjectTeam ProjectTeam { get; set; }
         public List<UserNameVM> UserNames { get; set; }
         public List<Project> Projects { get; set; }
+
+        public TeamsProjectsVM() 
+        {
+            Projects = new List<Project>();
+            ProjectTeam = new ProjectTeam();
+            UserNames = new List<UserNameVM>();
+        }
     }
 }

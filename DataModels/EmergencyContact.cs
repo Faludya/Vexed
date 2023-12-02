@@ -33,5 +33,15 @@ namespace DataModels
 
         [DisplayName("Additional Information")]
         public string? AdditionalInformation { get; set; }
+
+        public EmergencyContact()
+        {
+            FirstName = string.Empty; 
+            LastName = string.Empty; 
+            Relationship = string.Empty;
+            Phone = string.Empty;
+            Email = string.Empty;
+            Address = string.Empty;
+        }
     }
 }

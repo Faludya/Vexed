@@ -4,5 +4,11 @@
     {
         public string UserId { get; set; }
         public string UserName { get; set; }
+
+        public UserNameVM()
+        {
+            UserId = string.Empty;
+            UserName = string.Empty;
+        }
     }
 }

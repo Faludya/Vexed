@@ -13,6 +13,7 @@ namespace DataModels.ViewModels
 
         public ProjectTechnologiesVM() { 
             AllTechnologies = GetAllTechnologies();
+            Project = new Project();
         }
 
         public List<string> GetAllTechnologies()

@@ -5,6 +5,15 @@ namespace DataModels
 {
     public class UserEmployment
     {
+        public UserEmployment() 
+        {
+            CompanyName = string.Empty;
+            Department = string.Empty;
+            Function = string.Empty;
+            Location = string.Empty;
+            SuperiorName = string.Empty;
+        }
+
         [Key]
         public int Id { get; set; }
         public Guid UserId { get; set; }

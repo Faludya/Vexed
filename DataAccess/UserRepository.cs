@@ -58,10 +58,6 @@ namespace Vexed.Repositories
         {
             try
             {
-                var users = await _vexedDbContext.Users
-                        .Select(u => new UserNameVM { UserId = u.Id, UserName = u.UserName })
-                        .ToListAsync(); 
-
                 return await _vexedDbContext.Users
                         .Select(u => new UserNameVM { UserId = u.Id, UserName = u.UserName })
                         .ToListAsync();
@@ -109,7 +105,7 @@ namespace Vexed.Repositories
             }
         }
 
-        public async Task<string> GetUserName(string userId)
+        public async Task<string?> GetUserName(string userId)
         {
             try
             {
@@ -169,7 +165,7 @@ namespace Vexed.Repositories
             {
                 var userRoles = _vexedDbContext.UserRoles.Where(ur => ur.UserId == userId.ToString());
                 _vexedDbContext.UserRoles.RemoveRange(userRoles);
-                _vexedDbContext.SaveChanges();
+                await _vexedDbContext.SaveChangesAsync();
             }
             catch (Exception ex)
             {

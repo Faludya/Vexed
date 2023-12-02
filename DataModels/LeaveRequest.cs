@@ -32,5 +32,10 @@ namespace DataModels
         public float? TotalHours { get; set; }
         public string? Status { get; set; }
         public string? Comments { get; set; }
+
+        public LeaveRequest() 
+        { 
+            Type = string.Empty;
+        }
     }
 }

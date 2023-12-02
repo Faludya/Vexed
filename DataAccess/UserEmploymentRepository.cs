@@ -40,7 +40,7 @@ namespace Vexed.Repositories
             }
         }
 
-        public async Task<UserEmployment> GetUserEmploymentById(int id)
+        public async Task<UserEmployment?> GetUserEmploymentById(int id)
         {
             try
             {
@@ -53,7 +53,7 @@ namespace Vexed.Repositories
             }
         }
 
-        public async Task<UserEmployment> GetUserEmploymentByUserId(Guid userId)
+        public async Task<UserEmployment?> GetUserEmploymentByUserId(Guid userId)
         {
             try
             {
@@ -80,12 +80,12 @@ namespace Vexed.Repositories
             }
         }
 
-        public async Task<UserEmployment> GetUserSuperior(Guid userId)
+        public async Task<UserEmployment?> GetUserSuperior(Guid userId)
         {
             try
             {
                 var currUser = await _vexedDbContext.UsersEmployments.Where(e => e.UserId == userId).FirstOrDefaultAsync();
-                if (currUser != null && currUser.SuperiorId != null)
+                if (currUser != null)
                 {
                     var superiorEmployment = await GetUserEmploymentByUserId(currUser.SuperiorId);
                     if (superiorEmployment != null)

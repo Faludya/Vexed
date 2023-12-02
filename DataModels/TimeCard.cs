@@ -5,6 +5,13 @@ namespace DataModels
 {
     public class TimeCard
     {
+        public TimeCard()
+        {
+            ProjectCode = string.Empty;
+            TaskDetails = string.Empty;
+            Location = string.Empty;
+        }
+
         [Key]
         public int Id { get; set; }
         public Guid UserId { get; set; }

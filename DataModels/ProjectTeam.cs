@@ -27,7 +27,14 @@ namespace DataModels
 
         public string ImageLink { get; set; }
 
-        // Navigation property referencing the table containing Projects
         public Project Project { get; set; }
+
+        public ProjectTeam()
+        {
+            UserProjectRole = string.Empty;
+            UserName = string.Empty;
+            ImageLink = string.Empty;
+            Project = new Project();
+        }
     }
 }

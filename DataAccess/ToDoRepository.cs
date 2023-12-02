@@ -14,7 +14,7 @@ namespace DataAccess
             _logger = logger;
         }
 
-        public async Task<ToDo> GetToDoById(int id)
+        public async Task<ToDo?> GetToDoById(int id)
         {
             try
             {
@@ -41,16 +41,17 @@ namespace DataAccess
             }
         }
 
-        public async Task UpdateTaskStatus(int id, bool isCompleted)
+        public void UpdateTaskStatus(int id, bool isCompleted)
         {
             try
             {
                 var task = _vexedDbContext.ToDos.Where(t => t.Id == id).FirstOrDefault();
+
                 if (task != null)
                 {
                     task.Completed = isCompleted;
+                    _vexedDbContext.ToDos.Update(task);
                 }
-                _vexedDbContext.ToDos.Update(task);
             }
             catch (Exception ex)
             {

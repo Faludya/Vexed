@@ -13,5 +13,10 @@ namespace DataModels
   
         public bool Completed { get; set; }
 
+        public ToDo() 
+        {
+            Text = string.Empty;
+        }
+
     }
 }

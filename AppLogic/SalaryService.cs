@@ -52,9 +52,9 @@ namespace AppLogic
                 var userEmployment = await _repositoryWrapper.UserEmploymentRepository.GetUserEmploymentByUserId(userId);
                 var fullName = _repositoryWrapper.UserDetailsRepository.GetFullName(userId);
                 //total hours  = time card + leave(!= Unpaid leave)
-                var totalHours = _repositoryWrapper.TimeCardRepository.GetTotalWorkedHours(userId).Result +
+                var totalHours = _repositoryWrapper.TimeCardRepository.GetTotalWorkedHours(userId) +
                                     _repositoryWrapper.LeaveRequestRepository.GetLeaveHours(userId);
-                var totalDays = _repositoryWrapper.TimeCardRepository.GetTotalWorkedDays(userId).Result +
+                var totalDays = _repositoryWrapper.TimeCardRepository.GetTotalWorkedDays(userId) +
                                     _repositoryWrapper.LeaveRequestRepository.GetLeaveDays(userId);
                 var grossSalary = userEmployment.HourlyPay * totalHours;
 

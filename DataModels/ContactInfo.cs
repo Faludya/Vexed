@@ -13,5 +13,11 @@ namespace DataModels
 
         [Required(ErrorMessage = "{0} is required")]
         public string Contact { get; set; }
+
+        public ContactInfo() 
+        {
+            Type = string.Empty;
+            Contact = string.Empty;
+        }
     }
 }

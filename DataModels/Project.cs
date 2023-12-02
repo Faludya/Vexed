@@ -12,6 +12,7 @@ namespace DataModels
             TechnologiesList = new List<string>();
             UsefulLinksList = new List<string>();
             ProjectManagersList = new List<UserNameVM>();
+            Name = string.Empty;
         }
 
         [Key]
@@ -62,5 +63,6 @@ namespace DataModels
         [NotMapped]
         [BindNever]
         public List<UserNameVM> ProjectManagersList { get; set; }
+
     }
 }

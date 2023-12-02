@@ -21,5 +21,11 @@ namespace DataModels
         public bool IsVerified { get; set; }
 
         public string? AttachmentUrl { get; set; }
+
+        public Qualification()
+        {
+            Title = string.Empty; 
+            Description = string.Empty;
+        }
     }
 }

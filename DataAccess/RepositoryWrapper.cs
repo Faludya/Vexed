@@ -9,29 +9,27 @@ namespace Vexed.Repositories
     public class RepositoryWrapper : IRepositoryWrapper
     {
         private readonly VexedDbContext _vexedDbContext;
-        private readonly Logger _logger;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
 
         public RepositoryWrapper(VexedDbContext vexedDbContext, Logger logger, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             _vexedDbContext = vexedDbContext;
-            _logger = logger;
             _userManager = userManager;
             _roleManager = roleManager;
 
-            _contactInfoRepository = new ContactInfoRepository(_vexedDbContext, _logger);
-            _emergencyContactRepository = new EmergencyContactRepository(_vexedDbContext, _logger);
-            _leaveRequestRepository = new LeaveRequestRepository(_vexedDbContext, _logger);
-            _projectRepository = new ProjectRepository(_vexedDbContext, _logger);
-            _projectTeamRepository = new ProjectTeamRepository(_vexedDbContext, _logger);
-            _qualificationRepository = new QualificationRepository(_vexedDbContext, _logger);
-            _salaryRepository = new SalaryRepository(_vexedDbContext, _logger);
-            _timeCardRepository = new TimeCardRepository(_vexedDbContext, _logger);
-            _toDoRepository = new ToDoRepository(_vexedDbContext, _logger);
-            _userDetailsRepository = new UserDetailsRepository(_vexedDbContext, _logger);
-            _userEmploymentRepository = new UserEmploymentRepository(_vexedDbContext, _logger);
-            _userRepository = new UserRepository(_vexedDbContext, _logger, _userManager, _roleManager);
+            _contactInfoRepository = new ContactInfoRepository(_vexedDbContext, logger);
+            _emergencyContactRepository = new EmergencyContactRepository(_vexedDbContext, logger);
+            _leaveRequestRepository = new LeaveRequestRepository(_vexedDbContext, logger);
+            _projectRepository = new ProjectRepository(_vexedDbContext, logger);
+            _projectTeamRepository = new ProjectTeamRepository(_vexedDbContext, logger);
+            _qualificationRepository = new QualificationRepository(_vexedDbContext, logger);
+            _salaryRepository = new SalaryRepository(_vexedDbContext, logger);
+            _timeCardRepository = new TimeCardRepository(_vexedDbContext, logger);
+            _toDoRepository = new ToDoRepository(_vexedDbContext, logger);
+            _userDetailsRepository = new UserDetailsRepository(_vexedDbContext, logger);
+            _userEmploymentRepository = new UserEmploymentRepository(_vexedDbContext, logger);
+            _userRepository = new UserRepository(_vexedDbContext, logger, _userManager, _roleManager);
         }
 
         public async Task Save()
@@ -48,7 +46,7 @@ namespace Vexed.Repositories
             }
         }
 
-        private IEmergencyContactRepository _emergencyContactRepository;
+        private readonly IEmergencyContactRepository _emergencyContactRepository;
         public IEmergencyContactRepository EmergencyContactRepository
         {
             get
@@ -57,7 +55,7 @@ namespace Vexed.Repositories
             }
         }
 
-        private ILeaveRequestRepository _leaveRequestRepository;
+        private readonly ILeaveRequestRepository _leaveRequestRepository;
         public ILeaveRequestRepository LeaveRequestRepository
         {
             get
@@ -66,7 +64,7 @@ namespace Vexed.Repositories
             }
         }
 
-        private IProjectRepository _projectRepository;
+        private readonly IProjectRepository _projectRepository;
         public IProjectRepository ProjectRepository
         {
             get
@@ -75,7 +73,7 @@ namespace Vexed.Repositories
             }
         }
 
-        private IProjectTeamRepository _projectTeamRepository;
+        private readonly IProjectTeamRepository _projectTeamRepository;
         public IProjectTeamRepository ProjectTeamRepository
         {
             get
@@ -84,7 +82,7 @@ namespace Vexed.Repositories
             }
         }
 
-        private IQualificationRepository _qualificationRepository;
+        private readonly IQualificationRepository _qualificationRepository;
         public IQualificationRepository QualificationRepository
         {
             get
@@ -93,7 +91,7 @@ namespace Vexed.Repositories
             }
         }
 
-        private ISalaryRepository _salaryRepository;
+        private readonly ISalaryRepository _salaryRepository;
         public ISalaryRepository SalaryRepository
         {
             get
@@ -101,7 +99,7 @@ namespace Vexed.Repositories
                 return _salaryRepository;
             }
         }
-        private ITimeCardRepository _timeCardRepository;
+        private readonly ITimeCardRepository _timeCardRepository;
         public ITimeCardRepository TimeCardRepository
         {
             get
@@ -110,7 +108,7 @@ namespace Vexed.Repositories
             }
         }
 
-        private IToDoRepository _toDoRepository;
+        private readonly IToDoRepository _toDoRepository;
         public IToDoRepository ToDoRepository
         {
             get
@@ -120,7 +118,7 @@ namespace Vexed.Repositories
         }
 
 
-        private IUserDetailsRepository _userDetailsRepository;
+        private readonly IUserDetailsRepository _userDetailsRepository;
         public IUserDetailsRepository UserDetailsRepository
         {
             get
@@ -129,7 +127,7 @@ namespace Vexed.Repositories
             }
         }
 
-        private IUserEmploymentRepository _userEmploymentRepository;
+        private readonly IUserEmploymentRepository _userEmploymentRepository;
         public IUserEmploymentRepository UserEmploymentRepository
         {
             get
@@ -138,7 +136,7 @@ namespace Vexed.Repositories
             }
         }
 
-        private IUserRepository _userRepository;
+        private readonly IUserRepository _userRepository;
         public IUserRepository UserRepository
         {
             get

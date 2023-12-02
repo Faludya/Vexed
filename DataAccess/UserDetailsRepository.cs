@@ -56,7 +56,7 @@ namespace Vexed.Repositories
             }
         }
 
-        public async Task<UserDetails> GetUserDetails(Guid userId)
+        public async Task<UserDetails?> GetUserDetails(Guid userId)
         {
             try
             {
@@ -69,7 +69,7 @@ namespace Vexed.Repositories
             }
         }
 
-        public async Task<UserDetails> GetUserDetailsById(int id)
+        public async Task<UserDetails?> GetUserDetailsById(int id)
         {
             try
             {
@@ -82,7 +82,7 @@ namespace Vexed.Repositories
             }
         }
 
-        public async Task<UserDetails> GetUserDetailsByUserId(Guid userId)
+        public async Task<UserDetails?> GetUserDetailsByUserId(Guid userId)
         {
             try
             {

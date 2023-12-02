@@ -33,11 +33,11 @@ namespace Vexed.Repositories.Abstractions
         /// <summary>
         /// Returns all the worked hours of a user for the current month.
         /// </summary>
-        float GetTotalWorkedHours(Guid superiorId);
+        float GetTotalWorkedHours(Guid userId);
 
         /// <summary>
         /// Returns all the worked days of a user for the current month.
         /// </summary>
-        int GetTotalWorkedDays(Guid superiorId);
+        int GetTotalWorkedDays(Guid userId);
     }
 }
