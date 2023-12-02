@@ -44,7 +44,7 @@
 
 @if (!User.Identity.IsAuthenticated)
 {
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm" style="background-color: #343957 !important;">
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm" style="background-color: #343957 !important;" aria-label="Main Navigation">
         <div class="container-fluid">
             <a class="navbar-brand d-flex" asp-area="" asp-controller="Home" asp-action="Index">
                 <span class="logo-wrapper">
@@ -132,7 +132,7 @@ else
             <!--********************************** Header start ***********************************-->
             <div class="header">
                 <div class="header-content">
-                    <nav class="navbar navbar-expand">
+                    <nav class="navbar navbar-expand" aria-label="Main Navigation">
                         <div class="collapse navbar-collapse justify-content-between">
                             <div class="header-left">
                             </div>
