@@ -19,6 +19,19 @@ namespace Vexed.Repositories
             _logger = logger;
             _userManager = userManager;
             _roleManager = roleManager;
+
+            _contactInfoRepository = new ContactInfoRepository(_vexedDbContext, _logger);
+            _emergencyContactRepository = new EmergencyContactRepository(_vexedDbContext, _logger);
+            _leaveRequestRepository = new LeaveRequestRepository(_vexedDbContext, _logger);
+            _projectRepository = new ProjectRepository(_vexedDbContext, _logger);
+            _projectTeamRepository = new ProjectTeamRepository(_vexedDbContext, _logger);
+            _qualificationRepository = new QualificationRepository(_vexedDbContext, _logger);
+            _salaryRepository = new SalaryRepository(_vexedDbContext, _logger);
+            _timeCardRepository = new TimeCardRepository(_vexedDbContext, _logger);
+            _toDoRepository = new ToDoRepository(_vexedDbContext, _logger);
+            _userDetailsRepository = new UserDetailsRepository(_vexedDbContext, _logger);
+            _userEmploymentRepository = new UserEmploymentRepository(_vexedDbContext, _logger);
+            _userRepository = new UserRepository(_vexedDbContext, _logger, _userManager, _roleManager);
         }
 
         public async Task Save()
@@ -26,15 +39,11 @@ namespace Vexed.Repositories
             await _vexedDbContext.SaveChangesAsync();
         }
 
-        private IContactInfoRepository _contactInfoRepository;
+        private readonly IContactInfoRepository _contactInfoRepository;
         public IContactInfoRepository ContactInfoRepository
         {
             get
             {
-                if (_contactInfoRepository == null)
-                {
-                    _contactInfoRepository = new ContactInfoRepository(_vexedDbContext, _logger);
-                }
                 return _contactInfoRepository;
             }
         }
@@ -44,10 +53,6 @@ namespace Vexed.Repositories
         {
             get
             {
-                if (_emergencyContactRepository == null)
-                {
-                    _emergencyContactRepository = new EmergencyContactRepository(_vexedDbContext, _logger);
-                }
                 return _emergencyContactRepository;
             }
         }
@@ -57,10 +62,6 @@ namespace Vexed.Repositories
         {
             get
             {
-                if (_leaveRequestRepository == null)
-                {
-                    _leaveRequestRepository = new LeaveRequestRepository(_vexedDbContext, _logger);
-                }
                 return _leaveRequestRepository;
             }
         }
@@ -70,10 +71,6 @@ namespace Vexed.Repositories
         {
             get
             {
-                if (_projectRepository == null)
-                {
-                    _projectRepository = new ProjectRepository(_vexedDbContext, _logger);
-                }
                 return _projectRepository;
             }
         }
@@ -83,10 +80,6 @@ namespace Vexed.Repositories
         {
             get
             {
-                if (_projectTeamRepository == null)
-                {
-                    _projectTeamRepository = new ProjectTeamRepository(_vexedDbContext, _logger);
-                }
                 return _projectTeamRepository;
             }
         }
@@ -96,10 +89,6 @@ namespace Vexed.Repositories
         {
             get
             {
-                if(_qualificationRepository == null)
-                {
-                    _qualificationRepository = new QualificationRepository(_vexedDbContext, _logger);
-                }
                 return _qualificationRepository;
             }
         }
@@ -109,10 +98,6 @@ namespace Vexed.Repositories
         {
             get
             {
-                if (_salaryRepository == null)
-                {
-                    _salaryRepository = new SalaryRepository(_vexedDbContext, _logger);
-                }
                 return _salaryRepository;
             }
         }
@@ -121,10 +106,6 @@ namespace Vexed.Repositories
         {
             get
             {
-                if (_timeCardRepository == null)
-                {
-                    _timeCardRepository = new TimeCardRepository(_vexedDbContext, _logger);
-                }
                 return _timeCardRepository;
             }
         }
@@ -134,10 +115,6 @@ namespace Vexed.Repositories
         {
             get
             {
-                if (_toDoRepository == null)
-                {
-                    _toDoRepository = new ToDoRepository(_vexedDbContext, _logger);
-                }
                 return _toDoRepository;
             }
         }
@@ -148,10 +125,6 @@ namespace Vexed.Repositories
         {
             get
             {
-                if (_userDetailsRepository == null)
-                {
-                    _userDetailsRepository = new UserDetailsRepository(_vexedDbContext, _logger);
-                }
                 return _userDetailsRepository;
             }
         }
@@ -161,10 +134,6 @@ namespace Vexed.Repositories
         {
             get
             {
-                if (_userDetailsRepository == null)
-                {
-                    _userEmploymentRepository = new UserEmploymentRepository(_vexedDbContext, _logger);
-                }
                 return _userEmploymentRepository;
             }
         }
@@ -174,10 +143,6 @@ namespace Vexed.Repositories
         {
             get
             {
-                if (_userRepository == null)
-                {
-                    _userRepository = new UserRepository(_vexedDbContext, _logger, _userManager, _roleManager);
-                }
                 return _userRepository;
             }
         }

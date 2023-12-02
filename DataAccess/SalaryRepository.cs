@@ -18,12 +18,12 @@ namespace DataAccess
         {
             try
             {
-                var startOfMonth = new DateTime(date.Year, date.Month, 1);
-                var endOfMonth = startOfMonth.AddMonths(1).AddDays(-1);
+                var startOfMonth = new DateTime(date.Year, date.Month, 1, 0, 0, 0, DateTimeKind.Utc);
+                var endOfMonth = startOfMonth.AddMonths(1).AddDays(-1).AddHours(23).AddMinutes(59).AddSeconds(59).AddMilliseconds(999);
 
-                var salaries = _vexedDbContext.Salaries
+                var salaries = await _vexedDbContext.Salaries
                     .Where(s => s.GeneratedDate >= startOfMonth && s.GeneratedDate <= endOfMonth)
-                    .ToList();
+                    .ToListAsync();
 
                 return salaries;
             }
@@ -33,12 +33,13 @@ namespace DataAccess
                 throw;
             }
         }
+    
 
         public async Task<Salary> GetSalaryById(int id)
         {
             try
             {
-                return await _vexedDbContext.Salaries.Where(s => s.Id == id).FirstOrDefaultAsync();
+                return await _vexedDbContext.Salaries.Where(s => s.Id == id).FirstAsync();
             }
             catch (Exception ex)
             {

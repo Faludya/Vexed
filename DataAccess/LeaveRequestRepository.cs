@@ -24,7 +24,7 @@ namespace Vexed.Repositories
                 var currentMonthStart = new DateTime(currentDate.Year, currentDate.Month, 1, 0, 0, 0, DateTimeKind.Local);
                 var currentMonthEnd = currentMonthStart.AddMonths(1).AddDays(-1).AddHours(23).AddMinutes(59).AddSeconds(59).AddMilliseconds(999);
 
-                var approvedLeaves = _vexedDbContext.LeaveRequests!
+                var approvedLeaves = _vexedDbContext.LeaveRequests
                                              .Where(lr => lr.UserId == userId && lr.Status == StatusManager.HRApproval &&
                                                           lr.StartDate >= currentMonthStart && lr.EndDate <= currentMonthEnd)
                                              .ToList();

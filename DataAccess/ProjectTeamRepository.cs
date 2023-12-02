@@ -36,13 +36,12 @@ namespace DataAccess
             }
         }
 
-        public async Task<ProjectTeam> GetProjectTeamById(int id)
+        public async Task<List<ProjectTeam>> GetUserProjectTeam(int projectId)
         {
             try
             {
-                return await _vexedDbContext.ProjectTeams.Where(l => l.Id == id)
-                    .Include(pt => pt.Project)
-                    .FirstOrDefaultAsync();
+                return await _vexedDbContext.ProjectTeams.Where(l => l.ProjectId == projectId)
+                    .ToListAsync();
             }
             catch (Exception ex)
             {
@@ -51,12 +50,13 @@ namespace DataAccess
             }
         }
 
-        public async Task<List<ProjectTeam>> GetUserProjectTeam(int projectId)
+        public async Task<ProjectTeam> GetProjectTeamById(int id)
         {
             try
             {
-                return await _vexedDbContext.ProjectTeams.Where(l => l.ProjectId == projectId)
-                    .ToListAsync();
+                return await _vexedDbContext.ProjectTeams.Where(l => l.Id == id)
+                    .Include(pt => pt.Project)
+                    .FirstAsync();
             }
             catch (Exception ex)
             {
