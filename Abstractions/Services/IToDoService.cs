@@ -22,7 +22,7 @@ namespace Abstractions.Services
         /// <summary>
         /// Returns the first ToDo task with the given <c>id</c>
         /// </summary>
-        Task<ToDo> GetToDoById(int id);
+        Task<ToDo?> GetToDoById(int id);
 
         /// <summary>
         /// Returns all the tasks of a user

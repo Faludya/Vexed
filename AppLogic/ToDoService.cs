@@ -44,7 +44,7 @@ namespace AppLogic
             }
         }
 
-        public async Task<ToDo> GetToDoById(int id)
+        public async Task<ToDo?> GetToDoById(int id)
         {
             try
             {

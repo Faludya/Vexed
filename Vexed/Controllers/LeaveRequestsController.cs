@@ -98,13 +98,14 @@ namespace Vexed.Controllers
             try
             {
                 var leave = await _leaveRequestService.GetLeaveRequestById(id);
-                leave.Status = StatusManager.SetStatus(leave.Status!, statusAction);
-                await _leaveRequestService.UpdateLeaveRequest(leave);
-
                 if (leave == null)
                 {
                     return NotFound();
                 }
+
+                leave.Status = StatusManager.SetStatus(leave.Status!, statusAction);
+                await _leaveRequestService.UpdateLeaveRequest(leave);
+
                 TempData["SuccessMessage"] = "Leave request updated successfully!";
 
                 return RedirectToAction(nameof(IndexSuperior));

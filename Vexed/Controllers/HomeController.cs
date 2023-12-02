@@ -113,7 +113,7 @@ namespace Vexed.Controllers
         [HttpPost]
         public IActionResult DeleteTask(int taskId)
         {
-            var task = _toDoService.GetToDoById(taskId).Result;
+            var task = _toDoService.GetToDoById(taskId).Result ?? new ToDo();
             _toDoService.DeleteToDo(task);
 
             // Optionally, you can return a success message or redirect to the updated to-do list view
@@ -123,7 +123,7 @@ namespace Vexed.Controllers
         [HttpPost]
         public async Task<IActionResult> UpdateTask(int taskId, bool completed)
         {
-            var task = _toDoService.GetToDoById(taskId).Result;
+            var task = _toDoService.GetToDoById(taskId).Result ?? new ToDo();
             task.Completed = completed;
             await _toDoService.UpdateToDo(task);
 
@@ -133,12 +133,21 @@ namespace Vexed.Controllers
 
         public IActionResult ChangeLanguage(string culture)
         {
+            var cookieOptions = new CookieOptions
+            {
+                Expires = DateTimeOffset.UtcNow.AddYears(1),
+                Secure = Request.IsHttps, // Set 'Secure' based on whether the request is over HTTPS
+                SameSite = SameSiteMode.None, // Adjust SameSite mode based on your requirements
+                HttpOnly = false, // Adjust HttpOnly based on your requirements
+            };
+
             Response.Cookies.Append(CookieRequestCultureProvider.DefaultCookieName,
                 CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
-                new CookieOptions() { Expires = DateTimeOffset.UtcNow.AddYears(1) });
+                cookieOptions);
 
             return Redirect(Request.Headers["Referer"].ToString());
         }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
