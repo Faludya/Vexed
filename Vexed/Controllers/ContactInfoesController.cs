@@ -101,19 +101,16 @@ namespace Vexed.Controllers
 
         public async Task<IActionResult> Edit(int id)
         {
-            if (await _contactInfoService.GetContactInfoById(id) == null)
+            var contactInfo = await _contactInfoService.GetContactInfoById(id);
+
+            if (contactInfo == null)
             {
                 return NotFound();
             }
+
             try
             {
-                var contactInfo = await _contactInfoService.GetContactInfoById(id);
                 ViewData["ContactTypes"] = new SelectList(_contactInfoService.GetContactTypes(contactInfo.Type));
-            
-                if (contactInfo == null)
-                {
-                    return NotFound();
-                }
                 return View(contactInfo);
             }
             catch (Exception ex)
@@ -121,8 +118,10 @@ namespace Vexed.Controllers
                 _logger.LogError("Error occurred while opening the Edit view for Contact Information", ex);
                 ModelState.AddModelError("", "An error occurred while processing your request. Please try again later.");
             }
+
             return View("Error");
         }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]

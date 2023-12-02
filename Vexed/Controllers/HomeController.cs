@@ -63,7 +63,7 @@ namespace Vexed.Controllers
                     LastCards = await _userService.GetLastCards(userId),
                     ProjectTeams = await _projectTeamService.GetUserProjectTeam(userId)
                 };
-                dashboard.ProjectTeams = (List<ProjectTeam>)dashboard.ProjectTeams.OrderByDescending(pt => pt.Project.EndDate);
+                _ = dashboard.ProjectTeams.OrderByDescending(pt => pt.Project.EndDate);
                 dashboard.Salary = new Salary();
 
                 return View(dashboard);

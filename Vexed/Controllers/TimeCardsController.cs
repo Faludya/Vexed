@@ -55,16 +55,17 @@ namespace Vexed.Controllers
         {
             try
             {
-                var timeCard = await _timeCardService.GetTimeCardById(id) ?? new TimeCard();
-                timeCard.Status = StatusManager.SetStatus(timeCard.Status!, statusAction);
-                await _timeCardService.UpdateTimeCard(timeCard);
+                var timeCard = await _timeCardService.GetTimeCardById(id);
 
                 if (timeCard == null)
                 {
                     return NotFound();
                 }
-                TempData["SuccessMessage"] = "Time card updated successfully!";
 
+                timeCard.Status = StatusManager.SetStatus(timeCard.Status!, statusAction);
+                await _timeCardService.UpdateTimeCard(timeCard);
+
+                TempData["SuccessMessage"] = "Time card updated successfully!";
                 return RedirectToAction(nameof(IndexHR));
             }
             catch (Exception ex)
@@ -73,6 +74,7 @@ namespace Vexed.Controllers
                 return View("Error");
             }
         }
+
 
         public async Task<IActionResult> IndexSuperior()
         {
@@ -94,14 +96,15 @@ namespace Vexed.Controllers
         {
             try
             {
-                var timeCard = await _timeCardService.GetTimeCardById(id) ?? new TimeCard();
-                timeCard!.Status = StatusManager.SetStatus(timeCard.Status!, statusAction);
-                await _timeCardService.UpdateTimeCard(timeCard);
-
+                var timeCard = await _timeCardService.GetTimeCardById(id);
                 if (timeCard == null)
                 {
                     return NotFound();
                 }
+
+                timeCard!.Status = StatusManager.SetStatus(timeCard.Status!, statusAction);
+                await _timeCardService.UpdateTimeCard(timeCard);
+
                 TempData["SuccessMessage"] = "Time card updated successfully!";
 
                 return RedirectToAction(nameof(IndexSuperior));
@@ -196,13 +199,14 @@ namespace Vexed.Controllers
         {
             try
             {
-                var timeCard = await _timeCardService.GetTimeCardById(id) ?? new TimeCard();
-                ViewData["LocationTypes"] = new SelectList(_timeCardService.GetLocationTypes(timeCard.Location));
-
+                var timeCard = await _timeCardService.GetTimeCardById(id);
                 if (timeCard == null)
                 {
                     return NotFound();
                 }
+
+                ViewData["LocationTypes"] = new SelectList(_timeCardService.GetLocationTypes(timeCard.Location));
+
                 return View(timeCard);
             }
             catch (Exception ex)

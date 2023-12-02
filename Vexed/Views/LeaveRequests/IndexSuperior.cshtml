@@ -31,7 +31,9 @@
             <div class="card-body">
                 <form asp-action="IndexHR">
                     <div class="table-responsive">
-                        <table id="example" class="table table-responsive-sm">
+                        <table id="example" class="table table-responsive-sm" aria-describedby="table-description">
+                            <caption id="table-description">This table displays the leave requests of the user</caption>
+
                             <thead class="thead-primary">
                                 <tr>
                                     <th data-orderable="false"></th>

@@ -47,24 +47,27 @@
                 <div class="card-body">
                     <h3>
                         <i class='bx bxs-cog'></i>
-                        @project.First().Project.Name</h3>
+                        @project.First().Project.Name
+                    </h3>
 
                     <div class="table-responsive">
-                        <table class="table table-hover table-responsive-sm">
+                        <table class="table table-hover table-responsive-sm" aria-describedby="table-description">
+                            <caption id="table-description">This table displays the project teams</caption>
+                            
                             <thead>
                                 <tr>
-                                    <th>#</th>
-                                    <th>@language.GetKey("Name")</th>
-                                    <th>@language.GetKey("Role")</th>
-                                    <th>@language.GetKey("Date")</th>
-                                    <th>@language.GetKey("Actions")</th>
+                                    <th id="column-number">#</th>
+                                    <th id="column-name">@language.GetKey("Name")</th>
+                                    <th id="column-role">@language.GetKey("Role")</th>
+                                    <th id="column-date">@language.GetKey("Date")</th>
+                                    <th id="column-actions">@language.GetKey("Actions")</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach (var member in project)
                                 {
                                     <tr>
-                                        <th>
+                                        <th id="project-image">
                                             <div class="round-img">
                                                 <a href=""><img width="35" src="@member.ImageLink" alt=""></a>
                                             </div>

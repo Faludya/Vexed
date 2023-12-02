@@ -39,7 +39,9 @@
             <div class="card-body">
                 <form>
                     <div class="table-responsive">
-                        <table id="example" class="table table-responsive-sm">
+                        <table id="example" class="table table-responsive-sm" aria-describedby="table-description">
+                            <caption id="table-description">This table displays the leave requests of the user</caption>
+
                             <thead class="thead-primary">
                                 <tr>
                                     <th>
@@ -84,7 +86,7 @@
                                             @Html.DisplayFor(modelItem => item.Quantity)
                                         </td>
                                         <td>
-                                            <span class="badge @statusBadge[item.Status] badge-rounded">@Html.DisplayFor(modelItem => item.Status)</span>
+                                            <span class="badge @statusBadge[item.Status!] badge-rounded">@Html.DisplayFor(modelItem => item.Status)</span>
                                         </td>
                                         <td style="text-align: center;">
                                             <div class="btn-group">

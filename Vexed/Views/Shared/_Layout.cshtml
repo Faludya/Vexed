@@ -72,21 +72,24 @@
                         </a>
                         <div class="dropdown-menu" aria-labelledby="languageDropdown">
                             <a class="dropdown-item" asp-controller="Home" asp-action="ChangeLanguage" asp-route-culture="en-US">
-                                <img src="~/images/flags/united-kingdom.png" width="20"> English
+                                <img src="~/images/flags/united-kingdom.png" width="20" alt="english-flag"> English
                             </a>
                             <a class="dropdown-item" asp-controller="Home" asp-action="ChangeLanguage" asp-route-culture="ro-RO">
-                                <img src="~/images/flags/romania.png" width="20"> Română
+                                <img src="~/images/flags/romania.png" width="20" alt="romanian-flag"> Română
                             </a>
                         </div>
                     </li>
                 </ul>
                 <!--Login and register buttons-->
-                <li class="nav-item">
-                    <a class="nav-link" id="register" asp-area="Identity" asp-page="/Account/Register">@language.GetKey("Register")</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" id="login" asp-area="Identity" asp-page="/Account/Login">@language.GetKey("Login")</a>
-                </li>
+                <div class="navbar-nav ml-auto">
+                    <!-- 'ml-auto' pushes the buttons to the right -->
+                    <div class="nav-item">
+                        <a class="nav-link" id="register" asp-area="Identity" asp-page="/Account/Register">@language.GetKey("Register")</a>
+                    </div>
+                    <div class="nav-item">
+                        <a class="nav-link" id="login" asp-area="Identity" asp-page="/Account/Login">@language.GetKey("Login")</a>
+                    </div>
+                </div>
             </div>
         </div>
     </nav>
@@ -147,10 +150,10 @@ else
                                     <hr>
                                     <div class="dropdown-menu dropdown-menu-right">
                                         <a class="dropdown-item" asp-controller="Home" asp-action="ChangeLanguage" asp-route-culture="en-US">
-                                            <img src="~/images/flags/united-kingdom.png" width="20"> English
+                                            <img src="~/images/flags/united-kingdom.png" width="20" alt="english-flag"> English
                                         </a>
                                         <a class="dropdown-item" asp-controller="Home" asp-action="ChangeLanguage" asp-route-culture="ro-RO">
-                                            <img src="~/images/flags/romania.png" width="20"> Română
+                                            <img src="~/images/flags/romania.png" width="20" alt="romanian-flag"> Română
                                         </a>
 
                                         <hr />

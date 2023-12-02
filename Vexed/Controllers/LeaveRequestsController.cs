@@ -56,13 +56,15 @@ namespace Vexed.Controllers
             try
             {
                 var leave = await _leaveRequestService.GetLeaveRequestById(id);
-                leave.Status = StatusManager.SetStatus(leave.Status!, statusAction);
-                await _leaveRequestService.UpdateLeaveRequest(leave);
 
                 if (leave == null)
                 {
                     return NotFound();
                 }
+
+                leave.Status = StatusManager.SetStatus(leave.Status!, statusAction);
+                await _leaveRequestService.UpdateLeaveRequest(leave);
+
                 TempData["SuccessMessage"] = "Leave request updated successfully!";
 
                 return RedirectToAction(nameof(IndexHR));
@@ -73,6 +75,7 @@ namespace Vexed.Controllers
                 return View("Error");
             }
         }
+
 
         public async Task<IActionResult> IndexSuperior()
         {
@@ -191,13 +194,13 @@ namespace Vexed.Controllers
             try
             {
                 var leaveRequest = await _leaveRequestService.GetLeaveRequestById(id);
-                ViewData["LeaveTypes"] = new SelectList(_leaveRequestService.GetLeaveTypes(leaveRequest.Type));
 
                 if (leaveRequest == null)
                 {
                     return NotFound();
                 }
 
+                ViewData["LeaveTypes"] = new SelectList(_leaveRequestService.GetLeaveTypes(leaveRequest.Type));
                 return View(leaveRequest);
             }
             catch (Exception ex)

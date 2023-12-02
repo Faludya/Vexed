@@ -10,6 +10,13 @@
 {
     <h3>Registered Logins</h3>
     <table class="table">
+        <caption>User Logins</caption>
+        <thead>
+            <tr>
+                <th>Login Provider</th>
+                <th>Action</th>
+            </tr>
+        </thead>
         <tbody>
             @foreach (var login in Model.CurrentLogins)
             {
@@ -35,6 +42,7 @@
             }
         </tbody>
     </table>
+
 }
 @if (Model.OtherLogins?.Count > 0)
 {

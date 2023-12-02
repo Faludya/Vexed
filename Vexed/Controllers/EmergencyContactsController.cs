@@ -102,12 +102,13 @@ namespace Vexed.Controllers
             try
             {
                 var emergencyContact = await _emergencyContactService.GetEmergencyContactById(id);
-                ViewData["RelationshipTypes"] = new SelectList(_emergencyContactService.GetRelationshipTypes(emergencyContact.Relationship));
 
                 if (emergencyContact == null)
                 {
                     return NotFound();
                 }
+
+                ViewData["RelationshipTypes"] = new SelectList(_emergencyContactService.GetRelationshipTypes(emergencyContact.Relationship));
                 return View(emergencyContact);
             }
             catch (Exception ex)
@@ -115,8 +116,8 @@ namespace Vexed.Controllers
                 _logger.LogError("Error occurred while getting Emergency Contact for user", ex);
                 return View("Error");
             }
-
         }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
