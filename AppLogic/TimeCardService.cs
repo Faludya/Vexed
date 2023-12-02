@@ -104,30 +104,14 @@ namespace Vexed.Services
 
         public List<string> GetLocationTypes()
         {
-            try
-            {
-                var contactTypes = new List<string>()
-                {
-                    "Work from Office", "Work from Home", "Short term relocated", "Relocated"
-                };
-
-                return contactTypes;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex.Message, ex);
-                throw;
-            }
+                return GetTimeCardTypesList();
         }
 
         public List<string> GetLocationTypes(string selectedLocation)
         {
             try
             {
-                var locationTypes = new List<string>()
-                {
-                    "Work from Office", "Work from Home", "Short term relocated", "Relocated"
-                };
+                var locationTypes = GetTimeCardTypesList();
                 int posSelected = locationTypes.IndexOf(selectedLocation);
                 (locationTypes[0], locationTypes[posSelected]) = (locationTypes[posSelected], locationTypes[0]);
 
@@ -190,6 +174,14 @@ namespace Vexed.Services
                 _logger.LogError(ex.Message, ex);
                 throw;
             }
+        }
+
+        public static List<string> GetTimeCardTypesList()
+        {
+            return new List<string>()
+                {
+                    "Work from Office", "Work from Home", "Short term relocated", "Relocated"
+                };
         }
     }
 }

@@ -26,12 +26,7 @@ namespace AppLogic
             try
             {
                 // Save the file to disk or database
-                var fileName = Path.GetFileName(attachmentFile.FileName);
-                var filePath = Path.Combine("wwwroot", "uploads", fileName);
-                using (var fileStream = new FileStream(filePath, FileMode.Create))
-                {
-                    await attachmentFile.CopyToAsync(fileStream);
-                }
+                var fileName = await AddOrReplaceFileToDisk(attachmentFile);
 
                 // Set the attachment URL property of the qualification
                 qualification.AttachmentUrl = "/uploads/" + fileName;
@@ -52,15 +47,7 @@ namespace AppLogic
             try
             {
                 //Delete file 
-                var filePath = qualification.AttachmentUrl;
-                if (!string.IsNullOrEmpty(filePath))
-                {
-                    var fullPath = Path.Combine(_env.WebRootPath, filePath.TrimStart('/'));
-                    if (System.IO.File.Exists(fullPath))
-                    {
-                        System.IO.File.Delete(fullPath);
-                    }
-                }
+                DeleteFileFromDisk(qualification.AttachmentUrl);
 
                 await _repositoryWrapper.QualificationRepository.Delete(qualification);
                 await _repositoryWrapper.Save();
@@ -119,29 +106,15 @@ namespace AppLogic
                 if(attachmentFile != null)
                 {
                     //Delete old file 
-                    var oldFilePath = qualification.AttachmentUrl;
-                    if (!string.IsNullOrEmpty(oldFilePath))
-                    {
-                        var fullPath = Path.Combine(_env.WebRootPath, oldFilePath.TrimStart('/'));
-                        if (System.IO.File.Exists(fullPath))
-                        {
-                            System.IO.File.Delete(fullPath);
-                        }
-                    }
+                    DeleteFileFromDisk(qualification.AttachmentUrl);
 
                     //Upload new file
-                    var fileName = Path.GetFileName(attachmentFile.FileName);
-                    var filePath = Path.Combine("wwwroot", "uploads", fileName);
-                    using (var fileStream = new FileStream(filePath, FileMode.Create))
-                    {
-                        await attachmentFile.CopyToAsync(fileStream);
-                    }
+                    var fileName = await AddOrReplaceFileToDisk(attachmentFile);
 
                     // Set the attachment URL property of the qualification
                     qualification.AttachmentUrl = "/uploads/" + fileName;
 
                 }
-
 
                 await _repositoryWrapper.QualificationRepository.Update(qualification);
                 await _repositoryWrapper.Save();
@@ -150,6 +123,30 @@ namespace AppLogic
             {
                 _logger.LogError(ex.Message, ex);
                 throw;
+            }
+        }
+
+        public static async Task<string> AddOrReplaceFileToDisk(IFormFile attachmentFile)
+        {
+            var fileName = Path.GetFileName(attachmentFile.FileName);
+            var filePath = Path.Combine("wwwroot", "uploads", fileName);
+            using (var fileStream = new FileStream(filePath, FileMode.Create))
+            {
+                await attachmentFile.CopyToAsync(fileStream);
+            }
+
+            return fileName;
+        }
+
+        public void DeleteFileFromDisk(string? filePath)
+        {
+            if (!string.IsNullOrEmpty(filePath))
+            {
+                string fullPath = Path.Combine(_env.WebRootPath, filePath.TrimStart('/'));
+                if (File.Exists(fullPath))
+                {
+                    File.Delete(fullPath);
+                }
             }
         }
     }

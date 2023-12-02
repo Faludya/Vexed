@@ -140,18 +140,15 @@ namespace Vexed.Repositories
         {
             try
             {
-                var currentDate = DateTime.Now;
-                var currentMonthStart = new DateTime(currentDate.Year, currentDate.Month, 1, 0, 0, 0, DateTimeKind.Local);
-                var currentMonthEnd = currentMonthStart.AddMonths(1).AddDays(-1).AddHours(23).AddMinutes(59).AddSeconds(59).AddMilliseconds(999);
+                var currentMonthRange = GetCurrentMonthRange();
 
                 var approvedTimecards = _vexedDbContext.TimeCards
                     .Where(tc => tc.UserId == userId &&
                                   tc.Status == StatusManager.HRApproval &&
-                                  tc.StartDate >= currentMonthStart && tc.EndDate <= currentMonthEnd)
+                                  tc.StartDate >= currentMonthRange.Start && tc.EndDate <= currentMonthRange.End)
                     .ToList();
 
-                float totalWorkedHours = 0;
-                totalWorkedHours += approvedTimecards.Sum(tc => tc.TotalHours);
+                float totalWorkedHours = approvedTimecards.Sum(tc => tc.TotalHours);
 
                 return totalWorkedHours;
             }
@@ -162,30 +159,21 @@ namespace Vexed.Repositories
             }
         }
 
-
         public int GetTotalWorkedDays(Guid userId)
         {
             try
             {
-                var currentDate = DateTime.Now;
-                var currentMonthStart = new DateTime(currentDate.Year, currentDate.Month, 1, 0, 0, 0, DateTimeKind.Local);
-                var currentMonthEnd = currentMonthStart.AddMonths(1).AddDays(-1).AddHours(23).AddMinutes(59).AddSeconds(59).AddMilliseconds(999);
+                var currentMonthRange = GetCurrentMonthRange();
 
                 var approvedTimecards = _vexedDbContext.TimeCards
-                    .Where(tc => tc.UserId == userId && tc.Status == StatusManager.HRApproval &&
-                                 tc.StartDate >= currentMonthStart && tc.EndDate <= currentMonthEnd)
+                    .Where(tc => tc.UserId == userId &&
+                                  tc.Status == StatusManager.HRApproval &&
+                                  tc.StartDate >= currentMonthRange.Start && tc.EndDate <= currentMonthRange.End)
                     .ToList();
 
-                int totalWorkedDays = 0;
-                foreach (var timeCard in approvedTimecards)
-                {
-                    TimeSpan duration = timeCard.EndDate - timeCard.StartDate;
-                    int workedDays = duration.Days + 1;
-                    totalWorkedDays += workedDays;
-                }
+                int totalWorkedDays = approvedTimecards.Sum(tc => (tc.EndDate - tc.StartDate).Days + 1);
 
                 return totalWorkedDays;
-
             }
             catch (Exception ex)
             {
@@ -193,5 +181,15 @@ namespace Vexed.Repositories
                 throw;
             }
         }
+
+        private static (DateTime Start, DateTime End) GetCurrentMonthRange()
+        {
+            var currentDate = DateTime.Now;
+            var currentMonthStart = new DateTime(currentDate.Year, currentDate.Month, 1, 0, 0, 0, DateTimeKind.Local);
+            var currentMonthEnd = currentMonthStart.AddMonths(1).AddDays(-1).AddHours(23).AddMinutes(59).AddSeconds(59).AddMilliseconds(999);
+
+            return (currentMonthStart, currentMonthEnd);
+        }
+
     }
 }

@@ -97,35 +97,19 @@ namespace Vexed.Services
         {
             try
             {
-                OrganizationChartViewModel orgChar = new OrganizationChartViewModel();
-                orgChar.TeamMembers = new List<UserInfoVM>();
-                //Find the superior and add it first to the list
-                var superiorEmployment = _repositoryWrapper.UserEmploymentRepository.GetUserSuperior(userId).Result ?? new UserEmployment();
-                var superiorDetails = _repositoryWrapper.UserDetailsRepository.GetUserDetails(superiorEmployment.UserId).Result ?? new UserDetails();
-                var superiorEmail = _repositoryWrapper.UserRepository.GetUserName(superiorEmployment.UserId.ToString()).Result ?? string.Empty;
-
-                var superiorProfile = new UserInfoVM()
+                var orgChar = new OrganizationChartViewModel
                 {
-                    Employment = superiorEmployment,
-                    Details = superiorDetails,
-                    Email = superiorEmail
+                    TeamMembers = new List<UserInfoVM>()
                 };
+
+                var superiorProfile = GetSuperiorProfile(userId);
                 orgChar.Superior = superiorProfile;
 
-                //Find the rest of the users and add them to the list
-                List<UserEmployment> teamEmployments = _repositoryWrapper.UserEmploymentRepository.GetTeamMembersEmployment(superiorEmployment.UserId).Result;
-                foreach(var member in teamEmployments)
+                var teamEmployments = _repositoryWrapper.UserEmploymentRepository.GetTeamMembersEmployment(superiorProfile.Employment.UserId).Result;
+
+                foreach (var member in teamEmployments)
                 {
-                    var userDetails = _repositoryWrapper.UserDetailsRepository.GetUserDetails(member.UserId).Result ?? new UserDetails();
-                    var userEmail = _repositoryWrapper.UserRepository.GetUserName(member.UserId.ToString()).Result ?? string.Empty;
-
-                    var memberProfile = new UserInfoVM()
-                    {
-                        Employment = member,
-                        Details = userDetails,
-                        Email = userEmail
-                    };
-
+                    var memberProfile = GetMemberProfile(member.UserId);
                     orgChar.TeamMembers.Add(memberProfile);
                 }
 
@@ -137,6 +121,34 @@ namespace Vexed.Services
                 throw;
             }
         }
+
+        private UserInfoVM GetSuperiorProfile(Guid userId)
+        {
+            var superiorEmployment = _repositoryWrapper.UserEmploymentRepository.GetUserSuperior(userId).Result ?? new UserEmployment();
+            var superiorDetails = _repositoryWrapper.UserDetailsRepository.GetUserDetails(superiorEmployment.UserId).Result ?? new UserDetails();
+            var superiorEmail = _repositoryWrapper.UserRepository.GetUserName(superiorEmployment.UserId.ToString()).Result ?? string.Empty;
+
+            return new UserInfoVM()
+            {
+                Employment = superiorEmployment,
+                Details = superiorDetails,
+                Email = superiorEmail
+            };
+        }
+
+        private UserInfoVM GetMemberProfile(Guid memberId)
+        {
+            var userDetails = _repositoryWrapper.UserDetailsRepository.GetUserDetails(memberId).Result ?? new UserDetails();
+            var userEmail = _repositoryWrapper.UserRepository.GetUserName(memberId.ToString()).Result ?? string.Empty;
+
+            return new UserInfoVM()
+            {
+                Employment = _repositoryWrapper.UserEmploymentRepository.GetUserEmploymentByUserId(memberId).Result ?? new UserEmployment(),
+                Details = userDetails,
+                Email = userEmail
+            };
+        }
+
 
         public async Task<List<string>> GetAllUserRoles()
         {
@@ -194,36 +206,10 @@ namespace Vexed.Services
         {
             try
             {
-                var timeCards = await _repositoryWrapper.TimeCardRepository.GetTimeCards(userId);
-                timeCards.Sort((t1, t2) => t2.StartDate.CompareTo(t2.StartDate));
-                timeCards = timeCards.Take(10).ToList();
+                var timeCards = await GetTopEntries(_repositoryWrapper.TimeCardRepository.GetTimeCards(userId));
+                var leaveRequests = await GetTopEntries(_repositoryWrapper.LeaveRequestRepository.GetLeaveRequests(userId));
 
-                var leaveRequests = await _repositoryWrapper.LeaveRequestRepository.GetLeaveRequests(userId);
-                leaveRequests.Sort((l1, l2) => l2.StartDate.CompareTo(l1.StartDate));
-                leaveRequests = leaveRequests.Take(10).ToList();
-
-                // Combine the time cards and leave requests into a single list
-                var combinedEntries = new List<CardsVM>();
-
-                foreach (var timeCard in timeCards)
-                {
-                    combinedEntries.Add(new CardsVM { 
-                        Name = timeCard.ProjectCode, 
-                        Status = timeCard.Status!, 
-                        StartDate = timeCard.StartDate, 
-                        EndDate = timeCard.EndDate
-                    });
-                }
-
-                foreach (var leaveRequest in leaveRequests)
-                {
-                    combinedEntries.Add(new CardsVM { 
-                        Name = leaveRequest.Type, 
-                        Status = leaveRequest.Status!, 
-                        StartDate = leaveRequest.StartDate, 
-                        EndDate = leaveRequest.EndDate
-                    });
-                }
+                var combinedEntries = CombineEntries(timeCards, leaveRequests);
 
                 // Sort the combined entries based on timestamp or other relevant criteria
                 combinedEntries.Sort((entry1, entry2) => entry2.StartDate.CompareTo(entry1.StartDate));
@@ -240,20 +226,58 @@ namespace Vexed.Services
             }
         }
 
+        private static async Task<List<CardsVM>> GetTopEntries(Task<List<TimeCard>> entriesTask)
+        {
+            var entries = await entriesTask;
+            entries.Sort((t1, t2) => t2.StartDate.CompareTo(t2.StartDate));
+            return entries.Take(10).Select(timeCard =>
+                new CardsVM
+                {
+                    Name = timeCard.ProjectCode,
+                    Status = timeCard.Status!,
+                    StartDate = timeCard.StartDate,
+                    EndDate = timeCard.EndDate
+                }).ToList();
+        }
+
+        private static async Task<List<CardsVM>> GetTopEntries(Task<List<LeaveRequest>> entriesTask)
+        {
+            var entries = await entriesTask;
+            entries.Sort((l1, l2) => l2.StartDate.CompareTo(l1.StartDate));
+            return entries.Take(10).Select(leaveRequest =>
+                new CardsVM
+                {
+                    Name = leaveRequest.Type,
+                    Status = leaveRequest.Status!,
+                    StartDate = leaveRequest.StartDate,
+                    EndDate = leaveRequest.EndDate
+                }).ToList();
+        }
+
+        private static List<CardsVM> CombineEntries(List<CardsVM> timeCards, List<CardsVM> leaveRequests)
+        {
+            var combinedEntries = new List<CardsVM>();
+            combinedEntries.AddRange(timeCards);
+            combinedEntries.AddRange(leaveRequests);
+            return combinedEntries;
+        }
+
+
         public async Task<UserProfileVM> GetUserProfile(Guid userId)
         {
             try
             {
-                var userProfile = new UserProfileVM();
-
-                userProfile.Employment = await _repositoryWrapper.UserEmploymentRepository.GetUserEmploymentByUserId(userId) ?? new UserEmployment();
-                userProfile.ProjectTeams = await _repositoryWrapper.ProjectTeamRepository.GetUserProjectTeam(userId);
-                userProfile.Email = await GetUserName(userId.ToString()) ?? string.Empty;
-                userProfile.Details = await _repositoryWrapper.UserDetailsRepository.GetUserDetails(userId) ?? new UserDetails();
-                userProfile.Qualifications = await _repositoryWrapper.QualificationRepository.GetQualifications(userId);
-                userProfile.ContactInfos = await _repositoryWrapper.ContactInfoRepository.GetContactInfos(userId);
-                userProfile.EmergencyContacts = await _repositoryWrapper.EmergencyContactRepository.GetEmergencyContacts(userId);
-                userProfile.UserNameVMs = await _repositoryWrapper.UserRepository.GetAllUserNames();
+                var userProfile = new UserProfileVM
+                {
+                    Employment = await _repositoryWrapper.UserEmploymentRepository.GetUserEmploymentByUserId(userId) ?? new UserEmployment(),
+                    ProjectTeams = await _repositoryWrapper.ProjectTeamRepository.GetUserProjectTeam(userId),
+                    Email = await GetUserName(userId.ToString()) ?? string.Empty,
+                    Details = await _repositoryWrapper.UserDetailsRepository.GetUserDetails(userId) ?? new UserDetails(),
+                    Qualifications = await _repositoryWrapper.QualificationRepository.GetQualifications(userId),
+                    ContactInfos = await _repositoryWrapper.ContactInfoRepository.GetContactInfos(userId),
+                    EmergencyContacts = await _repositoryWrapper.EmergencyContactRepository.GetEmergencyContacts(userId),
+                    UserNameVMs = await _repositoryWrapper.UserRepository.GetAllUserNames()
+                };
 
                 return userProfile; 
             }

@@ -22,9 +22,7 @@ namespace Vexed.Services
             try
             {
                 leaveRequest.SuperiorId = await _repositoryWrapper.UserRepository.GetUserSuperior(leaveRequest.UserId);
-                TimeSpan duration = leaveRequest.EndDate - leaveRequest.StartDate;
-                int totalDays = duration.Days + 1;
-                leaveRequest.TotalHours = leaveRequest.Quantity * totalDays;
+                leaveRequest.TotalHours = ComputeTotalLeaveHours(leaveRequest);
 
                 await _repositoryWrapper.LeaveRequestRepository.Create(leaveRequest);
                 await _repositoryWrapper.Save();
@@ -93,9 +91,7 @@ namespace Vexed.Services
         {
             try
             {
-                TimeSpan duration = leaveRequest.EndDate - leaveRequest.StartDate;
-                int totalDays = duration.Days + 1;
-                leaveRequest.TotalHours = leaveRequest.Quantity * totalDays;
+                leaveRequest.TotalHours = ComputeTotalLeaveHours(leaveRequest);
 
                 await _repositoryWrapper.LeaveRequestRepository.Update(leaveRequest);
                 await _repositoryWrapper.Save();
@@ -109,30 +105,14 @@ namespace Vexed.Services
 
         public List<string> GetLeaveTypes()
         {
-            try
-            {
-                var contactTypes = new List<string>()
-                {
-                    "Annual Leave", "Medical Leave", "Maternity Leave", "Special Leave", "Unpaid Leave", "TOIL Travel"
-                };
-
-                return contactTypes;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex.Message, ex);
-                throw;
-            }
+            return GetLeaveTypesList();
         }
 
         public List<string> GetLeaveTypes(string selectedLeave)
         {
             try
             {
-                var leaveTypes = new List<string>()
-                {
-                    "Annual Leave", "Medical Leave", "Maternity Leave", "Special Leave", "Unpaid Leave", "TOIL Travel"
-                };
+                var leaveTypes = GetLeaveTypesList();
                 int posSelected = leaveTypes.IndexOf(selectedLeave);
                 (leaveTypes[0], leaveTypes[posSelected]) = (leaveTypes[posSelected], leaveTypes[0]);
 
@@ -194,5 +174,21 @@ namespace Vexed.Services
             }
         }
 
+        public static float ComputeTotalLeaveHours(LeaveRequest leaveRequest)
+        {
+            TimeSpan duration = leaveRequest.EndDate - leaveRequest.StartDate;
+            int totalDays = duration.Days + 1;
+            float totalHours = leaveRequest.Quantity * totalDays;
+
+            return totalHours;
+        }
+
+        public static List<string> GetLeaveTypesList()
+        {
+            return new List<string>()
+                {
+                    "Annual Leave", "Medical Leave", "Maternity Leave", "Special Leave", "Unpaid Leave", "TOIL Travel"
+                };
+        }
     }
 }

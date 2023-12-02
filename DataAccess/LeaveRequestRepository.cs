@@ -20,18 +20,16 @@ namespace Vexed.Repositories
         {
             try
             {
-                var currentDate = DateTime.Now;
-                var currentMonthStart = new DateTime(currentDate.Year, currentDate.Month, 1, 0, 0, 0, DateTimeKind.Local);
-                var currentMonthEnd = currentMonthStart.AddMonths(1).AddDays(-1).AddHours(23).AddMinutes(59).AddSeconds(59).AddMilliseconds(999);
+                var currentMonthRange = GetCurrentMonthRange();
 
                 var approvedLeaves = _vexedDbContext.LeaveRequests
-                                             .Where(lr => lr.UserId == userId && lr.Status == StatusManager.HRApproval &&
-                                                          lr.StartDate >= currentMonthStart && lr.EndDate <= currentMonthEnd)
-                                             .ToList();
-                float totaPayedHours = 0;
-                totaPayedHours += (float)approvedLeaves.Sum(lr => lr.TotalHours)!;
+                    .Where(lr => lr.UserId == userId && lr.Status == StatusManager.HRApproval &&
+                                 lr.StartDate >= currentMonthRange.Start && lr.EndDate <= currentMonthRange.End)
+                    .ToList();
 
-                return totaPayedHours;
+                float totalPaidHours = approvedLeaves.Sum(lr => lr.TotalHours) ?? 0;
+
+                return totalPaidHours;
             }
             catch (Exception ex)
             {
@@ -40,17 +38,24 @@ namespace Vexed.Repositories
             }
         }
 
+        private static (DateTime Start, DateTime End) GetCurrentMonthRange()
+        {
+            var currentDate = DateTime.Now;
+            var currentMonthStart = new DateTime(currentDate.Year, currentDate.Month, 1, 0, 0, 0, DateTimeKind.Local);
+            var currentMonthEnd = currentMonthStart.AddMonths(1).AddDays(-1).AddHours(23).AddMinutes(59).AddSeconds(59).AddMilliseconds(999);
+
+            return (currentMonthStart, currentMonthEnd);
+        }
+
         public int GetLeaveDays(Guid userId)
         {
             try
             {
-                var currentDate = DateTime.Now;
-                var currentMonthStart = new DateTime(currentDate.Year, currentDate.Month, 1, 0, 0, 0, DateTimeKind.Local);
-                var currentMonthEnd = currentMonthStart.AddMonths(1).AddDays(-1).AddHours(23).AddMinutes(59).AddSeconds(59).AddMilliseconds(999);
+                var currentMonthRange = GetCurrentMonthRange();
 
                 var approvedLeaves = _vexedDbContext.LeaveRequests!
                     .Where(lr => lr.UserId == userId && lr.Status == StatusManager.HRApproval &&
-                                 lr.StartDate >= currentMonthStart && lr.EndDate <= currentMonthEnd)
+                                 lr.StartDate >= currentMonthRange.Start && lr.EndDate <= currentMonthRange.End)
                     .ToList();
 
                 int totalDays = 0;
