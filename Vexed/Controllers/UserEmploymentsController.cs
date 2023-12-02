@@ -106,7 +106,7 @@ namespace Vexed.Controllers
                     var userEmployment = employmentVM.UserEmployment;
                     userEmployment.UserId = Guid.Parse(employmentVM.SelectedUserId);
                     userEmployment.SuperiorId = Guid.Parse(employmentVM.SelectedSuperiorId);
-                    userEmployment.SuperiorName = await _userService.GetUserName(employmentVM.SelectedSuperiorId);
+                    userEmployment.SuperiorName = await _userService.GetUserName(employmentVM.SelectedSuperiorId) ?? string.Empty;
                     
                     await _userEmploymentService.CreateUserEmployment(userEmployment);
                     foreach(var role in employmentVM.UserRoles)

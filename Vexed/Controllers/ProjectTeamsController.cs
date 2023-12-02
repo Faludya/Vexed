@@ -174,10 +174,16 @@ namespace Vexed.Controllers
 
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id.HasValue || await _projectTeamService.GetProjectTeamById(id.Value) == null)
+            if (!id.HasValue)
             {
                 return NotFound();
             }
+
+            if (await _projectTeamService.GetProjectTeamById(id.Value) == null)
+            {
+                return NotFound();
+            }
+
             try
             {
                 var project = await _projectTeamService.GetProjectTeamById(id.Value);

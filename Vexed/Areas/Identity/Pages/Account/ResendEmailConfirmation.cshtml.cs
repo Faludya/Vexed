@@ -52,6 +52,7 @@ namespace Vexed.Areas.Identity.Pages.Account
 
         public void OnGet()
         {
+            // This method is intentionally left blank.
         }
 
         public async Task<IActionResult> OnPostAsync()

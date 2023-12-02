@@ -29,16 +29,6 @@ namespace Vexed.Areas.Identity.Pages.Account
             _logger.LogInformation("User logged out.");
 
             return RedirectToPage("Index", "Home");
-            //if (returnUrl != null)
-            //{
-            //    return LocalRedirect(returnUrl);
-            //}
-            //else
-            //{
-            //    // This needs to be a redirect so that the browser performs a new
-            //    // request and the identity for the user gets updated.
-            //    return RedirectToPage("Index", "Home");
-            //}
         }
     }
 }

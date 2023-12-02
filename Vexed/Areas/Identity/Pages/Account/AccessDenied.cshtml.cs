@@ -18,6 +18,7 @@ namespace Vexed.Areas.Identity.Pages.Account
         /// </summary>
         public void OnGet()
         {
+            // This method is intentionally left blank.
         }
     }
 }
