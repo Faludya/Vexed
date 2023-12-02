@@ -287,16 +287,16 @@ namespace Vexed.Controllers
         {
             try
             {
-                OrganizationChartViewModel orgChart = new OrganizationChartViewModel();
+                OrganizationChartViewModel orgChart;
                 if (userId == null)
                 {
                     var currentUserId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-                    orgChart = _userService.GetOrganizationChart(currentUserId);
+                    orgChart = _userService.GetOrganizationChart(currentUserId) ?? new OrganizationChartViewModel();
                 }
                 else
                 {
                     var selectedUserId = Guid.Parse(userId);
-                    orgChart = _userService.GetOrganizationChart(selectedUserId);
+                    orgChart = _userService.GetOrganizationChart(selectedUserId) ?? new OrganizationChartViewModel();
                 }
                 return View(orgChart);
             }

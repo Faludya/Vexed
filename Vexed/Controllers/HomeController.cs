@@ -13,15 +13,13 @@ namespace Vexed.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
         private readonly IToDoService _toDoService;
         private readonly IUserService _userService;
         private readonly IProjectTeamService _projectTeamService;
         private readonly ILeaveRequestService _leaveRequestService;
 
-        public HomeController(ILogger<HomeController> logger, IToDoService toDoService, IUserService userService, IProjectTeamService projectTeamService, ILeaveRequestService leaveRequestService)
+        public HomeController( IToDoService toDoService, IUserService userService, IProjectTeamService projectTeamService, ILeaveRequestService leaveRequestService)
         {
-            _logger = logger;
             _toDoService = toDoService;
             _userService = userService;
             _projectTeamService = projectTeamService;
@@ -30,10 +28,14 @@ namespace Vexed.Controllers
 
         public IActionResult Index()
         {
-            if (!User.Identity.IsAuthenticated)
-                return View();
-            else
+            if (User?.Identity?.IsAuthenticated ?? false)
+            {
                 return RedirectToAction("Dashboard");
+            }
+            else
+            {
+                return View();
+            }
         }
 
         public async Task<IActionResult> UserProfile(Guid userId)
@@ -53,25 +55,40 @@ namespace Vexed.Controllers
         }
         public async Task<IActionResult> Dashboard()
         {
-            Guid userId = default;
-            Guid.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier),out userId);
-            var dashboard = new DashboardViewModel();
-            dashboard.ToDoList = await _toDoService.GetToDoList(userId);
-            dashboard.LastCards = await _userService.GetLastCards(userId);
-            dashboard.ProjectTeams = await _projectTeamService.GetUserProjectTeam(userId);
-            dashboard.ProjectTeams.OrderByDescending(pt => pt.Project.EndDate);
-            dashboard.Salary = new Salary();
-            return View(dashboard);
+            if (Guid.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out Guid userId))
+            {
+                var dashboard = new DashboardViewModel
+                {
+                    ToDoList = await _toDoService.GetToDoList(userId),
+                    LastCards = await _userService.GetLastCards(userId),
+                    ProjectTeams = await _projectTeamService.GetUserProjectTeam(userId)
+                };
+                dashboard.ProjectTeams = (List<ProjectTeam>)dashboard.ProjectTeams.OrderByDescending(pt => pt.Project.EndDate);
+                dashboard.Salary = new Salary();
+
+                return View(dashboard);
+            }
+            else
+            {
+                return BadRequest("Invalid user identifier");
+            }
         }
+
 
         public async Task<IActionResult> Calendar()
         {
-            Guid userId;
-            Guid.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out userId);
-            var teamVM = await _leaveRequestService.GetTeamLeaveRequests(userId);
-            
-            return View(teamVM);
+            if (Guid.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out Guid userId))
+            {
+                var teamVM = await _leaveRequestService.GetTeamLeaveRequests(userId);
+
+                return View(teamVM);
+            }
+            else
+            {
+                return BadRequest("Invalid user identifier");
+            }
         }
+
 
         [HttpPost]
         public async Task<IActionResult> CreateTask(string taskText)
@@ -87,7 +104,7 @@ namespace Vexed.Controllers
 
             // Retrieve the generated ID
             var tasksList = await _toDoService.GetToDoList(newTask.UserId);
-            int taskId = tasksList.LastOrDefault().Id;
+            int taskId = tasksList?.LastOrDefault()?.Id ?? 0;
 
             // Return the response with the created task and its ID
             return Json(new { id =  taskId, text = newTask.Text });

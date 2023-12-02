@@ -9,27 +9,22 @@ namespace Vexed.Repositories
     public class RepositoryWrapper : IRepositoryWrapper
     {
         private readonly VexedDbContext _vexedDbContext;
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly RoleManager<IdentityRole> _roleManager;
-
         public RepositoryWrapper(VexedDbContext vexedDbContext, Logger logger, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             _vexedDbContext = vexedDbContext;
-            _userManager = userManager;
-            _roleManager = roleManager;
 
-            _contactInfoRepository = new ContactInfoRepository(_vexedDbContext, logger);
-            _emergencyContactRepository = new EmergencyContactRepository(_vexedDbContext, logger);
-            _leaveRequestRepository = new LeaveRequestRepository(_vexedDbContext, logger);
-            _projectRepository = new ProjectRepository(_vexedDbContext, logger);
-            _projectTeamRepository = new ProjectTeamRepository(_vexedDbContext, logger);
-            _qualificationRepository = new QualificationRepository(_vexedDbContext, logger);
-            _salaryRepository = new SalaryRepository(_vexedDbContext, logger);
-            _timeCardRepository = new TimeCardRepository(_vexedDbContext, logger);
-            _toDoRepository = new ToDoRepository(_vexedDbContext, logger);
-            _userDetailsRepository = new UserDetailsRepository(_vexedDbContext, logger);
-            _userEmploymentRepository = new UserEmploymentRepository(_vexedDbContext, logger);
-            _userRepository = new UserRepository(_vexedDbContext, logger, _userManager, _roleManager);
+            _contactInfoRepository = new ContactInfoRepository(vexedDbContext, logger);
+            _emergencyContactRepository = new EmergencyContactRepository(vexedDbContext, logger);
+            _leaveRequestRepository = new LeaveRequestRepository(vexedDbContext, logger);
+            _projectRepository = new ProjectRepository(vexedDbContext, logger);
+            _projectTeamRepository = new ProjectTeamRepository(vexedDbContext, logger);
+            _qualificationRepository = new QualificationRepository(vexedDbContext, logger);
+            _salaryRepository = new SalaryRepository(vexedDbContext, logger);
+            _timeCardRepository = new TimeCardRepository(vexedDbContext, logger);
+            _toDoRepository = new ToDoRepository(vexedDbContext, logger);
+            _userDetailsRepository = new UserDetailsRepository(vexedDbContext, logger);
+            _userEmploymentRepository = new UserEmploymentRepository(vexedDbContext, logger);
+            _userRepository = new UserRepository(vexedDbContext, logger, userManager, roleManager);
         }
 
         public async Task Save()

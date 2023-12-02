@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Shared
 {
-    public class SalaryStatusManager
+    public static class SalaryStatusManager
     {
         public const string NotGenerated = "Not generated";
         public const string Generated = "Generated";
@@ -16,7 +16,7 @@ namespace Shared
         /// <summary>
         /// Returns the next state of the status, taking into account its current state.
         /// </summary>
-        public static string SetStatus(string currentState, string? status = null)
+        public static string? SetStatus(string currentState, string? status = null)
         {
             if (currentState == null && status == null)
             {

@@ -81,7 +81,7 @@ namespace Vexed.Controllers
         {
             try
             {
-                var userDetails = await _userDetailsService.GetUserDetails(memberVM.ProjectTeam.UserId);
+                var userDetails = await _userDetailsService.GetUserDetails(memberVM.ProjectTeam.UserId) ?? new UserDetails();
                 memberVM.ProjectTeam.UserName = userDetails.FirstName + " " + userDetails.LastName;
                 ModelState.Remove("Projects");
                 ModelState.Remove("ProjectTeam.Project");
@@ -149,7 +149,7 @@ namespace Vexed.Controllers
             {
                 try
                 {
-                    var userDetails = await _userDetailsService.GetUserDetails(memberVM.ProjectTeam.UserId);
+                    var userDetails = await _userDetailsService.GetUserDetails(memberVM.ProjectTeam.UserId) ?? new UserDetails();
                     memberVM.ProjectTeam.UserName = userDetails.FirstName + " " + userDetails.LastName;
 
                     await _projectTeamService.UpdateProjectTeam(memberVM.ProjectTeam);
@@ -172,15 +172,15 @@ namespace Vexed.Controllers
             return View(memberVM);
         }
 
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || await _projectTeamService.GetProjectTeamById(id) == null)
+            if (id.HasValue || await _projectTeamService.GetProjectTeamById(id.Value) == null)
             {
                 return NotFound();
             }
             try
             {
-                var project = await _projectTeamService.GetProjectTeamById(id);
+                var project = await _projectTeamService.GetProjectTeamById(id.Value);
                 if (project == null)
                 {
                     return NotFound();
@@ -190,7 +190,7 @@ namespace Vexed.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Error occurred while getting Project with Id {id}", ex);
+                _logger.LogError($"Error occurred while getting Project with Id {id.Value}", ex);
                 return View("Error");
             }
         }

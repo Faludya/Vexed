@@ -56,7 +56,7 @@ namespace Vexed.Controllers
             try
             {
                 var leave = await _leaveRequestService.GetLeaveRequestById(id);
-                leave.Status = StatusManager.SetStatus(leave.Status, statusAction);
+                leave.Status = StatusManager.SetStatus(leave.Status!, statusAction);
                 await _leaveRequestService.UpdateLeaveRequest(leave);
 
                 if (leave == null)
@@ -95,7 +95,7 @@ namespace Vexed.Controllers
             try
             {
                 var leave = await _leaveRequestService.GetLeaveRequestById(id);
-                leave.Status = StatusManager.SetStatus(leave.Status, statusAction);
+                leave.Status = StatusManager.SetStatus(leave.Status!, statusAction);
                 await _leaveRequestService.UpdateLeaveRequest(leave);
 
                 if (leave == null)
@@ -164,7 +164,7 @@ namespace Vexed.Controllers
                     }
 
                     leaveRequest.UserId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-                    leaveRequest.Status = StatusManager.SetStatus(leaveRequest.Status);
+                    leaveRequest.Status = StatusManager.SetStatus(leaveRequest.Status!);
                     await _leaveRequestService.CreateLeaveRequest(leaveRequest);
                     TempData["SuccessMessage"] = "Leave request created successfully!";
 

@@ -60,7 +60,7 @@ namespace Vexed.Services
             }
         }
 
-        public async Task<UserEmployment> GetUserEmploymentById(int id)
+        public async Task<UserEmployment?> GetUserEmploymentById(int id)
         {
             try
             {
@@ -73,7 +73,7 @@ namespace Vexed.Services
             }
         }
 
-        public async Task<UserEmployment> GetUserEmploymentByUserId(Guid userId)
+        public async Task<UserEmployment?> GetUserEmploymentByUserId(Guid userId)
         {
             try
             {

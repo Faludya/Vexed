@@ -151,15 +151,15 @@ namespace Vexed.Controllers
             return View(emergencyContact);
         }
 
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(int? id)
         {
-            if(id == null || await _emergencyContactService.GetEmergencyContactById(id) == null)
+            if(id.HasValue || await _emergencyContactService.GetEmergencyContactById(id.Value) == null)
             {
                 return NotFound();
             }
             try
             {
-                var emergencyContact = await _emergencyContactService.GetEmergencyContactById(id);
+                var emergencyContact = await _emergencyContactService.GetEmergencyContactById(id.Value);
                 if (emergencyContact == null)
                 {
                     return NotFound();
@@ -169,7 +169,7 @@ namespace Vexed.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Error occurred while getting Emergency Contact with Id {id}", ex);
+                _logger.LogError($"Error occurred while getting Emergency Contact with Id {id.Value}", ex);
                 return View("Error");
             }
         }

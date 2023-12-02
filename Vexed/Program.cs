@@ -83,8 +83,8 @@ builder.Services.AddMvc()
                 {
                     options.DataAnnotationLocalizerProvider = (type, factory) =>
                     {
-                        var assemblyName = new AssemblyName(typeof(SharedResource).GetTypeInfo().Assembly.FullName);
-                        return factory.Create("SharedResource", assemblyName.Name);
+                        var assemblyName = new AssemblyName(typeof(SharedResource).GetTypeInfo()!.Assembly!.FullName!);
+                        return factory.Create("SharedResource", assemblyName.Name!);
                     };
                 });
 
@@ -125,13 +125,13 @@ if (!app.Environment.IsDevelopment())
 }
 //Language setup
 var locOptions = app.Services.GetService<IOptions<RequestLocalizationOptions>>();
-app.UseRequestLocalization(locOptions.Value);
+app.UseRequestLocalization(locOptions!.Value);
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-app.UseAuthentication();;
+app.UseAuthentication();
 
 app.UseAuthorization();
 

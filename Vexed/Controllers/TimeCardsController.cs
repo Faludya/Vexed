@@ -55,8 +55,8 @@ namespace Vexed.Controllers
         {
             try
             {
-                var timeCard = await _timeCardService.GetTimeCardById(id);
-                timeCard.Status = StatusManager.SetStatus(timeCard.Status, statusAction);
+                var timeCard = await _timeCardService.GetTimeCardById(id) ?? new TimeCard();
+                timeCard.Status = StatusManager.SetStatus(timeCard.Status!, statusAction);
                 await _timeCardService.UpdateTimeCard(timeCard);
 
                 if (timeCard == null)

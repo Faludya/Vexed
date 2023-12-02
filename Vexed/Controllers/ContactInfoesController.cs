@@ -13,13 +13,11 @@ namespace Vexed.Controllers
     [Authorize]
     public class ContactInfoesController : Controller
     {
-        private readonly UserManager<IdentityUser> _userManager;
         private readonly IContactInfoService _contactInfoService;
         private readonly Logger _logger;
 
-        public ContactInfoesController(UserManager<IdentityUser> userManager, IContactInfoService contactInfoService, Logger logger)
+        public ContactInfoesController(IContactInfoService contactInfoService, Logger logger)
         {
-            _userManager = userManager;
             _contactInfoService = contactInfoService;
             _logger = logger;
         }

@@ -1,7 +1,6 @@
 ﻿using DataModels;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
-using Rectangle = iTextSharp.text.Rectangle;
 
 namespace Documents
 {

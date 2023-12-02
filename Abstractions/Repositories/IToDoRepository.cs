@@ -8,7 +8,7 @@ namespace Abstractions.Repositories
         /// <summary>
         /// Returns the task with the given id
         /// </summary>
-        Task<ToDo> GetToDoById(int id);
+        Task<ToDo?> GetToDoById(int id);
 
         /// <summary>
         /// Returns the list of all the ToDo taks of the user

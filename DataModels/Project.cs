@@ -13,6 +13,13 @@ namespace DataModels
             UsefulLinksList = new List<string>();
             ProjectManagersList = new List<UserNameVM>();
             Name = string.Empty;
+            Code = string.Empty;
+            Description = string.Empty;
+            Status = string.Empty;
+            ProjectManager = string.Empty;
+            ImageLink = string.Empty;
+            Technologies = string.Empty;
+            UsefulLinks = string.Empty;
         }
 
         [Key]

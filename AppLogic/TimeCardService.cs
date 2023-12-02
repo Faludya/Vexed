@@ -62,7 +62,7 @@ namespace Vexed.Services
             }
         }
 
-        public async Task<TimeCard> GetTimeCardById(int id)
+        public async Task<TimeCard?> GetTimeCardById(int id)
         {
             try
             {
@@ -157,7 +157,8 @@ namespace Vexed.Services
         {
             try
             {
-                var lastTimeCard = await _repositoryWrapper.TimeCardRepository.GetLastTimeCard(userId);
+                var lastTimeCard = await _repositoryWrapper.TimeCardRepository.GetLastTimeCard(userId) ?? new TimeCard();
+
                 lastTimeCard.Status = StatusManager.ResetStatus();
                 lastTimeCard.StartDate = FirstDayOfWeek(DateTime.Now);
                 lastTimeCard.EndDate = lastTimeCard.StartDate.AddDays(4);

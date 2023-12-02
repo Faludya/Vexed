@@ -136,7 +136,7 @@ namespace Vexed.Repositories
             }
         }
 
-        public float GetTotalWorkedHours(Guid superiorId)
+        public float GetTotalWorkedHours(Guid userId)
         {
             try
             {
@@ -145,7 +145,7 @@ namespace Vexed.Repositories
                 var currentMonthEnd = currentMonthStart.AddMonths(1).AddDays(-1).AddHours(23).AddMinutes(59).AddSeconds(59).AddMilliseconds(999);
 
                 var approvedTimecards = _vexedDbContext.TimeCards
-                    .Where(tc => tc.UserId == superiorId &&
+                    .Where(tc => tc.UserId == userId &&
                                   tc.Status == StatusManager.HRApproval &&
                                   tc.StartDate >= currentMonthStart && tc.EndDate <= currentMonthEnd)
                     .ToList();
@@ -168,8 +168,8 @@ namespace Vexed.Repositories
             try
             {
                 var currentDate = DateTime.Now;
-                var currentMonthStart = new DateTime(currentDate.Year, currentDate.Month, 1);
-                var currentMonthEnd = currentMonthStart.AddMonths(1).AddDays(-1);
+                var currentMonthStart = new DateTime(currentDate.Year, currentDate.Month, 1, 0, 0, 0, DateTimeKind.Local);
+                var currentMonthEnd = currentMonthStart.AddMonths(1).AddDays(-1).AddHours(23).AddMinutes(59).AddSeconds(59).AddMilliseconds(999);
 
                 var approvedTimecards = _vexedDbContext.TimeCards
                     .Where(tc => tc.UserId == userId && tc.Status == StatusManager.HRApproval &&

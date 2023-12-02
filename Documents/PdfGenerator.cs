@@ -98,21 +98,21 @@ namespace Documents
             mainTable.AddCell(new PdfPCell(new Phrase("Gross Salary:", _TextBoldFont)));
             mainTable.AddCell(new PdfPCell(new Phrase(salary.GrossSalary.ToString() + "$", _TextFont)));
 
-            mainTable.AddCell(new PdfPCell(new Phrase("Health Insurance Tax (" + salary.HealthInsuranceTax + "%) :", _TextFont))); ;
+            mainTable.AddCell(new PdfPCell(new Phrase("Health Insurance Tax (" + salary.HealthInsuranceTax + "%) :", _TextFont)));
             mainTable.AddCell(new PdfPCell(new Phrase(salary.HealthInsuranceValue.ToString() + "$", _TextFont)));
 
             //row 2
             mainTable.AddCell(new PdfPCell(new Phrase("Worked Hours:", _TextBoldFont)));
             mainTable.AddCell(new PdfPCell(new Phrase(salary.TotalWorkedHours.ToString() + " hours", _TextFont)));
 
-            mainTable.AddCell(new PdfPCell(new Phrase("Social Insurance Tax (" + salary.SocialInsuranceTax + "%) :", _TextFont))); ;
+            mainTable.AddCell(new PdfPCell(new Phrase("Social Insurance Tax (" + salary.SocialInsuranceTax + "%) :", _TextFont)));
             mainTable.AddCell(new PdfPCell(new Phrase(salary.SocialInsuranceValue.ToString() + "$", _TextFont)));
 
             //row 3
             mainTable.AddCell(new PdfPCell(new Phrase("Worked Days:", _TextBoldFont)));
             mainTable.AddCell(new PdfPCell(new Phrase(salary.TotalWorkedDays.ToString() + " days", _TextFont)));
 
-            mainTable.AddCell(new PdfPCell(new Phrase("Personal Income Tax (" + salary.PersonalIncomeTax + "%) :", _TextFont))); ;
+            mainTable.AddCell(new PdfPCell(new Phrase("Personal Income Tax (" + salary.PersonalIncomeTax + "%) :", _TextFont)));
             mainTable.AddCell(new PdfPCell(new Phrase(salary.PersonalIncomeValue.ToString() + "$", _TextFont)));
 
 
@@ -120,7 +120,7 @@ namespace Documents
             mainTable.AddCell("");
             mainTable.AddCell("");
 
-            mainTable.AddCell(new PdfPCell(new Phrase("Work Insurance Tax (" + salary.WorkInsuranceTax + "%) :", _TextFont))); ;
+            mainTable.AddCell(new PdfPCell(new Phrase("Work Insurance Tax (" + salary.WorkInsuranceTax + "%) :", _TextFont)));
             mainTable.AddCell(new PdfPCell(new Phrase(salary.WorkInsuranceValue.ToString() + "$", _TextFont)));
 
             //row 6

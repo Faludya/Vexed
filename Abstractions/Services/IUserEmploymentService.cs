@@ -22,12 +22,12 @@ namespace Vexed.Services.Abstractions
         /// <summary>
         /// Returns the first User Employment with the given <c>id</c>
         /// </summary>
-        Task<UserEmployment> GetUserEmploymentById(int id);
+        Task<UserEmployment?> GetUserEmploymentById(int id);
 
         /// <summary>
         /// Returns the first User Employment with the given <c>userId</c>
         /// </summary>
-        Task<UserEmployment> GetUserEmploymentByUserId(Guid userId);
+        Task<UserEmployment?> GetUserEmploymentByUserId(Guid userId);
 
         /// <summary>
         /// Returns all the User Employment from the database.

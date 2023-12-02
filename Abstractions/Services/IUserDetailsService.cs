@@ -22,12 +22,12 @@ namespace Vexed.Services.Abstractions
         /// <summary>
         /// Returns the first User Detail with the given <c>id</c>
         /// </summary>
-        Task<UserDetails> GetUserDetailsById(int id);
+        Task<UserDetails?> GetUserDetailsById(int id);
 
         /// <summary>
         /// Returns the first User Detail with the given <c>userId</c>
         /// </summary>
-        Task<UserDetails> GetUserDetailsByUserId(Guid userId);
+        Task<UserDetails?> GetUserDetailsByUserId(Guid userId);
 
         /// <summary>
         /// Returns all the User Details from the database.
@@ -37,6 +37,6 @@ namespace Vexed.Services.Abstractions
         /// <summary>
         /// Returns all the User Details for a given user.
         /// </summary>
-        Task<UserDetails> GetUserDetails(Guid userId);
+        Task<UserDetails?> GetUserDetails(Guid userId);
     }
 }

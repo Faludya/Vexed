@@ -49,7 +49,6 @@ namespace Vexed.Controllers
                     return NotFound();
                 }
 
-                //TODO: Change to only project team
                 var projectTeam = await _projectTeamService.GetProjectTeamMembers(project.Id);
                 var projectInfo = new ProjectInfoVM()
                 {
@@ -133,11 +132,13 @@ namespace Vexed.Controllers
                     return NotFound();
                 }
                 project.ProjectManagersList = await _userService.GetAllUserNames();
-                project.TechnologiesList = JsonSerializer.Deserialize<List<string>>(project.Technologies);
-                project.UsefulLinksList = JsonSerializer.Deserialize<List<string>>(project.UsefulLinks);
+                project.TechnologiesList = JsonSerializer.Deserialize<List<string>>(project.Technologies)!;
+                project.UsefulLinksList = JsonSerializer.Deserialize<List<string>>(project.UsefulLinks)!;
 
-                var projectTechVM = new ProjectTechnologiesVM();
-                projectTechVM.Project = project;
+                var projectTechVM = new ProjectTechnologiesVM
+                {
+                    Project = project
+                };
 
                 return View(projectTechVM);
             }
@@ -189,15 +190,15 @@ namespace Vexed.Controllers
             return View(projectVM);
         }
 
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || await _projectService.GetProjectById(id) == null)
+            if (id.HasValue|| await _projectService.GetProjectById(id.Value) == null)
             {
                 return NotFound();
             }
             try
             {
-                var project = await _projectService.GetProjectById(id);
+                var project = await _projectService.GetProjectById(id.Value);
                 if (project == null)
                 {
                     return NotFound();
@@ -207,7 +208,7 @@ namespace Vexed.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Error occurred while getting Project with Id {id}", ex);
+                _logger.LogError($"Error occurred while getting Project with Id {id.Value}", ex);
                 return View("Error");
             }
         }

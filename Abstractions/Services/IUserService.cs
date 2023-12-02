@@ -5,7 +5,7 @@ namespace Vexed.Services.Abstractions
 {
     public interface IUserService
     {
-        Task<string> GetUserName(string userId);
+        Task<string?> GetUserName(string userId);
         Task<List<IdentityUser>> GetAllUsers();
         Task<List<UserNameVM>> GetUnassignedUserDetails();
         Task<List<UserNameVM>> GetUnassignedUserEmployment();

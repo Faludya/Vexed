@@ -23,7 +23,7 @@ namespace Vexed.Services.Abstractions
         /// <summary>
         /// Returns the first Time Card with the given <c>id</c>
         /// </summary>
-        Task<TimeCard> GetTimeCardById(int id);
+        Task<TimeCard?> GetTimeCardById(int id);
 
         /// <summary>
         /// Returns the last created Time Card for the given <c>userId</c>.

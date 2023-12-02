@@ -16,7 +16,7 @@ namespace DataModels.ViewModels
             Project = new Project();
         }
 
-        public List<string> GetAllTechnologies()
+        public static List<string> GetAllTechnologies()
         {
             return new List<string>()
             {

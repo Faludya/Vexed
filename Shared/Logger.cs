@@ -9,7 +9,7 @@ namespace Shared
 {
     public class Logger
     {
-        private string _logFilePath;
+        private readonly string _logFilePath;
 
         public Logger(string logFilePath)
         {

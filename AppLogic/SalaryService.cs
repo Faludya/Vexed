@@ -50,6 +50,11 @@ namespace AppLogic
             {
                 Salary salary = new Salary();
                 var userEmployment = await _repositoryWrapper.UserEmploymentRepository.GetUserEmploymentByUserId(userId);
+                if(userEmployment == null)
+                {
+                    return salary;
+                }
+
                 var fullName = _repositoryWrapper.UserDetailsRepository.GetFullName(userId);
                 //total hours  = time card + leave(!= Unpaid leave)
                 var totalHours = _repositoryWrapper.TimeCardRepository.GetTotalWorkedHours(userId) +

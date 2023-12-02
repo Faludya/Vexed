@@ -80,7 +80,7 @@ namespace Vexed.Services
             }
         }
 
-        public async Task<string> GetUserName(string userId)
+        public async Task<string?> GetUserName(string userId)
         {
             try
             {
@@ -100,9 +100,9 @@ namespace Vexed.Services
                 OrganizationChartViewModel orgChar = new OrganizationChartViewModel();
                 orgChar.TeamMembers = new List<UserInfoVM>();
                 //Find the superior and add it first to the list
-                var superiorEmployment = _repositoryWrapper.UserEmploymentRepository.GetUserSuperior(userId).Result;
-                var superiorDetails = _repositoryWrapper.UserDetailsRepository.GetUserDetails(superiorEmployment.UserId).Result;
-                var superiorEmail = _repositoryWrapper.UserRepository.GetUserName(superiorEmployment.UserId.ToString()).Result;
+                var superiorEmployment = _repositoryWrapper.UserEmploymentRepository.GetUserSuperior(userId).Result ?? new UserEmployment();
+                var superiorDetails = _repositoryWrapper.UserDetailsRepository.GetUserDetails(superiorEmployment.UserId).Result ?? new UserDetails();
+                var superiorEmail = _repositoryWrapper.UserRepository.GetUserName(superiorEmployment.UserId.ToString()).Result ?? string.Empty;
 
                 var superiorProfile = new UserInfoVM()
                 {
@@ -116,8 +116,8 @@ namespace Vexed.Services
                 List<UserEmployment> teamEmployments = _repositoryWrapper.UserEmploymentRepository.GetTeamMembersEmployment(superiorEmployment.UserId).Result;
                 foreach(var member in teamEmployments)
                 {
-                    var userDetails = _repositoryWrapper.UserDetailsRepository.GetUserDetails(member.UserId).Result;
-                    var userEmail = _repositoryWrapper.UserRepository.GetUserName(member.UserId.ToString()).Result;
+                    var userDetails = _repositoryWrapper.UserDetailsRepository.GetUserDetails(member.UserId).Result ?? new UserDetails();
+                    var userEmail = _repositoryWrapper.UserRepository.GetUserName(member.UserId.ToString()).Result ?? string.Empty;
 
                     var memberProfile = new UserInfoVM()
                     {
@@ -246,10 +246,10 @@ namespace Vexed.Services
             {
                 var userProfile = new UserProfileVM();
 
-                userProfile.Employment = await _repositoryWrapper.UserEmploymentRepository.GetUserEmploymentByUserId(userId);
+                userProfile.Employment = await _repositoryWrapper.UserEmploymentRepository.GetUserEmploymentByUserId(userId) ?? new UserEmployment();
                 userProfile.ProjectTeams = await _repositoryWrapper.ProjectTeamRepository.GetUserProjectTeam(userId);
-                userProfile.Email = await GetUserName(userId.ToString());
-                userProfile.Details = await _repositoryWrapper.UserDetailsRepository.GetUserDetails(userId);
+                userProfile.Email = await GetUserName(userId.ToString()) ?? string.Empty;
+                userProfile.Details = await _repositoryWrapper.UserDetailsRepository.GetUserDetails(userId) ?? new UserDetails();
                 userProfile.Qualifications = await _repositoryWrapper.QualificationRepository.GetQualifications(userId);
                 userProfile.ContactInfos = await _repositoryWrapper.ContactInfoRepository.GetContactInfos(userId);
                 userProfile.EmergencyContacts = await _repositoryWrapper.EmergencyContactRepository.GetEmergencyContacts(userId);

@@ -16,14 +16,12 @@ namespace Vexed.Controllers
     {
         private readonly IUserDetailsService _userDetailsService;
         private readonly IUserService _userService;
-        private readonly UserManager<IdentityUser> _userManager;
         private readonly Logger _logger;
 
-        public UserDetailsController(IUserDetailsService userDetailsService, IUserService userService, UserManager<IdentityUser> userManager, Logger logger)
+        public UserDetailsController(IUserDetailsService userDetailsService, IUserService userService, Logger logger)
         {
             _userDetailsService= userDetailsService;
             _userService= userService;
-            _userManager= userManager;
             _logger= logger;
         }
 

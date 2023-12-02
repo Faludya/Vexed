@@ -135,12 +135,12 @@ namespace Vexed.Controllers
             return View("Error");
         }
 
-        public async Task<IActionResult> GeneratePdf(int salaryId, SalaryVM salaryVM)
+        public async Task<IActionResult> GeneratePdf(int? salaryId, SalaryVM salaryVM)
         {
             Salary salary = new Salary();
-            if(salaryId != 0 && salaryId != null)
+            if(salaryId != 0 && salaryId.HasValue)
             {
-                salary = await _salaryService.GetSalaryById(salaryId);
+                salary = await _salaryService.GetSalaryById(salaryId.Value);
             }
             else if(salaryVM != null)
             {

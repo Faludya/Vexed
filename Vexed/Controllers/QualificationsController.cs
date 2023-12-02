@@ -11,13 +11,11 @@ namespace Vexed.Controllers
     {
         private readonly IQualificationService _qualificationService;
         private readonly Logger _logger;
-        private readonly IWebHostEnvironment _env;
 
-        public QualificationsController( IQualificationService qualificationService, Logger logger, IWebHostEnvironment env)
+        public QualificationsController( IQualificationService qualificationService, Logger logger)
         {
             _qualificationService = qualificationService;
             _logger = logger;
-            _env = env;
         }
 
         public async Task<IActionResult> Index()
