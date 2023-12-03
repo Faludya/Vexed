@@ -25,7 +25,7 @@ namespace DataAccess
         {
             try
             {
-                return await _vexedDbContext.ProjectTeams.Where(l => l.UserId == userId)
+                return await _vexedDbContext.ProjectTeams!.Where(l => l.UserId == userId)
                     .Include(pt => pt.Project)
                     .ToListAsync();
             }
@@ -40,7 +40,7 @@ namespace DataAccess
         {
             try
             {
-                return await _vexedDbContext.ProjectTeams.Where(l => l.ProjectId == projectId)
+                return await _vexedDbContext.ProjectTeams!.Where(l => l.ProjectId == projectId)
                     .ToListAsync();
             }
             catch (Exception ex)
@@ -54,7 +54,7 @@ namespace DataAccess
         {
             try
             {
-                return await _vexedDbContext.ProjectTeams.Where(l => l.Id == id)
+                return await _vexedDbContext.ProjectTeams!.Where(l => l.Id == id)
                     .Include(pt => pt.Project)
                     .FirstAsync();
             }

@@ -18,7 +18,7 @@ namespace Vexed.Repositories
         {
             try
             {
-                return await _vexedDbContext.UsersDetails.Select(u => u.UserId.ToString().ToLower()).ToListAsync();
+                return await _vexedDbContext.UsersDetails!.Select(u => u.UserId.ToString().ToLower()).ToListAsync();
             }
             catch (Exception ex)
             {
@@ -31,7 +31,7 @@ namespace Vexed.Repositories
         {
             try
             {
-                return await _vexedDbContext.UsersDetails.ToListAsync();
+                return await _vexedDbContext.UsersDetails!.ToListAsync();
             }
             catch (Exception ex)
             {
@@ -44,8 +44,8 @@ namespace Vexed.Repositories
         {
             try
             {
-                var firstName = _vexedDbContext.UsersDetails.Where(u => u.UserId == userId).Select(u => u.FirstName).FirstOrDefault();
-                var LastName = _vexedDbContext.UsersDetails.Where(u => u.UserId == userId).Select(u => u.LastName).FirstOrDefault();
+                var firstName = _vexedDbContext.UsersDetails!.Where(u => u.UserId == userId).Select(u => u.FirstName).FirstOrDefault();
+                var LastName = _vexedDbContext.UsersDetails!.Where(u => u.UserId == userId).Select(u => u.LastName).FirstOrDefault();
                 var fullName = firstName + " " + LastName;
                 return fullName;
             }
@@ -60,7 +60,7 @@ namespace Vexed.Repositories
         {
             try
             {
-                return await _vexedDbContext.UsersDetails.Where(u => u.UserId == userId).FirstOrDefaultAsync();
+                return await _vexedDbContext.UsersDetails!.Where(u => u.UserId == userId).FirstOrDefaultAsync();
             }
             catch (Exception ex)
             {
@@ -73,7 +73,7 @@ namespace Vexed.Repositories
         {
             try
             {
-                return await _vexedDbContext.UsersDetails.Where(u => u.Id == id).FirstOrDefaultAsync();
+                return await _vexedDbContext.UsersDetails!.Where(u => u.Id == id).FirstOrDefaultAsync();
             }
             catch (Exception ex)
             {
@@ -86,7 +86,7 @@ namespace Vexed.Repositories
         {
             try
             {
-                return await _vexedDbContext.UsersDetails.Where(u => u.UserId == userId).FirstOrDefaultAsync();
+                return await _vexedDbContext.UsersDetails!.Where(u => u.UserId == userId).FirstOrDefaultAsync();
             }
             catch (Exception ex)
             {

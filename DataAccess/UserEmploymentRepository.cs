@@ -18,7 +18,7 @@ namespace Vexed.Repositories
         {
             try
             {
-            return await _vexedDbContext.UsersEmployments.Select(u => u.UserId.ToString().ToLower()).ToListAsync();
+            return await _vexedDbContext.UsersEmployments!.Select(u => u.UserId.ToString().ToLower()).ToListAsync();
             }
             catch (Exception ex)
             {
@@ -31,7 +31,7 @@ namespace Vexed.Repositories
         {
             try
             {
-                return await _vexedDbContext.UsersEmployments.Where(u => u.SuperiorId == superiorId && u.UserId != superiorId).ToListAsync();
+                return await _vexedDbContext.UsersEmployments!.Where(u => u.SuperiorId == superiorId && u.UserId != superiorId).ToListAsync();
             }
             catch (Exception ex)
             {
@@ -44,7 +44,7 @@ namespace Vexed.Repositories
         {
             try
             {
-                return await _vexedDbContext.UsersEmployments.Where(u => u.Id == id).FirstOrDefaultAsync();
+                return await _vexedDbContext.UsersEmployments!.Where(u => u.Id == id).FirstOrDefaultAsync();
             }
             catch (Exception ex)
             {
@@ -57,7 +57,7 @@ namespace Vexed.Repositories
         {
             try
             {
-                return await _vexedDbContext.UsersEmployments.FirstOrDefaultAsync(u => u.UserId == userId);
+                return await _vexedDbContext.UsersEmployments!.FirstOrDefaultAsync(u => u.UserId == userId);
             }
             catch (Exception ex)
             {
@@ -71,7 +71,7 @@ namespace Vexed.Repositories
         {
             try
             {
-                return await _vexedDbContext.UsersEmployments.Where(u => u.UserId == userId).ToListAsync();
+                return await _vexedDbContext.UsersEmployments!.Where(u => u.UserId == userId).ToListAsync();
             }
             catch (Exception ex)
             {
@@ -84,7 +84,7 @@ namespace Vexed.Repositories
         {
             try
             {
-                var currUser = await _vexedDbContext.UsersEmployments.Where(e => e.UserId == userId).FirstOrDefaultAsync();
+                var currUser = await _vexedDbContext.UsersEmployments!.Where(e => e.UserId == userId).FirstOrDefaultAsync();
                 if (currUser != null)
                 {
                     var superiorEmployment = await GetUserEmploymentByUserId(currUser.SuperiorId);

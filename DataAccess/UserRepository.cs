@@ -130,7 +130,7 @@ namespace Vexed.Repositories
         {
             try
             {
-                return await _vexedDbContext.UsersEmployments.Where(u => u.UserId == userId).Select(u => u.SuperiorId).FirstOrDefaultAsync();
+                return await _vexedDbContext.UsersEmployments!.Where(u => u.UserId == userId).Select(u => u.SuperiorId).FirstOrDefaultAsync();
             }
             catch (Exception ex)
             {

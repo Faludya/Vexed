@@ -21,7 +21,7 @@ namespace DataAccess
                 var startOfMonth = new DateTime(date.Year, date.Month, 1, 0, 0, 0, DateTimeKind.Utc);
                 var endOfMonth = startOfMonth.AddMonths(1).AddDays(-1).AddHours(23).AddMinutes(59).AddSeconds(59).AddMilliseconds(999);
 
-                var salaries = await _vexedDbContext.Salaries
+                var salaries = await _vexedDbContext.Salaries!
                     .Where(s => s.GeneratedDate >= startOfMonth && s.GeneratedDate <= endOfMonth)
                     .ToListAsync();
 
@@ -39,7 +39,7 @@ namespace DataAccess
         {
             try
             {
-                return await _vexedDbContext.Salaries.Where(s => s.Id == id).FirstAsync();
+                return await _vexedDbContext.Salaries!.Where(s => s.Id == id).FirstAsync();
             }
             catch (Exception ex)
             {

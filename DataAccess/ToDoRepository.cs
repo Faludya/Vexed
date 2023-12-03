@@ -18,7 +18,7 @@ namespace DataAccess
         {
             try
             {
-                return await _vexedDbContext.ToDos.Where(t => t.Id == id).FirstOrDefaultAsync();
+                return await _vexedDbContext.ToDos!.Where(t => t.Id == id).FirstOrDefaultAsync();
             }
             catch (Exception ex)
             {
@@ -32,7 +32,7 @@ namespace DataAccess
         {
             try
             {
-                return await _vexedDbContext.ToDos.Where(t => t.UserId == userId).ToListAsync();
+                return await _vexedDbContext.ToDos!.Where(t => t.UserId == userId).ToListAsync();
             }
             catch (Exception ex)
             {
@@ -45,12 +45,12 @@ namespace DataAccess
         {
             try
             {
-                var task = _vexedDbContext.ToDos.Where(t => t.Id == id).FirstOrDefault();
+                var task = _vexedDbContext.ToDos!.Where(t => t.Id == id).FirstOrDefault();
 
                 if (task != null)
                 {
                     task.Completed = isCompleted;
-                    _vexedDbContext.ToDos.Update(task);
+                    _vexedDbContext.ToDos!.Update(task);
                 }
             }
             catch (Exception ex)

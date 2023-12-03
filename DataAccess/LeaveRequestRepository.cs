@@ -22,10 +22,10 @@ namespace Vexed.Repositories
             {
                 var currentMonthRange = GetCurrentMonthRange();
 
-                var approvedLeaves = _vexedDbContext.LeaveRequests
+                var approvedLeaves = _vexedDbContext.LeaveRequests?
                     .Where(lr => lr.UserId == userId && lr.Status == StatusManager.HRApproval &&
                                  lr.StartDate >= currentMonthRange.Start && lr.EndDate <= currentMonthRange.End)
-                    .ToList();
+                    .ToList() ?? new List<LeaveRequest>();
 
                 float totalPaidHours = approvedLeaves.Sum(lr => lr.TotalHours) ?? 0;
 
@@ -122,7 +122,7 @@ namespace Vexed.Repositories
                 var otherRequests = await _vexedDbContext.LeaveRequests!
                     .Where(lr => lr.Status != StatusManager.SuperiorApproval)
                     .OrderByDescending(lr => lr.EndDate)
-                    .Join(_vexedDbContext.UsersDetails,
+                    .Join(_vexedDbContext.UsersDetails!,
                                     lr => lr.UserId,
                                     ud => ud.UserId,
                                     (lr, ud) => new UserLeaveRequestsViewModel
@@ -148,10 +148,10 @@ namespace Vexed.Repositories
         {
             try
             {
-                var submittedLeaves = await _vexedDbContext.LeaveRequests
+                var submittedLeaves = await _vexedDbContext.LeaveRequests!
                     .Where(lr => lr.Status == StatusManager.Submitted)
                     .OrderByDescending(lr => lr.EndDate)
-                    .Join(_vexedDbContext.UsersDetails,
+                    .Join(_vexedDbContext.UsersDetails!,
                                     lr => lr.UserId,
                                     ud => ud.UserId,
                                     (lr, ud) => new UserLeaveRequestsViewModel
@@ -161,10 +161,10 @@ namespace Vexed.Repositories
                                     })
                     .ToListAsync();
 
-                var otherRequests = await _vexedDbContext.LeaveRequests
+                var otherRequests = await _vexedDbContext.LeaveRequests!
                     .Where(lr => lr.Status != StatusManager.Submitted)
                     .OrderByDescending(lr => lr.EndDate)
-                    .Join(_vexedDbContext.UsersDetails,
+                    .Join(_vexedDbContext.UsersDetails!,
                                     lr => lr.UserId,
                                     ud => ud.UserId,
                                     (lr, ud) => new UserLeaveRequestsViewModel

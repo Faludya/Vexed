@@ -18,7 +18,7 @@ namespace DataAccess
         {
             try
             {
-                return await _vexedDbContext.Qualifications.Where(c => c.Id == id).FirstAsync();
+                return await _vexedDbContext.Qualifications!.Where(c => c.Id == id).FirstAsync();
             }
             catch (Exception ex)
             {
@@ -31,7 +31,7 @@ namespace DataAccess
         {
             try
             {
-                return await _vexedDbContext.Qualifications.Where(c => c.UserId == userId)
+                return await _vexedDbContext.Qualifications!.Where(c => c.UserId == userId)
                     .OrderByDescending(q => q.DateObtained)
                     .ToListAsync();
             }

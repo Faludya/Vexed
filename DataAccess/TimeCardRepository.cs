@@ -19,10 +19,10 @@ namespace Vexed.Repositories
         {
             try
             {
-                var approvedBySuperiorCards = await _vexedDbContext.TimeCards
+                var approvedBySuperiorCards = await _vexedDbContext.TimeCards!
                     .Where(c => c.Status == StatusManager.SuperiorApproval)
                     .OrderByDescending(c => c.EndDate)
-                    .Join(_vexedDbContext.UsersDetails,
+                    .Join(_vexedDbContext.UsersDetails!,
                                         tc => tc.UserId,
                                         ud => ud.UserId,
                                         (tc, ud) => new UserTimeCardsViewModel
@@ -32,10 +32,10 @@ namespace Vexed.Repositories
                                         })
                     .ToListAsync();
 
-                var otherCards = await _vexedDbContext.TimeCards
+                var otherCards = await _vexedDbContext.TimeCards!
                     .Where(c => c.Status != StatusManager.SuperiorApproval)
                     .OrderByDescending(c => c.EndDate)
-                    .Join(_vexedDbContext.UsersDetails,
+                    .Join(_vexedDbContext.UsersDetails!,
                                         tc => tc.UserId,
                                         ud => ud.UserId,
                                         (tc, ud) => new UserTimeCardsViewModel
@@ -60,7 +60,7 @@ namespace Vexed.Repositories
         {
             try
             {
-                return await _vexedDbContext.TimeCards.Where(u => u.UserId == userId).OrderByDescending(u => u.EndDate).FirstOrDefaultAsync();
+                return await _vexedDbContext.TimeCards!.Where(u => u.UserId == userId).OrderByDescending(u => u.EndDate).FirstOrDefaultAsync();
             }
             catch (Exception ex)
             {
@@ -73,7 +73,7 @@ namespace Vexed.Repositories
         {
             try
             {
-                return await _vexedDbContext.TimeCards.Where(t => t.Id == id).FirstOrDefaultAsync();
+                return await _vexedDbContext.TimeCards!.Where(t => t.Id == id).FirstOrDefaultAsync();
             }
             catch (Exception ex)
             {
@@ -86,7 +86,7 @@ namespace Vexed.Repositories
         {
             try
             {
-                return await _vexedDbContext.TimeCards.Where(t => t.UserId == userId).ToListAsync();
+                return await _vexedDbContext.TimeCards!.Where(t => t.UserId == userId).ToListAsync();
             }
             catch (Exception ex)
             {
@@ -99,10 +99,10 @@ namespace Vexed.Repositories
         {
             try
             {
-                var submittedCards = await _vexedDbContext.TimeCards
+                var submittedCards = await _vexedDbContext.TimeCards!
                     .Where(c => c.Status == StatusManager.Submitted)
                     .OrderByDescending(c => c.EndDate)
-                    .Join(_vexedDbContext.UsersDetails,
+                    .Join(_vexedDbContext.UsersDetails!,
                                         tc => tc.UserId,
                                         ud => ud.UserId,
                                         (tc, ud) => new UserTimeCardsViewModel
@@ -112,10 +112,10 @@ namespace Vexed.Repositories
                                         })
                     .ToListAsync();
 
-                var otherCards = await _vexedDbContext.TimeCards
+                var otherCards = await _vexedDbContext.TimeCards!
                     .Where(c => c.Status != StatusManager.Submitted)
                     .OrderByDescending(c => c.EndDate)
-                    .Join(_vexedDbContext.UsersDetails,
+                    .Join(_vexedDbContext.UsersDetails!,
                                         tc => tc.UserId,
                                         ud => ud.UserId,
                                         (tc, ud) => new UserTimeCardsViewModel
@@ -142,7 +142,7 @@ namespace Vexed.Repositories
             {
                 var currentMonthRange = GetCurrentMonthRange();
 
-                var approvedTimecards = _vexedDbContext.TimeCards
+                var approvedTimecards = _vexedDbContext.TimeCards!
                     .Where(tc => tc.UserId == userId &&
                                   tc.Status == StatusManager.HRApproval &&
                                   tc.StartDate >= currentMonthRange.Start && tc.EndDate <= currentMonthRange.End)
@@ -165,7 +165,7 @@ namespace Vexed.Repositories
             {
                 var currentMonthRange = GetCurrentMonthRange();
 
-                var approvedTimecards = _vexedDbContext.TimeCards
+                var approvedTimecards = _vexedDbContext.TimeCards!
                     .Where(tc => tc.UserId == userId &&
                                   tc.Status == StatusManager.HRApproval &&
                                   tc.StartDate >= currentMonthRange.Start && tc.EndDate <= currentMonthRange.End)
