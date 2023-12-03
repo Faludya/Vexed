@@ -70,7 +70,8 @@ namespace AppLogic
 
                 var netSalary = grossSalary - socialInsurance - healthInsurance - personalIncome - workInsurance;
                 var mealTicketsTotal = salary.MealTicketValue * totalDays;
-                PopulateSalaryData(userId, salary, userEmployment, fullName, totalHours, totalDays, grossSalary, socialInsurance, healthInsurance, personalIncome, workInsurance, netSalary, mealTicketsTotal);
+                PopulateSalaryData(userId, salary, userEmployment, fullName, totalHours, totalDays, grossSalary);
+                PopulateSalaryTaxesData(salary, socialInsurance, healthInsurance, personalIncome, workInsurance, netSalary, mealTicketsTotal);
 
                 return salary;
             }
@@ -81,7 +82,7 @@ namespace AppLogic
             }
         }
 
-        private static void PopulateSalaryData(Guid userId, Salary salary, UserEmployment? userEmployment, string fullName, float totalHours, int totalDays, float grossSalary, float socialInsurance, float healthInsurance, float personalIncome, float workInsurance, float netSalary, int mealTicketsTotal)
+        private static void PopulateSalaryData(Guid userId, Salary salary, UserEmployment userEmployment, string fullName, float totalHours, int totalDays, float grossSalary)
         {
             salary.UserId = userId;
             salary.FullName = fullName;
@@ -92,7 +93,10 @@ namespace AppLogic
             salary.TotalWorkedHours = totalHours;
             salary.TotalWorkedDays = totalDays;
             salary.GrossSalary = grossSalary;
+        }
 
+        public static void PopulateSalaryTaxesData(Salary salary, float socialInsurance, float healthInsurance, float personalIncome, float workInsurance, float netSalary, int mealTicketsTotal)
+        {
             salary.SocialInsuranceValue = socialInsurance;
             salary.HealthInsuranceValue = healthInsurance;
             salary.PersonalIncomeValue = personalIncome;
@@ -143,22 +147,22 @@ namespace AppLogic
             }
         }
     
-        public float CalculateSocialInsurance(float grossSalary, float socialInsuranceTax)
+        public static float CalculateSocialInsurance(float grossSalary, float socialInsuranceTax)
         {
             return grossSalary * (socialInsuranceTax / 100);
         }
 
-        public float CalculateHealthInsurance(float grossSalary, float healthInsuranceTax)
+        public static float CalculateHealthInsurance(float grossSalary, float healthInsuranceTax)
         {
             return grossSalary * (healthInsuranceTax / 100);
         }
 
-        public float CalculatePersonalIncome(float grossSalary, float personalIncomeTax)
+        public static float CalculatePersonalIncome(float grossSalary, float personalIncomeTax)
         {
             return grossSalary * (personalIncomeTax / 100);
         }
 
-        public float CalculateWorkIncome(float grossSalary, float workInsuranceTax)
+        public static float CalculateWorkIncome(float grossSalary, float workInsuranceTax)
         {
             return grossSalary * (workInsuranceTax / 100);
         }
